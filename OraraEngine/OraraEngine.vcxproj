@@ -28,6 +28,8 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="rendererManager.cpp" />
     <ClCompile Include="uiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +43,9 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="rendererManager.h" />
+    <ClInclude Include="singleton.h" />
     <ClInclude Include="uiManager.h" />
   </ItemGroup>
   <ItemGroup>
