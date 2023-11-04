@@ -7,8 +7,8 @@ void EngineManager::Init()
     //Renderer::Init();
     //Input::Init();
 
-    ////m_Scene = new Title();
-    ////m_Scene->Init();
+    //m_Scene = new Title();
+    //m_Scene->Init();
 
     //SetScene<Title>();
 }
@@ -16,10 +16,10 @@ void EngineManager::Init()
 void EngineManager::Uninit()
 {
     /*m_Scene->Uninit();
-    delete m_Scene;
+      delete m_Scene;
 
-    Renderer::Uninit();
-    Input::Uninit();*/
+      Renderer::Uninit();
+      Input::Uninit();*/
 }
 
 void EngineManager::Update()
