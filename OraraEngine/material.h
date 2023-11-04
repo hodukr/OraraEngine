@@ -1,6 +1,6 @@
 #pragma once
 
-class MATERIAL
+class Material
 {
 public:
     D3DXCOLOR	Ambient;
@@ -12,5 +12,5 @@ public:
     float		Dummy[2];
 
     void Init();
-    void SetMaterial(MATERIAL material);
+    void SetMaterial(Material material);
 };

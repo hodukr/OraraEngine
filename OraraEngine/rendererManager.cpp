@@ -1,6 +1,7 @@
 #include "main.h"
 #include "rendererManager.h"
 #include "material.h"
+#include "light.h"
 #include <io.h>
 
 
@@ -165,14 +166,14 @@ void RendererManager::Init()
     m_DeviceContext->VSSetConstantBuffers(2, 1, &m_ProjectionBuffer);
 
 
-    bufferDesc.ByteWidth = sizeof(MATERIAL);
+    bufferDesc.ByteWidth = sizeof(Material);
 
     m_Device->CreateBuffer(&bufferDesc, NULL, &m_MaterialBuffer);
     m_DeviceContext->VSSetConstantBuffers(3, 1, &m_MaterialBuffer);
     m_DeviceContext->PSSetConstantBuffers(3, 1, &m_MaterialBuffer);
 
 
-    bufferDesc.ByteWidth = sizeof(LIGHT);
+    bufferDesc.ByteWidth = sizeof(Light);
 
     m_Device->CreateBuffer(&bufferDesc, NULL, &m_LightBuffer);
     m_DeviceContext->VSSetConstantBuffers(4, 1, &m_LightBuffer);
@@ -180,15 +181,11 @@ void RendererManager::Init()
 
 
     // ライト初期化
-    LIGHT light{};
-    light.Enable = true;
-    light.Direction = D3DXVECTOR4(0.5f, -1.0f, 0.8f, 0.0f);
-    D3DXVec4Normalize(&light.Direction, &light.Direction);
-    light.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);
-    light.Diffuse = D3DXCOLOR(1.5f, 1.5f, 1.5f, 1.0f);
-    SetLight(light);
+    Light light{};
+    light.Init();
+    light.SetLight(light);
 
-    MATERIAL material{};
+    Material material{};
     material.Init();
     material.SetMaterial(material);
 }
@@ -300,10 +297,10 @@ void RendererManager::SetProjectionMatrix(D3DXMATRIX* projectionMatrix)
 //    m_DeviceContext->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
 //}
 
-void RendererManager::SetLight(LIGHT light)
-{
-    m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, &light, 0, 0);
-}
+//void RendererManager::SetLight(LIGHT light)
+//{
+//    m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, &light, 0, 0);
+//}
 
 
 void RendererManager::CreateVertexShader(ID3D11VertexShader** vertexShader, ID3D11InputLayout** vertexLayout, const char* fileName)

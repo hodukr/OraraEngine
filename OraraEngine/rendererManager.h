@@ -10,15 +10,6 @@ struct VERTEX_3D
     D3DXVECTOR2 TexCoord;
 };
 
-struct LIGHT
-{
-    BOOL		Enable;
-    BOOL		Dummy[3];
-    D3DXVECTOR4	Direction;
-    D3DXCOLOR	Diffuse;
-    D3DXCOLOR	Ambient;
-};
-
 class RendererManager final
 {
 private:
@@ -57,10 +48,11 @@ public:
     void SetViewMatrix(D3DXMATRIX* viewMatrix);
     void SetProjectionMatrix(D3DXMATRIX* projectionMatrix);
     //void SetMaterial(MATERIAL Material);
-    void SetLight(LIGHT Light);
+    //void SetLight(LIGHT Light);
     ID3D11Device* GetDevice(void) { return m_Device; }
     ID3D11DeviceContext* GetDeviceContext(void) { return m_DeviceContext; }
     ID3D11Buffer* GetMaterialBuffer() { return m_MaterialBuffer; }
+    ID3D11Buffer* GetLightBuffer() { return m_LightBuffer; }
     void CreateVertexShader(ID3D11VertexShader** vertexShader, ID3D11InputLayout** vertexLayout, const char* fileName);
     void CreatePixelShader(ID3D11PixelShader** pixelShader, const char* fileName);
 };
