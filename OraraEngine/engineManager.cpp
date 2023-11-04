@@ -1,10 +1,14 @@
 #include "main.h"
+#include "rendererManager.h"
 #include "engineManager.h"
+#include "uiManager.h"
 
 
 void EngineManager::Init()
 {
     //Renderer::Init();
+    RendererManager::Instance().Init();
+    UIManager::Instance().Init();
     //Input::Init();
 
     //m_Scene = new Title();
@@ -15,6 +19,8 @@ void EngineManager::Init()
 
 void EngineManager::Uninit()
 {
+    RendererManager::Instance().Uninit();
+
     /*m_Scene->Uninit();
       delete m_Scene;
 
@@ -31,6 +37,10 @@ void EngineManager::Update()
 
 void EngineManager::Draw()
 {
+
+    UIManager::Instance().Draw();
+    RendererManager::Instance().End();
+
     /*Renderer::Begin();
 
     m_Scene->Draw();
