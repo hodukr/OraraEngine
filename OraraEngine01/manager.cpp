@@ -6,7 +6,7 @@
 #include "game.h"
 #include "title.h"
 #include "audio.h"
-
+#include "guiManager.h"
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};
@@ -16,7 +16,7 @@ void Manager::Init()
 	Renderer::Init();
 	Input::Init();
 	Audio::InitMaster();
-
+	GuiManager::Instance().Init();
 	//m_Scene = new Title();
 	//m_Scene->Init();
 
@@ -27,6 +27,7 @@ void Manager::Uninit()
 {
 	m_Scene->Uninit();
 	delete m_Scene;
+	GuiManager::Instance().Uninit();
 
 	Audio::UninitMaster();
 	Renderer::Uninit();
@@ -36,6 +37,7 @@ void Manager::Uninit()
 void Manager::Update()
 {
 	Input::Update();
+	GuiManager::Instance().Update();
 
 	if(m_NextScene)
 	{
@@ -59,6 +61,8 @@ void Manager::Draw()
 	Renderer::Begin();
 
 	m_Scene->Draw();
+	GuiManager::Instance().Draw();
+
 
 	Renderer::End();
 }

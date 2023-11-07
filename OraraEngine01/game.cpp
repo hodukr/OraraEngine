@@ -72,7 +72,7 @@ void Game::Init()
 	Player* player = AddGameObject<Player>(1);
 	player->SetPosition(D3DXVECTOR3(0.0f, 3.0f, -5.0));
 
-	for (int i = 0; i < 20; i++)
+	/*for (int i = 0; i < 20; i++)
 	{
 		Tree* tree = AddGameObject<Tree>(1);
 
@@ -82,7 +82,7 @@ void Game::Init()
 		pos.y = meshField->GetHeight(pos);
 
 		tree->SetPosition(pos);
-	}
+	}*/
 
 	
 

@@ -143,6 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\OraraEngine\imgui\imgui.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\OraraEngine\imgui\imgui_widgets.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="box.cpp" />
@@ -155,6 +162,7 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="field.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
@@ -178,6 +186,14 @@
     <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\OraraEngine\imgui\imconfig.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imgui.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imgui_internal.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\OraraEngine\imgui\imstb_truetype.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="box.h" />
@@ -192,6 +208,7 @@
     <ClInclude Include="field.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="guiManager.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="main.h" />
@@ -208,6 +225,7 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
+    <ClInclude Include="singleton.h" />
     <ClInclude Include="skyDome.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="textureManager.h" />
