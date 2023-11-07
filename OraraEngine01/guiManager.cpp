@@ -24,14 +24,14 @@ void GuiManager::Uninit()
 
 void GuiManager::Update()
 {
-
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
 }
 
 void GuiManager::Draw()
 {
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
+
     ImGui::SetNextWindowSize(ImVec2(320, 100));
     ImGui::Begin("debug", 0, ImGuiWindowFlags_NoScrollbar);
 

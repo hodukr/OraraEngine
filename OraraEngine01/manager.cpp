@@ -20,7 +20,7 @@ void Manager::Init()
 	//m_Scene = new Title();
 	//m_Scene->Init();
 
-	SetScene<Title>();
+	SetScene<Game>();
 }
 
 void Manager::Uninit()

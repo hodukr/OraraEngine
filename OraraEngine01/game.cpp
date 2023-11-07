@@ -24,7 +24,7 @@
 #include "Life.h"
 #include "fade.h"
 #include "child.h"
-
+#include "MouseHIt.h" 
 
 void Game::Init()
 {
@@ -84,7 +84,7 @@ void Game::Init()
 		tree->SetPosition(pos);
 	}*/
 
-	
+	AddGameObject<MouseHit>(1);
 
 	//AddGameObject<Child>(1)->SetParent(player);
 
