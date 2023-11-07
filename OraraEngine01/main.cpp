@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "manager.h"
+#include "dropFile.h"
 #include "imgui/imgui_impl_win32.h"
 #include <thread>
 
@@ -50,16 +51,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
 	}
 
-
+	//外部からのファイルを受け入れる
+	DragAcceptFiles(g_Window, TRUE);
 
 	Manager::Init();
 
-
-
 	ShowWindow(g_Window, nCmdShow);
 	UpdateWindow(g_Window);
-
-
 
 
 	DWORD dwExecLastTime;
@@ -131,7 +129,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 		break;
+	case WM_DROPFILES:
+#ifdef _DEBUG
+		HDROP hdrop;
+		hdrop = (HDROP)wParam;
 
+		DropFile::SetDrop(hdrop);
+		DropFile::DropFileData();
+
+		DragFinish(hdrop);
+#endif // _DEBUG
+		break;
 	default:
 		break;
 	}

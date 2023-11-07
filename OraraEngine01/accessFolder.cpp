@@ -1,18 +1,20 @@
-
 #include "accessFolder.h"
 
-void AccessFolder::DrawFolderIconAndName(const FolderInfo& folder)
+
+void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv)
 {
     // フォルダアイコンを表示
-    ImGui::Image(nullptr, folder.IconSize, folder.IconUV);
+    ImGui::Image(nullptr, size, uv);
 
     // フォルダ名を表示
     ImGui::SameLine();
-    ImGui::Text("%s", folder.Name.c_str());
+    ImGui::Button(name);
 }
 
 void AccessFolder::DrawProjectAssets()
 {
+    ImGui::Begin("Asset");
+
     for (const auto& entry : fs::directory_iterator("asset"))
     {
         const std::string& itemPath = entry.path().string();
@@ -21,26 +23,44 @@ void AccessFolder::DrawProjectAssets()
         fs::path folderPath(itemPath);
         std::string folderName = folderPath.filename().string();
 
-        // サブフォルダの情報を設定
-        m_ProjectFolders.push_back({ folderName.c_str(), ImVec2(16, 16), ImVec2(0.0f, 0.0f), true });
+        // フォルダ名が重複しない場合に追加
+        if (m_ProjectFolders.insert(folderName).second);
     }
 
     // フォルダとファイルを表示
     for (const auto& folder : m_ProjectFolders)
     {
-        if (folder.IsFolder)
+        if (!m_ProjectFolderName.empty() && m_ProjectFolderName != folder)
         {
-            if (ImGui::TreeNodeEx(folder.Name.c_str(), ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen))
+            continue;
+        }
+        if (ImGui::TreeNode(folder.c_str()))
+        {
+            m_ProjectFolderName = folder;
+            for (const auto& entry : fs::directory_iterator("asset/" + folder))
             {
-                DrawFolderIconAndName(folder);
-                ImGui::TreePop();
+                const std::string& itemPath = entry.path().string();
+
+                // サブフォルダ名を抽出
+                fs::path folderPath(itemPath);
+                std::string folderName = folderPath.filename().string();
+
+                DrawFolderIconAndName(folderName.c_str(), ImVec2(16, 16), ImVec2(0.0f, 0.0f));
             }
+
+            ImGui::TreePop();
         }
         else
         {
-            DrawFolderIconAndName(folder);
+            if (!m_ProjectFolderName.empty())
+            {
+                m_ProjectFolderName = "";
+            }
         }
     }
+
+  
+    ImGui::End();
 }
 
 void AccessFolder::ListAssetContents()
@@ -56,7 +76,7 @@ void AccessFolder::ListAssetContents()
 
 void AccessFolder::CreateFolder()
 {
-    ImGui::Begin("Create Asset Folder");
+    ImGui::Begin("Create Folder in asset");
 
     // フォルダ名を入力させるテキストボックスを表示
     ImGui::InputText("Folder Name", m_FolderName, ImGuiInputTextFlags_EnterReturnsTrue);

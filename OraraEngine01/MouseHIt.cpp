@@ -1,7 +1,7 @@
 #include "main.h"
 #include "manager.h"
 #include "scene.h"
-#include "MouseHIt.h"
+#include "mouseHit.h"
 #include "renderer.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"

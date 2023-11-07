@@ -1,6 +1,7 @@
 #include "guiManager.h"
 #include "main.h"
 #include "renderer.h"
+#include "accessFolder.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 
@@ -27,6 +28,9 @@ void GuiManager::Update()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+    static AccessFolder a;
+    a.CreateFolder();
+    a.DrawProjectAssets();
 }
 
 void GuiManager::Draw()

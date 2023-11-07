@@ -92,6 +92,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -106,6 +107,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,6 +122,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,6 +137,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,6 +154,7 @@
     <ClCompile Include="..\OraraEngine\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="..\OraraEngine\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\OraraEngine\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="box.cpp" />
@@ -157,6 +162,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="child.cpp" />
     <ClCompile Include="cylinder.cpp" />
+    <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="fade.cpp" />
@@ -169,7 +175,7 @@
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="meshField.cpp" />
     <ClCompile Include="model.cpp" />
-    <ClCompile Include="MouseHIt.cpp" />
+    <ClCompile Include="mouseHit.cpp" />
     <ClCompile Include="plane.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon2D.cpp" />
@@ -195,6 +201,7 @@
     <ClInclude Include="..\OraraEngine\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\OraraEngine\imgui\imstb_textedit.h" />
     <ClInclude Include="..\OraraEngine\imgui\imstb_truetype.h" />
+    <ClInclude Include="accessFolder.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="box.h" />
@@ -203,6 +210,7 @@
     <ClInclude Include="child.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="cylinder.h" />
+    <ClInclude Include="dropFile.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="fade.h" />
@@ -216,7 +224,7 @@
     <ClInclude Include="manager.h" />
     <ClInclude Include="meshField.h" />
     <ClInclude Include="model.h" />
-    <ClInclude Include="MouseHIt.h" />
+    <ClInclude Include="mouseHit.h" />
     <ClInclude Include="plane.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon2D.h" />
