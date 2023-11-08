@@ -29,7 +29,7 @@ public:
 
 			m_GameObject[i].clear();
 		}
-		TextuereManager::Uninit();
+		TextureManager::Uninit();
 	}
 
 	virtual void Update()

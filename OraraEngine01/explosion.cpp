@@ -47,7 +47,7 @@ void Explosion::Init()
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 
-	m_TexNum = TextuereManager::LoadTexture("asset\\texture\\Explosion1.png", "asset\\texture\\Explosion1.png");
+	m_TexNum = TextureManager::LoadTexture("asset\\texture\\Explosion1.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
 		"shader\\unlitTextureVS.cso");
@@ -151,7 +151,7 @@ void Explosion::Draw()
 	Renderer::SetMaterial(material);
 
 	//テクスチャ設定
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextuereManager::GetTexture(m_TexNum));
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
 
 	//プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

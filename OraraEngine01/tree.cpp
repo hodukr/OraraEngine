@@ -46,7 +46,7 @@ void Tree::Init()
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 
-	m_TexNum = TextuereManager::LoadTexture("asset\\texture\\Tree05_4K.png", "asset\\tree000\\Tree05_4K.png");
+	m_TexNum = TextureManager::LoadTexture("asset\\texture\\Tree05_4K.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
 		"shader\\unlitTextureVS.cso");
@@ -114,7 +114,7 @@ void Tree::Draw()
 	Renderer::SetMaterial(material);
 
 	//テクスチャ設定
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextuereManager::GetTexture(m_TexNum));
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
 
 	//プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

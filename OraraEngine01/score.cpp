@@ -24,7 +24,7 @@ void Score::Init()
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
 
-	m_TexNum = TextuereManager::LoadTexture("asset\\texture\\number.png", "asset\\texture\\number.png");
+	m_TexNum = TextureManager::LoadTexture("asset\\texture\\number.png");
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
 		"shader\\unlitTextureVS.cso");
@@ -79,7 +79,7 @@ void Score::Draw()
 	Renderer::SetMaterial(material);
 
 	//テクスチャ設定
-	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextuereManager::GetTexture(m_TexNum));
+	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
 
 	//プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

@@ -28,7 +28,7 @@
 
 void Game::Init()
 {
-	TextuereManager::LoadTexture("asset\\texture\\Explosion1.png", "asset\\texture\\Explosion1.png");
+	TextureManager::LoadTexture("asset\\texture\\Explosion1.png");
 
 	Bullet::Load();
 
