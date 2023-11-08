@@ -1,15 +1,45 @@
+#include "main.h"
+#include "renderer.h"
+#include "textureManager.h"
 #include "accessFolder.h"
 
+#include <algorithm>
 
 void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv)
 {
-    // フォルダアイコンを表示
-    ImGui::Image(nullptr, size, uv);
+    // ファイル拡張子を取得
+    std::string filename = name;
+    std::string extension = filename.substr(filename.find_last_of(".") + 1);
+
+    // 拡張子が .png または .jpg の場合にのみ画像を表示
+    if (extension == "png" || extension == "jpg")
+    {
+        //パスを取っておかないとconst char*の場所が変わりTextureManagerで同じ画像判定じゃなくなりバグる
+        auto it = m_Path.find(name);
+        if (it == m_Path.end())
+        {
+            std::string path = "asset\\" + m_ProjectFolderName + "\\" + name;
+            m_Path[name] = path;
+            it = m_Path.find(name);  // 要素を追加後、再度検索してイテレータで中身を取り出さないとバグる
+        }
+
+        int textureNum = TextureManager::LoadTexture(it->second.c_str());
+        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+        // フォルダアイコンを表示
+        ImGui::Image((ImTextureID)texture, size, uv);
+    }
+    else
+    {
+        // 画像でない場合はテキストとして表示
+        ImGui::Image(nullptr, size, uv);
+    }
 
     // フォルダ名を表示
     ImGui::SameLine();
     ImGui::Button(name);
 }
+
 
 void AccessFolder::DrawProjectAssets()
 {
@@ -45,7 +75,7 @@ void AccessFolder::DrawProjectAssets()
                 fs::path folderPath(itemPath);
                 std::string folderName = folderPath.filename().string();
 
-                DrawFolderIconAndName(folderName.c_str(), ImVec2(16, 16), ImVec2(0.0f, 0.0f));
+                DrawFolderIconAndName(folderName.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
             }
 
             ImGui::TreePop();
@@ -59,19 +89,16 @@ void AccessFolder::DrawProjectAssets()
         }
     }
 
-  
     ImGui::End();
 }
 
-void AccessFolder::ListAssetContents()
+void AccessFolder::ChangeImageSize()
 {
-    ImGui::Text("Asset Folder Contents:");
+    ImGui::Begin("Image Size");
 
-    for (const auto& entry : fs::directory_iterator("asset"))
-    {
-        const std::string& itemPath = entry.path().string();
-        ImGui::Text("%s", itemPath.c_str());
-    }
+    ImGui::SliderFloat("Image Width", &m_ImageSize, 20.0f, 200.0f);
+ 
+    ImGui::End();
 }
 
 void AccessFolder::CreateFolder()

@@ -1,6 +1,6 @@
 #include "main.h"
 #include "dropFile.h"
-
+#include "accessFolder.h"
 #include <list>
 #include <string>
 
@@ -10,6 +10,9 @@ std::list<fs::path> DropFile::m_fullPathNames;
 
 void DropFile::DropFileData()
 {
+    if (AccessFolder::Instance().GetNowFolder().empty())
+        return;
+
     UINT count = 0;
     UINT length = 0;
     wchar_t* fullPathName = nullptr;
@@ -52,13 +55,14 @@ void DropFile::DropFileData()
 
 void DropFile::CopyFileToProjectFolder(fs::path filePath)
 {
+    
     // プロジェクトのルートディレクトリを取得
     //ここにプロジェクトフォルダまでのパスが格納されている
     fs::path projectRoot = fs::current_path();
 
     // "asset\\texture"フォルダの相対パスを設定
     //プロジェクトフォルダから保存したい場所へのパスが格納されている
-    fs::path relativeFolderPath = L"asset\\texture";
+    fs::path relativeFolderPath = "asset\\" + AccessFolder::Instance().GetNowFolder();
 
     // プロジェクトフォルダにコピーするためのファイルパスを作成
     fs::path destinationPath = projectRoot / relativeFolderPath / fs::path(filePath).filename();

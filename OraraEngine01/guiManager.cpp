@@ -28,9 +28,9 @@ void GuiManager::Update()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-    static AccessFolder a;
-    a.CreateFolder();
-    a.DrawProjectAssets();
+    AccessFolder::Instance().CreateFolder();
+    AccessFolder::Instance().DrawProjectAssets();
+    AccessFolder::Instance().ChangeImageSize();
 }
 
 void GuiManager::Draw()
