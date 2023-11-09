@@ -6,17 +6,17 @@
 void Enemy::Init()
 {
 	m_Model = new Model();
-	m_Model->Load("asset\\model\\torus.obj");
+	m_Model->Load("asset\\model\\box.obj");
 
 	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
 
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
-		"shader\\vertexLightingVS.cso");
+		"shader\\boxCollisionVS.cso");
 
 	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\vertexLightingPS.cso");
+		"shader\\boxCollisionPS.cso");
 }
 
 void Enemy::Uninit()
@@ -31,26 +31,24 @@ void Enemy::Uninit()
 }
 void Enemy::Update()
 {
-	static  D3DXVECTOR3 rot = D3DXVECTOR3(0.0f,0.0f,0.0f);
+	//static  D3DXVECTOR3 rot = D3DXVECTOR3(0.0f,0.0f,0.0f);
 
-	m_Rotation = D3DXVECTOR3(rot.x, rot.y, rot.z);
-	rot.x += 0.1f;
-	rot.y += 0.1f;
-    rot.z += 0.1f;
+	//m_Rotation = D3DXVECTOR3(rot.x, rot.y, rot.z);
+	//rot.x += 0.1f;
+	//rot.y += 0.1f;
+ //   rot.z += 0.1f;
 }
 
 void Enemy::Draw()
 {
-
-
-	//“ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[Ý’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXÝ’è
+	//ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX world, scale, rot, trans;
 
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
@@ -59,6 +57,10 @@ void Enemy::Draw()
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);
+
+    PARAMETER parm;
+    parm.pos = D3DXVECTOR4(m_Position, 0.0f);
+    Renderer::SetParameter(parm);
 
 	m_Model->Draw();
 	

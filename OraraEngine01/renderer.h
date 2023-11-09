@@ -42,6 +42,8 @@ struct PARAMETER
 	D3DXCOLOR	baseColor;
 	D3DXCOLOR	lostColor;
 	D3DXCOLOR	diffColor;
+
+    D3DXVECTOR4 pos;
 };
 
 

@@ -8,7 +8,7 @@
 #include "audio.h"
 #include "guiManager.h"
 
-Scene* Manager::m_Scene{};//Ã“Iƒƒ“ƒo•Ï”‚ÍÄéŒ¾‚ª•K—v
+Scene* Manager::m_Scene{};//é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°ã¯å†å®£è¨€ãŒå¿…è¦
 Scene* Manager::m_NextScene{};
 
 void Manager::Init()
@@ -61,6 +61,7 @@ void Manager::Draw()
 	Renderer::Begin();
 
 	m_Scene->Draw();
+
 	GuiManager::Instance().Draw();
 
 

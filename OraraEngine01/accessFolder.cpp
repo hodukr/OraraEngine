@@ -7,35 +7,35 @@
 
 void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv)
 {
-    // ƒtƒ@ƒCƒ‹Šg’£q‚ğæ“¾
+    // ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ã‚’å–å¾—
     std::string filename = name;
     std::string extension = filename.substr(filename.find_last_of(".") + 1);
-
-    // Šg’£q‚ª .png ‚Ü‚½‚Í .jpg ‚Ìê‡‚É‚Ì‚İ‰æ‘œ‚ğ•\¦
+   
+    // æ‹¡å¼µå­ãŒ .png ã¾ãŸã¯ .jpg ã®å ´åˆã«ã®ã¿ç”»åƒã‚’è¡¨ç¤º
     if (extension == "png" || extension == "jpg")
     {
-        //ƒpƒX‚ğæ‚Á‚Ä‚¨‚©‚È‚¢‚Æconst char*‚ÌêŠ‚ª•Ï‚í‚èTextureManager‚Å“¯‚¶‰æ‘œ”»’è‚¶‚á‚È‚­‚È‚èƒoƒO‚é
+        //ãƒ‘ã‚¹ã‚’å–ã£ã¦ãŠã‹ãªã„ã¨const char*ã®å ´æ‰€ãŒå¤‰ã‚ã‚ŠTextureManagerã§åŒã˜ç”»åƒåˆ¤å®šã˜ã‚ƒãªããªã‚Šãƒã‚°ã‚‹
         auto it = m_Path.find(name);
         if (it == m_Path.end())
         {
             std::string path = "asset\\" + m_ProjectFolderName + "\\" + name;
             m_Path[name] = path;
-            it = m_Path.find(name);  // —v‘f‚ğ’Ç‰ÁŒãAÄ“xŒŸõ‚µ‚ÄƒCƒeƒŒ[ƒ^‚Å’†g‚ğæ‚èo‚³‚È‚¢‚ÆƒoƒO‚é
+            it = m_Path.find(name);  // è¦ç´ ã‚’è¿½åŠ å¾Œã€å†åº¦æ¤œç´¢ã—ã¦ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã§ä¸­èº«ã‚’å–ã‚Šå‡ºã•ãªã„ã¨ãƒã‚°ã‚‹
         }
 
         int textureNum = TextureManager::LoadTexture(it->second.c_str());
         ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
 
-        // ƒtƒHƒ‹ƒ_ƒAƒCƒRƒ“‚ğ•\¦
+        // ãƒ•ã‚©ãƒ«ãƒ€ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¡¨ç¤º
         ImGui::Image((ImTextureID)texture, size, uv);
     }
     else
     {
-        // ‰æ‘œ‚Å‚È‚¢ê‡‚ÍƒeƒLƒXƒg‚Æ‚µ‚Ä•\¦
+        // ç”»åƒã§ãªã„å ´åˆã¯ãƒ†ã‚­ã‚¹ãƒˆã¨ã—ã¦è¡¨ç¤º
         ImGui::Image(nullptr, size, uv);
     }
 
-    // ƒtƒHƒ‹ƒ_–¼‚ğ•\¦
+    // ãƒ•ã‚©ãƒ«ãƒ€åã‚’è¡¨ç¤º
     ImGui::SameLine();
     ImGui::Button(name);
 }
@@ -49,15 +49,15 @@ void AccessFolder::DrawProjectAssets()
     {
         const std::string& itemPath = entry.path().string();
 
-        // ƒTƒuƒtƒHƒ‹ƒ_–¼‚ğ’Šo
+        // ã‚µãƒ–ãƒ•ã‚©ãƒ«ãƒ€åã‚’æŠ½å‡º
         fs::path folderPath(itemPath);
         std::string folderName = folderPath.filename().string();
 
-        // ƒtƒHƒ‹ƒ_–¼‚ªd•¡‚µ‚È‚¢ê‡‚É’Ç‰Á
+        // ãƒ•ã‚©ãƒ«ãƒ€åãŒé‡è¤‡ã—ãªã„å ´åˆã«è¿½åŠ 
         if (m_ProjectFolders.insert(folderName).second);
     }
 
-    // ƒtƒHƒ‹ƒ_‚Æƒtƒ@ƒCƒ‹‚ğ•\¦
+    // ãƒ•ã‚©ãƒ«ãƒ€ã¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤º
     for (const auto& folder : m_ProjectFolders)
     {
         if (!m_ProjectFolderName.empty() && m_ProjectFolderName != folder)
@@ -71,7 +71,7 @@ void AccessFolder::DrawProjectAssets()
             {
                 const std::string& itemPath = entry.path().string();
 
-                // ƒTƒuƒtƒHƒ‹ƒ_–¼‚ğ’Šo
+                // ã‚µãƒ–ãƒ•ã‚©ãƒ«ãƒ€åã‚’æŠ½å‡º
                 fs::path folderPath(itemPath);
                 std::string folderName = folderPath.filename().string();
 
@@ -96,8 +96,8 @@ void AccessFolder::ChangeImageSize()
 {
     ImGui::Begin("Image Size");
 
-    ImGui::SliderFloat("Image Width", &m_ImageSize, 20.0f, 200.0f);
- 
+    ImGui::SliderFloat("Image Size  ", &m_ImageSize, 20.0f, 200.0f);
+
     ImGui::End();
 }
 
@@ -105,16 +105,16 @@ void AccessFolder::CreateFolder()
 {
     ImGui::Begin("Create Folder in asset");
 
-    // ƒtƒHƒ‹ƒ_–¼‚ğ“ü—Í‚³‚¹‚éƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğ•\¦
+    // ãƒ•ã‚©ãƒ«ãƒ€åã‚’å…¥åŠ›ã•ã›ã‚‹ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤º
     ImGui::InputText("Folder Name", m_FolderName, ImGuiInputTextFlags_EnterReturnsTrue);
 
-    // ƒtƒHƒ‹ƒ_‚ğì¬‚·‚éƒ{ƒ^ƒ“‚ğ•\¦
+    // ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆã™ã‚‹ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
     if (ImGui::Button("Create"))
     {
         if (m_FolderName[0] != '\0')
-        { 
+        {
             std::string assetFolderPath = "asset/" + std::string(m_FolderName);
-            // ƒtƒHƒ‹ƒ_‚ğì¬
+            // ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆ
             if (fs::create_directory(assetFolderPath))
             {
                 strcpy(m_CreatedFolderName, m_FolderName);
@@ -123,7 +123,7 @@ void AccessFolder::CreateFolder()
         }
     }
 
-    // ƒtƒHƒ‹ƒ_‚ªì¬‚³‚ê‚½‚çŠm”FƒƒbƒZ[ƒW‚ğ•\¦
+    // ãƒ•ã‚©ãƒ«ãƒ€ãŒä½œæˆã•ã‚ŒãŸã‚‰ç¢ºèªãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤º
     if (m_CreateFolder)
     {
         ImGui::Text("Asset folder created: %s", m_CreatedFolderName);
