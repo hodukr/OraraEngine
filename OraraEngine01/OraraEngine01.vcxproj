@@ -147,13 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\OraraEngine\imgui\imgui.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\OraraEngine\imgui\imgui_widgets.cpp" />
     <ClCompile Include="accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
@@ -170,6 +163,13 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="hierarchy.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
@@ -194,14 +194,6 @@
     <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\OraraEngine\imgui\imconfig.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imgui.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imgui_impl_dx11.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imgui_impl_win32.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imgui_internal.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\OraraEngine\imgui\imstb_truetype.h" />
     <ClInclude Include="accessFolder.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
@@ -218,8 +210,15 @@
     <ClInclude Include="field.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
-    <ClInclude Include="guiManager.h" />
     <ClInclude Include="hierarchy.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="main.h" />
