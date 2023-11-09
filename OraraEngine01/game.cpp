@@ -13,6 +13,7 @@
 #include "cylinder.h"
 #include "box.h"
 #include "rock.h"
+#include "boxCollisionDraw.h"
 #include "tree.h"
 #include "bullet.h"
 #include "polygon2D.h"
@@ -36,6 +37,8 @@ void Game::Init()
 	AddGameObject<SkyDome>(1)->SetPosition(D3DXVECTOR3(0.0f,-3.0f,0.0f));
 	//AddGameObject<Field>(1);
 	MeshField* meshField = AddGameObject<MeshField>(1);
+
+    AddGameObject<BoxCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 5.0f, 0.0f));
 	
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(-5.0f, 1.0f, 5.0f));
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(0.0f, 1.0f, 5.0f));
