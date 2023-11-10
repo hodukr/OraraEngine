@@ -26,7 +26,7 @@ void Plane::Init(float x, float z, float width, float depth, const char* texture
 	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = D3DXVECTOR2(10.0f, 10.0f);
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -40,7 +40,7 @@ void Plane::Init(float x, float z, float width, float depth, const char* texture
 
 	Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-	//ƒeƒNƒXƒ`ƒƒ“Ç‚Ýž‚Ý
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
 		texture,
 		NULL,
@@ -62,24 +62,24 @@ void Plane::Update()
 
 void Plane::Draw()
 {
-	//’¸“_ƒoƒbƒtƒ@Ý’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-	//ƒ}ƒeƒŠƒAƒ‹Ý’è
+	//ãƒžãƒ†ãƒªã‚¢ãƒ«è¨­å®š
 	MATERIAL material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
-	//ƒeƒNƒXƒ`ƒƒÝ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
-	//ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWÝ’è
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãƒˆãƒãƒ­ã‚¸è¨­å®š
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//ƒ|ƒŠƒSƒ“•`‰æ
+	//ãƒãƒªã‚´ãƒ³æç”»
 	Renderer::GetDeviceContext()->Draw(4, 0);
 }

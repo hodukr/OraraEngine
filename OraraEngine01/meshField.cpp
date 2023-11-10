@@ -32,20 +32,20 @@ float g_FieldHeight[NUM_VERTEX][NUM_VERTEX] =
 void MeshField::Init()
 {
 
-	// ’¸“_ƒoƒbƒtƒ@¶¬
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	{
 		for (int x = 0; x <= NUM_VERTEX - 1; x++)
 		{
 			for (int z = 0; z <= NUM_VERTEX - 1; z++)
 			{
 				m_Vertex[x][z].Position = D3DXVECTOR3((x - 10) * 5.0f, g_FieldHeight[z][x], (z - 10) * -5.0f);
-				m_Vertex[x][z].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);//–@üƒxƒNƒgƒ‹
+				m_Vertex[x][z].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);//æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
 				m_Vertex[x][z].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 				m_Vertex[x][z].TexCoord = D3DXVECTOR2(x * 0.5f, z * 0.5f);
 			}
 		}
 
-		//–@üƒxƒNƒgƒ‹ŽZo
+		//æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ç®—å‡º
 		for (int x = 1; x <= NUM_VERTEX - 2; x++)
 		{
 			for (int z = 1; z <= NUM_VERTEX - 2; z++)
@@ -54,8 +54,8 @@ void MeshField::Init()
 				vx = m_Vertex[x + 1][z].Position - m_Vertex[x - 1][z].Position;
 				vz = m_Vertex[x][z - 1].Position - m_Vertex[x][z + 1].Position;
 
-				D3DXVec3Cross(&vn, &vz, &vx);//ŠOÏ
-				D3DXVec3Normalize(&vn, &vn);//³‹K‰»
+				D3DXVec3Cross(&vn, &vz, &vx);//å¤–ç©
+				D3DXVec3Normalize(&vn, &vn);//æ­£è¦åŒ–
 				m_Vertex[x][z].Normal = vn;
 			}
 		}
@@ -77,7 +77,7 @@ void MeshField::Init()
 
 
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@¶¬
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	{
 		unsigned int index[((NUM_VERTEX + 1) * 2) * (NUM_VERTEX - 1) - 2 ];
 
@@ -96,7 +96,7 @@ void MeshField::Init()
 			if (x == NUM_VERTEX - 2)
 				break;
 
-			//k‘Þƒ|ƒŠƒSƒ“
+			//ç¸®é€€ãƒãƒªã‚´ãƒ³
 			index[i] = (x + 1) * NUM_VERTEX + (NUM_VERTEX - 1);
 			i++;
 
@@ -121,7 +121,7 @@ void MeshField::Init()
 
 
 
-	// ƒeƒNƒXƒ`ƒƒ“Ç‚Ýž‚Ý
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
 											"asset/texture/field.jpg",
 											NULL,
@@ -162,15 +162,15 @@ void MeshField::Update()
 
 void MeshField::Draw()
 {
-	// “ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	// å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	// ƒVƒF[ƒ_Ý’è
+	// ã‚·ã‚§ãƒ¼ãƒ€è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
 
-	// ƒ}ƒgƒŠƒNƒXÝ’è
+	// ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -179,28 +179,28 @@ void MeshField::Draw()
 	Renderer::SetWorldMatrix(&world);
 
 
-	// ’¸“_ƒoƒbƒtƒ@Ý’è
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	UINT stride = sizeof( VERTEX_3D );
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers( 0, 1, &m_VertexBuffer, &stride, &offset );
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@Ý’è
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	Renderer::GetDeviceContext()->IASetIndexBuffer( m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0 );
 
-	// ƒ}ƒeƒŠƒAƒ‹Ý’è
+	// ãƒžãƒ†ãƒªã‚¢ãƒ«è¨­å®š
 	MATERIAL material;
 	ZeroMemory( &material, sizeof(material) );
 	material.Diffuse = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f );
 	material.TextureEnable = true;
 	Renderer::SetMaterial( material );
 
-	// ƒeƒNƒXƒ`ƒƒÝ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWÝ’è
+	// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãƒˆãƒãƒ­ã‚¸è¨­å®š
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );
 
-	// ƒ|ƒŠƒSƒ“•`‰æ
+	// ãƒãƒªã‚´ãƒ³æç”»
 	Renderer::GetDeviceContext()->DrawIndexed(((NUM_VERTEX + 1) * 2) * (NUM_VERTEX - 1) - 2, 0, 0);
 
 }
@@ -209,7 +209,7 @@ float MeshField::GetHeight(D3DXVECTOR3 position)
 {
 	int x, z;
 
-	//ƒuƒƒbƒN”Ô†ŽZo
+	//ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·ç®—å‡º
 	x = position.x / 5.0f + 10.0f;
     z = position.z / -5.0f + 10.0f;
 
@@ -230,20 +230,20 @@ float MeshField::GetHeight(D3DXVECTOR3 position)
 	D3DXVECTOR3 n;
 	if (c.y > 0.0f)
 	{
-		//¶ãƒ|ƒŠƒSƒ“
+		//å·¦ä¸Šãƒãƒªã‚´ãƒ³
 		D3DXVECTOR3 v10;
 		v10 = pos0 - pos1;
 		D3DXVec3Cross(&n, &v10, &v12);
 	}
 	else
 	{
-		//‰E‰ºƒ|ƒŠƒSƒ“
+		//å³ä¸‹ãƒãƒªã‚´ãƒ³
 		D3DXVECTOR3 v13;
 		v13 = pos3 - pos1;
 		D3DXVec3Cross(&n, &v12, &v13);
 	}
 
-	//‚‚³Žæ“¾
+	//é«˜ã•å–å¾—
 	py = -((position.x - pos1.x) * n.x 
 		     + (position.z - pos1.z) * n.z) / n.y + pos1.y;
 

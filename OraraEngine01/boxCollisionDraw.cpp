@@ -4,30 +4,49 @@
 
 void BoxCollisionDraw::Init()
 {
+    //頂点色が何故かDiffuseで変えられなかったためシェーダーで変える
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
         "shader\\boxCollisionVS.cso");
 
     Renderer::CreatePixelShader(&m_PixelShader,
         "shader\\boxCollisionPS.cso");
 
-    VERTEX_3D vertex[5];
+    // 16つの頂点で立方体を構築
+    VERTEX_3D vertex[16];
+    float size = 1.5;
 
-    vertex[0].Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    //底面
+    vertex[0].Position = D3DXVECTOR3(-size, -size, -size);
+    vertex[1].Position = D3DXVECTOR3(-size, -size, size);
+    vertex[2].Position = D3DXVECTOR3(size, -size, size);
+    vertex[3].Position = D3DXVECTOR3(size, -size, -size);
+    vertex[4].Position = D3DXVECTOR3(-size, -size, -size);
 
-    vertex[1].Position = D3DXVECTOR3(0.0f, 0.0f, 10.0f);
+    // 上面
+    vertex[5].Position = D3DXVECTOR3(-size, size, -size);
+    vertex[6].Position = D3DXVECTOR3(-size, size, size);
+    vertex[7].Position = D3DXVECTOR3(size, size, size);
+    vertex[8].Position = D3DXVECTOR3(size, size, -size);
+    vertex[9].Position = D3DXVECTOR3(-size, size, -size);
 
-    vertex[2].Position = D3DXVECTOR3(10.0f, 0.0f, 0.0f);
+    //左面
+    vertex[10].Position = D3DXVECTOR3(-size, size, size);
+    vertex[11].Position = D3DXVECTOR3(-size, -size, size);
 
-    vertex[3].Position = D3DXVECTOR3(10.0f, 0.0f, 0.0f);
+    //背面
+    vertex[12].Position = D3DXVECTOR3(size, -size, size);
+    vertex[13].Position = D3DXVECTOR3(size, size, size);
 
-    vertex[4].Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
- 
+    //右面
+    vertex[14].Position = D3DXVECTOR3(size, size, -size);
+    vertex[15].Position = D3DXVECTOR3(size, -size, -size);
+
 
     //頂点バッファ生成
     D3D11_BUFFER_DESC bd;
     ZeroMemory(&bd, sizeof(bd));
     bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(VERTEX_3D) * 4;
+    bd.ByteWidth = sizeof(VERTEX_3D) * 16;
     bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     bd.CPUAccessFlags = 0;
 
@@ -74,16 +93,9 @@ void BoxCollisionDraw::Draw()
     UINT offset = 0;
     Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-    //マテリアル設定
-    MATERIAL material;
-    ZeroMemory(&material, sizeof(material));
-    material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    material.TextureEnable = true;
-    Renderer::SetMaterial(material);
-
     //プリミティブトポロジ設定
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
     //ポリゴン描画
-    Renderer::GetDeviceContext()->Draw(4, 0);
+    Renderer::GetDeviceContext()->Draw(16, 0);
 }
