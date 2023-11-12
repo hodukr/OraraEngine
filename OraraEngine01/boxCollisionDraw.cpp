@@ -11,7 +11,7 @@ void BoxCollisionDraw::Init()
     Renderer::CreatePixelShader(&m_PixelShader,
         "shader\\boxCollisionPS.cso");
 
-    // 16つの頂点で立方体を構築
+    //立方体
     VERTEX_3D vertex[16];
     float size = 1.5;
 

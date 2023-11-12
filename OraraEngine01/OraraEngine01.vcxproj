@@ -188,6 +188,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="skyDome.cpp" />
+    <ClCompile Include="sphereCollisionDraw.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="tetureManager.cpp" />
     <ClCompile Include="title.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="shadow.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="skyDome.h" />
+    <ClInclude Include="sphereCollisionDraw.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="title.h" />
