@@ -39,7 +39,7 @@ void Game::Init()
 	//AddGameObject<Field>(1);
 	MeshField* meshField = AddGameObject<MeshField>(1);
 
-    //AddGameObject<BoxCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
+    AddGameObject<BoxCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
     AddGameObject<SphereCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
 	
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(-5.0f, 1.0f, 5.0f));

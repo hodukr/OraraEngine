@@ -14,10 +14,15 @@ private:
     ID3D11InputLayout* m_VertexLayout{};
 
     ID3D11Buffer* m_VertexBuffer[3]{};
-public:
 
+    float   m_Size;
+
+    void SetVertex(VERTEX_3D* vertex, int index);
+public:
     void Init();
     void Uninit();
     void Update();
     void Draw();
+
+    void SetSize(float size) { m_Size = size; }
 };

@@ -10,10 +10,15 @@ private:
     ID3D11InputLayout* m_VertexLayout{};
 
     ID3D11Buffer* m_VertexBuffer{};
-public:
 
+    D3DXVECTOR3 m_Size{};
+
+    void SetVertex(VERTEX_3D* vertex);
+public:
     void Init();
     void Uninit();
     void Update();
     void Draw();
+
+    void SetSize(D3DXVECTOR3 size) { m_Size = size; }
 };
