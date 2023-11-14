@@ -1,6 +1,5 @@
 #pragma once
 #include <list>
-
 #include "gameObject.h"
 #include "bullet.h"
 #include <string>

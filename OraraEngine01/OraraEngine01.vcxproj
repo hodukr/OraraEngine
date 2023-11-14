@@ -181,6 +181,7 @@
     <ClCompile Include="plane.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon2D.cpp" />
+    <ClCompile Include="reflection.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="resultLogo.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="tetureManager.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="titleLogo.cpp" />
+    <ClCompile Include="transform.cpp" />
     <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -246,7 +248,9 @@
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titleLogo.h" />
+    <ClInclude Include="transform.h" />
     <ClInclude Include="tree.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\boxCollisionPS.hlsl">

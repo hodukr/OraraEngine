@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -19,120 +15,31 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{7201c387-d5a1-4ab6-83e9-0888c46f775e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{4c964d37-da5a-4f90-910a-a8b58d1e1fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{c2df96c2-9c24-49c9-8551-6b5fb23546d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{acc43f6b-6a68-41ed-acf0-b7b7fd26d98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{7e7b1e21-94cd-4eeb-b010-7586d2eb124e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{857c28e4-5e80-4379-94ca-b02747d42936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{e3fa4446-cb1d-410a-943d-50ad93adaf59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="animationModel.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="audio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="box.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="bullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="child.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="cylinder.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="explosion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="field.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="meshField.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="plane.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="resultLogo.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="rock.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="score.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="shadow.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="skyDome.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="tetureManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="titleLogo.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="tree.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="guiManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="accessFolder.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="dropFile.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="hierarchy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="mouseHit.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_tables.cpp">
@@ -156,135 +63,132 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="accessFolder.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="animationModel.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="box.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="boxCollisionDraw.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="child.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cylinder.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="dropFile.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="explosion.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="guiManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchy.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="meshField.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="mouseHit.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="plane.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon2D.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="reflection.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="resultLogo.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="rock.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="skyDome.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="sphereCollisionDraw.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="tetureManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="titleLogo.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="tree.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="animationModel.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="audio.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="box.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="child.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="component.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="cylinder.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="explosion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="field.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="meshField.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="plane.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="resultLogo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="rock.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="score.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="shadow.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="skyDome.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="textureManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="titleLogo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="tree.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="singleton.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="accessFolder.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="dropFile.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="hierarchy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="mouseHit.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_rectpack.h">
@@ -311,11 +215,137 @@
     <ClInclude Include="imgui\imgui_internal.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="boxCollisionDraw.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="accessFolder.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="box.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="child.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="cylinder.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="dropFile.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="field.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchy.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="meshField.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseHit.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="plane.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon2D.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="resultLogo.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="rock.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="skyDome.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="sphereCollisionDraw.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="textureManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="titleLogo.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="animationModel.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="boxCollisionDraw.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

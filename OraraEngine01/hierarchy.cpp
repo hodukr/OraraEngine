@@ -1,3 +1,5 @@
+#include "manager.h"
+#include "scene.h"
 #include "hierarchy.h"
 #include "imgui/imgui.h"
 
@@ -6,6 +8,7 @@ void Hierarchy::Init()
 
 }
 
+
 void Hierarchy::Uninit()
 {
 
@@ -13,7 +16,7 @@ void Hierarchy::Uninit()
 
 void Hierarchy::Update()
 {
-
+    Scene* scene = Manager::GetScene();
 }
 
 void Hierarchy::Draw()

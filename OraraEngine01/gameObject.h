@@ -42,7 +42,7 @@ public:
 	D3DXVECTOR3 GetRotation(void) { return m_Rotation; }
 	D3DXVECTOR3 GetScale(void) { return m_Scale; }
 
-	D3DXVECTOR3 GetRight(void) //‰E•ûŒüƒxƒNƒgƒ‹æ“¾
+	D3DXVECTOR3 GetRight(void) //ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½æ“¾
 	{
 		D3DXMATRIX rot;
 		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -54,7 +54,7 @@ public:
 
 		return forward;
 	}
-	D3DXVECTOR3 GetUp(void) //ã•ûŒüƒxƒNƒgƒ‹æ“¾
+	D3DXVECTOR3 GetUp(void) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½æ“¾
 	{
 		D3DXMATRIX rot;
 		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -66,7 +66,7 @@ public:
 
 		return forward;
 	}
-	D3DXVECTOR3 GetForward(void) //‘O•ûŒüƒxƒNƒgƒ‹æ“¾
+	D3DXVECTOR3 GetForward(void) //ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½æ“¾
 	{ 
 		D3DXMATRIX rot;
 		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -79,8 +79,8 @@ public:
 		return forward; 
 	}
 	
-	virtual void Init() {}; //‰¼‘zŠÖ”
-	//virtual void Init() = 0; ƒˆ‰¼‘zŠÖ”@â‘Î‚É‚±‚ê‚ğŒÄ‚Î‚È‚«‚á‚¢‚¯‚È‚­‚È‚é
+	virtual void Init() {}; //ï¿½ï¿½ï¿½zï¿½Öï¿½
+	//virtual void Init() = 0; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Öï¿½ï¿½@ï¿½ï¿½Î‚É‚ï¿½ï¿½ï¿½ï¿½Ä‚Î‚È‚ï¿½ï¿½á‚¢ï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½
 	virtual void Uninit() 
 	{
 		for (Component* component : m_Component)
@@ -108,17 +108,17 @@ public:
 		}
 	};
 
-	template<typename T>//ƒeƒ“ƒvƒŒ[ƒgŠÖ”
+	template<typename T>//ï¿½eï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½gï¿½Öï¿½
 	T* AddComponent()
 	{
 		Component* component = new T();
 		m_Component.push_back(component);
 		component->Init();
 
-		//ƒXƒ^ƒeƒBƒbƒNƒLƒƒƒXƒg‚Íint‚È‚Ç‚Å‚à
-		//             g‚¦‚é‚ªƒ_ƒCƒiƒ~ƒbƒNƒLƒƒƒXƒg‚æ‚èŠëŒ¯
+		//ï¿½Xï¿½^ï¿½eï¿½Bï¿½bï¿½Nï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½intï¿½È‚Ç‚Å‚ï¿½
+		//             ï¿½gï¿½ï¿½ï¿½é‚ªï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ëŒ¯
 		//return static_cast<T*>(component);
-		//ƒ_ƒCƒiƒ~ƒbƒNƒLƒƒƒXƒg‚ÍQÆ‚Ü‚½‚Íƒ|ƒCƒ“ƒ^‚Ì‚İ
+		//ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ÍQï¿½Æ‚Ü‚ï¿½ï¿½Íƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‚ï¿½
 		return dynamic_cast<T*>(component);
 	}
 }; 

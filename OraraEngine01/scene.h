@@ -1,4 +1,5 @@
 #pragma once
+#include "main.h"
 #include "gameObject.h"
 #include <list>
 #include <typeinfo>
@@ -12,7 +13,7 @@ class Scene
 {
 protected:
     //GameObject* m_GameObject[4]{};
-	std::list<GameObject*> m_GameObject[3];//ƒŒƒCƒ„[—L‚ÌSTL‚ÌƒŠƒXƒg\‘¢
+	std::list<GameObject*> m_GameObject[3];//ãƒ¬ã‚¤ãƒ¤ãƒ¼æœ‰ã®STLã®ãƒªã‚¹ãƒˆæ§‹é€ 
 
 public:
 	virtual void Init(){}
@@ -21,7 +22,7 @@ public:
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			for (GameObject* gameObject : m_GameObject[i])//”ÍˆÍforƒ‹[ƒv
+			for (GameObject* gameObject : m_GameObject[i])//ç¯„å›²forãƒ«ãƒ¼ãƒ—
 			{
 				gameObject->Uninit();
 				delete gameObject;
@@ -41,7 +42,7 @@ public:
 				gameObject->Update();
 			}
 
-			m_GameObject[i].remove_if([](GameObject* object) {return object->Destroy(); });//ƒ‰ƒ€ƒ_®
+			m_GameObject[i].remove_if([](GameObject* object) {return object->Destroy(); });//ãƒ©ãƒ ãƒ€å¼
 		}
 	}
 
@@ -60,14 +61,14 @@ public:
 				//	len > maxLen;
 				//	//max
 				//	});
-				gameObject->Draw(); //ƒ|ƒŠƒ‚[ƒtƒBƒYƒ€
+				gameObject->Draw(); //ãƒãƒªãƒ¢ãƒ¼ãƒ•ã‚£ã‚ºãƒ 
 			}
 		}
 	}
 
-	//Œ^‚Ì•ª‚¾‚¯ŠÖ”‚ªì‚ç‚ê‚é
-	//‚ ‚Ü‚èg‚í‚È‚¢•û‚ª‚¢‚¢
-	template<typename T>//ƒeƒ“ƒvƒŒ[ƒgŠÖ”
+	//å‹ã®åˆ†ã ã‘é–¢æ•°ãŒä½œã‚‰ã‚Œã‚‹
+	//ã‚ã¾ã‚Šä½¿ã‚ãªã„æ–¹ãŒã„ã„
+	template<typename T>//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
 	T* AddGameObject(int Layer)
 	{
 		T* gameObject = new T();
@@ -77,15 +78,15 @@ public:
 		return gameObject;
 	}
 
-	template<typename T>//ƒeƒ“ƒvƒŒ[ƒgŠÖ”
+	template<typename T>//ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
 	T* GetGameObject()
 	{
 		for (int i = 0; i < 3; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
-				//ƒƒ‚ƒŠ‚ğ‚­‚¤‚Ì‚Å‚ ‚Ü‚èg‚í‚È‚¢‚Ù‚¤‚ª‚¢‚¢
-				if (typeid(*object) == typeid(T))//Œ^‚ğ’²‚×‚é(RTTI“®“IŒ^î•ñ)
+				//ãƒ¡ãƒ¢ãƒªã‚’ãã†ã®ã§ã‚ã¾ã‚Šä½¿ã‚ãªã„ã»ã†ãŒã„ã„
+				if (typeid(*object) == typeid(T))//å‹ã‚’èª¿ã¹ã‚‹(RTTIå‹•çš„å‹æƒ…å ±)
 				{
 					return(T*)object;
 				}
@@ -98,12 +99,12 @@ public:
 	template <typename T>
 	std::vector<T*> GetGameObjects()
 	{
-		std::vector<T*> objects; //STL‚Ì”z—ñ
+		std::vector<T*> objects; //STLã®é…åˆ—
 		for (int i = 0; i < 3; i++)
 		{
 			for (GameObject* object : m_GameObject[i])
 			{
-				if (typeid(*object) == typeid(T))//Œ^‚ğ’²‚×‚é(RTTI“®“IŒ^î•ñ)
+				if (typeid(*object) == typeid(T))//å‹ã‚’èª¿ã¹ã‚‹(RTTIå‹•çš„å‹æƒ…å ±)
 				{
 					objects.push_back((T*)object);
 				}
