@@ -13,8 +13,6 @@
 #include "cylinder.h"
 #include "box.h"
 #include "rock.h"
-#include "boxCollisionDraw.h"
-#include "sphereCollisionDraw.h"
 #include "tree.h"
 #include "bullet.h"
 #include "polygon2D.h"
@@ -39,10 +37,7 @@ void Game::Init()
 	//AddGameObject<Field>(1);
 	MeshField* meshField = AddGameObject<MeshField>(1);
 
-    AddGameObject<BoxCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
-    AddGameObject<SphereCollisionDraw>(1)->SetPosition(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
-	
-	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(-5.0f, 1.0f, 5.0f));
+	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(-5.0f, 1.0f, -20.0f));
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(0.0f, 1.0f, 5.0f));
 	AddGameObject<Enemy>(1)->SetPosition(D3DXVECTOR3(5.0f, 1.0f, 5.0f));
 	//AddGameObject<Explosion>();
@@ -60,7 +55,7 @@ void Game::Init()
 	box->SetScale(D3DXVECTOR3(3.0f, 2.0f, 3.0f));
 
 	box = AddGameObject<Box>(1);
-	box->SetPosition(D3DXVECTOR3(0.0f, 0.0f, -10.0f));
+	box->SetPosition(D3DXVECTOR3(0.0f, 5.0f, -10.0f));
 	box->SetScale(D3DXVECTOR3(3.0f, 2.0f, 3.0f));
 	
 	for (int i = 0; i < 20; i++)
@@ -100,7 +95,7 @@ void Game::Init()
 
 	m_BGM = AddGameObject<GameObject>(0)->AddComponent<Audio>();
 	m_BGM->Load("asset\\audio\\GameBGM.wav");
-	m_BGM->Play(true);
+	//m_BGM->Play(true);
 }
 
 void Game::Uninit()

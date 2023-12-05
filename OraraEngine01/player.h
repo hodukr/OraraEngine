@@ -3,6 +3,7 @@
 #include "gameObject.h"
 #include "bullet.h"
 #include <string>
+#include "collisionShape.h"
 
 enum PLAYER_STATE
 {
@@ -28,7 +29,9 @@ private:
 	class Audio* m_ShotSE{};
 	class Shadow* m_Shadow{};
 
-	D3DMATRIX m_Matrix;
+    class CollisionShape* m_Collision;
+
+	D3DXMATRIX m_Matrix;
 
 	int      m_Count{};
 	int      m_Time{};

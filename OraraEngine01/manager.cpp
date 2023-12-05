@@ -7,9 +7,11 @@
 #include "title.h"
 #include "audio.h"
 #include "guiManager.h"
+#include "collisionManager.h"
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};
+CollisionManager* g_CollisionManager{};
 
 void Manager::Init()
 {
@@ -17,6 +19,9 @@ void Manager::Init()
 	Input::Init();
 	Audio::InitMaster();
 	GuiManager::Instance().Init();
+
+    g_CollisionManager = new CollisionManager;
+    
 	//m_Scene = new Title();
 	//m_Scene->Init();
 
@@ -28,6 +33,8 @@ void Manager::Uninit()
 	m_Scene->Uninit();
 	delete m_Scene;
 	GuiManager::Instance().Uninit();
+
+    g_CollisionManager->Uninit();
 
 	Audio::UninitMaster();
 	Renderer::Uninit();
@@ -53,7 +60,8 @@ void Manager::Update()
 		m_NextScene = nullptr;
 	}
 
-	m_Scene->Update();	
+	m_Scene->Update();
+    g_CollisionManager->Update();
 }
 
 void Manager::Draw()

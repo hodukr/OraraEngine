@@ -11,39 +11,68 @@
 #include "audio.h"
 #include "shadow.h"
 #include "animationModel.h"
+#include "boxCollision.h"
+#include "sphereCollision.h"
 #include "meshField.h"
+#include "guiManager.h"
+#include "enemy.h"
 
 
 
 void Player::Init()
 {
-	m_Model = new AnimationModel();
-	m_Model->Load("asset\\animation\\akai_e_espiritu.fbx");
-	m_Model->LoadAnimation("asset\\animation\\Unarmed Idle 01.fbx", "Idle");
-	m_Model->LoadAnimation("asset\\animation\\Bot_Run.fbx", "Run");
-	m_Model->LoadAnimation("asset\\animation\\Left Strafe.fbx", "RunLeft");
-	m_Model->LoadAnimation("asset\\animation\\Right Strafe.fbx", "RunRight");
-	m_Model->LoadAnimation("asset\\animation\\Bot_RunBack.fbx", "RunBack");
-	m_Model->LoadAnimation("asset\\animation\\Standing Jump.fbx", "Jump");
+    m_Model = new AnimationModel();
+    m_Model->Load("asset\\animation\\akai_e_espiritu.fbx");
+    m_Model->LoadAnimation("asset\\animation\\Unarmed Idle 01.fbx", "Idle");
+    m_Model->LoadAnimation("asset\\animation\\Bot_Run.fbx", "Run");
+    m_Model->LoadAnimation("asset\\animation\\Left Strafe.fbx", "RunLeft");
+    m_Model->LoadAnimation("asset\\animation\\Right Strafe.fbx", "RunRight");
+    m_Model->LoadAnimation("asset\\animation\\Bot_RunBack.fbx", "RunBack");
+    m_Model->LoadAnimation("asset\\animation\\Standing Jump.fbx", "Jump");
 
-	m_AnimationName = "Idle";
-	m_NextAnimationName = "Idle";
+    m_AnimationName = "Idle";
+    m_NextAnimationName = "Idle";
 
-	//m_Position = D3DXVECTOR3(0.0f, 1.0f, -5.0f);
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale    = D3DXVECTOR3(0.02f, 0.02f, 0.02f);
+    //m_Position = D3DXVECTOR3(0.0f, 1.0f, -5.0f);
+    m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    m_Scale = D3DXVECTOR3(0.02f, 0.02f, 0.02f);
 
 
-	m_ShotSE = AddComponent<Audio>();
-	m_ShotSE->Load("asset\\audio\\shot000.wav");
+    m_ShotSE = AddComponent<Audio>();
+    m_ShotSE->Load("asset\\audio\\shot000.wav");
 
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
-		"shader\\vertexLightingVS.cso");
+    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
+        "shader\\vertexLightingVS.cso");
 
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\vertexLightingPS.cso");
+    Renderer::CreatePixelShader(&m_PixelShader,
+        "shader\\vertexLightingPS.cso");
 
-	m_Shadow = AddComponent<Shadow>();
+    m_Shadow = AddComponent<Shadow>();
+
+    m_Collision = AddComponent<BoxCollision>();
+    m_Collision->SetObject(this);
+    m_Collision->SetTrigger(false);
+    m_Collision->SetOffset(D3DXVECTOR3(0.0f, 2.0f, 0.0f));
+
+       // ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã‚’ç™»éŒ²   
+    m_Collision->SetCollisionCallback([&](CollisionState state, CollisionShape* other)
+        {
+            if (state == COLLISION_ENTER)
+            {
+               /* Enemy* enemy = (Enemy*)other->GetObjct();
+                enemy->ResetPos();*/
+                GuiManager::SetText("Enter");
+            }
+            else if (state == COLLISION_STAY)
+            {
+                GuiManager::SetText("Stay");
+            }
+            else if (state == COLLISION_EXIT)
+            {
+                GuiManager::SetText("Exit");
+                //other->GetObjct()->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+            }
+        });
 }
 
 void Player::Uninit()
@@ -61,7 +90,7 @@ void Player::Update()
 {
 	D3DXVECTOR3 oldPosition = m_Position;
 
-	//ƒXƒe[ƒgƒ}ƒV[ƒ“
+	//ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ¼ãƒ³
 	switch (m_PlayerState)
 	{
 	case PLAYER_STATE_GROUND:
@@ -76,14 +105,14 @@ void Player::Update()
 
 	Scene* scene = Manager::GetScene();
 
-	//d‚¢ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚ñ‚Å‚¨‚­
+	//é‡ã„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚“ã§ãŠã
 	if (m_Count == 0)
 	{
 		scene->AddGameObject<Explosion>(1)->SetPosition(m_Position - GetForward() * 5);
 		m_Count++;
 	}
 
-	//’e‚Ì”­Ë
+	//å¼¾ã®ç™ºå°„
 	if (Input::GetKeyTrigger('F'))
 	{
 		m_ShotSE->Play();
@@ -91,13 +120,13 @@ void Player::Update()
 	}
 
 
-	//d—Í
+	//é‡åŠ›
 	m_Velocity.y -= 0.015f;
 
 	m_Position += m_Velocity;
 
 
-	//ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚Æ‚ÌÕ“Ë”»’è
+	//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¨ã®è¡çªåˆ¤å®š
 	float groundHeight = 0.0f;
 
 	MeshField* meshField = scene->GetGameObject<MeshField>();
@@ -105,8 +134,8 @@ void Player::Update()
 	groundHeight = meshField->GetHeight(m_Position);
 
 
-	//áŠQ•¨‚Æ‚ÌÕ“Ë”»’è
-	//‰~’Œ
+	//éšœå®³ç‰©ã¨ã®è¡çªåˆ¤å®š
+	//å††æŸ±
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
 
 	for (Cylinder* cylinder : cylinders)
@@ -135,7 +164,7 @@ void Player::Update()
 
 	}
 
-	//’¼•û‘Ì
+	//ç›´æ–¹ä½“
 	std::vector<Box*> boxes = scene->GetGameObjects<Box>();
 
 	for (Box* box : boxes)
@@ -152,7 +181,6 @@ void Player::Update()
 			{
 				m_Position.x = oldPosition.x;
 				m_Position.z = oldPosition.z;
-
 			}
 			else
 			{
@@ -163,7 +191,7 @@ void Player::Update()
 
 	}
 
-	//Ú’n
+	//æ¥åœ°
 	if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
 	{
 		m_isGround = false;
@@ -177,7 +205,6 @@ void Player::Update()
 
 	m_Shadow->SetPosition(D3DXVECTOR3(m_Position.x, groundHeight + 0.01f , m_Position.z));
 
-
 	GameObject::Update();
 }
 
@@ -185,14 +212,14 @@ void Player::Draw()
 {
 	GameObject::Draw();
 
-	//“ü—ÍƒŒƒCƒAƒEƒgİ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[İ’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXİ’è
+	//ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX world, scale, rot, trans;
 	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
 	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
@@ -218,7 +245,7 @@ void Player::Draw()
 
 void Player::UpdateGround()
 {
-	//ˆÚ“®
+	//ç§»å‹•
 	D3DXVECTOR3 vec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	bool move = false;
@@ -260,7 +287,7 @@ void Player::UpdateGround()
 
 	m_Position += vec * 0.2f;
 
-	//ƒvƒŒƒCƒ„[‚Ì‰ñ“]
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å›è»¢
 	if (Input::GetKeyPress('Q'))
 	{
 		m_Rotation.y -= 0.1f;
@@ -270,7 +297,7 @@ void Player::UpdateGround()
 		m_Rotation.y += 0.1f;
 	}
 
-	//ƒWƒƒƒ“ƒv
+	//ã‚¸ãƒ£ãƒ³ãƒ—
 	if (Input::GetKeyTrigger(VK_SPACE) && m_Velocity.y == 0.0f)
 	{
 		m_Time = 0;

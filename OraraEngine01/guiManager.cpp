@@ -5,6 +5,8 @@
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 
+std::string GuiManager::m_Text{};
+
 void GuiManager::Init()
 {
     ImGui::CreateContext();
@@ -13,7 +15,7 @@ void GuiManager::Init()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.DisplaySize.x = SCREEN_WIDTH;
     io.DisplaySize.y = SCREEN_HEIGHT;
-    // �t�H���g�̓ǂݍ��݂Ɛݒ�
+    // フォントの読み込みと設定 
     ImGui_ImplWin32_Init(GetWindow());
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
 }
@@ -39,7 +41,7 @@ void GuiManager::Draw()
     ImGui::SetNextWindowSize(ImVec2(320, 100));
     ImGui::Begin("debug", 0, ImGuiWindowFlags_NoScrollbar);
 
-    ImGui::Text("fugafuga");
+    ImGui::Text(m_Text.c_str());
     ImGui::End();
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

@@ -12,7 +12,7 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     std::string extension = filename.substr(filename.find_last_of(".") + 1);
    
     // 拡張子が .png または .jpg の場合にのみ画像を表示
-    if (extension == "png" || extension == "jpg")
+    if (extension == "png" || extension == "jpg" || extension == "dds")
     {
         //パスを取っておかないとconst char*の場所が変わりTextureManagerで同じ画像判定じゃなくなりバグる
         auto it = m_Path.find(name);

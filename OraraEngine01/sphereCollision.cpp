@@ -1,10 +1,10 @@
 #include "main.h"
 #include "renderer.h"
-#include "sphereCollisionDraw.h"
-
+#include "sphereCollision.h"
+#include "boxCollision.h"
 #include "input.h"
 
-void SphereCollisionDraw::Init()
+void SphereCollision::Init()
 {
     m_Size = 1.5f;
 
@@ -49,7 +49,7 @@ void SphereCollisionDraw::Init()
         "shader\\boxCollisionPS.cso");
 }
 
-void SphereCollisionDraw::Uninit()
+void SphereCollision::Uninit()
 {
     m_VertexLayout->Release();
     m_VertexShader->Release();
@@ -60,21 +60,13 @@ void SphereCollisionDraw::Uninit()
         m_VertexBuffer[i]->Release();
     }
 }
-void SphereCollisionDraw::Update()
+void SphereCollision::Update()
 {
-    if (Input::GetKeyPress(VK_UP))
-    {
-        m_Size += 0.1f;
-        m_Position.y += 0.1f;
-    }
-
-    if (Input::GetKeyPress(VK_LEFT))
-    {
-        m_Position.x -= 0.1f;
-    }
+    m_Position = m_Object->GetPosition();
+    m_Position += m_Offset;
 }
 
-void SphereCollisionDraw::Draw()
+void SphereCollision::Draw()
 {
     //入力レイアウト設定
     Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
@@ -115,8 +107,9 @@ void SphereCollisionDraw::Draw()
     }
 }
 
+
 //円の形に頂点をセットする
-void SphereCollisionDraw::SetVertex(VERTEX_3D* vertex,int index)
+void SphereCollision::SetVertex(VERTEX_3D* vertex,int index)
 {
     int num = VERTEX_NUM - 1;
 
@@ -164,4 +157,78 @@ void SphereCollisionDraw::SetVertex(VERTEX_3D* vertex,int index)
     default:
         break;
     }
+}
+
+bool SphereCollision::CollideWith(BoxCollision* other)
+{
+    // Sphere と Box の当たり判定ロジック
+    float distanceSquared = 0.0f;
+
+    // X軸方向の距離
+    float dx = std::max(0.0f, std::abs(m_Position.x - other->GetPosition().x) - other->GetSize().x);
+    distanceSquared += dx * dx;
+
+    // Y軸方向の距離
+    float dy = std::max(0.0f, std::abs(m_Position.y - other->GetPosition().y) - other->GetSize().y);
+    distanceSquared += dy * dy;
+
+    // Z軸方向の距離
+    float dz = std::max(0.0f, std::abs(m_Position.z - other->GetPosition().z) - other->GetSize().z);
+    distanceSquared += dz * dz;
+
+    // Sphereの半径との比較
+    if (distanceSquared < m_Size * m_Size)
+    {
+        if (m_Trigger || other->GetTrigger())
+            return true;
+
+        // 重なっている場合の補正
+        float distance = std::sqrt(distanceSquared);
+        D3DXVECTOR3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+
+        // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
+        D3DXVECTOR3 vec = normal * (m_Size - distance);
+
+        // ポジションの補正
+        D3DXVECTOR3 pos = m_Position - m_Offset + vec;
+        m_Object->SetPosition(pos);
+        m_Position = m_Object->GetPosition() + m_Offset;
+        return true;
+    }
+
+    return false;
+}
+
+bool SphereCollision::CollideWith(SphereCollision* other)
+{
+    D3DXVECTOR3 vec = m_Position - other->GetPosition();
+    //Sphere と Sphere の当たり判定ロジック
+    float distanceSquared = D3DXVec3LengthSq(&vec);
+
+    // 2つの球が重なっているかどうかを判定
+    if (distanceSquared < (m_Size + other->GetSize()) * (m_Size + other->GetSize()))
+    {
+        if (m_Trigger || other->GetTrigger())
+            return true;
+
+        float distance = std::sqrt(distanceSquared);
+
+        // 重なりの量を計算
+        float overlapDistance = distance - (m_Size + other->GetSize());
+
+        // 重なりの方向を計算（正規化されたベクトル）
+        D3DXVECTOR3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+        if (distanceSquared > 0.0f)
+        {
+            overlapDirection = vec / distance;
+        }
+
+        // 補正を適用して位置を調整
+        D3DXVECTOR3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
+        m_Object->SetPosition(pos);
+        m_Position = m_Object->GetPosition() + m_Offset;
+
+        return true;
+    }
+    return false;
 }

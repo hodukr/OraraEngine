@@ -75,9 +75,6 @@
     <ClCompile Include="box.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="boxCollisionDraw.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="bullet.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -165,9 +162,6 @@
     <ClCompile Include="skyDome.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="sphereCollisionDraw.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="sprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -185,6 +179,18 @@
     </ClCompile>
     <ClCompile Include="tree.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionShape.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="boxCollision.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="sphereCollision.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +320,6 @@
     <ClInclude Include="skyDome.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="sphereCollisionDraw.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="sprite.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -341,11 +344,20 @@
     <ClInclude Include="animationModel.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="boxCollisionDraw.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="model.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionShape.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="boxCollision.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="sphereCollision.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

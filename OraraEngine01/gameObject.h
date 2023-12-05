@@ -2,7 +2,6 @@
 
 #include <list>
 #include "component.h"
-#include "sprite.h"
 
 
 class GameObject
@@ -11,6 +10,7 @@ protected:
 	bool m_Destroy = false;
 
 	D3DXVECTOR3 m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    D3DXVECTOR3 m_OldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
@@ -35,12 +35,15 @@ public:
 		}
 	}
 
-	void SetPosition(D3DXVECTOR3 Position) { m_Position = Position;}
-	void SetRotation(D3DXVECTOR3 Rotation) { m_Rotation = Rotation;}
-	void SetScale(D3DXVECTOR3 Scale) { m_Scale = Scale; }
+	void SetPosition(D3DXVECTOR3 position) { m_Position = position;}
+	void SetRotation(D3DXVECTOR3 rotation) { m_Rotation = rotation;}
+	void SetScale(D3DXVECTOR3 scale) { m_Scale = scale; }
+    void SetOldPosition(D3DXVECTOR3 position) { m_OldPosition = position; }
 	D3DXVECTOR3 GetPosition(void) { return m_Position; }
+	D3DXVECTOR3 GetOldPosition(void) { return m_OldPosition; }
 	D3DXVECTOR3 GetRotation(void) { return m_Rotation; }
 	D3DXVECTOR3 GetScale(void) { return m_Scale; }
+
 
 	D3DXVECTOR3 GetRight(void) //�E�����x�N�g���擾
 	{

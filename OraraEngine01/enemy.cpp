@@ -1,22 +1,28 @@
 #include "main.h"
 #include "renderer.h"
+#include "boxCollision.h"
+#include "sphereCollision.h"
 #include "enemy.h"
 
 
 void Enemy::Init()
 {
-	m_Model = new Model();
-	m_Model->Load("asset\\model\\box.obj");
+    m_Model = new Model();
+    m_Model->Load("asset\\model\\box.obj");
 
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
+    m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
 
 
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
-		"shader\\boxCollisionVS.cso");
+    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
+        "shader\\boxCollisionVS.cso");
 
-	Renderer::CreatePixelShader(&m_PixelShader,
-		"shader\\boxCollisionPS.cso");
+    Renderer::CreatePixelShader(&m_PixelShader,
+        "shader\\boxCollisionPS.cso");
+
+    m_Collision = AddComponent<SphereCollision>();
+    m_Collision->SetObject(this);
+    //m_Collision->SetOffset(D3DXVECTOR3(0.0f, 3.0f, 0.0f));
 }
 
 void Enemy::Uninit()
@@ -37,11 +43,15 @@ void Enemy::Update()
 	//rot.x += 0.1f;
 	//rot.y += 0.1f;
  //   rot.z += 0.1f;
+   
+    GameObject::Update();
 }
 
 void Enemy::Draw()
 {
+    GameObject::Draw();
 	//入力レイアウト設定
+
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
 	//シェーダー設定

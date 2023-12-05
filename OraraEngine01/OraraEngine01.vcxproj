@@ -151,10 +151,12 @@
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="box.cpp" />
-    <ClCompile Include="boxCollisionDraw.cpp" />
+    <ClCompile Include="boxCollision.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="child.cpp" />
+    <ClCompile Include="collisionManager.cpp" />
+    <ClCompile Include="collisionShape.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -189,7 +191,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="skyDome.cpp" />
-    <ClCompile Include="sphereCollisionDraw.cpp" />
+    <ClCompile Include="sphereCollision.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="tetureManager.cpp" />
     <ClCompile Include="title.cpp" />
@@ -202,10 +204,12 @@
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="box.h" />
-    <ClInclude Include="boxCollisionDraw.h" />
+    <ClInclude Include="boxCollision.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="child.h" />
+    <ClInclude Include="collisionManager.h" />
+    <ClInclude Include="collisionShape.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="dropFile.h" />
@@ -243,7 +247,7 @@
     <ClInclude Include="shadow.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="skyDome.h" />
-    <ClInclude Include="sphereCollisionDraw.h" />
+    <ClInclude Include="sphereCollision.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="title.h" />
