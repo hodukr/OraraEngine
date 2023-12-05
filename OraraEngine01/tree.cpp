@@ -31,7 +31,7 @@ void Tree::Init()
 	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DYNAMIC;
@@ -74,53 +74,55 @@ void Tree::Draw()
 {
 	Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
-	//“ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[Ý’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒJƒƒ‰‚Ìƒrƒ…[ƒ}ƒgƒŠƒNƒXŽæ“¾
+	//ã‚«ãƒ¡ãƒ©ã®ãƒ“ãƒ¥ãƒ¼ãƒžãƒˆãƒªã‚¯ã‚¹å–å¾—
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 	D3DXMATRIX view = camera->GetViewMatrix();
 
-	//ƒrƒ…[‚Ì‹ts—ñ
+	//ãƒ“ãƒ¥ãƒ¼ã®é€†è¡Œåˆ—
 	D3DXMATRIX invView;
 	D3DXMatrixInverse(&invView, NULL, &view);
 	invView._41 = 0.0f;
 	invView._42 = 0.0f;
 	invView._43 = 0.0f;
 
-	//ƒ}ƒgƒŠƒNƒXÝ’è
-	D3DXMATRIX world, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	//D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	//ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
+    D3DXMATRIX world, scale, rot, trans;
+    D3DXVECTOR3 Scale = m_Transform->GetPosition().dx();
+    D3DXVECTOR3 Position = m_Transform->GetRotation().dx();
+
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
 	world = scale * invView * trans;
 	Renderer::SetWorldMatrix(&world);
 
-	//’¸“_ƒoƒbƒtƒ@Ý’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
 	Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-	//ƒ}ƒeƒŠƒAƒ‹Ý’è
+	//ãƒžãƒ†ãƒªã‚¢ãƒ«è¨­å®š
 	MATERIAL material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
 
-	//ƒeƒNƒXƒ`ƒƒÝ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
 
-	//ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWÝ’è
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãƒˆãƒãƒ­ã‚¸è¨­å®š
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	Renderer::SetATCEnable(true);
-	//ƒ|ƒŠƒSƒ“•`‰æ
+	//ãƒãƒªã‚´ãƒ³æç”»
 	Renderer::GetDeviceContext()->Draw(4, 0);
 
 	Renderer::SetATCEnable(false);

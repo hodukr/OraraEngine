@@ -75,6 +75,9 @@
     <ClCompile Include="box.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="boxCollisionDraw.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="bullet.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -138,9 +141,6 @@
     <ClCompile Include="polygon2D.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="reflection.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -162,6 +162,9 @@
     <ClCompile Include="skyDome.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="sphereCollisionDraw.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="sprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -180,17 +183,26 @@
     <ClCompile Include="tree.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="collisionManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="collisionShape.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="boxCollision.cpp">
+    <ClCompile Include="material.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="sphereCollision.cpp">
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="reflection.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="cameracm.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +332,9 @@
     <ClInclude Include="skyDome.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="sphereCollisionDraw.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="sprite.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -344,20 +359,32 @@
     <ClInclude Include="animationModel.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="boxCollisionDraw.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="model.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="collisionManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="collisionShape.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="boxCollision.h">
+    <ClInclude Include="material.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="sphereCollision.h">
+    <ClInclude Include="mesh.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="inspector.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="reflection.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="cameracm.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

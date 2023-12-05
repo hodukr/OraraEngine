@@ -24,7 +24,7 @@ private:
 	ID3D11PixelShader* m_PixelShader{};
 	ID3D11InputLayout* m_VertexLayout{};
 
-	D3DXVECTOR3 m_Velocity{};
+	Vector3 m_Velocity{};
 
 	class Audio* m_ShotSE{};
 	class Shadow* m_Shadow{};

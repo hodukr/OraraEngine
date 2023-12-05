@@ -1,77 +1,74 @@
 #pragma once
-
-#include <string>
 #include <vector>
-#include <exception>
 #include <functional>
-#include <iostream>
+#include <string>
+#include "singleton.h"
+//#include <cereal/types/memory.hpp>
 
-class Assembly
+class ReflectionList
 {
 public:
-    // リフレクション用のインターフェース
-    class IReflection
+    class IReflection//インターフェイス
     {
     public:
-        std::function<const std::string& ()> GetTypeName;
-        std::function<void* ()> CreateInstance;
+        std::string m_Name;
+        std::function<void* ()> m_CreateInstans;
+        IReflection(std::string name, std::function<void* ()> createFunction)
+            :m_Name(name), m_CreateInstans(createFunction){}
 
-        // 所有権の移動によりコピーの無駄を無くしておく
-        IReflection(
-            std::function<const std::string& ()>&& getTypeName,
-            std::function<void* ()>&& createInstance) :
-            GetTypeName(getTypeName),
-            CreateInstance(createInstance)
-        {
-        }
     };
-private:
-    // リフレクション用のインターフェースの集合
-    static std::vector<Assembly::IReflection> assemblies;
-public:
-    // クラス名を一覧表示
-    static void ShowClassNames()
-    {
-        for (IReflection& a : assemblies)
-        {
-            std::cout << a.GetTypeName() << std::endl;
-        }
-    }
 
-    // ファクトリ(インスタンス生成)用のメソッド
-    static void* CreateInstance(const std::string& typeName)
+private:
+    static std::vector<IReflection> m_InstansList;
+
+public:
+    std::vector<std::string> GetNameList()
     {
-        for (IReflection& a : assemblies)
+        std::vector<std::string> nl;
+        for (auto it : m_InstansList)
         {
-            if (a.GetTypeName() == typeName)
+            nl.emplace_back(it.m_Name);
+        }
+        return nl;
+    }
+    void* CreateInstans(std::string name)
+    {
+        for (auto it : m_InstansList)
+        {
+            if (it.m_Name == name)
             {
-                return a.CreateInstance();
+                return it.m_CreateInstans();
             }
         }
-        throw std::exception(("Assembly::CreateInstance NotFound typeName=" + typeName).c_str());
+        return nullptr;
     }
 
-    // リフレクションを楽に実装するためのラッパークラス
-    template< class T > class Reflection
+
+    template<class T>
+    class Reflection
     {
     private:
-        const std::string typeName = typeid(T).name();
+        const std::string m_TypeName = typeid(T).name();
+
     public:
         Reflection()
         {
-            Assembly::assemblies.emplace_back(std::bind(&Reflection<T>::GetTypeName, this), CreateInstance);
+            m_InstansList.emplace_back(m_TypeName, CreateInctans);
         }
-        const std::string& GetTypeName() const
-        {
-            return typeName;
-        }
-        static void* CreateInstance() { return new T(); }
-    };
-};
 
-// リフレクション登録のためのマクロ
-// ※名前空間を設定しているのは、変数名の重複を避けるため。
-#define SetReflection(className) namespace className##Reflection \
-	{ \
-		 static Assembly::Reflection< className > reflection; \
-	}
+        static void* CreateInctans() { return new T; }
+        const std::string GetName() const { return m_TypeName; }
+
+    };
+
+};
+#define SetReflection(typeName)namespace typeName##Reflection \
+{\
+static ReflectionList::Reflection<typeName> reflection;\
+}
+
+
+#define SetReflectionComponent(typeName)namespace typeName##Reflection \
+{\
+static ReflectionList::Reflection<typeName> reflection;\
+}\

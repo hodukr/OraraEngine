@@ -8,15 +8,43 @@ private:
 	Vector3 m_Position = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_Scale = Vector3(1.0f, 1.0f, 1.0f);
-	int a;
 public:
-	
-	void SetWorldPosition(Vector3 pos) { m_Position = pos; }
-	Vector3 GetWorldPosition() { return m_Position; }
-	void SetWorldRotation(Vector3 rot) { m_Rotation = rot; }
-	Vector3 GetWorldScale() { return m_Scale; }
-	void SetWorldScale(Vector3 sca) { m_Scale = sca; }
-	Vector3 GetWorldRotation() { return m_Rotation; }
+    Transform()
+    {
+        m_Position = Vector3(0.0f, 0.0f, 0.0f);
+        m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
+        m_Scale = Vector3(1.0f, 1.0f, 1.0f);
+    }
+    void SetPosition(Vector3 pos) { m_Position = pos; }
+    void SetPosition(float x,float y,float z) { m_Position.x = x; m_Position.y = y; m_Position.z = z;}
+    void SetPositionX(float x) { m_Position.x = x; }
+    void SetPositionY(float y) { m_Position.y = y; }
+    void SetPositionZ(float z) { m_Position.z = z; }
+
+	Vector3 GetPosition() { return m_Position; }
+
+
+    void SetRotation(Vector3 rot) { m_Rotation = rot; }
+    void SetRotation(float x, float y, float z) { m_Rotation.x = x; m_Rotation.y = y; m_Rotation.z = z; }
+    void SetRotationX(float x) { m_Rotation.x = x; }
+    void SetRotationY(float y) { m_Rotation.y = y; }
+    void SetRotationZ(float z) { m_Rotation.z = z; }
+
+
+	Vector3 GetRotation() { return m_Rotation; }
+
+    void SetScale(Vector3 sca) { m_Scale = sca; }
+    void SetScale(float x, float y, float z) { m_Scale.x = x; m_Scale.y = y; m_Scale.z = z; }
+    void SetScaleX(float x) { m_Scale.x = x; }
+    void SetScaleY(float y) { m_Scale.y = y; }
+    void SetScaleZ(float z) { m_Scale.z = z; }
+
+    Vector3 GetScale() { return m_Scale; }
+
+
+
+
+
 
 	void Translate(Vector3 moveVec) { m_Position += moveVec; }
 	void Rotate(Vector3 rotVec) { m_Rotation += rotVec; }
@@ -51,5 +79,11 @@ public:
 
 
 //ファイルへの読み書き
-
+    template<class Archive>
+    void serialize(Archive& archive)
+    {
+        archive(CEREAL_NVP(m_Position), CEREAL_NVP(m_Rotation), CEREAL_NVP(m_Scale));
+    }
 };
+CEREAL_REGISTER_TYPE(Transform);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component,Transform)

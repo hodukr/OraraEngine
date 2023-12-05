@@ -32,19 +32,23 @@ void Cylinder::Update()
 
 void Cylinder::Draw()
 {
-	//“ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[Ý’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXÝ’è
-	D3DXMATRIX world, scale, rot, trans;
+	//ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
+    D3DXMATRIX world, scale, rot, trans;
+    D3DXVECTOR3 Scale = m_Transform->GetPosition().dx();
+    D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_Transform->GetRotation().dx();
 
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y + D3DX_PI, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
+    world = scale * rot * trans;
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);

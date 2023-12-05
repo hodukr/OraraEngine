@@ -1,127 +1,152 @@
 #pragma once
 
 #include <list>
+#include <Vector>
+#include <cereal/cereal.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/memory.hpp>  
+#include <string>
+#include "main.h"
+#include "cameracm.h"
 #include "component.h"
-
-
+#include "transform.h"
+#include "mesh.h"
+#include "material.h"
 class GameObject
 {
-protected:
-	bool m_Destroy = false;
-
-	D3DXVECTOR3 m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 m_OldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	D3DXVECTOR3 m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	D3DXVECTOR3 m_Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-
-	float       m_radius{};
-
-	std::list<Component*> m_Component;
+private:
+    std::string m_ObjctName;
+    bool m_Destroy = false;
+    std::list<std::unique_ptr<Component>> m_Component;
 
 public:
-	void SetDestroy() { m_Destroy = true; }
+    Transform* m_Transform = nullptr;
+    GameObject() {
 
-	bool Destroy()
-	{
-		if (m_Destroy)
-		{
-			Uninit();
-			delete this;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+    }
+    void SetDestroy() { m_Destroy = true; }
 
-	void SetPosition(D3DXVECTOR3 position) { m_Position = position;}
-	void SetRotation(D3DXVECTOR3 rotation) { m_Rotation = rotation;}
-	void SetScale(D3DXVECTOR3 scale) { m_Scale = scale; }
-    void SetOldPosition(D3DXVECTOR3 position) { m_OldPosition = position; }
-	D3DXVECTOR3 GetPosition(void) { return m_Position; }
-	D3DXVECTOR3 GetOldPosition(void) { return m_OldPosition; }
-	D3DXVECTOR3 GetRotation(void) { return m_Rotation; }
-	D3DXVECTOR3 GetScale(void) { return m_Scale; }
+    bool Destroy()
+    {
+        if (m_Destroy)
+        {
+            Uninit();
+            //delete this;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    virtual void Init() {
+        if (m_ObjctName == "")
+        {
+            m_ObjctName = typeid(*this).name();
+            m_ObjctName = m_ObjctName.substr(6);
+        }
+        m_Transform = GetComponent<Transform>();
+        if (!m_Transform)
+        {
+            std::unique_ptr<Transform> transform = std::make_unique<Transform>();
+            transform.get()->SetGameObejct(this);
+            m_Transform = transform.get();
+            m_Component.push_back(std::move(transform));
+        }
 
 
-	D3DXVECTOR3 GetRight(void) //�E�����x�N�g���擾
-	{
-		D3DXMATRIX rot;
-		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+        for (auto& component : m_Component)
+        {
+            component.get()->SetGameObejct(this);
+            component.get()->Init();
+        }
 
-		D3DXVECTOR3 forward;
-		forward.x = rot._11;
-		forward.y = rot._12;
-		forward.z = rot._13;
+    };
 
-		return forward;
-	}
-	D3DXVECTOR3 GetUp(void) //������x�N�g���擾
-	{
-		D3DXMATRIX rot;
-		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+    virtual void Uninit()
+    {
+        for (const auto& component : m_Component)
+        {
+            component->Uninit();
+        }
 
-		D3DXVECTOR3 forward;
-		forward.x = rot._21;
-		forward.y = rot._22;
-		forward.z = rot._23;
+        m_Component.clear();
+    };
 
-		return forward;
-	}
-	D3DXVECTOR3 GetForward(void) //�O�����x�N�g���擾
-	{ 
-		D3DXMATRIX rot;
-		D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+    virtual void Update()
+    {
+        for (const auto& component : m_Component)
+        {
+            component->Update();
+        }
+        m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
 
-		D3DXVECTOR3 forward;
-		forward.x = rot._31;
-		forward.y = rot._32;
-		forward.z = rot._33;
+    };
 
-		return forward; 
-	}
-	
-	virtual void Init() {}; //���z�֐�
-	//virtual void Init() = 0; �������z�֐��@��΂ɂ����Ă΂Ȃ��Ⴂ���Ȃ��Ȃ�
-	virtual void Uninit() 
-	{
-		for (Component* component : m_Component)
-		{
-			component->Uninit();
-			delete component;
-	    }
+    virtual void Draw()
+    {
+        for (const auto& component : m_Component)
+        {
+            component->Draw();
+        }
+    };
 
-		m_Component.clear();
-	}; 
+    void SetName(std::string name)
+    {
+        m_ObjctName = name;
+    }
 
- 	virtual void Update() 
-	{
-		for (Component* component : m_Component)
-		{
-			component->Update();
-		}
-	};
+    std::string GetName()
+    {
+        return m_ObjctName;
+    }
 
-	virtual void Draw() 
-	{
-		for (Component* component : m_Component)
-		{
-			component->Draw();
-		}
-	};
+    template<typename T>
+    T* AddComponent()
+    {
+        std::unique_ptr<Component> component = std::make_unique<T>();
+        component->SetObjectName(m_ObjctName);
+        component->SetGameObejct(this);
+        component->Init();
+        m_Component.push_back(std::move(component));
 
-	template<typename T>//�e���v���[�g�֐�
-	T* AddComponent()
-	{
-		Component* component = new T();
-		m_Component.push_back(component);
-		component->Init();
+        return dynamic_cast<T*>(m_Component.back().get());
+    }
 
-		//�X�^�e�B�b�N�L���X�g��int�Ȃǂł�
-		//             �g���邪�_�C�i�~�b�N�L���X�g���댯
-		//return static_cast<T*>(component);
-		//�_�C�i�~�b�N�L���X�g�͎Q�Ƃ܂��̓|�C���^�̂�
-		return dynamic_cast<T*>(component);
-	}
-}; 
+    void AddComponent(void* component)
+    {
+        std::unique_ptr<Component> com(static_cast<Component*>(component));
+        com->SetObjectName(m_ObjctName);
+        com->SetGameObejct(this);
+        com->Init();
+        m_Component.push_back(std::move(com));
+
+    }
+
+    template<typename T>//テンプレート関数
+    T* GetComponent()
+    {
+        for (auto& componet : m_Component)
+        {
+            //メモリをくうのであまり使わないほうがいい
+            if (typeid(*componet) == typeid(T))//型を調べる(RTTI動的型情報)
+            {
+                return dynamic_cast<T*>(componet.get());
+            }
+        }
+
+        return nullptr;
+    }
+
+    std::list<std::unique_ptr<Component>>* GetList()
+    {
+        return &m_Component;
+    }
+
+    template<class Archive>
+    void serialize(Archive& archive)
+    {
+        archive(CEREAL_NVP(m_ObjctName),CEREAL_NVP(m_Component));
+    }
+};

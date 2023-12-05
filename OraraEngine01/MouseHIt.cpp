@@ -13,8 +13,7 @@ void MouseHit::Init()
     GameObject::Init();
     m_Model = new Model();
     m_Model->Load("asset\\model\\torus.obj");
-    m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
+    m_Transform->SetScale(0.8f, 0.8f, 0.8f);
 
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
         "shader\\vertexLightingVS.cso");
@@ -46,46 +45,48 @@ void MouseHit::Update()
 
 
 
-    //ƒXƒNƒŠ[ƒ“À•W‚©‚çƒrƒ…[ƒ|[ƒgÀ•W‚Ö‚Ì•ÏŠ·
-    D3DXVECTOR3 screenSpace(m_MousePos.x, m_MousePos.y, 0.0f); // ƒ}ƒEƒX‚ÌƒXƒNƒŠ[ƒ“À•W
+    //ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‹ã‚‰ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆåº§æ¨™ã¸ã®å¤‰æ›
+    D3DXVECTOR3 screenSpace(m_MousePos.x, m_MousePos.y, 0.0f); // ãƒã‚¦ã‚¹ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™
     D3DXVECTOR3 viewportSpace;
     viewportSpace.x = (2.0f * screenSpace.x / SCREEN_WIDTH) - 1.0f;
     viewportSpace.y = 1.0f - (2.0f * screenSpace.y / SCREEN_HEIGHT);
-    viewportSpace.z = 0.0f; // ƒXƒNƒŠ[ƒ“À•W‚©‚ç‚Ì[“x’li’Êí‚Í0.0f‚ğg—pj
+    viewportSpace.z = 0.0f; // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‹ã‚‰ã®æ·±åº¦å€¤ï¼ˆé€šå¸¸ã¯0.0fã‚’ä½¿ç”¨ï¼‰
 
-    //ƒrƒ…[ƒ|[ƒgÀ•W‚©‚çƒ[ƒ‹ƒhÀ•W‚Ö‚Ì•ÏŠ·
+    //ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆåº§æ¨™ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã¸ã®å¤‰æ›
     D3DXMATRIX projectionMatrix, viewMatrix;
 
-    // ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñAƒrƒ…[s—ñ
+    // ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã€ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
     viewMatrix = camera->GetViewMatrix();
 
-    // ƒXƒNƒŠ[ƒ“‚ÌƒAƒXƒyƒNƒg”äi• / ‚‚³j
+    // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ï¼ˆå¹… / é«˜ã•ï¼‰
     float aspectRatio = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT);
-    // ‰æŠpiFOVYjAƒAƒXƒyƒNƒg”äA‹ßƒNƒŠƒbƒv–ÊA‰“ƒNƒŠƒbƒv–Ê‚ğw’è‚µ‚ÄƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚ğì¬
+    // ç”»è§’ï¼ˆFOVYï¼‰ã€ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã€è¿‘ã‚¯ãƒªãƒƒãƒ—é¢ã€é ã‚¯ãƒªãƒƒãƒ—é¢ã‚’æŒ‡å®šã—ã¦ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã‚’ä½œæˆ
     D3DXMatrixPerspectiveFovLH(&projectionMatrix, 1.0f,(float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
 
     D3DXMATRIX Matrix = viewMatrix * projectionMatrix;
 
-    D3DXMATRIX inverseViewProjection; // ƒrƒ…[s—ñ‚ÆƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ì‹ts—ñ‚ğŠ|‚¯‚½s—ñ
+    D3DXMATRIX inverseViewProjection; // ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã¨ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®é€†è¡Œåˆ—ã‚’æ›ã‘ãŸè¡Œåˆ—
     D3DXMatrixInverse(&inverseViewProjection, NULL, &Matrix);
 
 
 
     D3DXVECTOR3 worldSpace;
     D3DXVec3TransformCoord(&worldSpace, &viewportSpace, &inverseViewProjection);
-    m_Position = worldSpace;
+    Vector3 vec(worldSpace);
+
+    m_Transform->SetPosition(vec);
 }
 
 void MouseHit::Draw()
 {
-    ////“ü—ÍƒŒƒCƒAƒEƒgİ’è
+    ////å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
     //Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-    ////ƒVƒF[ƒ_[İ’è
+    ////ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
     //Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
     //Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-    ////ƒ}ƒgƒŠƒNƒXİ’è
+    ////ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
     //D3DXMATRIX world, scale, rot, trans;
 
     //D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);

@@ -1,15 +1,15 @@
 #pragma once
-//zŠÂQÆ‚É‚È‚é‚Ì‚Å‘O•ûéŒ¾
+//å¾ªç’°å‚ç…§ã«ãªã‚‹ã®ã§å‰æ–¹å®£è¨€
 //class Scene;
-//‘O•ûéŒ¾‚Íƒ|ƒCƒ“ƒ^‚Åg‚¤‚Ì‚İ
-//Œp³‚É‚Íg—p•s‰Â
+//å‰æ–¹å®£è¨€ã¯ãƒã‚¤ãƒ³ã‚¿ã§ä½¿ã†æ™‚ã®ã¿
+//ç¶™æ‰¿ã«ã¯ä½¿ç”¨ä¸å¯
 
 #include "scene.h"
 
 class Manager
 {
 private:
-	//Maneger‚ÍƒCƒ“ƒXƒ^ƒ“ƒX‚µ‚È‚¢‚Ì‚ÅÃ“I‚Éì‚é
+	//Manegerã¯ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã—ãªã„ã®ã§é™çš„ã«ä½œã‚‹
 	static Scene* m_Scene;
 	static Scene* m_NextScene;
 
@@ -26,5 +26,8 @@ public:
 	{
 		m_NextScene = new T();
 	}
-	
+    static void SetScene(Scene* scene)
+    {
+        m_NextScene = scene;
+    }
 };

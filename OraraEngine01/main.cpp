@@ -8,7 +8,7 @@
 
 
 const char* CLASS_NAME = "AppClass";
-const char* WINDOW_NAME = "DX11ゲーム";
+const char* WINDOW_NAME = "DX11Game";
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -20,6 +20,7 @@ HWND GetWindow()
 {
 	return g_Window;
 }
+
 
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -37,7 +38,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		wcex.hIcon = nullptr;
 		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wcex.hbrBackground = nullptr;
-		wcex.lpszMenuName = nullptr;
+        wcex.lpszMenuName = nullptr;
 		wcex.lpszClassName = CLASS_NAME;
 		wcex.hIconSm = nullptr;
 
@@ -51,7 +52,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
 	}
 
-	//外部からのファイルを受け入れる
+	//螟夜Κ縺九ｉ縺ｮ繝輔ぃ繧､繝ｫ繧貞女縺大�･繧後ｋ
 	DragAcceptFiles(g_Window, TRUE);
 
 	Manager::Init();

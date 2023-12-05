@@ -8,6 +8,7 @@ private:
     Singleton(GuiManager);
     static std::string m_Text;
 public:
+    void SetUp();
     void Init();
     void Uninit();
     void Update();

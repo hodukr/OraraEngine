@@ -7,8 +7,8 @@
 
 void Camera::Init()
 {
-	m_Position = D3DXVECTOR3(0.0f, 5.0f, -10.0f);
-	m_Target = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_Transform->SetPosition(0.0f, 5.0f, -10.0f);
+	m_Target = Vector3(0.0f, 0.0f, 0.0f);
 
 	m_flag = false;
 }
@@ -18,8 +18,8 @@ void Camera::Update()
 	Scene* scene = Manager::GetScene();
 	Player* player = scene->GetGameObject<Player>();
 
-	//ƒgƒbƒvƒrƒ…[(3Dƒ}ƒŠƒI)
-	//Player‚ğ’†S‚É’Ç]‚·‚éƒJƒƒ‰
+	//ãƒˆãƒƒãƒ—ãƒ“ãƒ¥ãƒ¼(3Dãƒãƒªã‚ª)
+	//Playerã‚’ä¸­å¿ƒã«è¿½å¾“ã™ã‚‹ã‚«ãƒ¡ãƒ©
 	/*m_Target = player->GetPosition();
 	m_Position = m_Target + D3DXVECTOR3(0.0f, 5.0f, 0.0f);
 
@@ -27,18 +27,18 @@ void Camera::Update()
 	m_Position += D3DXVECTOR3(cosf(rot), 0.0f, sinf(rot)) * 5.0f;
 	rot+=0.01;*/
 
-	//ƒT[ƒhƒp[ƒ\ƒ“ƒrƒ…[(ƒtƒH[ƒgƒiƒCƒg)
+	//ã‚µãƒ¼ãƒ‰ãƒ‘ãƒ¼ã‚½ãƒ³ãƒ“ãƒ¥ãƒ¼(ãƒ•ã‚©ãƒ¼ãƒˆãƒŠã‚¤ãƒˆ)
 	
-	m_Target = player->GetPosition() + player->GetRight() * 0.5f + D3DXVECTOR3(0.0f, 2.0f, 0.0f);
-	m_Position = m_Target - player->GetForward() * 5.0f + D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	m_Target = player->m_Transform->GetPosition();
+	Vector3 position  = m_Target - player->m_Transform->GetForward() * 10.0f + Vector3::Up() * 10.0f;
+    m_Transform->SetPosition(position);
 
 
-
-	//ƒtƒ@[ƒXƒgƒp[ƒ\ƒ“ƒrƒ…[
+	//ãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆãƒ‘ãƒ¼ã‚½ãƒ³ãƒ“ãƒ¥ãƒ¼
 	//m_Position = player->GetPosition() + D3DXVECTOR3(0.0f, 1.5f, 0.0f);
 	//m_Target = m_Position + player->GetForward();
 
-	//©•ª
+	//è‡ªåˆ†
 	/*static D3DXVECTOR3 pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Target = player->GetPosition() + D3DXVECTOR3(0.0f, 2.0f, 0.0f);
 	pos = m_Target - player->GetForward() * 5.0f + D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -67,14 +67,17 @@ void Camera::Update()
 
 void Camera::Draw()
 {
-    //ƒrƒ…[ƒ}ƒgƒŠƒNƒXİ’è
+    //ãƒ“ãƒ¥ãƒ¼ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	D3DXMatrixLookAtLH(&m_ViewMatrix, &m_Position, &m_Target, &up);
+    D3DXVECTOR3 position = m_Transform->GetPosition().dx();
+    D3DXVECTOR3 target = m_Target.dx();
+
+	D3DXMatrixLookAtLH(&m_ViewMatrix, &position, &target, &up);
 
 	Renderer::SetViewMatrix(&m_ViewMatrix);
 
 
-	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ}ƒgƒŠƒNƒXİ’è
+	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX projectionMatrix;
 	D3DXMatrixPerspectiveFovLH(&projectionMatrix, 1.0f,
 		(float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
