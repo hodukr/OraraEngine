@@ -19,7 +19,4 @@ public:
 	void Update();
 	void Draw();
 
-    void ResetPos(){
-        m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    }
 };

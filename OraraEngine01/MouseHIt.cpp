@@ -45,27 +45,27 @@ void MouseHit::Update()
 
 
 
-    //スクリーン座標からビューポート座標への変換
-    D3DXVECTOR3 screenSpace(m_MousePos.x, m_MousePos.y, 0.0f); // マウスのスクリーン座標
+    //スクリーン座標からビューポート座標への変換 
+    D3DXVECTOR3 screenSpace(m_MousePos.x, m_MousePos.y, 0.0f); // マウスのスクリーン座標 
     D3DXVECTOR3 viewportSpace;
     viewportSpace.x = (2.0f * screenSpace.x / SCREEN_WIDTH) - 1.0f;
     viewportSpace.y = 1.0f - (2.0f * screenSpace.y / SCREEN_HEIGHT);
-    viewportSpace.z = 0.0f; // スクリーン座標からの深度値（通常は0.0fを使用）
+    viewportSpace.z = 0.0f; // スクリーン座標からの深度値（通常は0.0fを使用） 
 
-    //ビューポート座標からワールド座標への変換
+    //ビューポート座標からワールド座標への変換 
     D3DXMATRIX projectionMatrix, viewMatrix;
 
-    // プロジェクション行列、ビュー行列
+    // プロジェクション行列、ビュー行列 
     viewMatrix = camera->GetViewMatrix();
 
     // スクリーンのアスペクト比（幅 / 高さ）
     float aspectRatio = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT);
-    // 画角（FOVY）、アスペクト比、近クリップ面、遠クリップ面を指定してプロジェクション行列を作成
+    // 画角（FOVY）、アスペクト比、近クリップ面、遠クリップ面を指定してプロジェクション行列を作成 
     D3DXMatrixPerspectiveFovLH(&projectionMatrix, 1.0f,(float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
 
     D3DXMATRIX Matrix = viewMatrix * projectionMatrix;
 
-    D3DXMATRIX inverseViewProjection; // ビュー行列とプロジェクション行列の逆行列を掛けた行列
+    D3DXMATRIX inverseViewProjection; // ビュー行列とプロジェクション行列の逆行列を掛けた行列 
     D3DXMatrixInverse(&inverseViewProjection, NULL, &Matrix);
 
 

@@ -6,6 +6,7 @@ class Transform :public Component
 {
 private:
 	Vector3 m_Position = Vector3(0.0f, 0.0f, 0.0f);
+	Vector3 m_OldPosition = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_Scale = Vector3(1.0f, 1.0f, 1.0f);
 public:
@@ -23,7 +24,14 @@ public:
 
 	Vector3 GetPosition() { return m_Position; }
 
+    void SetOldPosition(Vector3 pos) { m_OldPosition = pos; }
+    void SetOldPosition(float x, float y, float z) { m_OldPosition.x = x; m_OldPosition.y = y; m_OldPosition.z = z; }
+    void SetOldPositionX(float x) { m_OldPosition.x = x; }
+    void SetOldPositionY(float y) { m_OldPosition.y = y; }
+    void SetOldPositionZ(float z) { m_OldPosition.z = z; }
 
+    Vector3 GetOldePosition() { return m_OldPosition; }
+   
     void SetRotation(Vector3 rot) { m_Rotation = rot; }
     void SetRotation(float x, float y, float z) { m_Rotation.x = x; m_Rotation.y = y; m_Rotation.z = z; }
     void SetRotationX(float x) { m_Rotation.x = x; }
@@ -78,7 +86,7 @@ public:
 
 
 
-//ファイルへの読み書き
+//ファイルへの読み書き 
     template<class Archive>
     void serialize(Archive& archive)
     {

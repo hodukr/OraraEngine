@@ -43,15 +43,15 @@ void Transform::Revolution(Vector3 center, Vector3 axis, float angle, bool isObj
 {
 	Vector3 vector = center - m_Position;
 
-	// ラジアンに変換
+	// ラジアンに変換 
 	float radian = angle * static_cast<float>(D3DX_PI) / 180.0f;
 
-	// 回転行列の要素を計算
+	// 回転行列の要素を計算 
 	float cosTheta = std::cos(radian);
 	float sinTheta = std::sin(radian);
 	float oneMinusCosTheta = 1.0f - cosTheta;
 
-	// 回転行列の各要素を計算
+	// 回転行列の各要素を計算 
 	float x = vector.x * (cosTheta + oneMinusCosTheta * axis.x * axis.x) +
 		vector.y * (oneMinusCosTheta * axis.x * axis.y - axis.z * sinTheta) +
 		vector.z * (oneMinusCosTheta * axis.x * axis.z + axis.y * sinTheta);

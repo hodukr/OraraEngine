@@ -10,13 +10,6 @@ void Enemy::Init()
     m_Model = new Model();
     m_Model->Load("asset\\model\\box.obj");
 
-<<<<<<< HEAD
-    m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
-=======
-    m_Transform->SetScale(0.8f, 0.8f, 0.8f);
->>>>>>> develop
-
 
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
         "shader\\boxCollisionVS.cso");

@@ -21,7 +21,7 @@ void Cameracm::Update()
 
 void Cameracm::Draw()
 {
-    //ビューマトリクス設定
+    //ビューマトリクス設定 
     D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
     D3DXVECTOR3 position = m_GameObject->m_Transform->GetPosition().dx();
     D3DXVECTOR3 target = m_Target.dx();
@@ -31,7 +31,7 @@ void Cameracm::Draw()
     Renderer::SetViewMatrix(&m_ViewMatrix);
 
 
-    //プロジェクションマトリクス設定
+    //プロジェクションマトリクス設定 
     D3DXMATRIX projectionMatrix;
     D3DXMatrixPerspectiveFovLH(&projectionMatrix, 1.0f,
         (float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);

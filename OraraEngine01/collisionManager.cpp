@@ -98,6 +98,6 @@ void CollisionManager::Update()
             }
         }
         (*it1)->SetOldPosition((*it1)->GetPosition());
-        (*it1)->GetObjct()->SetOldPosition((*it1)->GetObjct()->GetPosition());
+        (*it1)->GetObjct()->m_Transform->SetOldPosition((*it1)->GetObjct()->m_Transform->GetPosition());
     }
 }

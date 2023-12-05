@@ -41,7 +41,7 @@ void SphereCollision::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer[2]);
 
-    //頂点色が何故かDiffuseで変えられなかったためシェーダーで変える
+    //頂点色が何故かDiffuseで変えられなかったためシェーダーで変える 
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
         "shader\\boxCollisionVS.cso");
 
@@ -62,7 +62,7 @@ void SphereCollision::Uninit()
 }
 void SphereCollision::Update()
 {
-    m_Position = m_Object->GetPosition();
+    m_Position = m_Object->m_Transform->GetPosition();
     m_Position += m_Offset;
 }
 
@@ -184,15 +184,15 @@ bool SphereCollision::CollideWith(BoxCollision* other)
 
         // 重なっている場合の補正
         float distance = std::sqrt(distanceSquared);
-        D3DXVECTOR3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+        Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
 
         // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
-        D3DXVECTOR3 vec = normal * (m_Size - distance);
+        Vector3 vec = normal * (m_Size - distance);
 
         // ポジションの補正
-        D3DXVECTOR3 pos = m_Position - m_Offset + vec;
-        m_Object->SetPosition(pos);
-        m_Position = m_Object->GetPosition() + m_Offset;
+        Vector3 pos = m_Position - m_Offset + vec;
+        m_Object->m_Transform->SetPosition(pos);
+        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
         return true;
     }
 
@@ -201,7 +201,7 @@ bool SphereCollision::CollideWith(BoxCollision* other)
 
 bool SphereCollision::CollideWith(SphereCollision* other)
 {
-    D3DXVECTOR3 vec = m_Position - other->GetPosition();
+    D3DXVECTOR3 vec = m_Position.dx() - other->GetPosition().dx();
     //Sphere と Sphere の当たり判定ロジック
     float distanceSquared = D3DXVec3LengthSq(&vec);
 
@@ -217,16 +217,16 @@ bool SphereCollision::CollideWith(SphereCollision* other)
         float overlapDistance = distance - (m_Size + other->GetSize());
 
         // 重なりの方向を計算（正規化されたベクトル）
-        D3DXVECTOR3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+        Vector3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
         if (distanceSquared > 0.0f)
         {
             overlapDirection = vec / distance;
         }
 
         // 補正を適用して位置を調整
-        D3DXVECTOR3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
-        m_Object->SetPosition(pos);
-        m_Position = m_Object->GetPosition() + m_Offset;
+        Vector3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
+        m_Object->m_Transform->SetPosition(pos);
+        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
 
         return true;
     }

@@ -13,11 +13,11 @@ void GuiManager::SetUp()
 {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls 
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls 
     io.DisplaySize.x = SCREEN_WIDTH;
     io.DisplaySize.y = SCREEN_HEIGHT;
-    // フォントの読み込みと設定
+    // フォントの読み込みと設定 
     ImGui_ImplWin32_Init(GetWindow());
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
 }

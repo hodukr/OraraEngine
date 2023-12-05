@@ -13,8 +13,6 @@
 #include "cylinder.h"
 #include "box.h"
 #include "rock.h"
-#include "boxCollisionDraw.h"
-#include "sphereCollisionDraw.h"
 #include "tree.h"
 #include "bullet.h"
 #include "polygon2D.h"

@@ -26,7 +26,7 @@ void Mesh::Update()
 
 void Mesh::Draw()
 {
-    //マトリクス設定
+    //マトリクス設定 
     D3DXMATRIX world, scale, rot, trans;
     D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
     D3DXVECTOR3 Rotation = m_GameObject->m_Transform->GetRotation().dx();

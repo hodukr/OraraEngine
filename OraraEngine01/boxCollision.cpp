@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "boxCollision.h"
 #include "sphereCollision.h"
+#include "gameObject.h"
 #include "input.h"
 
 
@@ -48,7 +49,7 @@ void BoxCollision::Uninit()
 }
 void BoxCollision::Update()
 {
-    m_Position = m_Object->GetPosition();
+    m_Position = m_Object->m_Transform->GetPosition();
     m_Position += m_Offset;
 
 }
@@ -129,8 +130,8 @@ bool BoxCollision::CollideWith(BoxCollision* other)
     float minZA = m_Position.z - m_Size.z;
     float maxZA = m_Position.z + m_Size.z;
 
-    D3DXVECTOR3 pos = other->GetPosition();
-    D3DXVECTOR3 size = other->GetSize();
+    Vector3 pos = other->GetPosition();
+    Vector3 size = other->GetSize();
 
     float minXB = pos.x -  size.x;
     float maxXB = pos.x +  size.x;
@@ -147,23 +148,24 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             return true;
 
         //ポジション計算用
-        D3DXVECTOR3 pos = m_Object->GetPosition();
+        Vector3 pos = m_Object->m_Transform->GetPosition();
 
         // 補正
         if (maxYB < GetOldPosition().y - m_Size.y && minYA < maxYB || minYB > GetOldPosition().y + m_Size.y && maxYA > minYB)
         {
-            pos.y = m_Object->GetOldPosition().y;
+            //いずれバグる　
+            pos.y = m_Object->m_Transform->GetOldePosition().y;
         }
         else if(maxXB < GetOldPosition().x - m_Size.x && minXA < maxXB || minXB > GetOldPosition().x + m_Size.x && maxXA > minXB)
         {
-            pos.x = m_Object->GetOldPosition().x;
+            pos.x = m_Object->m_Transform->GetOldePosition().x;
         }
         else
         {
-            pos.z = m_Object->GetOldPosition().z;
+            pos.z = m_Object->m_Transform->GetOldePosition().z;
         }
       
-        m_Object->SetPosition(pos);
+        m_Object->m_Transform->SetPosition(pos);
         m_Position = pos + m_Offset;
        
         return true; 
@@ -198,15 +200,15 @@ bool BoxCollision::CollideWith(SphereCollision* other)
 
         // 重なっている場合の補正
         float distance = std::sqrt(distanceSquared);
-        D3DXVECTOR3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+        Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
 
         // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
-        D3DXVECTOR3 vec = normal * (other->GetSize() - distance);
+        Vector3 vec = normal * (other->GetSize() - distance);
 
         // ポジションの補正
-        D3DXVECTOR3 pos = m_Position - m_Offset + vec;
-        m_Object->SetPosition(pos);
-        m_Position = m_Object->GetPosition() + m_Offset;
+        Vector3 pos = m_Position - m_Offset + vec;
+        m_Object->m_Transform->SetPosition(pos);
+        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
 
         return true;
     }

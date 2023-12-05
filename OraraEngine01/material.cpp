@@ -38,15 +38,15 @@ void Material::Update()
 }
 
 void Material::Draw()
-{
-	//入力レイアウト
+{ 
+	//入力レイアウト 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//シェーダ設定
+	//シェーダ設定 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//マテリアル設定
+	//マテリアル設定 
 	MATERIAL material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = m_Color;

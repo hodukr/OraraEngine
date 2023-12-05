@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameObject.h"
+#include "vector"
 #include "component.h"
 #include <set>
 #include <unordered_map>
@@ -31,9 +32,9 @@ protected:
     ID3D11PixelShader* m_PixelShader{};
     ID3D11InputLayout* m_VertexLayout{};
 
-    D3DXVECTOR3 m_Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 m_OldPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 m_Offset = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    Vector3 m_Position = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 m_OldPosition = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 m_Offset = Vector3(0.0f, 0.0f, 0.0f);
 
     //コールバック 
     using CollisionCallback = std::function<void(CollisionState, CollisionShape*)>;
@@ -56,17 +57,17 @@ public:
 
     void SetTrigger(bool trigger) { m_Trigger = trigger; }
     void SetShape(Shape shape) { m_Shape = shape; }
-    void SetPosition(D3DXVECTOR3 position) { m_Position = position; }
-    void SetOldPosition(D3DXVECTOR3 position) { m_OldPosition = position; }
-    void SetOffset(D3DXVECTOR3 offset) { m_Offset = offset; }
+    void SetPosition(Vector3 position) { m_Position = position; }
+    void SetOldPosition(Vector3 position) { m_OldPosition = position; }
+    void SetOffset(Vector3 offset) { m_Offset = offset; }
     void SetObject(GameObject* object) { m_Object = object; }
     void SetStateMap(CollisionShape* shape, CollisionState state) { m_State[shape] = state; }
 
     bool GetTrigger() { return m_Trigger; }
     Shape GetShape() { return m_Shape; }
-    D3DXVECTOR3 GetPosition() { return m_Position; }
-    D3DXVECTOR3 GetOldPosition() { return m_OldPosition; }
-    D3DXVECTOR3 GetOffset() { return m_Offset; }
+    Vector3 GetPosition() { return m_Position; }
+    Vector3 GetOldPosition() { return m_OldPosition; }
+    Vector3 GetOffset() { return m_Offset; }
     GameObject* GetObjct() { return m_Object; }
     CollisionState GetState(CollisionShape* shape) { return m_State[shape]; }
     std::unordered_map<CollisionShape*, CollisionState> GetStateMap(){ return m_State; }
