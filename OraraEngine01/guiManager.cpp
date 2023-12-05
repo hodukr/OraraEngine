@@ -2,10 +2,14 @@
 #include "main.h"
 #include "renderer.h"
 #include "accessFolder.h"
+#include "menu.h"
+#include "hierarchy.h"
+#include  "Inspector.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 
-void GuiManager::Init()
+
+void GuiManager::SetUp()
 {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -13,13 +17,24 @@ void GuiManager::Init()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.DisplaySize.x = SCREEN_WIDTH;
     io.DisplaySize.y = SCREEN_HEIGHT;
-    // �t�H���g�̓ǂݍ��݂Ɛݒ�
+    // フォントの読み込みと設定
     ImGui_ImplWin32_Init(GetWindow());
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
 }
 
+void GuiManager::Init()
+{
+    Menu::Instance().Init();
+    Hierarchy::Instance().Init();
+    Inspector::Instance().Init();
+
+}
+
 void GuiManager::Uninit()
 {
+    Inspector::Instance().Uninit();
+    Hierarchy::Instance().Uninit();
+    Menu::Instance().Uninit();
 
 }
 
@@ -35,12 +50,9 @@ void GuiManager::Update()
 
 void GuiManager::Draw()
 {
-
-    ImGui::SetNextWindowSize(ImVec2(320, 100));
-    ImGui::Begin("debug", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::Text("fugafuga");
-    ImGui::End();
+    Menu::Instance().Draw();
+    Hierarchy::Instance().Draw();
+    Inspector::Instance().Draw();
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

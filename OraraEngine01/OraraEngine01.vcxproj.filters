@@ -141,9 +141,6 @@
     <ClCompile Include="polygon2D.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="reflection.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -185,6 +182,27 @@
     </ClCompile>
     <ClCompile Include="tree.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="reflection.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="cameracm.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +364,27 @@
     </ClInclude>
     <ClInclude Include="model.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="inspector.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="reflection.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="cameracm.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ private:
 	ID3D11PixelShader* m_PixelShader{};
 	ID3D11InputLayout* m_VertexLayout{};
 
-	D3DXVECTOR3 m_Velocity{};
+    Vector3 m_Velocity{};
 public:
 	static void Load();
 	static void Unload();
@@ -22,8 +22,8 @@ public:
 	void Update();
 	void Draw();
 
-	void SetBullet(D3DXVECTOR3 Position, D3DXVECTOR3 Velosity) {
+	void SetBullet(Vector3 Position, Vector3 Velosity) {
 		m_Velocity = Velosity;
-		m_Position = Position;
+		m_Transform->SetPosition(Position);
 	}
 };

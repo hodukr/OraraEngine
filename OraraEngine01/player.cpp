@@ -14,7 +14,6 @@
 #include "meshField.h"
 
 
-
 void Player::Init()
 {
 	m_Model = new AnimationModel();
@@ -30,8 +29,8 @@ void Player::Init()
 	m_NextAnimationName = "Idle";
 
 	//m_Position = D3DXVECTOR3(0.0f, 1.0f, -5.0f);
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale    = D3DXVECTOR3(0.02f, 0.02f, 0.02f);
+	m_Transform->SetPosition(0.0f, 0.0f, 0.0f);
+    m_Transform->SetScale(0.02f, 0.02f, 0.02f);
 
 
 	m_ShotSE = AddComponent<Audio>();
@@ -59,9 +58,9 @@ void Player::Uninit()
 }
 void Player::Update()
 {
-	D3DXVECTOR3 oldPosition = m_Position;
+	Vector3 oldPosition = m_Transform->GetPosition();
 
-	//ƒXƒe[ƒgƒ}ƒV[ƒ“
+	//ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ¼ãƒ³
 	switch (m_PlayerState)
 	{
 	case PLAYER_STATE_GROUND:
@@ -76,55 +75,58 @@ void Player::Update()
 
 	Scene* scene = Manager::GetScene();
 
-	//d‚¢ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚ñ‚Å‚¨‚­
+	//é‡ã„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚“ã§ãŠã
 	if (m_Count == 0)
 	{
-		scene->AddGameObject<Explosion>(1)->SetPosition(m_Position - GetForward() * 5);
+        Vector3 pos = m_Transform->GetPosition() - m_Transform->GetForward() * 5;
+		scene->AddGameObject<Explosion>(1)->m_Transform->SetPosition(pos);
 		m_Count++;
 	}
 
-	//’e‚Ì”­Ë
+	//å¼¾ã®ç™ºå°„
 	if (Input::GetKeyTrigger('F'))
 	{
 		m_ShotSE->Play();
-		scene->AddGameObject<Bullet>(1)->SetBullet(m_Position + GetUp() * 1.5f + GetForward(), GetForward() * 0.3f);
+        Vector3 setPos = m_Transform->GetPosition() + m_Transform->GetUp() + m_Transform->GetForward();
+		scene->AddGameObject<Bullet>(1)->SetBullet(setPos, m_Transform->GetForward() * 0.3f);
 	}
 
 
-	//d—Í
+	//é‡åŠ› 
 	m_Velocity.y -= 0.015f;
 
-	m_Position += m_Velocity;
+	m_Transform->Translate(m_Velocity);
 
 
-	//ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚Æ‚ÌÕ“Ë”»’è
+	//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¨ã®è¡çªåˆ¤å®š
 	float groundHeight = 0.0f;
 
 	MeshField* meshField = scene->GetGameObject<MeshField>();
 
-	groundHeight = meshField->GetHeight(m_Position);
+	groundHeight = meshField->GetHeight(m_Transform->GetPosition().dx());
 
 
-	//áŠQ•¨‚Æ‚ÌÕ“Ë”»’è
-	//‰~’Œ
+	//éšœå®³ç‰©ã¨ã®è¡çªåˆ¤å®š
+	//å††æŸ±
 	std::vector<Cylinder*> cylinders = scene->GetGameObjects<Cylinder>();
 
 	for (Cylinder* cylinder : cylinders)
 	{
-		D3DXVECTOR3 position = cylinder->GetPosition();
-		D3DXVECTOR3 scale = cylinder->GetScale();
+		Vector3 position = cylinder->m_Transform->GetPosition();
+		Vector3 scale = cylinder->m_Transform->GetScale();
 		
-	    D3DXVECTOR3 direction = m_Position - position;
+        Vector3 direction = m_Transform->GetPosition() - position;
 		direction.y = 0.0f;
-		float length = D3DXVec3Length(&direction);
+		float length = direction.Length();
 
-		if (length < m_Scale.x + scale.x)
+		if (length < m_Transform->GetScale().x + scale.x)
 		{
-			if (m_Position.y < position.y + scale.y - 0.5f)
+			if (m_Transform->GetPosition().y < position.y + scale.y - 0.5f)
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
-
+                Vector3 repos = m_Transform->GetPosition();
+                repos.x = oldPosition.x;
+                repos.z = oldPosition.z;
+                m_Transform->SetPosition(repos);
 			}
 			else 
 			{
@@ -135,23 +137,25 @@ void Player::Update()
 
 	}
 
-	//’¼•û‘Ì
+	//ç›´æ–¹ä½“
 	std::vector<Box*> boxes = scene->GetGameObjects<Box>();
 
 	for (Box* box : boxes)
 	{
-		D3DXVECTOR3 position = box->GetPosition();
-		D3DXVECTOR3 scale = box->GetScale();
+		Vector3 position = box->m_Transform->GetPosition();
+        Vector3 scale = box->m_Transform->GetScale();
 
-		if (position.x - scale.x - 0.5f < m_Position.x &&
-			m_Position.x < position.x + scale.x + 0.5 &&
-			position.z - scale.z - 0.5f < m_Position.z &&
-			m_Position.z < position.z + scale.z + 0.5f)
+		if (position.x - scale.x - 0.5f < m_Transform->GetPosition().x &&
+            m_Transform->GetPosition().x < position.x + scale.x + 0.5 &&
+			position.z - scale.z - 0.5f < m_Transform->GetPosition().z &&
+            m_Transform->GetPosition().z < position.z + scale.z + 0.5f)
 		{
-			if (m_Position.y < position.y + scale.y * 2.0f - 0.5f)
+			if (m_Transform->GetPosition().y < position.y + scale.y * 2.0f - 0.5f)
 			{
-				m_Position.x = oldPosition.x;
-				m_Position.z = oldPosition.z;
+                Vector3 repos = m_Transform->GetPosition();
+                repos.x = oldPosition.x;
+                repos.z = oldPosition.z;
+                m_Transform->SetPosition(repos);
 
 			}
 			else
@@ -163,11 +167,11 @@ void Player::Update()
 
 	}
 
-	//Ú’n
-	if (m_Position.y < groundHeight && m_Velocity.y < 0.0f)
+	//æ¥åœ°
+	if (m_Transform->GetPosition().y < groundHeight && m_Velocity.y < 0.0f)
 	{
 		m_isGround = false;
-		m_Position.y = groundHeight;
+        m_Transform->SetPositionY(groundHeight);
 		m_Velocity.y = 0.0f;
 	}
 	else
@@ -175,7 +179,7 @@ void Player::Update()
 		m_isGround = true;
 	}
 
-	m_Shadow->SetPosition(D3DXVECTOR3(m_Position.x, groundHeight + 0.01f , m_Position.z));
+	m_Shadow->SetPosition(D3DXVECTOR3(m_Transform->GetPosition().x, groundHeight + 0.01f , m_Transform->GetPosition().z));
 
 
 	GameObject::Update();
@@ -185,18 +189,22 @@ void Player::Draw()
 {
 	GameObject::Draw();
 
-	//“ü—ÍƒŒƒCƒAƒEƒgİ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[İ’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXİ’è
+	//ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX world, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+    D3DXVECTOR3 Scale = m_Transform->GetScale().dx();
+    D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_Transform->GetPosition().dx();
+
+	D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+	D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+	D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
 	world = scale * rot * trans;
 
 	m_Matrix = world;
@@ -218,8 +226,8 @@ void Player::Draw()
 
 void Player::UpdateGround()
 {
-	//ˆÚ“®
-	D3DXVECTOR3 vec = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	//ç§»å‹•
+	Vector3 vec = Vector3(0.0f, 0.0f, 0.0f);
 
 	bool move = false;
 
@@ -227,50 +235,50 @@ void Player::UpdateGround()
 	{
 		SetAnimation("RunLeft");
 
-		vec -= GetRight();
+		vec -= m_Transform->GetRight();
 		move = true;
 	}
 	if (Input::GetKeyPress('D'))
 	{
 		SetAnimation("RunRight");
 
-		vec += GetRight();
+		vec += m_Transform->GetRight();
 		move = true;
 	}
 	if (Input::GetKeyPress('W'))
 	{
 		SetAnimation("Run");
 
-		vec += GetForward();
+		vec += m_Transform->GetForward();
 		move = true;
 	}
 	if (Input::GetKeyPress('S'))
 	{
 		SetAnimation("RunBack");
 
-		vec -= GetForward();
+		vec -= m_Transform->GetForward();
 		move = true;
 	}
 
 	if (!move)
 		SetAnimation("Idle");
 
+    vec.NormalizThis();
 
-	D3DXVec3Normalize(&vec, &vec);
+    m_Transform->Translate(vec * 0.2f);
 
-	m_Position += vec * 0.2f;
-
-	//ƒvƒŒƒCƒ„[‚Ì‰ñ“]
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å›è»¢
 	if (Input::GetKeyPress('Q'))
 	{
-		m_Rotation.y -= 0.1f;
+        m_Transform->Rotate(Vector3::Up() *  - 0.1f);
 	}
 	if (Input::GetKeyPress('E'))
 	{
-		m_Rotation.y += 0.1f;
+        m_Transform->Rotate(Vector3::Up() * 0.1f);
+
 	}
 
-	//ƒWƒƒƒ“ƒv
+	//ã‚¸ãƒ£ãƒ³ãƒ—
 	if (Input::GetKeyTrigger(VK_SPACE) && m_Velocity.y == 0.0f)
 	{
 		m_Time = 0;

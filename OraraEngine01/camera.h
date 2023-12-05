@@ -5,9 +5,8 @@ class Camera :public GameObject
 {
 private:
 
-	D3DXVECTOR3 m_Target{};
+	Vector3 m_Target{};
 	D3DXMATRIX m_ViewMatrix{};
-
 	bool m_flag;
 
 public:

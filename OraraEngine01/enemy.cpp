@@ -8,8 +8,7 @@ void Enemy::Init()
 	m_Model = new Model();
 	m_Model->Load("asset\\model\\box.obj");
 
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
+    m_Transform->SetScale(0.8f, 0.8f, 0.8f);
 
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
@@ -49,17 +48,20 @@ void Enemy::Draw()
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
 	//マトリクス設定
-	D3DXMATRIX world, scale, rot, trans;
+    D3DXMATRIX world, scale, rot, trans;
+    D3DXVECTOR3 Scale = m_Transform->GetPosition().dx();
+    D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_Transform->GetRotation().dx();
 
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y + D3DX_PI, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
-	world = scale * rot * trans;
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
+    world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);
 
     PARAMETER parm;
-    parm.pos = D3DXVECTOR4(m_Position, 0.0f);
+    parm.pos = D3DXVECTOR4(m_Transform->GetPosition().dx(), 0.0f);
     Renderer::SetParameter(parm);
 
 	m_Model->Draw();

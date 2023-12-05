@@ -11,8 +11,7 @@ void SkyDome::Init()
 	m_Model = new Model();
 	m_Model->Load("asset\\model\\sky.obj");
 
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale = D3DXVECTOR3(100.0f, 100.0f, 100.0f);
+	m_Transform->SetScale(100.0f, 100.0f, 100.0f);
 
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
@@ -37,29 +36,33 @@ void SkyDome::Update()
 	Scene* scene = Manager::GetScene();
 	Camera* camera = scene->GetGameObject<Camera>();
 
-	m_Position = camera->GetPosition() + -GetUp() * 10.0f;
+    Vector3 postion = camera->m_Transform->GetPosition() - m_Transform->GetUp() * 10.0f;
+    m_Transform->SetPosition(postion);
 
-	m_Rotation.y += 0.0001f;
+    m_Transform->Rotate(Vector3::Up() * 0.0001f);
 }
 
 void SkyDome::Draw()
 {
 
 
-	//“ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[Ý’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXÝ’è
-	D3DXMATRIX world, scale, rot, trans;
+	//ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
+    D3DXMATRIX world, scale, rot, trans;
+    D3DXVECTOR3 Scale = m_Transform->GetScale().dx();
+    D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_Transform->GetPosition().dx();
 
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y + D3DX_PI, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
-	world = scale * rot * trans;
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
+    world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);
 

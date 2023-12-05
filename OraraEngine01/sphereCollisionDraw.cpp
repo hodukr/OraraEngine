@@ -65,12 +65,12 @@ void SphereCollisionDraw::Update()
     if (Input::GetKeyPress(VK_UP))
     {
         m_Size += 0.1f;
-        m_Position.y += 0.1f;
+        m_Transform->Translate(Vector3::Up() * 0.1f);
     }
 
     if (Input::GetKeyPress(VK_LEFT))
     {
-        m_Position.x -= 0.1f;
+        m_Transform->Translate(-Vector3::Right() * 0.1f);
     }
 }
 
@@ -84,9 +84,10 @@ void SphereCollisionDraw::Draw()
     Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
     Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-    //ポジションのみマトリクスに設定 
+    //ポジションのみマトリクスに設定
     D3DXMATRIX trans;
-    D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+    D3DXVECTOR3 Position = m_Transform->GetRotation().dx();
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
     Renderer::SetWorldMatrix(&trans);
 
     

@@ -23,9 +23,9 @@ void Bullet::Unload()
 
 void Bullet::Init()
 {
-	m_Rotation = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Scale = D3DXVECTOR3(0.3f, 0.3f, 0.3f);
-	m_Velocity = D3DXVECTOR3(0.0f, 0.0f, 0.1f);
+	m_Transform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+    m_Transform->SetScale(Vector3(0.3f, 0.3f, 0.3f));
+	m_Velocity = Vector3(0.0f, 0.0f, 0.1f);
 
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
 		"shader\\vertexLightingVS.cso");
@@ -46,26 +46,26 @@ void Bullet::Update()
 	auto enemies = scene->GetGameObjects<Enemy>();
 	Player* player = scene->GetGameObject<Player>();
 	
-	m_Position += m_Velocity;
+    m_Transform->Translate(m_Velocity);
 
-	D3DXVECTOR3 dDir = m_Position - player->GetPosition();
+	Vector3 dDir = m_Transform->GetPosition() - player->m_Transform->GetPosition();
 
-	if (D3DXVec3Length(&dDir) > 15.0f)
+	if (dDir.Length() > 15.0f)
 	{
-		//Á‚·—\–ñ‚ð‚·‚é
+		//æ¶ˆã™äºˆç´„ã‚’ã™ã‚‹
 		SetDestroy();
 	}
 
-	//“G‚Æ‚ÌÕ“Ë”»’è
+	//æ•µã¨ã®è¡çªåˆ¤å®š
 	for (Enemy* enemy : enemies)
 	{
-		D3DXVECTOR3 enemyPos = enemy->GetPosition();
+        Vector3 enemyPos = enemy->m_Transform->GetPosition();
 
-		D3DXVECTOR3 cDir = enemyPos - m_Position;
+        Vector3 cDir = enemyPos - m_Transform->GetPosition();
 
-		if (D3DXVec3Length(&cDir) < 2.0f)
+		if (cDir.Length() < 2.0f)
 		{
-			scene->AddGameObject<Explosion>(1)->SetPosition(m_Position);
+			scene->AddGameObject<Explosion>(1)->m_Transform->SetPosition(m_Transform->GetPosition());
 
 			SetDestroy();
 			enemy->SetDestroy();
@@ -81,18 +81,24 @@ void Bullet::Update()
 void Bullet::Draw()
 {
 
-	//“ü—ÍƒŒƒCƒAƒEƒgÝ’è
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®š
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//ƒVƒF[ƒ_[Ý’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//ƒ}ƒgƒŠƒNƒXÝ’è
+    D3DXVECTOR3 Scale = m_Transform->GetPosition().dx();
+    D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_Transform->GetRotation().dx();
+
+
+
+	//ãƒžãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	D3DXMATRIX world, scale, rot, trans;
-	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y + D3DX_PI, m_Rotation.x, m_Rotation.z);
-	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+	D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y + D3DX_PI, Rotation.x, Rotation.z);
+	D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
 	world = scale * rot * trans;
 
 	Renderer::SetWorldMatrix(&world);

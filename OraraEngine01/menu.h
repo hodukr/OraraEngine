@@ -1,13 +1,18 @@
 #pragma once
 #include "singleton.h"
-class GuiManager
+
+class Menu
 {
 private:
-    Singleton(GuiManager);
+    Singleton(Menu);
+
+    class Scene* m_Scene;
+
 public:
-    void SetUp();
     void Init();
     void Uninit();
     void Update();
     void Draw();
+
 };
+

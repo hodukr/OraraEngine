@@ -16,18 +16,17 @@ void Manager::Init()
 	Renderer::Init();
 	Input::Init();
 	Audio::InitMaster();
-	GuiManager::Instance().Init();
+    GuiManager::Instance().SetUp();
+	SetScene<Scene>();
 	//m_Scene = new Title();
 	//m_Scene->Init();
 
-	SetScene<Game>();
 }
 
 void Manager::Uninit()
 {
 	m_Scene->Uninit();
 	delete m_Scene;
-	GuiManager::Instance().Uninit();
 
 	Audio::UninitMaster();
 	Renderer::Uninit();
@@ -37,7 +36,6 @@ void Manager::Uninit()
 void Manager::Update()
 {
 	Input::Update();
-	GuiManager::Instance().Update();
 
 	if(m_NextScene)
 	{
@@ -49,9 +47,11 @@ void Manager::Update()
 
 		m_Scene = m_NextScene;
 		m_Scene->Init();
+        GuiManager::Instance().Init();
 
 		m_NextScene = nullptr;
 	}
+    GuiManager::Instance().Update();
 
 	m_Scene->Update();	
 }
