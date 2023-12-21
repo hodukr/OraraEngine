@@ -1,7 +1,7 @@
-
 #include "main.h"
 #include "renderer.h"
 #include "post.h"
+#include "postPass.h"
 
 
 void Post::Init()
@@ -47,16 +47,13 @@ void Post::Init()
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\postNoiseVS.cso");
     Renderer::CreatePixelShader(&m_PixelShader, "shader\\postNoisePS.cso");
 
-    //Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
-    //Renderer::CreatePixelShader(&m_PixelShader, "shader\\unlitTexturePS.cso");
-
     //コンスタントバッファに送るパラメーターの初期化  
-    ZeroMemory(&m_Param, sizeof(PARAMETER));
+    ZeroMemory(&m_Water, sizeof(WATER));
     //波紋用ステータス 
-    m_Param.waveAmplitude = 0.05f;                   //波の感覚：0.00～0.10   
-    m_Param.waveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
-    m_Param.pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f); 
-    m_Param.speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
+    m_Water.WaveAmplitude = 0.05f;                   //波の感覚：0.00～0.10   
+    m_Water.WaveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
+    m_Water.Pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
+    m_Water.Speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
 }
 
 
@@ -74,7 +71,7 @@ void Post::Uninit()
 
 void Post::Update()
 {
-    m_Param.time++;
+    m_Water.Time++;
 }
 
 
@@ -101,19 +98,19 @@ void Post::Draw()
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     Renderer::SetMaterial(material);
      
-    // テクスチャ設定 
+    // テクスチャ設定  
 
-    //レンダリングテクスチャを取得 
-    ID3D11ShaderResourceView* ppTexture = Renderer::GetPPTexture();
-    //レンダリングテクスチャを0番にセット 
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &ppTexture);
+    //レンダリングテクスチャを取得  
+    PostPass* post = Renderer::GetPass<PostPass>(SHADER_POST);
+    //レンダリングテクスチャを0番にセット  
+    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
 
 
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
     //乱数をシェーダーに送る 
-    Renderer::SetParameter(m_Param);
+    Renderer::SetWater(m_Water);
 
     // ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(4, 0);

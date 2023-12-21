@@ -72,19 +72,10 @@ public:
 
 	virtual void Draw()
 	{
-		//Camera* camera = GetGameObject<Camera>();
 		for (int i = 0; i < 3; i++)
 		{
-			
-			
 			for (auto& gameObject : m_GameObject[i])
 			{
-				//sort(m_GameObject->begin(), m_GameObject->end(), [camera,gameObject](float maxLen) {
-				//	D3DXVECTOR3 vec = gameObject->GetPosition() - camera->GetPosition();
-				//	float len = D3DXVec3Length(&vec);
-				//	len > maxLen;
-				//	//max
-				//	});
 				gameObject->Draw(); //ポリモーフィズム
 			}
 		}

@@ -61,29 +61,29 @@ inline void DigitGen(const DiyFp& W, const DiyFp& Mp, uint64_t delta, char* buff
     static const uint32_t kPow10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
     const DiyFp one(uint64_t(1) << -Mp.e, Mp.e);
     const DiyFp wp_w = Mp - W;
-    uint32_t p1 = static_cast<uint32_t>(Mp.f >> -one.e);
-    uint64_t p2 = Mp.f & (one.f - 1);
-    int kappa = CountDecimalDigit32(p1); // kappa in [0, 9]
+    uint32_t Praticle1 = static_cast<uint32_t>(Mp.f >> -one.e);
+    uint64_t Praticle2 = Mp.f & (one.f - 1);
+    int kappa = CountDecimalDigit32(Praticle1); // kappa in [0, 9]
     *len = 0;
 
     while (kappa > 0) {
         uint32_t d = 0;
         switch (kappa) {
-            case  9: d = p1 /  100000000; p1 %=  100000000; break;
-            case  8: d = p1 /   10000000; p1 %=   10000000; break;
-            case  7: d = p1 /    1000000; p1 %=    1000000; break;
-            case  6: d = p1 /     100000; p1 %=     100000; break;
-            case  5: d = p1 /      10000; p1 %=      10000; break;
-            case  4: d = p1 /       1000; p1 %=       1000; break;
-            case  3: d = p1 /        100; p1 %=        100; break;
-            case  2: d = p1 /         10; p1 %=         10; break;
-            case  1: d = p1;              p1 =           0; break;
+            case  9: d = Praticle1 /  100000000; Praticle1 %=  100000000; break;
+            case  8: d = Praticle1 /   10000000; Praticle1 %=   10000000; break;
+            case  7: d = Praticle1 /    1000000; Praticle1 %=    1000000; break;
+            case  6: d = Praticle1 /     100000; Praticle1 %=     100000; break;
+            case  5: d = Praticle1 /      10000; Praticle1 %=      10000; break;
+            case  4: d = Praticle1 /       1000; Praticle1 %=       1000; break;
+            case  3: d = Praticle1 /        100; Praticle1 %=        100; break;
+            case  2: d = Praticle1 /         10; Praticle1 %=         10; break;
+            case  1: d = Praticle1;              Praticle1 =           0; break;
             default:;
         }
         if (d || *len)
             buffer[(*len)++] = static_cast<char>('0' + static_cast<char>(d));
         kappa--;
-        uint64_t tmp = (static_cast<uint64_t>(p1) << -one.e) + p2;
+        uint64_t tmp = (static_cast<uint64_t>(Praticle1) << -one.e) + Praticle2;
         if (tmp <= delta) {
             *K += kappa;
             GrisuRound(buffer, *len, delta, tmp, static_cast<uint64_t>(kPow10[kappa]) << -one.e, wp_w.f);
@@ -93,17 +93,17 @@ inline void DigitGen(const DiyFp& W, const DiyFp& Mp, uint64_t delta, char* buff
 
     // kappa = 0
     for (;;) {
-        p2 *= 10;
+        Praticle2 *= 10;
         delta *= 10;
-        char d = static_cast<char>(p2 >> -one.e);
+        char d = static_cast<char>(Praticle2 >> -one.e);
         if (d || *len)
             buffer[(*len)++] = static_cast<char>('0' + d);
-        p2 &= one.f - 1;
+        Praticle2 &= one.f - 1;
         kappa--;
-        if (p2 < delta) {
+        if (Praticle2 < delta) {
             *K += kappa;
             int index = -kappa;
-            GrisuRound(buffer, *len, delta, p2, one.f, wp_w.f * (index < 9 ? kPow10[index] : 0));
+            GrisuRound(buffer, *len, delta, Praticle2, one.f, wp_w.f * (index < 9 ? kPow10[index] : 0));
             return;
         }
     }

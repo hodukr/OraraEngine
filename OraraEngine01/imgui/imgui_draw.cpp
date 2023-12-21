@@ -939,19 +939,19 @@ void ImDrawList::AddPolyline(const ImVec2* points, const int points_count, ImU32
         for (int i1 = 0; i1 < count; i1++)
         {
             const int i2 = (i1 + 1) == points_count ? 0 : i1 + 1;
-            const ImVec2& p1 = points[i1];
-            const ImVec2& p2 = points[i2];
+            const ImVec2& Praticle1 = points[i1];
+            const ImVec2& Praticle2 = points[i2];
 
-            float dx = p2.x - p1.x;
-            float dy = p2.y - p1.y;
+            float dx = Praticle2.x - Praticle1.x;
+            float dy = Praticle2.y - Praticle1.y;
             IM_NORMALIZE2F_OVER_ZERO(dx, dy);
             dx *= (thickness * 0.5f);
             dy *= (thickness * 0.5f);
 
-            _VtxWritePtr[0].pos.x = p1.x + dy; _VtxWritePtr[0].pos.y = p1.y - dx; _VtxWritePtr[0].uv = opaque_uv; _VtxWritePtr[0].col = col;
-            _VtxWritePtr[1].pos.x = p2.x + dy; _VtxWritePtr[1].pos.y = p2.y - dx; _VtxWritePtr[1].uv = opaque_uv; _VtxWritePtr[1].col = col;
-            _VtxWritePtr[2].pos.x = p2.x - dy; _VtxWritePtr[2].pos.y = p2.y + dx; _VtxWritePtr[2].uv = opaque_uv; _VtxWritePtr[2].col = col;
-            _VtxWritePtr[3].pos.x = p1.x - dy; _VtxWritePtr[3].pos.y = p1.y + dx; _VtxWritePtr[3].uv = opaque_uv; _VtxWritePtr[3].col = col;
+            _VtxWritePtr[0].pos.x = Praticle1.x + dy; _VtxWritePtr[0].pos.y = Praticle1.y - dx; _VtxWritePtr[0].uv = opaque_uv; _VtxWritePtr[0].col = col;
+            _VtxWritePtr[1].pos.x = Praticle2.x + dy; _VtxWritePtr[1].pos.y = Praticle2.y - dx; _VtxWritePtr[1].uv = opaque_uv; _VtxWritePtr[1].col = col;
+            _VtxWritePtr[2].pos.x = Praticle2.x - dy; _VtxWritePtr[2].pos.y = Praticle2.y + dx; _VtxWritePtr[2].uv = opaque_uv; _VtxWritePtr[2].col = col;
+            _VtxWritePtr[3].pos.x = Praticle1.x - dy; _VtxWritePtr[3].pos.y = Praticle1.y + dx; _VtxWritePtr[3].uv = opaque_uv; _VtxWritePtr[3].col = col;
             _VtxWritePtr += 4;
 
             _IdxWritePtr[0] = (ImDrawIdx)(_VtxCurrentIdx); _IdxWritePtr[1] = (ImDrawIdx)(_VtxCurrentIdx + 1); _IdxWritePtr[2] = (ImDrawIdx)(_VtxCurrentIdx + 2);
@@ -995,9 +995,9 @@ void ImDrawList::AddConvexPolyFilled(const ImVec2* points, const int points_coun
         for (int i0 = points_count - 1, i1 = 0; i1 < points_count; i0 = i1++)
         {
             const ImVec2& p0 = points[i0];
-            const ImVec2& p1 = points[i1];
-            float dx = p1.x - p0.x;
-            float dy = p1.y - p0.y;
+            const ImVec2& Praticle1 = points[i1];
+            float dx = Praticle1.x - p0.x;
+            float dy = Praticle1.y - p0.y;
             IM_NORMALIZE2F_OVER_ZERO(dx, dy);
             temp_normals[i0].x = dy;
             temp_normals[i0].y = -dx;
@@ -1238,23 +1238,23 @@ void ImDrawList::PathEllipticalArcTo(const ImVec2& center, float radius_x, float
     }
 }
 
-ImVec2 ImBezierCubicCalc(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, float t)
+ImVec2 ImBezierCubicCalc(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, float t)
 {
     float u = 1.0f - t;
     float w1 = u * u * u;
     float w2 = 3 * u * u * t;
     float w3 = 3 * u * t * t;
     float w4 = t * t * t;
-    return ImVec2(w1 * p1.x + w2 * p2.x + w3 * p3.x + w4 * p4.x, w1 * p1.y + w2 * p2.y + w3 * p3.y + w4 * p4.y);
+    return ImVec2(w1 * Praticle1.x + w2 * Praticle2.x + w3 * p3.x + w4 * p4.x, w1 * Praticle1.y + w2 * Praticle2.y + w3 * p3.y + w4 * p4.y);
 }
 
-ImVec2 ImBezierQuadraticCalc(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, float t)
+ImVec2 ImBezierQuadraticCalc(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, float t)
 {
     float u = 1.0f - t;
     float w1 = u * u;
     float w2 = 2 * u * t;
     float w3 = t * t;
-    return ImVec2(w1 * p1.x + w2 * p2.x + w3 * p3.x, w1 * p1.y + w2 * p2.y + w3 * p3.y);
+    return ImVec2(w1 * Praticle1.x + w2 * Praticle2.x + w3 * p3.x, w1 * Praticle1.y + w2 * Praticle2.y + w3 * p3.y);
 }
 
 // Closely mimics ImBezierCubicClosestPointCasteljau() in imgui.cpp
@@ -1301,35 +1301,35 @@ static void PathBezierQuadraticCurveToCasteljau(ImVector<ImVec2>* path, float x1
     }
 }
 
-void ImDrawList::PathBezierCubicCurveTo(const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, int num_segments)
+void ImDrawList::PathBezierCubicCurveTo(const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, int num_segments)
 {
-    ImVec2 p1 = _Path.back();
+    ImVec2 Praticle1 = _Path.back();
     if (num_segments == 0)
     {
         IM_ASSERT(_Data->CurveTessellationTol > 0.0f);
-        PathBezierCubicCurveToCasteljau(&_Path, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, _Data->CurveTessellationTol, 0); // Auto-tessellated
+        PathBezierCubicCurveToCasteljau(&_Path, Praticle1.x, Praticle1.y, Praticle2.x, Praticle2.y, p3.x, p3.y, p4.x, p4.y, _Data->CurveTessellationTol, 0); // Auto-tessellated
     }
     else
     {
         float t_step = 1.0f / (float)num_segments;
         for (int i_step = 1; i_step <= num_segments; i_step++)
-            _Path.push_back(ImBezierCubicCalc(p1, p2, p3, p4, t_step * i_step));
+            _Path.push_back(ImBezierCubicCalc(Praticle1, Praticle2, p3, p4, t_step * i_step));
     }
 }
 
-void ImDrawList::PathBezierQuadraticCurveTo(const ImVec2& p2, const ImVec2& p3, int num_segments)
+void ImDrawList::PathBezierQuadraticCurveTo(const ImVec2& Praticle2, const ImVec2& p3, int num_segments)
 {
-    ImVec2 p1 = _Path.back();
+    ImVec2 Praticle1 = _Path.back();
     if (num_segments == 0)
     {
         IM_ASSERT(_Data->CurveTessellationTol > 0.0f);
-        PathBezierQuadraticCurveToCasteljau(&_Path, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, _Data->CurveTessellationTol, 0);// Auto-tessellated
+        PathBezierQuadraticCurveToCasteljau(&_Path, Praticle1.x, Praticle1.y, Praticle2.x, Praticle2.y, p3.x, p3.y, _Data->CurveTessellationTol, 0);// Auto-tessellated
     }
     else
     {
         float t_step = 1.0f / (float)num_segments;
         for (int i_step = 1; i_step <= num_segments; i_step++)
-            _Path.push_back(ImBezierQuadraticCalc(p1, p2, p3, t_step * i_step));
+            _Path.push_back(ImBezierQuadraticCalc(Praticle1, Praticle2, p3, t_step * i_step));
     }
 }
 
@@ -1385,12 +1385,12 @@ void ImDrawList::PathRect(const ImVec2& a, const ImVec2& b, float rounding, ImDr
     }
 }
 
-void ImDrawList::AddLine(const ImVec2& p1, const ImVec2& p2, ImU32 col, float thickness)
+void ImDrawList::AddLine(const ImVec2& Praticle1, const ImVec2& Praticle2, ImU32 col, float thickness)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
-    PathLineTo(p1 + ImVec2(0.5f, 0.5f));
-    PathLineTo(p2 + ImVec2(0.5f, 0.5f));
+    PathLineTo(Praticle1 + ImVec2(0.5f, 0.5f));
+    PathLineTo(Praticle2 + ImVec2(0.5f, 0.5f));
     PathStroke(col, 0, thickness);
 }
 
@@ -1439,48 +1439,48 @@ void ImDrawList::AddRectFilledMultiColor(const ImVec2& p_min, const ImVec2& p_ma
     PrimWriteVtx(ImVec2(p_min.x, p_max.y), uv, col_bot_left);
 }
 
-void ImDrawList::AddQuad(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, ImU32 col, float thickness)
+void ImDrawList::AddQuad(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, ImU32 col, float thickness)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathLineTo(p2);
+    PathLineTo(Praticle1);
+    PathLineTo(Praticle2);
     PathLineTo(p3);
     PathLineTo(p4);
     PathStroke(col, ImDrawFlags_Closed, thickness);
 }
 
-void ImDrawList::AddQuadFilled(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, ImU32 col)
+void ImDrawList::AddQuadFilled(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, ImU32 col)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathLineTo(p2);
+    PathLineTo(Praticle1);
+    PathLineTo(Praticle2);
     PathLineTo(p3);
     PathLineTo(p4);
     PathFillConvex(col);
 }
 
-void ImDrawList::AddTriangle(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, ImU32 col, float thickness)
+void ImDrawList::AddTriangle(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, ImU32 col, float thickness)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathLineTo(p2);
+    PathLineTo(Praticle1);
+    PathLineTo(Praticle2);
     PathLineTo(p3);
     PathStroke(col, ImDrawFlags_Closed, thickness);
 }
 
-void ImDrawList::AddTriangleFilled(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, ImU32 col)
+void ImDrawList::AddTriangleFilled(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, ImU32 col)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathLineTo(p2);
+    PathLineTo(Praticle1);
+    PathLineTo(Praticle2);
     PathLineTo(p3);
     PathFillConvex(col);
 }
@@ -1587,24 +1587,24 @@ void ImDrawList::AddEllipseFilled(const ImVec2& center, float radius_x, float ra
 }
 
 // Cubic Bezier takes 4 controls points
-void ImDrawList::AddBezierCubic(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, ImU32 col, float thickness, int num_segments)
+void ImDrawList::AddBezierCubic(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, ImU32 col, float thickness, int num_segments)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathBezierCubicCurveTo(p2, p3, p4, num_segments);
+    PathLineTo(Praticle1);
+    PathBezierCubicCurveTo(Praticle2, p3, p4, num_segments);
     PathStroke(col, 0, thickness);
 }
 
 // Quadratic Bezier takes 3 controls points
-void ImDrawList::AddBezierQuadratic(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, ImU32 col, float thickness, int num_segments)
+void ImDrawList::AddBezierQuadratic(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, ImU32 col, float thickness, int num_segments)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
 
-    PathLineTo(p1);
-    PathBezierQuadraticCurveTo(p2, p3, num_segments);
+    PathLineTo(Praticle1);
+    PathBezierQuadraticCurveTo(Praticle2, p3, num_segments);
     PathStroke(col, 0, thickness);
 }
 
@@ -1658,7 +1658,7 @@ void ImDrawList::AddImage(ImTextureID user_texture_id, const ImVec2& p_min, cons
         PopTextureID();
 }
 
-void ImDrawList::AddImageQuad(ImTextureID user_texture_id, const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, const ImVec2& uv1, const ImVec2& uv2, const ImVec2& uv3, const ImVec2& uv4, ImU32 col)
+void ImDrawList::AddImageQuad(ImTextureID user_texture_id, const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, const ImVec2& uv1, const ImVec2& uv2, const ImVec2& uv3, const ImVec2& uv4, ImU32 col)
 {
     if ((col & IM_COL32_A_MASK) == 0)
         return;
@@ -1668,7 +1668,7 @@ void ImDrawList::AddImageQuad(ImTextureID user_texture_id, const ImVec2& p1, con
         PushTextureID(user_texture_id);
 
     PrimReserve(6, 4);
-    PrimQuadUV(p1, p2, p3, p4, uv1, uv2, uv3, uv4, col);
+    PrimQuadUV(Praticle1, Praticle2, p3, p4, uv1, uv2, uv3, uv4, col);
 
     if (push_texture_id)
         PopTextureID();
@@ -3965,53 +3965,53 @@ void ImGui::RenderRectFilledRangeH(ImDrawList* draw_list, const ImRect& rect, Im
         ImSwap(x_start_norm, x_end_norm);
 
     ImVec2 p0 = ImVec2(ImLerp(rect.Min.x, rect.Max.x, x_start_norm), rect.Min.y);
-    ImVec2 p1 = ImVec2(ImLerp(rect.Min.x, rect.Max.x, x_end_norm), rect.Max.y);
+    ImVec2 Praticle1 = ImVec2(ImLerp(rect.Min.x, rect.Max.x, x_end_norm), rect.Max.y);
     if (rounding == 0.0f)
     {
-        draw_list->AddRectFilled(p0, p1, col, 0.0f);
+        draw_list->AddRectFilled(p0, Praticle1, col, 0.0f);
         return;
     }
 
     rounding = ImClamp(ImMin((rect.Max.x - rect.Min.x) * 0.5f, (rect.Max.y - rect.Min.y) * 0.5f) - 1.0f, 0.0f, rounding);
     const float inv_rounding = 1.0f / rounding;
     const float arc0_b = ImAcos01(1.0f - (p0.x - rect.Min.x) * inv_rounding);
-    const float arc0_e = ImAcos01(1.0f - (p1.x - rect.Min.x) * inv_rounding);
+    const float arc0_e = ImAcos01(1.0f - (Praticle1.x - rect.Min.x) * inv_rounding);
     const float half_pi = IM_PI * 0.5f; // We will == compare to this because we know this is the exact value ImAcos01 can return.
     const float x0 = ImMax(p0.x, rect.Min.x + rounding);
     if (arc0_b == arc0_e)
     {
-        draw_list->PathLineTo(ImVec2(x0, p1.y));
+        draw_list->PathLineTo(ImVec2(x0, Praticle1.y));
         draw_list->PathLineTo(ImVec2(x0, p0.y));
     }
     else if (arc0_b == 0.0f && arc0_e == half_pi)
     {
-        draw_list->PathArcToFast(ImVec2(x0, p1.y - rounding), rounding, 3, 6); // BL
+        draw_list->PathArcToFast(ImVec2(x0, Praticle1.y - rounding), rounding, 3, 6); // BL
         draw_list->PathArcToFast(ImVec2(x0, p0.y + rounding), rounding, 6, 9); // TR
     }
     else
     {
-        draw_list->PathArcTo(ImVec2(x0, p1.y - rounding), rounding, IM_PI - arc0_e, IM_PI - arc0_b, 3); // BL
+        draw_list->PathArcTo(ImVec2(x0, Praticle1.y - rounding), rounding, IM_PI - arc0_e, IM_PI - arc0_b, 3); // BL
         draw_list->PathArcTo(ImVec2(x0, p0.y + rounding), rounding, IM_PI + arc0_b, IM_PI + arc0_e, 3); // TR
     }
-    if (p1.x > rect.Min.x + rounding)
+    if (Praticle1.x > rect.Min.x + rounding)
     {
-        const float arc1_b = ImAcos01(1.0f - (rect.Max.x - p1.x) * inv_rounding);
+        const float arc1_b = ImAcos01(1.0f - (rect.Max.x - Praticle1.x) * inv_rounding);
         const float arc1_e = ImAcos01(1.0f - (rect.Max.x - p0.x) * inv_rounding);
-        const float x1 = ImMin(p1.x, rect.Max.x - rounding);
+        const float x1 = ImMin(Praticle1.x, rect.Max.x - rounding);
         if (arc1_b == arc1_e)
         {
             draw_list->PathLineTo(ImVec2(x1, p0.y));
-            draw_list->PathLineTo(ImVec2(x1, p1.y));
+            draw_list->PathLineTo(ImVec2(x1, Praticle1.y));
         }
         else if (arc1_b == 0.0f && arc1_e == half_pi)
         {
             draw_list->PathArcToFast(ImVec2(x1, p0.y + rounding), rounding, 9, 12); // TR
-            draw_list->PathArcToFast(ImVec2(x1, p1.y - rounding), rounding, 0, 3);  // BR
+            draw_list->PathArcToFast(ImVec2(x1, Praticle1.y - rounding), rounding, 0, 3);  // BR
         }
         else
         {
             draw_list->PathArcTo(ImVec2(x1, p0.y + rounding), rounding, -arc1_e, -arc1_b, 3); // TR
-            draw_list->PathArcTo(ImVec2(x1, p1.y - rounding), rounding, +arc1_b, +arc1_e, 3); // BR
+            draw_list->PathArcTo(ImVec2(x1, Praticle1.y - rounding), rounding, +arc1_b, +arc1_e, 3); // BR
         }
     }
     draw_list->PathFillConvex(col);

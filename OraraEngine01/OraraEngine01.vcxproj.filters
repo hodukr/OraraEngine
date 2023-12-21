@@ -37,6 +37,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{e3fa4446-cb1d-410a-943d-50ad93adaf59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pass">
+      <UniqueIdentifier>{82608c0d-4a72-413a-a890-a1db69faca94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -221,6 +224,27 @@
     </ClCompile>
     <ClCompile Include="nodeEditor.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="environmentMapping.cpp">
+      <Filter>Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="post.cpp">
+      <Filter>Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="postPass.cpp">
+      <Filter>Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="stick.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cloth.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="waterSurface.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GN\GN\shaderManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +455,33 @@
     <ClInclude Include="nodeEditor.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="environmentMapping.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="pass.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="post.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="postPass.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="stick.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cloth.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="waterSurface.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderResource.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GN\GN\shaderManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -464,6 +515,24 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\praticlePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\envMappingVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\postNoisePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\postNoiseVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\waterSurfacePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\waterSurfaceVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

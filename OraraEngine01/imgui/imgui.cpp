@@ -1631,16 +1631,16 @@ void ImGuiIO::AddFocusEvent(bool focused)
 // [SECTION] MISC HELPERS/UTILITIES (Geometry functions)
 //-----------------------------------------------------------------------------
 
-ImVec2 ImBezierCubicClosestPoint(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, const ImVec2& p, int num_segments)
+ImVec2 ImBezierCubicClosestPoint(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, const ImVec2& p, int num_segments)
 {
     IM_ASSERT(num_segments > 0); // Use ImBezierCubicClosestPointCasteljau()
-    ImVec2 p_last = p1;
+    ImVec2 p_last = Praticle1;
     ImVec2 p_closest;
     float p_closest_dist2 = FLT_MAX;
     float t_step = 1.0f / (float)num_segments;
     for (int i_step = 1; i_step <= num_segments; i_step++)
     {
-        ImVec2 p_current = ImBezierCubicCalc(p1, p2, p3, p4, t_step * i_step);
+        ImVec2 p_current = ImBezierCubicCalc(Praticle1, Praticle2, p3, p4, t_step * i_step);
         ImVec2 p_line = ImLineClosestPoint(p_last, p_current, p);
         float dist2 = ImLengthSqr(p - p_line);
         if (dist2 < p_closest_dist2)
@@ -1689,13 +1689,13 @@ static void ImBezierCubicClosestPointCasteljauStep(const ImVec2& p, ImVec2& p_cl
 
 // tess_tol is generally the same value you would find in ImGui::GetStyle().CurveTessellationTol
 // Because those ImXXX functions are lower-level than ImGui:: we cannot access this value automatically.
-ImVec2 ImBezierCubicClosestPointCasteljau(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, const ImVec2& p, float tess_tol)
+ImVec2 ImBezierCubicClosestPointCasteljau(const ImVec2& Praticle1, const ImVec2& Praticle2, const ImVec2& p3, const ImVec2& p4, const ImVec2& p, float tess_tol)
 {
     IM_ASSERT(tess_tol > 0.0f);
-    ImVec2 p_last = p1;
+    ImVec2 p_last = Praticle1;
     ImVec2 p_closest;
     float p_closest_dist2 = FLT_MAX;
-    ImBezierCubicClosestPointCasteljauStep(p, p_closest, p_last, p_closest_dist2, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, tess_tol, 0);
+    ImBezierCubicClosestPointCasteljauStep(p, p_closest, p_last, p_closest_dist2, Praticle1.x, Praticle1.y, Praticle2.x, Praticle2.y, p3.x, p3.y, p4.x, p4.y, tess_tol, 0);
     return p_closest;
 }
 
@@ -14895,8 +14895,8 @@ void ImGui::ShowDebugLogWindow(bool* p_open)
                     if (p[0] != '0' || (p[1] != 'x' && p[1] != 'X') || sscanf(p + 2, "%X", &id) != 1)
                         continue;
                     ImVec2 p0 = CalcTextSize(line_begin, p);
-                    ImVec2 p1 = CalcTextSize(p, p + 10);
-                    g.LastItemData.Rect = ImRect(text_rect.Min + ImVec2(p0.x, 0.0f), text_rect.Min + ImVec2(p0.x + p1.x, p1.y));
+                    ImVec2 Praticle1 = CalcTextSize(p, p + 10);
+                    g.LastItemData.Rect = ImRect(text_rect.Min + ImVec2(p0.x, 0.0f), text_rect.Min + ImVec2(p0.x + Praticle1.x, Praticle1.y));
                     if (IsMouseHoveringRect(g.LastItemData.Rect.Min, g.LastItemData.Rect.Max, true))
                         DebugLocateItemOnHover(id);
                     p += 10;
@@ -14971,10 +14971,10 @@ void ImGui::DebugLocateItemResolveWithLastItem()
     ImDrawList* draw_list = GetForegroundDrawList(g.CurrentWindow);
     ImRect r = item_data.Rect;
     r.Expand(3.0f);
-    ImVec2 p1 = g.IO.MousePos;
-    ImVec2 p2 = ImVec2((p1.x < r.Min.x) ? r.Min.x : (p1.x > r.Max.x) ? r.Max.x : p1.x, (p1.y < r.Min.y) ? r.Min.y : (p1.y > r.Max.y) ? r.Max.y : p1.y);
+    ImVec2 Praticle1 = g.IO.MousePos;
+    ImVec2 Praticle2 = ImVec2((Praticle1.x < r.Min.x) ? r.Min.x : (Praticle1.x > r.Max.x) ? r.Max.x : Praticle1.x, (Praticle1.y < r.Min.y) ? r.Min.y : (Praticle1.y > r.Max.y) ? r.Max.y : Praticle1.y);
     draw_list->AddRect(r.Min, r.Max, DEBUG_LOCATE_ITEM_COLOR);
-    draw_list->AddLine(p1, p2, DEBUG_LOCATE_ITEM_COLOR);
+    draw_list->AddLine(Praticle1, Praticle2, DEBUG_LOCATE_ITEM_COLOR);
 }
 
 // [DEBUG] Item picker tool - start with DebugStartItemPicker() - useful to visually select an item and break into its call-stack.

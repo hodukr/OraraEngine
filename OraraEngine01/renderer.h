@@ -1,61 +1,7 @@
 #pragma once
 
-
-
-
-
-struct VERTEX_3D
-{
-    D3DXVECTOR3 Position;
-    D3DXVECTOR3 Normal;
-    D3DXVECTOR4 Diffuse;
-    D3DXVECTOR2 TexCoord;
-};
-
-
-
-struct MATERIAL
-{
-	D3DXCOLOR	Ambient;
-	D3DXCOLOR	Diffuse;
-	D3DXCOLOR	Specular;
-	D3DXCOLOR	Emission;
-	float		Shininess;
-	BOOL		TextureEnable;
-	float		Dummy[2];
-};
-
-
-
-
-struct LIGHT
-{
-	BOOL		Enable;
-	BOOL		Dummy[3];
-	D3DXVECTOR4	Direction;
-	D3DXCOLOR	Diffuse;
-	D3DXCOLOR	Ambient;
-};
-
-struct PARAMETER
-{
-	D3DXVECTOR4 hitpoint;
-	D3DXCOLOR	baseColor;
-	D3DXCOLOR	lostColor;
-	D3DXCOLOR	diffColor;
-
-    D3DXVECTOR4 pos;
-};
-
-struct PRATICLE
-{
-    D3DXCOLOR Color[3];
-    bool IsGradation;
-    D3DXVECTOR3 Statposition;
-    float Size;
-    float Dummy[3];
-};
-
+#include "shaderResource.h"
+#include "pass.h"
 
 class Renderer
 {
@@ -63,7 +9,7 @@ private:
 
 	static D3D_FEATURE_LEVEL       m_FeatureLevel;
 
-	static ID3D11Device*           Device;
+	static ID3D11Device*           m_Device;
 	static ID3D11DeviceContext*    m_DeviceContext;
 	static IDXGISwapChain*         m_SwapChain;
 	static ID3D11RenderTargetView* m_RenderTargetView;
@@ -76,6 +22,9 @@ private:
 	static ID3D11Buffer*			m_LightBuffer;
 	static ID3D11Buffer*            m_ParameterBuffer;
 	static ID3D11Buffer*            m_PraticleBuffer;
+	static ID3D11Buffer*            m_CameraBuffer;
+	static ID3D11Buffer*            m_WaterBuffer;
+
 
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
@@ -83,8 +32,7 @@ private:
 	static ID3D11BlendState*		m_BlendState;
 	static ID3D11BlendState*		m_BlendStateATC;
 
-
-
+	static std::list<Pass*> m_Pass;
 public:
 	static void Init();
 	static void Uninit();
@@ -102,14 +50,38 @@ public:
 
 	static void SetParameter(PARAMETER param);
     static void SetPraticle(PRATICLE Praticle);
+    static void SetCameraPosition(D3DXVECTOR3 cameraPosition);
+    static void SetWater(WATER water);
 
-	static ID3D11Device* GetDevice( void ){ return Device; }
+	static ID3D11Device* GetDevice( void ){ return m_Device; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_DeviceContext; }
-
-
+	static ID3D11DepthStencilView* GetDepthStencilView() { return m_DepthStencilView; }
 
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
+	static void SetDefaultViewport(void);
 
+	template<typename T>
+	static T* AddPass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device)
+	{
+		Pass* pass = new T();
+		m_Pass.push_back(pass);
+		pass->CreatePass(swapChainDesc, device);
+
+		return dynamic_cast<T*>(pass);
+	}
+
+	template<typename T>
+	static T* GetPass(Shader id)
+	{
+		for (Pass* pass : m_Pass)
+		{
+			if (id == pass->GetPassId())
+			{
+				return dynamic_cast<T*>(pass);
+			}
+		}
+		return nullptr;
+	}
 };

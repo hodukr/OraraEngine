@@ -7,14 +7,14 @@
 #include "timeProvider.h"
 #include <unordered_map>
 
-enum class ColorVariation
+enum class COLORVARIATION
 {
     None,
     DefaultColor,
     GradationColor
 };
 
-struct Particle
+struct PARTICLE
 {
     Vector3 Position;
     D3DXCOLOR Color;
@@ -25,7 +25,7 @@ struct Particle
 };
 
 
-struct ParticleEmitter {
+struct PARTICLEEMITTER {
     Vector3 StartPosition;//開始位置 
     D3DXCOLOR StartColor;//開始カラー 
     float StartRotation;
@@ -56,7 +56,7 @@ void serialize(Archive& archive, D3DXCOLOR& color)
 
 
 template<class Archive>
-void serialize(Archive& archive, ParticleEmitter& emltter)
+void serialize(Archive& archive, PARTICLEEMITTER& emltter)
 {
     archive(cereal::make_nvp("StartColor", emltter.StartColor),
         cereal::make_nvp("StartRotation", emltter.StartRotation),
@@ -91,10 +91,10 @@ private:
     int m_NumPraticle;
     class Cameracm* m_Camera;
 
-    ParticleEmitter m_Emitter;
+    PARTICLEEMITTER m_Emitter;
 
-    std::stack<Particle*> m_StackParticle;
-    std::list<Particle*> m_ParticleList;
+    std::stack<PARTICLE*> m_StackParticle;
+    std::list<PARTICLE*> m_ParticleList;
     ElapsedTimeTracker m_Timer;
 
 public:
@@ -104,10 +104,10 @@ public:
     void Update()override;
     void Draw()override;
 
-    ParticleEmitter* GetEmitter() { return &m_Emitter; }
+    PARTICLEEMITTER* GetEmitter() { return &m_Emitter; }
     void SetTexture(const char* name);
 private:
-    void InitParticle(Particle* partiale);
+    void InitParticle(PARTICLE* partiale);
     void AddPraticle();
     bool DeletPraticle();
 public:

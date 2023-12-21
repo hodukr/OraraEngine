@@ -1,6 +1,6 @@
 #pragma once
-#include "gameObject.h"
-class Stick;
+#include "component.h"
+#include "shaderResource.h"
 
 #define NUM_VERTEX 21
 #define SPRING_NUMS				(NUM_VERTEX*(NUM_VERTEX+1) + \
@@ -11,12 +11,12 @@ class Stick;
 
 struct SPRING
 {
-    D3DXVECTOR2	p1;					// 接続されている粒子１ 
-    D3DXVECTOR2	p2;					// 接続されている粒子２ 
-    float	length;				    // 自然長 
+    D3DXVECTOR2	Praticle1;					// 接続されている粒子１ 
+    D3DXVECTOR2	Praticle2;					// 接続されている粒子２ 
+    float	Length;				    // 自然長 
 };
 
-class Cloth : public GameObject
+class Cloth : public Component
 {
 private:
     ID3D11Buffer* m_VertexBuffer{};
@@ -25,7 +25,7 @@ private:
     ID3D11PixelShader* m_PixelShader{};
     ID3D11InputLayout* m_VertexLayout{};
 
-    VERTEX_3D					m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
+    VERTEX_3D				m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
 
     float m_SpringMass = 5.0f;                                   //ばねの質量　
     float m_AttCoefficient = 2.0f;                               //減衰系数(Attenuation coefficient)  　
@@ -40,7 +40,6 @@ private:
     D3DXVECTOR3 m_WindForce{};                                   //風力 
     SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
 
-    Stick* m_Stick{};
     int m_TexNum{};
 public:
     void Init() override;
@@ -48,7 +47,13 @@ public:
     void Update() override;
     void Draw() override;
 
-    void SetStick(Stick* stick) { m_Stick = stick;}
     void SetTexNum(int num) { m_TexNum = num;}
     void SetIsWind(bool wind) { m_IsWind = wind;}
+
+    //template<class Archive>
+    //void serialize(Archive& archive)
+    //{
+       // archive(CEREAL_NVP(m_Modelpas), CEREAL_NVP(m_Material));
+    //}
+
 };

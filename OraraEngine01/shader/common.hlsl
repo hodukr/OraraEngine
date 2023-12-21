@@ -14,9 +14,6 @@ cbuffer ProjectionBuffer : register(b2)
 	matrix Projection;
 }
 
-
-
-
 struct MATERIAL
 {
 	float4 Ambient;
@@ -52,12 +49,10 @@ cbuffer LightBuffer : register(b4)
 
 struct PARAMETER
 {
-    float4 hp;
-    float4 baseColor;
-    float4 lostColor;
-    float4 diffColor;
-
-    float4 pos;
+    float4 Hp;
+    float4 BaseColor;
+    float4 LostColor;
+    float4 DiffColor;
 };
 
 cbuffer ParamBuffer : register(b5)
@@ -81,6 +76,25 @@ cbuffer PraticleBuffer : register(b6)
     PRATICLE Praticle;
 }
 
+cbuffer CameraBuffer : register(b7)
+{
+    float4 CameraPosition;
+}
+
+
+struct WATER
+{
+    float4 Pos;
+    float  WaveAmplitude; //êUïù 
+    float  WaveFrequency; //é¸ä˙ 
+    float  Time; //éûä‘ 
+    float  Speed; //ë¨ìx
+};
+
+cbuffer WaterBuffer : register(b8)
+{
+    WATER Water;
+}
 
 struct VS_IN
 {
@@ -95,6 +109,7 @@ struct PS_IN
 {
 	float4 Position		 : SV_POSITION;
     float4 WorldPosition : POSITION0;
+    float4 Normal        : NORMAL0;
 	float4 Diffuse		 : COLOR0;
 	float2 TexCoord		 : TEXCOORD0;
 };

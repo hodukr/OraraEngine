@@ -1,10 +1,11 @@
 #pragma once
-#include "gameObject.h"
+#include "component.h"
+#include "shaderResource.h"
 
 #define NUM_VERTEX 21
 #define WATER_UV (1.0f / ((float)NUM_VERTEX - 1.0f))
 
-class WaterSurface : public GameObject
+class WaterSurface : public Component
 {
 
 private:

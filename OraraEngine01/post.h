@@ -13,7 +13,7 @@ private:
     ID3D11PixelShader* m_PixelShader; //ピクセルシェーダーオブジェクト
     ID3D11InputLayout* m_VertexLayout; //頂点レイアウトオブジェクト
 
-    PARAMETER m_Param;
+    WATER m_Water;
     float m_RandNum;
     
 public:

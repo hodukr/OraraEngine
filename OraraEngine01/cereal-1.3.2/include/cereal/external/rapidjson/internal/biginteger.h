@@ -114,9 +114,9 @@ public:
             const uint64_t uc = u * c;
             const uint64_t ud = u * d;
             const uint64_t p0 = ud + k;
-            const uint64_t p1 = uc + (p0 >> 32);
-            digits_[i] = (p0 & 0xFFFFFFFF) | (p1 << 32);
-            k = p1 >> 32;
+            const uint64_t Praticle1 = uc + (p0 >> 32);
+            digits_[i] = (p0 & 0xFFFFFFFF) | (Praticle1 << 32);
+            k = Praticle1 >> 32;
         }
         
         if (k > 0)

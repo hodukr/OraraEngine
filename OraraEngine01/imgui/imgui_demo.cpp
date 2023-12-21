@@ -3476,27 +3476,27 @@ static void ShowDemoWindowLayout()
                 continue;
 
             const ImVec2 p0 = ImGui::GetItemRectMin();
-            const ImVec2 p1 = ImGui::GetItemRectMax();
+            const ImVec2 Praticle1 = ImGui::GetItemRectMax();
             const char* text_str = "Line 1 hello\nLine 2 clip me!";
             const ImVec2 text_pos = ImVec2(p0.x + offset.x, p0.y + offset.y);
             ImDrawList* draw_list = ImGui::GetWindowDrawList();
             switch (n)
             {
             case 0:
-                ImGui::PushClipRect(p0, p1, true);
-                draw_list->AddRectFilled(p0, p1, IM_COL32(90, 90, 120, 255));
+                ImGui::PushClipRect(p0, Praticle1, true);
+                draw_list->AddRectFilled(p0, Praticle1, IM_COL32(90, 90, 120, 255));
                 draw_list->AddText(text_pos, IM_COL32_WHITE, text_str);
                 ImGui::PopClipRect();
                 break;
             case 1:
-                draw_list->PushClipRect(p0, p1, true);
-                draw_list->AddRectFilled(p0, p1, IM_COL32(90, 90, 120, 255));
+                draw_list->PushClipRect(p0, Praticle1, true);
+                draw_list->AddRectFilled(p0, Praticle1, IM_COL32(90, 90, 120, 255));
                 draw_list->AddText(text_pos, IM_COL32_WHITE, text_str);
                 draw_list->PopClipRect();
                 break;
             case 2:
-                ImVec4 clip_rect(p0.x, p0.y, p1.x, p1.y); // AddText() takes a ImVec4* here so let's convert.
-                draw_list->AddRectFilled(p0, p1, IM_COL32(90, 90, 120, 255));
+                ImVec4 clip_rect(p0.x, p0.y, Praticle1.x, Praticle1.y); // AddText() takes a ImVec4* here so let's convert.
+                draw_list->AddRectFilled(p0, Praticle1, IM_COL32(90, 90, 120, 255));
                 draw_list->AddText(ImGui::GetFont(), ImGui::GetFontSize(), text_pos, IM_COL32_WHITE, text_str, NULL, 0.0f, &clip_rect);
                 break;
             }
@@ -6690,13 +6690,13 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
                     const float offset_x     = floorf(canvas_width * 0.5f);
                     const float offset_y     = floorf(RAD_MAX);
 
-                    const ImVec2 p1 = ImGui::GetCursorScreenPos();
-                    draw_list->AddCircle(ImVec2(p1.x + offset_x, p1.y + offset_y), rad, ImGui::GetColorU32(ImGuiCol_Text));
+                    const ImVec2 Praticle1 = ImGui::GetCursorScreenPos();
+                    draw_list->AddCircle(ImVec2(Praticle1.x + offset_x, Praticle1.y + offset_y), rad, ImGui::GetColorU32(ImGuiCol_Text));
                     ImGui::Dummy(ImVec2(canvas_width, RAD_MAX * 2));
 
                     /*
-                    const ImVec2 p2 = ImGui::GetCursorScreenPos();
-                    draw_list->AddCircleFilled(ImVec2(p2.x + offset_x, p2.y + offset_y), rad, ImGui::GetColorU32(ImGuiCol_Text));
+                    const ImVec2 Praticle2 = ImGui::GetCursorScreenPos();
+                    draw_list->AddCircleFilled(ImVec2(Praticle2.x + offset_x, Praticle2.y + offset_y), rad, ImGui::GetColorU32(ImGuiCol_Text));
                     ImGui::Dummy(ImVec2(canvas_width, RAD_MAX * 2));
                     */
 
@@ -7882,18 +7882,18 @@ static void ShowExampleAppCustomRendering(bool* p_open)
             ImVec2 gradient_size = ImVec2(ImGui::CalcItemWidth(), ImGui::GetFrameHeight());
             {
                 ImVec2 p0 = ImGui::GetCursorScreenPos();
-                ImVec2 p1 = ImVec2(p0.x + gradient_size.x, p0.y + gradient_size.y);
+                ImVec2 Praticle1 = ImVec2(p0.x + gradient_size.x, p0.y + gradient_size.y);
                 ImU32 col_a = ImGui::GetColorU32(IM_COL32(0, 0, 0, 255));
                 ImU32 col_b = ImGui::GetColorU32(IM_COL32(255, 255, 255, 255));
-                draw_list->AddRectFilledMultiColor(p0, p1, col_a, col_b, col_b, col_a);
+                draw_list->AddRectFilledMultiColor(p0, Praticle1, col_a, col_b, col_b, col_a);
                 ImGui::InvisibleButton("##gradient1", gradient_size);
             }
             {
                 ImVec2 p0 = ImGui::GetCursorScreenPos();
-                ImVec2 p1 = ImVec2(p0.x + gradient_size.x, p0.y + gradient_size.y);
+                ImVec2 Praticle1 = ImVec2(p0.x + gradient_size.x, p0.y + gradient_size.y);
                 ImU32 col_a = ImGui::GetColorU32(IM_COL32(0, 255, 0, 255));
                 ImU32 col_b = ImGui::GetColorU32(IM_COL32(255, 0, 0, 255));
-                draw_list->AddRectFilledMultiColor(p0, p1, col_a, col_b, col_b, col_a);
+                draw_list->AddRectFilledMultiColor(p0, Praticle1, col_a, col_b, col_b, col_a);
                 ImGui::InvisibleButton("##gradient2", gradient_size);
             }
 
@@ -8105,15 +8105,15 @@ static void ShowExampleAppCustomRendering(bool* p_open)
             {
                 ImGui::Text("Blue shape is drawn first, into channel 1: appears in front");
                 ImGui::Text("Red shape is drawn after, into channel 0: appears in back");
-                ImVec2 p1 = ImGui::GetCursorScreenPos();
+                ImVec2 Praticle1 = ImGui::GetCursorScreenPos();
 
                 // Create 2 channels and draw a Blue shape THEN a Red shape.
                 // You can create any number of channels. Tables API use 1 channel per column in order to better batch draw calls.
                 draw_list->ChannelsSplit(2);
                 draw_list->ChannelsSetCurrent(1);
-                draw_list->AddRectFilled(ImVec2(p1.x, p1.y), ImVec2(p1.x + 50, p1.y + 50), IM_COL32(0, 0, 255, 255)); // Blue
+                draw_list->AddRectFilled(ImVec2(Praticle1.x, Praticle1.y), ImVec2(Praticle1.x + 50, Praticle1.y + 50), IM_COL32(0, 0, 255, 255)); // Blue
                 draw_list->ChannelsSetCurrent(0);
-                draw_list->AddRectFilled(ImVec2(p1.x + 25, p1.y + 25), ImVec2(p1.x + 75, p1.y + 75), IM_COL32(255, 0, 0, 255)); // Red
+                draw_list->AddRectFilled(ImVec2(Praticle1.x + 25, Praticle1.y + 25), ImVec2(Praticle1.x + 75, Praticle1.y + 75), IM_COL32(255, 0, 0, 255)); // Red
 
                 // Flatten/reorder channels. Red shape is in channel 0 and it appears below the Blue shape in channel 1.
                 // This works by copying draw indices only (vertices are not copied).

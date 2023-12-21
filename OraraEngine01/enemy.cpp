@@ -68,10 +68,6 @@ void Enemy::Draw()
 
 	Renderer::SetWorldMatrix(&world);
 
-    PARAMETER parm;
-    parm.pos = D3DXVECTOR4(m_Transform->GetPosition().dx(), 0.0f);
-    Renderer::SetParameter(parm);
-
 	m_Model->Draw();
 	
 }

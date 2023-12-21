@@ -125,7 +125,7 @@ void PraticleSystem::Update()
         m_Timer.Reset();
     }
 
-    auto rmvIter = std::remove_if(m_ParticleList.begin(), m_ParticleList.end(), [=](Particle* par)
+    auto rmvIter = std::remove_if(m_ParticleList.begin(), m_ParticleList.end(), [=](PARTICLE* par)
         {
             par->Position += par->Velocity + m_Emitter.AddVelocity;
             if (m_Emitter.IsFade)
@@ -226,7 +226,7 @@ void PraticleSystem::SetTexture(const char* texname)
     m_TexNum = TextureManager::LoadTexture(name.c_str());
 }
 
-void PraticleSystem::InitParticle(Particle* partiale)
+void PraticleSystem::InitParticle(PARTICLE* partiale)
 {
     partiale->Position = m_GameObject->m_Transform->GetPosition();
     partiale->Color = m_Emitter.StartColor;
@@ -246,7 +246,7 @@ void PraticleSystem::InitParticle(Particle* partiale)
 void PraticleSystem::AddPraticle()
 {
     m_NumPraticle++;
-    Particle* par = new Particle;
+    PARTICLE* par = new PARTICLE;
     InitParticle(par);
     m_StackParticle.push(par);
 }

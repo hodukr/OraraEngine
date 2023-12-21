@@ -1,6 +1,9 @@
 #include "main.h"
 #include "reflection.h"
 #include "commonComponent.h"
+#include "cloth.h"
+#include "waterSurface.h"
+
 
 std::vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
 
@@ -11,6 +14,9 @@ SetReflectionComponent(PraticleSystem)
 SetReflectionComponent(Plane)
 SetReflectionComponent(Text)
 SetReflectionComponent(InputSystem)
+SetReflectionComponent(Cloth)
+SetReflectionComponent(WaterSurface)
+
 //#include <cereal/cereal.hpp>
 //#include <cereal/types/memory.hpp>
 //#include <cereal/types/polymorphic.hpp>

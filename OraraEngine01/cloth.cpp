@@ -1,4 +1,3 @@
-
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
@@ -6,6 +5,7 @@
 #include "cloth.h"
 #include "imgui/imgui.h"
 #include "stick.h"
+#include "gameObject.h"
 
 void Cloth::Init()
 {
@@ -21,11 +21,10 @@ void Cloth::Init()
             m_OnLock[x][y] = (x == 0 && (y == 0 || y == NUM_VERTEX - 1));	// ロック 
         }
     }
+
     m_IsWind = false;
     m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);
-    m_Position = D3DXVECTOR3(0.0f, 3.0f, 0.0f);
-    m_Scale = D3DXVECTOR3(0.04f, 0.04f, 0.04f);
-
+   
     // 頂点バッファ生成
     {
         for (int x = 0; x <= NUM_VERTEX - 1; x++)
@@ -94,16 +93,6 @@ void Cloth::Init()
         Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer);
     }
 
-    //// テクスチャ読み込み
-    //D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
-    //    "asset/texture/flag.png",
-    //    NULL,
-    //    NULL,
-    //    &m_Texture,
-    //    NULL);
-    //assert(m_Texture);
-
-
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\vertexLightingVS.cso");
 
     Renderer::CreatePixelShader(&m_PixelShader, "shader\\vertexLightingPS.cso");
@@ -118,51 +107,51 @@ void Cloth::Init()
             // バネ参照インデックスの設定
             if (x < NUM_VERTEX)
             {
-                m_Spring[count].p1.x = x;		// １個目の参照粒子インデックスを設定
-                m_Spring[count].p1.y = y;
-                m_Spring[count].p2.x = x + 1;	// ２個目の参照粒子インデックスを設定
-                m_Spring[count].p2.y = y;
+                m_Spring[count].Praticle1.x = x;		// １個目の参照粒子インデックスを設定
+                m_Spring[count].Praticle1.y = y;
+                m_Spring[count].Praticle2.x = x + 1;	// ２個目の参照粒子インデックスを設定
+                m_Spring[count].Praticle2.y = y;
                 // ２個の粒子間の距離を求め、バネの自然長とする
                 xx =  m_Vertex[x][y].Position.x - m_Vertex[x + 1][y].Position.x;
                 yy =  m_Vertex[x][y].Position.y - m_Vertex[x + 1][y].Position.y;
                 zz =  m_Vertex[x][y].Position.z - m_Vertex[x + 1][y].Position.z;
-                m_Spring[count].length = sqrtf(xx * xx + yy * yy + zz * zz);
+                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
                 count++;
             }
             if (y < NUM_VERTEX)
             {
-                m_Spring[count].p1.x = x;
-                m_Spring[count].p1.y = y;
-                m_Spring[count].p2.x = x;
-                m_Spring[count].p2.y = y + 1;
+                m_Spring[count].Praticle1.x = x;
+                m_Spring[count].Praticle1.y = y;
+                m_Spring[count].Praticle2.x = x;
+                m_Spring[count].Praticle2.y = y + 1;
                 xx = m_Vertex[x][y].Position.x - m_Vertex[x][y + 1].Position.x;
                 yy = m_Vertex[x][y].Position.y - m_Vertex[x][y + 1].Position.y;
                 zz = m_Vertex[x][y].Position.z - m_Vertex[x][y + 1].Position.z;
-                m_Spring[count].length = sqrtf(xx * xx + yy * yy + zz * zz);
+                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
                 count++;
             }
             if (x < NUM_VERTEX && y < NUM_VERTEX)
             {
-                m_Spring[count].p1.x = x;
-                m_Spring[count].p1.y = y;
-                m_Spring[count].p2.x = x + 1;
-                m_Spring[count].p2.y = y + 1;
+                m_Spring[count].Praticle1.x = x;
+                m_Spring[count].Praticle1.y = y;
+                m_Spring[count].Praticle2.x = x + 1;
+                m_Spring[count].Praticle2.y = y + 1;
                 xx = m_Vertex[x][y].Position.x - m_Vertex[x + 1][y + 1].Position.x;
                 yy = m_Vertex[x][y].Position.y - m_Vertex[x + 1][y + 1].Position.y;
                 zz = m_Vertex[x][y].Position.z - m_Vertex[x + 1][y + 1].Position.z;
-                m_Spring[count].length = sqrtf(xx * xx + yy * yy + zz * zz);
+                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
                 count++;
             }
             if (x > 0 && y < NUM_VERTEX)
             {
-                m_Spring[count].p1.x = x;
-                m_Spring[count].p1.y = y;
-                m_Spring[count].p2.x = x - 1;
-                m_Spring[count].p2.y = y + 1;
+                m_Spring[count].Praticle1.x = x;
+                m_Spring[count].Praticle1.y = y;
+                m_Spring[count].Praticle2.x = x - 1;
+                m_Spring[count].Praticle2.y = y + 1;
                 xx = m_Vertex[x][y].Position.x - m_Vertex[x - 1][y + 1].Position.x;
                 yy = m_Vertex[x][y].Position.y - m_Vertex[x - 1][y + 1].Position.y;
                 zz = m_Vertex[x][y].Position.z - m_Vertex[x - 1][y + 1].Position.z;
-                m_Spring[count].length = sqrtf(xx * xx + yy * yy + zz * zz);
+                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
                 count++;
             }
         }
@@ -229,31 +218,31 @@ void Cloth::Update()
     D3DXVECTOR3	vec_spr;		    // 粒子２点間のベクトル  
     D3DXVECTOR3	lenForce1;			// 長さからバネに発生する力  
     D3DXVECTOR3	lenForce2;          // 長さからバネに発生する力 
-    float	length;					// 粒子間の距離  
+    float	Length;					// 粒子間の距離  
     // バネの処理  
     for (int i = 0; i < SPRING_NUMS; i++)
     {
         // バネの参照粒子（２個）を取得   
-        x1 = m_Spring[i].p1.x; 
-        y1 = m_Spring[i].p1.y;
-        x2 = m_Spring[i].p2.x;
-        y2 = m_Spring[i].p2.y;
+        x1 = m_Spring[i].Praticle1.x; 
+        y1 = m_Spring[i].Praticle1.y;
+        x2 = m_Spring[i].Praticle2.x;
+        y2 = m_Spring[i].Praticle2.y;
         // ２個の粒子間のベクトルを求める  
         vec_spr.x = m_Vertex[x1][y1].Position.x - m_Vertex[x2][y2].Position.x;
         vec_spr.y = m_Vertex[x1][y1].Position.y - m_Vertex[x2][y2].Position.y;
         vec_spr.z = m_Vertex[x1][y1].Position.z - m_Vertex[x2][y2].Position.z;
         // 粒子間の距離を求める  
-        length = sqrtf(vec_spr.x * vec_spr.x + vec_spr.y * vec_spr.y + vec_spr.z * vec_spr.z);
+        Length = sqrtf(vec_spr.x * vec_spr.x + vec_spr.y * vec_spr.y + vec_spr.z * vec_spr.z);
         // 距離、自然長、バネ係数からかかる力を求める（２つ目は逆方向） 
-        force1 = -m_SpringCoefficient * (length - m_Spring[i].length);
+        force1 = -m_SpringCoefficient * (Length - m_Spring[i].Length);
         force2 = -force1;
         // ベクトルの成分に力をかける  
-        lenForce1.x = force1 * (vec_spr.x / length);
-        lenForce1.y = force1 * (vec_spr.y / length);
-        lenForce1.z = force1 * (vec_spr.z / length);
-        lenForce2.x = force2 * (vec_spr.x / length);
-        lenForce2.y = force2 * (vec_spr.y / length);
-        lenForce2.z = force2 * (vec_spr.z / length);
+        lenForce1.x = force1 * (vec_spr.x / Length);
+        lenForce1.y = force1 * (vec_spr.y / Length);
+        lenForce1.z = force1 * (vec_spr.z / Length);
+        lenForce2.x = force2 * (vec_spr.x / Length);
+        lenForce2.y = force2 * (vec_spr.y / Length);
+        lenForce2.z = force2 * (vec_spr.z / Length);
         
         // 求めた力を合力に加える  
         if (!m_OnLock[x1][y1])
@@ -297,21 +286,21 @@ void Cloth::Update()
     //Scene* scene = Manager::GetScene();
     //tick* stick = scene->GetGameObject<Stick>();
 
-    m_Position = m_Stick->GetPosition() + m_Stick->GetRight() * 2.0f + m_Stick->GetUp() * 2.0f;
+    //m_Position = m_Stick->GetPosition() + m_Stick->GetRight() * 2.0f + m_Stick->GetUp() * 2.0f;
     //デバック用
-#ifdef _DEBUG
-    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
-    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
-    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
-    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
-    ImGui::Checkbox("IsWind", &m_IsWind);
-    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
-    ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
- 
-    ImGui::End();
-#endif //_DEBUG
+//#ifdef _DEBUG
+//    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
+//
+//    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
+//    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
+//    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
+//    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
+//    ImGui::Checkbox("IsWind", &m_IsWind);
+//    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
+//    ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
+// 
+//    ImGui::End();
+//#endif //_DEBUG
 }
 
 
@@ -347,9 +336,13 @@ void Cloth::Draw()
 
     // マトリクス設定 
     D3DXMATRIX world, scale, rot, trans;
-    D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
-    D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
-    D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+    D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
+    D3DXVECTOR3 Position = m_GameObject->m_Transform->GetPosition().dx();
+    D3DXVECTOR3 Rotation = m_GameObject->m_Transform->GetRotation().dx();
+
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y,Rotation.x, Rotation.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
     world = scale * rot * trans;
     Renderer::SetWorldMatrix(&world);
 

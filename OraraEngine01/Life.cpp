@@ -63,17 +63,17 @@ void Life::Draw()
 	Renderer::SetWorldViewProjection2D();
 
 	PARAMETER param;
-	param.hitpoint.x = m_hp;
-	param.hitpoint.y = m_hpMax;
-	param.hitpoint.z = m_hpOld;
+	param.Hitpoint.x = m_hp;
+	param.Hitpoint.y = m_hpMax;
+	param.Hitpoint.z = m_hpOld;
 
-	param.baseColor = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);//緑
+	param.BaseColor = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);//緑
 	if (m_hp < 600)
-		param.baseColor = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);//黄色
+		param.BaseColor = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);//黄色
 	if (m_hp < 200)
-		param.baseColor = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);//赤
-	param.lostColor = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);//灰色
-	param.diffColor = D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f);//薄い赤
+		param.BaseColor = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);//赤
+	param.LostColor = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);//灰色
+	param.DiffColor = D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f);//薄い赤
 	Renderer::SetParameter(param);
 
 	//基底クラスのメソッド呼び出し
