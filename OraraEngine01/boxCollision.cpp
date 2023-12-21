@@ -11,12 +11,12 @@ void BoxCollision::Init()
 {
     m_Size = D3DXVECTOR3(1.5,1.5f,1.5f);
    
-    //立方体
+    //立方体 
     VERTEX_3D vertex[16];
 
     SetVertex(vertex);
 
-    //頂点バッファ生成
+    //頂点バッファ生成 
     D3D11_BUFFER_DESC bd;
     ZeroMemory(&bd, sizeof(bd));
     bd.Usage = D3D11_USAGE_DYNAMIC;
@@ -30,7 +30,7 @@ void BoxCollision::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    //頂点色が何故かDiffuseで変えられなかったためシェーダーで変える
+    //頂点色が何故かDiffuseで変えられなかったためシェーダーで変える  
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout,
         "shader\\boxCollisionVS.cso");
 
@@ -56,7 +56,7 @@ void BoxCollision::Update()
 
 void BoxCollision::Draw()
 {
-    //頂点データ書き換え
+    //頂点データ書き換え 
     D3D11_MAPPED_SUBRESOURCE msr;
     Renderer::GetDeviceContext()->Map(m_VertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
@@ -66,56 +66,56 @@ void BoxCollision::Draw()
 
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
-    //入力レイアウト設定
+    //入力レイアウト設定 
     Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-    //シェーダー設定
+    //シェーダー設定 
     Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
     Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-    //ポジションのみマトリクスに設定 
+    //ポジションのみマトリクスに設定  
     D3DXMATRIX  trans;
     D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
     Renderer::SetWorldMatrix(&trans);
 
-    //頂点バッファ設定
+    //頂点バッファ設定 
     UINT stride = sizeof(VERTEX_3D);
     UINT offset = 0;
     Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-    //プリミティブトポロジ設定
+    //プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-    //ポリゴン描画
+    //ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(16, 0);
 }
 
 
 void BoxCollision::SetVertex(VERTEX_3D* vertex)
 {
-    //底面
+    //底面 
     vertex[0].Position = D3DXVECTOR3(-m_Size.x, -m_Size.y, -m_Size.z);
     vertex[1].Position = D3DXVECTOR3(-m_Size.x, -m_Size.y, m_Size.z);
     vertex[2].Position = D3DXVECTOR3(m_Size.x, -m_Size.y, m_Size.z);
     vertex[3].Position = D3DXVECTOR3(m_Size.x, -m_Size.y, -m_Size.z);
     vertex[4].Position = D3DXVECTOR3(-m_Size.x, -m_Size.y, -m_Size.z);
 
-    // 上面
+    // 上面 
     vertex[5].Position = D3DXVECTOR3(-m_Size.x, m_Size.y, -m_Size.z);
     vertex[6].Position = D3DXVECTOR3(-m_Size.x, m_Size.y, m_Size.z);
     vertex[7].Position = D3DXVECTOR3(m_Size.x, m_Size.y, m_Size.z);
     vertex[8].Position = D3DXVECTOR3(m_Size.x, m_Size.y, -m_Size.z);
     vertex[9].Position = D3DXVECTOR3(-m_Size.x, m_Size.y, -m_Size.z);
 
-    //左面
+    //左面 
     vertex[10].Position = D3DXVECTOR3(-m_Size.x, m_Size.y, m_Size.z);
     vertex[11].Position = D3DXVECTOR3(-m_Size.x, -m_Size.y, m_Size.z);
 
-    //背面
+    //背面 
     vertex[12].Position = D3DXVECTOR3(m_Size.x, -m_Size.y, m_Size.z);
     vertex[13].Position = D3DXVECTOR3(m_Size.x, m_Size.y, m_Size.z);
 
-    //右面
+    //右面 
     vertex[14].Position = D3DXVECTOR3(m_Size.x, m_Size.y, -m_Size.z);
     vertex[15].Position = D3DXVECTOR3(m_Size.x, -m_Size.y, -m_Size.z);
 }
@@ -147,7 +147,7 @@ bool BoxCollision::CollideWith(BoxCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        //ポジション計算用
+        //ポジション計算用 
         Vector3 pos = m_Object->m_Transform->GetPosition();
 
         // 補正

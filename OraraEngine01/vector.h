@@ -113,6 +113,11 @@ public:
 		return false;
 	}
 
+    operator float* (){
+        return &x;
+    }
+
+
     template<class Archive>
     void serialize(Archive& archive)
     {

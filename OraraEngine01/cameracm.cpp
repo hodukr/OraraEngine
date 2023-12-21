@@ -3,9 +3,13 @@
 #include "gameObject.h"
 #include "cameracm.h"
 #include "transform.h"
+Cameracm::Cameracm()
+{
+
+}
 void Cameracm::Init()
 {
-	m_GameObject->m_Transform->SetPosition(0.0f, 5.0f, -10.0f);
+    m_GameObject->m_Transform->SetPosition(0.0f, 5.0f, -10.0f);
 }
 
 void Cameracm::Uninit()
@@ -16,7 +20,7 @@ void Cameracm::Uninit()
 
 void Cameracm::Update()
 {
-
+    m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
 }
 
 void Cameracm::Draw()

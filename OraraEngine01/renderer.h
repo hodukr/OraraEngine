@@ -27,6 +27,7 @@ struct MATERIAL
 
 
 
+
 struct LIGHT
 {
 	BOOL		Enable;
@@ -44,6 +45,15 @@ struct PARAMETER
 	D3DXCOLOR	diffColor;
 
     D3DXVECTOR4 pos;
+};
+
+struct PRATICLE
+{
+    D3DXCOLOR Color[3];
+    bool IsGradation;
+    D3DXVECTOR3 Statposition;
+    float Size;
+    float Dummy[3];
 };
 
 
@@ -65,6 +75,7 @@ private:
 	static ID3D11Buffer*			m_MaterialBuffer;
 	static ID3D11Buffer*			m_LightBuffer;
 	static ID3D11Buffer*            m_ParameterBuffer;
+	static ID3D11Buffer*            m_PraticleBuffer;
 
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
@@ -87,10 +98,10 @@ public:
 	static void SetViewMatrix(D3DXMATRIX* ViewMatrix);
 	static void SetProjectionMatrix(D3DXMATRIX* ProjectionMatrix);
 	static void SetMaterial(MATERIAL Material);
-	static void SetLight(LIGHT Light);
-
+    static void SetLight(LIGHT Light);
 
 	static void SetParameter(PARAMETER param);
+    static void SetPraticle(PRATICLE Praticle);
 
 	static ID3D11Device* GetDevice( void ){ return Device; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_DeviceContext; }

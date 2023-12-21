@@ -1,8 +1,6 @@
 
 #include "common.hlsl"
 
-
-
 void main(in VS_IN In, out PS_IN Out)
 {
 	matrix wvp;

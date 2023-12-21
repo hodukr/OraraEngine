@@ -8,6 +8,7 @@ private:
     class GameObject* m_GameObject;
 
     class Component* m_PopupComponent;
+    bool m_KeyTransform[3]{};
 public:
     void Init();
     void Uninit();

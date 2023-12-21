@@ -156,7 +156,7 @@
     <ClCompile Include="shadow.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="skyDome.cpp">
+    <ClCompile Include="skyDomeGO.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="sprite.cpp">
@@ -180,7 +180,7 @@
     <ClCompile Include="material.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Inspector.cpp">
+    <ClCompile Include="inspector.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="mesh.cpp">
@@ -209,6 +209,18 @@
     </ClCompile>
     <ClCompile Include="collisionManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="praticle.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UItext.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="inputSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="nodeEditor.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -335,7 +347,7 @@
     <ClInclude Include="singleton.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="skyDome.h">
+    <ClInclude Include="skyDomeGO.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="sprite.h">
@@ -398,6 +410,27 @@
     <ClInclude Include="collisionManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="praticle.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="randomNumberGenerator.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="timeProvider.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="UItext.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="inputSystem.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="commonComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="nodeEditor.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -425,6 +458,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\boxCollisionVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\praticleVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\praticlePS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

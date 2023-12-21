@@ -7,11 +7,7 @@
 #include <cereal/types/memory.hpp>  
 #include <string>
 #include "main.h"
-#include "cameracm.h"
-#include "component.h"
-#include "transform.h"
-#include "mesh.h"
-#include "material.h"
+#include "commonComponent.h"
 class GameObject
 {
 private:
@@ -22,12 +18,13 @@ private:
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
-
+        m_ObjctName = "GameObject";
     }
     void SetDestroy() { m_Destroy = true; }
 
     bool Destroy()
     {
+
         if (m_Destroy)
         {
             Uninit();
@@ -41,11 +38,6 @@ public:
     }
 
     virtual void Init() {
-        if (m_ObjctName == "")
-        {
-            m_ObjctName = typeid(*this).name();
-            m_ObjctName = m_ObjctName.substr(6);
-        }
         m_Transform = GetComponent<Transform>();
         if (!m_Transform)
         {
@@ -139,6 +131,7 @@ public:
         return nullptr;
     }
 
+
     std::list<std::unique_ptr<Component>>* GetList()
     {
         return &m_Component;
@@ -150,3 +143,4 @@ public:
         archive(CEREAL_NVP(m_ObjctName),CEREAL_NVP(m_Component));
     }
 };
+

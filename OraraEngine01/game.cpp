@@ -20,7 +20,7 @@
 #include "result.h"
 #include "score.h"
 #include "audio.h"
-#include "skyDome.h"
+#include "skyDomeGO.h"
 #include "Life.h"
 #include "fade.h"
 #include "child.h"
@@ -33,7 +33,7 @@ void Game::Init()
 	Bullet::Load();
 
 	AddGameObject<Camera>(0);
-	AddGameObject<SkyDome>(1)->m_Transform->SetPosition(Vector3(0.0f,-3.0f,0.0f));
+	AddGameObject<SkyDomeGO>(1)->m_Transform->SetPosition(Vector3(0.0f,-3.0f,0.0f));
 	//AddGameObject<Field>(1);
 	MeshField* meshField = AddGameObject<MeshField>(1);
 

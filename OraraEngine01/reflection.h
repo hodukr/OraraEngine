@@ -62,6 +62,8 @@ public:
     };
 
 };
+
+
 #define SetReflection(typeName)namespace typeName##Reflection \
 {\
 static ReflectionList::Reflection<typeName> reflection;\

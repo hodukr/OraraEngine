@@ -5,27 +5,47 @@
 #include "mesh.h"
 #include "transform.h"
 #include "model.h"
+#include "material.h"
+void Mesh::SetModel(std::string pas)
+{
+    m_Modelpas = pas;
+    if (m_Model)
+    {
+        m_Model->Unload();
+        delete m_Model;
+    }
+
+    m_Model = new Model;
+
+    std::string name = "asset\\model\\" + m_Modelpas;
+    m_Model->Load(name.c_str());
+
+}
 
 void Mesh::Init()
 {
     m_Model = new Model;
-    m_Model->Load(m_Modelpas.c_str());
-
+    std::string name = "asset\\model\\" + m_Modelpas;
+    m_Model->Load(name.c_str());
+    m_Material.Init();
 }
 
 void Mesh::Uninit()
 {
+    m_Material.Uninit();
     m_Model->Unload();
     delete m_Model;
 }
 
 void Mesh::Update()
 {
+    m_Material.Update();
 
 }
 
 void Mesh::Draw()
 {
+    m_Material.Draw();
     //マトリクス設定 
     D3DXMATRIX world, scale, rot, trans;
     D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();

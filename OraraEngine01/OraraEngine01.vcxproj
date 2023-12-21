@@ -176,7 +176,8 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="inputSystem.cpp" />
+    <ClCompile Include="inspector.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -186,9 +187,11 @@
     <ClCompile Include="meshField.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouseHit.cpp" />
+    <ClCompile Include="nodeEditor.cpp" />
     <ClCompile Include="plane.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon2D.cpp" />
+    <ClCompile Include="praticle.cpp" />
     <ClCompile Include="reflection.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
@@ -196,7 +199,7 @@
     <ClCompile Include="rock.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
-    <ClCompile Include="skyDome.cpp" />
+    <ClCompile Include="skyDomeGO.cpp" />
     <ClCompile Include="sphereCollision.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="tetureManager.cpp" />
@@ -204,6 +207,7 @@
     <ClCompile Include="titleLogo.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="tree.cpp" />
+    <ClCompile Include="UItext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="accessFolder.h" />
@@ -217,6 +221,10 @@
     <ClInclude Include="child.h" />
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="collisionShape.h" />
+    <ClInclude Include="commonComponent.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="component.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="dropFile.h" />
@@ -226,6 +234,7 @@
     <ClInclude Include="field.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="nodeEditor.h" />
     <ClInclude Include="hierarchy.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -236,6 +245,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="inputSystem.h" />
     <ClInclude Include="inspector.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="main.h" />
@@ -249,6 +259,8 @@
     <ClInclude Include="plane.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon2D.h" />
+    <ClInclude Include="praticle.h" />
+    <ClInclude Include="randomNumberGenerator.h" />
     <ClInclude Include="reflection.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="resource.h" />
@@ -259,14 +271,16 @@
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="singleton.h" />
-    <ClInclude Include="skyDome.h" />
+    <ClInclude Include="skyDomeGO.h" />
     <ClInclude Include="sphereCollision.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="textureManager.h" />
+    <ClInclude Include="timeProvider.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="titleLogo.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="tree.h" />
+    <ClInclude Include="UItext.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +329,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="shader\praticlePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="shader\praticleVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="shader\unlitTexturePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

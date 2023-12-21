@@ -1,6 +1,12 @@
 #include "main.h"
 #include "renderer.h"
 #include "plane.h"
+#include "gameObject.h"
+
+void Plane::Init()
+{
+    Init(-50, -50, 100, 100, "asset\\texture\\field.jpg");
+}
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)
 {
@@ -73,6 +79,17 @@ void Plane::Draw()
 	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	material.TextureEnable = true;
 	Renderer::SetMaterial(material);
+
+    D3DXMATRIX world, scale, rot, trans;
+    D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
+    D3DXVECTOR3 Rotation = m_GameObject->m_Transform->GetRotation().dx();
+    D3DXVECTOR3 Position = m_GameObject->m_Transform->GetPosition().dx();
+
+    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
+    world = scale * rot * trans;
+    Renderer::SetWorldMatrix(&world);
 
 	//テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);

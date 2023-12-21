@@ -3,6 +3,7 @@
 #include "hierarchy.h"
 #include "inspector.h"
 #include "imgui/imgui.h"
+#include "input.h"
 
 void Hierarchy::Init()
 {
@@ -28,7 +29,26 @@ void Hierarchy::Draw()
 {
     ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoScrollbar);
     if(m_OpenTree)ImGui::SetNextItemOpen(true);
-    if (ImGui::TreeNode(m_Scene->GetName().c_str()))
+
+    bool opentree = ImGui::TreeNode(m_Scene->GetName().c_str());
+    if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+    {
+        ImGui::OpenPopup("SceneConfig");
+    }
+    if (ImGui::BeginPopup("SceneConfig")) {
+
+            char* name = (char*)m_Scene->GetName().c_str();
+            ImGui::InputText("Name", name,20);
+            std::string rename = name;
+            if ("" != rename && ImGui::GetKeyName(ImGuiKey_Enter))
+            {
+                m_Scene->SetName(rename);
+            }
+
+        ImGui::EndPopup();
+
+    }
+    if (opentree)
     {
         m_OpenTree = false;
         for (int i = 0; i < 3; i++)
@@ -59,7 +79,7 @@ void Hierarchy::Draw()
 
         if (ImGui::BeginPopup("GameObjectConfig")) {
 
-            if (ImGui::Selectable("Delet"))
+            if (ImGui::Selectable("削除"))
             {
                 if(m_ConfigGameObject == Inspector::Instance().GetGameObject())
                 Inspector::Instance().SetGameObejct(nullptr);
@@ -73,12 +93,32 @@ void Hierarchy::Draw()
 
         ImGui::Separator();
 
-        if (ImGui::Button("AddGameObject"))
+        if (ImGui::Button("オブジェクト追加"))
         {
-            m_Scene->AddGameObject<GameObject>(1);
+            GameObject* gameobjct =  m_Scene->AddGameObject<GameObject>(1);
+
+            //ゲームオブジェクト名がかぶってないかを調べる 
+            bool flg = true;
+            int num = 1;
+            std::string name = gameobjct->GetName();
+            while (flg) {
+                flg = false;
+                for (auto& obj : m_Scene->GetList()[1])
+                {
+                    std::string objnum = "(" + std::to_string(num) + ")";
+                    if (name == obj->GetName() && obj.get() != gameobjct)
+                    {
+                        name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
+                        flg = true;
+                        num++;
+                        break;
+                    }
+                }
+            };
+            gameobjct->SetName(name);
+            
         }
         ImGui::TreePop();
-
     }
     ImGui::End();
 }

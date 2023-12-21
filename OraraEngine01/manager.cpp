@@ -64,6 +64,5 @@ void Manager::Draw()
 
 	GuiManager::Instance().Draw();
 
-
 	Renderer::End();
 }

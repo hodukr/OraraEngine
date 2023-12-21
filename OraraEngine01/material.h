@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
-#include "component.h"
-class Material:public Component
+#include"component.h"
+#include <cereal/types/string.hpp>
+class Material: public Component
 {
 private:
 	ID3D11VertexShader* m_VertexShader{};
@@ -10,20 +11,27 @@ private:
 
 	std::string m_NameVS;
 	std::string m_NamePS;
-    std::string m_Shader;
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 public:
-    void Init()override;
+    Material() : m_NameVS("vertexLightingVS.cso"),m_NamePS("vertexLightingPS.cso"){}
+    void Init();
     void Init(const char* VS, const char* PS);
-	void Uninit()override;
-	void Update()override;
-	void Draw()override;
+	void Uninit();
+	void Update();
+	void Draw();
 
 	void SetColor(D3DXCOLOR Color) { m_Color = Color; }
 
-	void SetShader(std::string Shader);
-    std::string GetShader() { return m_Shader; }
+    void SetShaderVS(std::string Shader);
+    void SetShaderPS(std::string Shader);
+    std::string GetShaderVSName() { return m_NameVS; }
+    std::string GetShaderPSName() { return m_NamePS; }
 
+
+
+    template<class Archive>
+    void serialize(Archive& archive)
+    {
+        archive(CEREAL_NVP(m_NameVS), CEREAL_NVP(m_NamePS));
+    }
 };
-CEREAL_REGISTER_TYPE(Material);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Material)

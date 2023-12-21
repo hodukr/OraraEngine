@@ -65,7 +65,21 @@ cbuffer ParamBuffer : register(b5)
     PARAMETER Param;
 }
 
+struct PRATICLE
+{
+    float4 Color1;
+    float4 Color2;
+    float4 Color3;
+    bool Gradation;
+    float3 pos;
+    float Size;
+    float3 Dummy;
+};
 
+cbuffer PraticleBuffer : register(b6)
+{
+    PRATICLE Praticle;
+}
 
 
 struct VS_IN

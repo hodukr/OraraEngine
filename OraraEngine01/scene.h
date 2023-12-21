@@ -9,7 +9,10 @@
 #include "textureManager.h"
 #include <algorithm>
 #include <cereal/types/list.hpp>
+#include <cereal/types/string.hpp>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 class Scene
 {
 protected:
@@ -94,6 +97,7 @@ public:
 	{
 		std::unique_ptr<GameObject> gameObject = std::make_unique<T>();
 		gameObject->Init();
+       
         //std::string name;
         //name = "GameObject";
         //gameObject->SetName(name);
@@ -142,12 +146,30 @@ public:
         return m_GameObject;
     }
 
-    void SetName(std::string name) { m_Name = name; }
+    void SetName(std::string name) {
+        fs::path oldFilePath = "asset/scene/" + m_Name + "json";
+
+        // 新しいファイル名
+        std::string newFileName = name + ".json";
+
+        // 新しいファイルのパスを構築
+        fs::path newFilePath = oldFilePath.parent_path() / newFileName;
+
+        // ファイル名を変更
+        try {
+            fs::rename(oldFilePath, newFilePath);
+            std::cout << "File renamed successfully." << std::endl;
+        }
+        catch (const std::filesystem::filesystem_error& e) {
+            std::cerr << "Error renaming file: " << e.what() << std::endl;
+        }
+        m_Name = name;
+    }
     std::string GetName() { return m_Name; }
 
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_GameObject[0]), CEREAL_NVP(m_GameObject[1]), CEREAL_NVP(m_GameObject[2]));
+        archive(CEREAL_NVP(m_GameObject[0]), CEREAL_NVP(m_GameObject[1]), CEREAL_NVP(m_GameObject[2]), CEREAL_NVP(m_Name));
     }
 };

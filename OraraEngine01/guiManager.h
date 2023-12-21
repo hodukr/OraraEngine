@@ -7,6 +7,8 @@ class GuiManager
 private:
     Singleton(GuiManager);
     static std::string m_Text;
+    class NodeEditorManager* m_NodeEditor;
+
 public:
     void SetUp();
     void Init();

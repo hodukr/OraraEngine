@@ -4,12 +4,10 @@
 
 void Material::Init()
 {
-    m_NameVS = "shader\\vertexLightingVS.cso";
-    m_NamePS = "shader\\vertexLightingPS.cso";
-    m_Shader = "vertexLighting";
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, m_NameVS.c_str());
-
-    Renderer::CreatePixelShader(&m_PixelShader, m_NamePS.c_str());
+    std::string name = "shader\\" + m_NameVS;
+    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, name.c_str());
+    name = "shader\\" + m_NamePS;
+    Renderer::CreatePixelShader(&m_PixelShader, name.c_str());
 }
 
 void Material::Init(const char* VS = "shader\\vertexLightingVS.cso", const char* PS = "shader\\vertexLightingPS.cso")
@@ -54,13 +52,30 @@ void Material::Draw()
 	Renderer::SetMaterial(material);
 }
 
-void Material::SetShader(std::string Shader)
+void Material::SetShaderVS(std::string Shader)
 {
-    m_Shader = Shader;
-    m_NameVS = "shader\\" + Shader + "VS.cso";
-    m_NamePS = "shader\\" + Shader + "PS.cso";
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, m_NameVS.c_str());
-    Renderer::CreatePixelShader(&m_PixelShader, m_NamePS.c_str());
+    m_NameVS = Shader;
+    if (m_VertexLayout)
+        m_VertexLayout->Release();
+    if (m_VertexShader)
+        m_VertexShader->Release();
 
+    std::string name = "shader\\" + m_NameVS;
+
+    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, name.c_str());
 }
+
+void Material::SetShaderPS(std::string Shader)
+{
+    m_NamePS = Shader;
+    if(m_PixelShader)
+    m_PixelShader->Release();
+
+    std::string name = "shader\\" + m_NamePS;
+
+
+    Renderer::CreatePixelShader(&m_PixelShader, name.c_str());
+}
+
+
 

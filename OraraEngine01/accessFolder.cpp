@@ -38,6 +38,25 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     // フォルダ名を表示
     ImGui::SameLine();
     ImGui::Button(name);
+
+    //右クリックでポップアップを出す 
+    if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+    {
+        ImGui::OpenPopup(name);
+    }
+    if (ImGui::BeginPopup(name))
+    {
+        //ファイル消去
+        if (ImGui::Selectable("Delet"))
+        {
+            fs::path filePathToDelete = "asset\\" + m_ProjectFolderName + "\\" + name;
+
+            // ファイルを削除
+            fs::remove(filePathToDelete);
+        }
+
+        ImGui::EndPopup();
+    }
 }
 
 
