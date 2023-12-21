@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\GN\GN\shaderManager.cpp" />
     <ClCompile Include="accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
@@ -203,6 +202,7 @@
     <ClCompile Include="resultLogo.cpp" />
     <ClCompile Include="rock.cpp" />
     <ClCompile Include="score.cpp" />
+    <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="skyDomeGO.cpp" />
     <ClCompile Include="sphereCollision.cpp" />
@@ -217,7 +217,6 @@
     <ClCompile Include="waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\GN\GN\shaderManager.h" />
     <ClInclude Include="accessFolder.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
@@ -282,6 +281,7 @@
     <ClInclude Include="rock.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
+    <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderResource.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="singleton.h" />

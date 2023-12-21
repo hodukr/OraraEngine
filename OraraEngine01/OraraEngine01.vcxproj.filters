@@ -243,7 +243,7 @@
     <ClCompile Include="waterSurface.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\GN\GN\shaderManager.cpp">
+    <ClCompile Include="shaderManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -479,7 +479,7 @@
     <ClInclude Include="shaderResource.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\GN\GN\shaderManager.h">
+    <ClInclude Include="shaderManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
