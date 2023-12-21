@@ -42,16 +42,16 @@ void Menu::Draw()
     }
     if (ImGui::BeginPopup("LoadScene"))
     {
-        // フォルダのパスを指定
+        // フォルダのパスを指定 
         std::string folderPath = "asset\\scene";
 
-        // ファイル名を格納するためのベクターを作成
+        // ファイル名を格納するためのベクターを作成 
         std::vector<std::string> fileNames;
 
         try {
-            // 指定されたフォルダ内のファイルをイテレート
+            // 指定されたフォルダ内のファイルをイテレート 
             for (const auto& entry : fs::directory_iterator(folderPath)) {
-                // ファイル名をベクターに追加
+                // ファイル名をベクターに追加 
                 fileNames.push_back(entry.path().filename().string());
             }
         }
@@ -59,7 +59,7 @@ void Menu::Draw()
             std::cerr << "Error: " << ex.what() << std::endl;
         }
 
-        // ファイル名を出力
+        // ファイル名を出力 
         for (const auto& fileName : fileNames) {
             std::string extension = fileName.substr(fileName.find_last_of(".") + 1);
             std::string sceneName = fileName.substr(0,fileName.find_last_of("."));

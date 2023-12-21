@@ -57,7 +57,7 @@ void Text::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    //テクスチャ読み込み
+    //テクスチャ読み込み 
     D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
         "asset\\texture\\kyanpu.png",
         NULL,
@@ -83,34 +83,34 @@ void Text::Update()
 
 void Text::Draw()
 {
-    //入力レイアウト設定
+    //入力レイアウト設定 
     Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-    //シェーダー設定
+    //シェーダー設定 
     Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
     Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-    //マトリクス設定
+    //マトリクス設定 
     Renderer::SetWorldViewProjection2D();
 
-    //頂点バッファ設定
+    //頂点バッファ設定 
     UINT stride = sizeof(VERTEX_3D);
     UINT offset = 0;
     Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-    //マテリアル設定
+    //マテリアル設定 
     MATERIAL material;
     ZeroMemory(&material, sizeof(material));
     material.Diffuse = m_Color;
     material.TextureEnable = true;
     Renderer::SetMaterial(material);
 
-    //テクスチャ設定
+    //テクスチャ設定 
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
 
-    //プリミティブトポロジ設定
+    //プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-    //ポリゴン描画
+    //ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(4, 0);
 }

@@ -54,7 +54,7 @@ void PraticleSystem::Init()
     vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
     vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
 
-    //頂点バッファ生成
+    //頂点バッファ生成 
     D3D11_BUFFER_DESC bd;
     ZeroMemory(&bd, sizeof(bd));
     bd.Usage = D3D11_USAGE_DYNAMIC;
@@ -152,10 +152,10 @@ void PraticleSystem::Draw()
     
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
-    //入力レイアウト設定
+    //入力レイアウト設定 
     Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-    //シェーダー設定 
+    //シェーダー設定  
     Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
     Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
@@ -164,14 +164,14 @@ void PraticleSystem::Draw()
         if (m_Camera)
             D3DXMATRIX view = m_Camera->GetViewMatrix();
 
-        ////ビューの逆行列
+        ////ビューの逆行列 
         //D3DXMATRIX invView;
         //D3DXMatrixInverse(&invView, NULL, &view);
         //invView._41 = 0.0f;
         //invView._42 = 0.0f;
         //invView._43 = 0.0f;
 
-        //マトリクス設定
+        //マトリクス設定 
         D3DXMATRIX world, scale, rot, trans;
         D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
         D3DXVECTOR3 Position = praticle->Position.dx();
@@ -181,12 +181,12 @@ void PraticleSystem::Draw()
         world = scale /** invView */* trans;
         Renderer::SetWorldMatrix(&world);
 
-        //頂点バッファ設定
+        //頂点バッファ設定 
         UINT stride = sizeof(VERTEX_3D);
         UINT offset = 0;
         Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-        //マテリアル設定
+        //マテリアル設定 
         MATERIAL material;
         ZeroMemory(&material, sizeof(material));
         material.Diffuse = praticle->Color;
@@ -203,14 +203,14 @@ void PraticleSystem::Draw()
         pra.Size = m_Emitter.GradationLength;
         Renderer::SetPraticle(pra);
 
-        //テクスチャ設定
+        //テクスチャ設定 
         Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
 
-        //プリミティブトポロジ設定
+        //プリミティブトポロジ設定 
         Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
         Renderer::SetATCEnable(true);
-        //ポリゴン描画
+        //ポリゴン描画 
         Renderer::GetDeviceContext()->Draw(4, 0);
 
         Renderer::SetATCEnable(false);

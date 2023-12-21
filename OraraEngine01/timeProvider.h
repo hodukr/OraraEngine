@@ -2,18 +2,18 @@
 #include <chrono>
 
 class ElapsedTimeTracker {
-public:
-    // コンストラクタ
+public: 
+    // コンストラクタ 
     ElapsedTimeTracker() {
         Reset();
     }
 
-    // 現在の時間を取得
+    // 現在の時間を取得 
     void Reset() {
         startTime = std::chrono::high_resolution_clock::now();
     }
 
-    // 経過時間を秒単位で取得
+    // 経過時間を秒単位で取得 
     double GetElapsedTimeInSeconds() const {
         auto currentTime = std::chrono::high_resolution_clock::now();
         auto duration = currentTime - startTime;

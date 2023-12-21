@@ -14,7 +14,7 @@ struct Connection {
     int EndNodeId{};
 };
 
-// ノードエディターの状態
+// ノードエディターの状態 
 struct NodeEditor {
     std::vector<Node*> Nodes;
     std::vector<Connection> Connections;

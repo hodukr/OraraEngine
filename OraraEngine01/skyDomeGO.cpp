@@ -46,14 +46,14 @@ void SkyDomeGO::Draw()
 {
 
 
-	//入力レイアウト設定
+	//入力レイアウト設定 
 	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	//シェーダー設定
+	//シェーダー設定 
 	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
 	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
-	//マトリクス設定
+	//マトリクス設定 
     D3DXMATRIX world, scale, rot, trans;
     D3DXVECTOR3 Scale = m_Transform->GetScale().dx();
     D3DXVECTOR3 Rotation = m_Transform->GetRotation().dx();

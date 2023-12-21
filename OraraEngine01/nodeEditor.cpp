@@ -76,11 +76,11 @@ void NodeEditorManager::DrawNodeEditor(NodeEditor& editor)
 
     ImGui::Text("mousepos %f %f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 
-    //背景を描画
+    //背景を描画 
     DrawBackGround();
 
 
-    // ノードを描画
+    // ノードを描画 
     for (const auto& node : editor.Nodes) {
         ImGui::SetCursorScreenPos(node->PositionCorrection);
         ImGui::PushID(node->id);
@@ -92,7 +92,7 @@ void NodeEditorManager::DrawNodeEditor(NodeEditor& editor)
         ImGui::PopID();
     }
 
-    // 接続を描画
+    // 接続を描画 
     for (const auto& connection : editor.Connections) {
         Node& startNode = *editor.Nodes[connection.StartNodeId - 1];
         Node& endNode = *editor.Nodes[connection.EndNodeId - 1];
@@ -108,7 +108,7 @@ void NodeEditorManager::DrawBackGround()
     ImVec2 windowpos = ImGui::GetWindowPos();
     ImVec2 windowsize = ImGui::GetWindowSize();
     float linewid = 50;
-    //横線 
+    //横線  
     for (float i = 0.0f; i < 10.0f; i++)
     {
         ImVec2 State = windowpos;
@@ -121,7 +121,7 @@ void NodeEditorManager::DrawBackGround()
             end,
             IM_COL32(0, 0, 0, 255), 1.0f);
     }
-    //縦線 
+    //縦線  
     for (float i = 0.0f; i < 20.0f; i++)
     {
         ImVec2 State = windowpos;
