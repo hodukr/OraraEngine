@@ -1,11 +1,9 @@
-#pragma once
-#include "main.h"
+﻿#pragma once
 #include "guiManager.h"
 #include "gameObject.h"
 #include <list>
 #include <typeinfo>
 #include <vector>
-#include "camera.h"
 #include "textureManager.h"
 #include <algorithm>
 #include <cereal/types/list.hpp>

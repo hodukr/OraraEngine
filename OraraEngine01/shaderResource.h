@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 struct VERTEX_3D
 {
     D3DXVECTOR3 Position;

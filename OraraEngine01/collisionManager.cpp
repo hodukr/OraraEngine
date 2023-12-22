@@ -1,6 +1,6 @@
-#include "main.h"
+﻿#include "main.h"
 #include "collisionManager.h"
-
+#include "gameObject.h"
 
 std::list<CollisionShape*>  CollisionManager::m_Shape{};
 

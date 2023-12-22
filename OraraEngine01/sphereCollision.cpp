@@ -1,7 +1,8 @@
-#include "main.h"
+﻿#include "main.h"
 #include "renderer.h"
 #include "sphereCollision.h"
 #include "boxCollision.h"
+#include "gameObject.h"
 #include "input.h"
 
 void SphereCollision::Init()

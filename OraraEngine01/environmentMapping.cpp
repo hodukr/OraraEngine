@@ -1,9 +1,9 @@
-#include "main.h"
+﻿#include "main.h"
 #include "manager.h"
 #include "renderer.h"
 #include "scene.h"
+#include "gameObject.h"
 #include "environmentMapping.h"
-#include "field.h"
 
 void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device)
 {

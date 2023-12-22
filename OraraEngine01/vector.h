@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include <math.h>
 #include<d3dx9math.h>
+#include <cereal/cereal.hpp>
 class Vector2
 {
 public:

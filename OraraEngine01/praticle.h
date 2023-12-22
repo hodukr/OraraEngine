@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "component.h"
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>

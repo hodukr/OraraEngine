@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// ƒ}ƒeƒŠƒAƒ‹\‘¢‘Ì
+// ãƒãƒ†ãƒªã‚¢ãƒ«æ§‹é€ ä½“
 struct MODEL_MATERIAL
 {
 	char						Name[256];
@@ -11,7 +11,7 @@ struct MODEL_MATERIAL
 };
 
 
-// •`‰æƒTƒuƒZƒbƒg\‘¢‘Ì
+// æç”»ã‚µãƒ–ã‚»ãƒƒãƒˆæ§‹é€ ä½“
 struct SUBSET
 {
 	unsigned int	StartIndex;
@@ -20,7 +20,7 @@ struct SUBSET
 };
 
 
-// ƒ‚ƒfƒ‹\‘¢‘Ì
+// ãƒ¢ãƒ‡ãƒ«æ§‹é€ ä½“
 struct MODEL
 {
 	VERTEX_3D		*VertexArray;

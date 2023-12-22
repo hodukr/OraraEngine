@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include "imgui/imgui.h"
 #include "singleton.h"
 #include <set>
 #include <list>
 #include <unordered_map>
-#include <filesystem>  // C++17‚Ì•W€ƒ‰ƒCƒuƒ‰ƒŠ‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚éƒwƒbƒ_
+#include <filesystem>  // C++17ã®æ¨™æº–ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«å«ã¾ã‚Œã¦ã„ã‚‹ãƒ˜ãƒƒãƒ€
 namespace fs = std::filesystem;
 #define MAX_TEXT_NUM 256
 
@@ -15,10 +15,10 @@ private:
 	Singleton(AccessFolder);
 	bool m_CreateFolder = false;
 	char m_CreatedFolderName[MAX_TEXT_NUM];
-	char m_FolderName[MAX_TEXT_NUM];                     //Å‘å•¶š”256
-	std::set<std::string> m_ProjectFolders;              //assetƒtƒHƒ‹ƒ_‚Ì’†g‚ÌƒtƒHƒ‹ƒ_–¼
-	std::string m_ProjectFolderName;                     //¡ŠJ‚¢‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚Ì–¼‘O‚ğŠi”[
-	std::unordered_map<std::string,std::string> m_Path; //–¼‘O‚ğKey‚ÉƒpƒX‚ğŠi”[
+	char m_FolderName[MAX_TEXT_NUM];                     //æœ€å¤§æ–‡å­—æ•°256
+	std::set<std::string> m_ProjectFolders;              //assetãƒ•ã‚©ãƒ«ãƒ€ã®ä¸­èº«ã®ãƒ•ã‚©ãƒ«ãƒ€å
+	std::string m_ProjectFolderName;                     //ä»Šé–‹ã„ã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã®åå‰ã‚’æ ¼ç´
+	std::unordered_map<std::string,std::string> m_Path; //åå‰ã‚’Keyã«ãƒ‘ã‚¹ã‚’æ ¼ç´
 	float m_ImageSize = 20;
 
 	void DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv);

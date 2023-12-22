@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 #include "renderer.h"
 #include "textureManager.h"
 #include "accessFolder.h"

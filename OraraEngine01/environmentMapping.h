@@ -1,6 +1,5 @@
-#pragma once
+﻿#pragma once
 #include "pass.h"
-#include "gameObject.h"
 
 class EnvironmentMapping :public Pass
 {
@@ -11,7 +10,7 @@ private:
     ID3D11Texture2D* m_CubeReflectTexture{};
     ID3D11ShaderResourceView* m_CubeReflectShaderResourceView{};
 
-    std::list<GameObject*> m_DrawObj;
+    std::list<class GameObject*> m_DrawObj;
     D3DXVECTOR3 m_EnvMapObjPos{};
 public:
     void CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device) override;

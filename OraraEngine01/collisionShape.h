@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 
-#include "gameObject.h"
-#include "vector"
+
+#include "vector.h"
 #include "component.h"
 #include <set>
 #include <unordered_map>
@@ -26,7 +26,7 @@ class CollisionShape :public Component
 protected:
     bool m_Trigger = false; //trueにすると補正はせず当たり判定だけ取る 
     Shape m_Shape = SHAPE_NONE;
-    GameObject* m_Object;
+    class GameObject* m_Object;
 
     ID3D11VertexShader* m_VertexShader{};
     ID3D11PixelShader* m_PixelShader{};

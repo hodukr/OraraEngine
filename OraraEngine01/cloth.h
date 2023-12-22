@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "component.h"
 #include "shaderResource.h"
 
@@ -9,10 +9,16 @@
 
 #define CLOTH_UV (1.0f / ((float)NUM_VERTEX - 1.0f))   
 
+struct INTVECTOR2
+{
+    int x;
+    int y;
+};
+
 struct SPRING
 {
-    D3DXVECTOR2	Praticle1;					// 接続されている粒子１ 
-    D3DXVECTOR2	Praticle2;					// 接続されている粒子２ 
+    INTVECTOR2	Praticle1;					// 接続されている粒子１ 
+    INTVECTOR2	Praticle2;					// 接続されている粒子２ 
     float	Length;				    // 自然長 
 };
 

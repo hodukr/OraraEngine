@@ -1,10 +1,9 @@
-#include "main.h"
+﻿#include "main.h"
 #include "manager.h"
 #include "renderer.h"
 #include "scene.h"
 #include "cloth.h"
 #include "imgui/imgui.h"
-#include "stick.h"
 #include "gameObject.h"
 
 void Cloth::Init()

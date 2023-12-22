@@ -1,6 +1,6 @@
-#pragma once
+﻿#pragma once
 #include <list>
-#include <filesystem> //������g���ꍇ�v���p�e�B��C++����W����C++17�ɐݒ肵�Ȃ��Ⴂ���Ȃ�
+#include <filesystem> //これを使う場合プロパティのC++言語標準をC++17に設定しなきゃいけない
 
 namespace fs = std::filesystem;
 

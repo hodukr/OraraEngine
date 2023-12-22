@@ -75,38 +75,8 @@
     <ClCompile Include="audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="box.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="bullet.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="child.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="cylinder.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="dropFile.cpp">
       <Filter>Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="explosion.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="fade.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="field.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="guiManager.cpp">
       <Filter>Manager</Filter>
@@ -117,68 +87,26 @@
     <ClCompile Include="input.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="manager.cpp">
       <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="meshField.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="mouseHit.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="plane.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon2D.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="resultLogo.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="rock.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="score.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="shadow.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="skyDomeGO.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="sprite.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="tetureManager.cpp">
+    <ClCompile Include="textureManager.cpp">
       <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="titleLogo.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="tree.cpp">
-      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
       <Filter>Component</Filter>
@@ -216,11 +144,8 @@
     <ClCompile Include="praticle.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="UItext.cpp">
+    <ClCompile Include="uiText.cpp">
       <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="inputSystem.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="nodeEditor.cpp">
       <Filter>Debug</Filter>
@@ -234,9 +159,6 @@
     <ClCompile Include="postPass.cpp">
       <Filter>Pass</Filter>
     </ClCompile>
-    <ClCompile Include="stick.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="cloth.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -245,6 +167,12 @@
     </ClCompile>
     <ClCompile Include="shaderManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="inputSystem.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="plane.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,41 +209,11 @@
     <ClInclude Include="audio.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="box.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="child.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="component.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="cylinder.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="dropFile.h">
       <Filter>Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="explosion.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="fade.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="field.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="gameObject.h">
       <Filter>GameObject</Filter>
@@ -326,44 +224,17 @@
     <ClInclude Include="input.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="manager.h">
       <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="meshField.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="mouseHit.h">
-      <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="plane.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon2D.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="renderer.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="resultLogo.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="rock.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="score.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="shadow.h">
       <Filter>Component</Filter>
@@ -371,26 +242,14 @@
     <ClInclude Include="singleton.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="skyDomeGO.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="sprite.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="textureManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="titleLogo.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="tree.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
       <Filter>System</Filter>
@@ -419,9 +278,6 @@
     <ClInclude Include="cameracm.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="boxCollision.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -443,7 +299,7 @@
     <ClInclude Include="timeProvider.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="UItext.h">
+    <ClInclude Include="uiText.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="inputSystem.h">
@@ -467,9 +323,6 @@
     <ClInclude Include="postPass.h">
       <Filter>Pass</Filter>
     </ClInclude>
-    <ClInclude Include="stick.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="cloth.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -480,6 +333,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="shaderManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="guiManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>

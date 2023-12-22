@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "shaderResource.h"
 #include "pass.h"

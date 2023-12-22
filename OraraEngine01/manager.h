@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 //循環参照になるので前方宣言
 //class Scene;
 //前方宣言はポインタで使う時のみ

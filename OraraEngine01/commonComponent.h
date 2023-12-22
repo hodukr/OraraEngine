@@ -6,7 +6,7 @@
 #include "material.h"
 #include "praticle.h"
 #include "plane.h"
-#include "UItext.h"
+#include "uiText.h"
 #include "inputSystem.h"
 
 #define SET_COMPONENT_CLASS(Classname)\
