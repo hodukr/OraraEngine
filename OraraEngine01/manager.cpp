@@ -6,14 +6,13 @@
 #include "audio.h"
 #include "guiManager.h"
 #include "shaderManager.h"
-#include "post.h"
 #include "collisionManager.h"
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};
 CollisionManager* m__CollisionManager{};
-Post* m_Post{};
-ShaderManager* m_ShaderManager{};
+
+
 
 
 void Manager::Init()
@@ -26,11 +25,7 @@ void Manager::Init()
 
 	m__CollisionManager = new CollisionManager;
 
-	m_Post = new Post;
-	m_Post->Init();
-
-	m_ShaderManager = new ShaderManager;
-	m_ShaderManager->Init();
+	ShaderManager::Instance().Init();
 
 	//m_Scene = new Title();
 	//m_Scene->Init();
@@ -44,10 +39,8 @@ void Manager::Uninit()
 
 	m__CollisionManager->Uninit();
 	delete m__CollisionManager;
-	m_Post->Uninit();
-	delete m_Post;
-	m_ShaderManager->Uninit();
-	delete m_ShaderManager;
+
+	ShaderManager::Instance().Uninit();
 
 	Audio::UninitMaster();
 	Renderer::Uninit();
@@ -76,20 +69,12 @@ void Manager::Update()
 
 	m_Scene->Update();	
 	m__CollisionManager->Update();
-	m_ShaderManager->Update();
-	m_Post->Update();
+	ShaderManager::Instance().Update();
 }
 
 void Manager::Draw()
 {
-	//Renderer::Begin();
-
-	// m_Scene->Draw();
-
-	//m_Scene->Draw();
-	m_ShaderManager->Draw();
-	Renderer::Begin();
-	m_Post->Draw();
+	ShaderManager::Instance().Draw();
 
 	GuiManager::Instance().Draw();
 

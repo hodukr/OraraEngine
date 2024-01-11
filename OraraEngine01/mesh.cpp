@@ -6,6 +6,9 @@
 #include "transform.h"
 #include "model.h"
 #include "material.h"
+#include "shaderManager.h"
+#include "depthShadow.h"
+
 void Mesh::SetModel(std::string pas)
 {
     m_Modelpas = pas;
@@ -57,7 +60,15 @@ void Mesh::Draw()
     D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
     world = scale * rot * trans;
     m_Matrix = world;
+
+    //シャドウバッファテクスチャを1番へセット
+    // テクスチャ設定
+    DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+
+    Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+
     Renderer::SetWorldMatrix(&world);
+
     m_Model->Draw();
 
 }

@@ -174,11 +174,16 @@
     <ClCompile Include="plane.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="gameManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="gameManagerGui.cpp">
       <Filter>Debug</Filter>
+=======
+    <ClCompile Include="depthShadow.cpp">
+      <Filter>Pass</Filter>
+>>>>>>> develop
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,9 +343,10 @@
     <ClInclude Include="shaderResource.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="shaderManager.h">
+    <ClInclude Include="guiManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="gameManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -351,6 +357,12 @@
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="guiManager.h">
+=======
+    <ClInclude Include="depthShadow.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderManager.h">
+>>>>>>> develop
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -404,6 +416,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="shader\waterSurfaceVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\shadowPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\shadowVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

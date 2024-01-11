@@ -4,21 +4,21 @@
 #include "scene.h"
 #include "postPass.h"
 
-void PostPass::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device)
+void PostPass::CreatePass()
 {
     //テクスチャー作成 
     ID3D11Texture2D* ppTexture = NULL;
     D3D11_TEXTURE2D_DESC td;
     ZeroMemory(&td, sizeof(td));
 
-    td.Width = swapChainDesc.BufferDesc.Width;
-    td.Height = swapChainDesc.BufferDesc.Height;
+    td.Width = Renderer::GetSwapChainDesc().BufferDesc.Width;
+    td.Height = Renderer::GetSwapChainDesc().BufferDesc.Height;
 
     td.MipLevels = 1;
     td.ArraySize = 1;
 
     td.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-    td.SampleDesc = swapChainDesc.SampleDesc;
+    td.SampleDesc = Renderer::GetSwapChainDesc().SampleDesc;
     td.Usage = D3D11_USAGE_DEFAULT;
 
     //使用法のフラグを設定 
@@ -27,14 +27,14 @@ void PostPass::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* devi
     td.MiscFlags = 0;
 
 
-    device->CreateTexture2D(&td, NULL, &ppTexture);
+    Renderer::GetDevice()->CreateTexture2D(&td, NULL, &ppTexture);
 
     //レンダーターゲットビューの作成 
     D3D11_RENDER_TARGET_VIEW_DESC rtvd;
     ZeroMemory(&rtvd, sizeof(rtvd));
     rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-    device->CreateRenderTargetView(ppTexture, &rtvd, &m_PPRenderTargetView);
+    Renderer::GetDevice()->CreateRenderTargetView(ppTexture, &rtvd, &m_PPRenderTargetView);
 
     //シェーダーリソースビュー作成 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
@@ -42,7 +42,7 @@ void PostPass::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* devi
     srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvd.Texture2D.MipLevels = 1;
-    device->CreateShaderResourceView(ppTexture, &srvd, &m_PPShaderResourceView);
+    Renderer::GetDevice()->CreateShaderResourceView(ppTexture, &srvd, &m_PPShaderResourceView);
 
     ppTexture->Release();
 }

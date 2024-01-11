@@ -2,6 +2,9 @@
 #include "renderer.h"
 #include "plane.h"
 #include "gameObject.h"
+#include "environmentMapping.h"
+#include "shaderManager.h"
+#include "depthShadow.h"
 
 void Plane::Init()
 {
@@ -10,6 +13,10 @@ void Plane::Init()
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)
 {
+	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\shadowVS.cso");
+
+	Renderer::CreatePixelShader(&m_PixelShader, "shader\\shadowPS.cso");
+
 	VERTEX_3D vertex[4];
 
 	vertex[0].Position = D3DXVECTOR3(x, 0.0f, z + depth);
@@ -20,17 +27,17 @@ void Plane::Init(float x, float z, float width, float depth, const char* texture
 	vertex[1].Position = D3DXVECTOR3(x + width, 0.0f, z + depth);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[1].TexCoord = D3DXVECTOR2(10.0f, 0.0f);
+	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
 
 	vertex[2].Position = D3DXVECTOR3(x, 0.0f, z);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 10.0f);
+	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
 
 	vertex[3].Position = D3DXVECTOR3(x + width, 0.0f, z);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[3].TexCoord = D3DXVECTOR2(10.0f, 10.0f);
+	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
 
 	//頂点バッファ生成
 	D3D11_BUFFER_DESC bd;
@@ -60,6 +67,10 @@ void Plane::Uninit()
 {
 	m_VertexBuffer->Release();
 	m_Texture->Release();
+
+	m_VertexLayout->Release();
+	m_VertexShader->Release();
+	m_PixelShader->Release();
 }
 
 void Plane::Update()
@@ -68,6 +79,13 @@ void Plane::Update()
 
 void Plane::Draw()
 {
+	// 入力レイアウト設定
+	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+
+	// シェーダ設定
+	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+
 	//頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
@@ -93,6 +111,11 @@ void Plane::Draw()
 
 	//テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+	//EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
+	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetCubeReflectShaderResourceView());
+	DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+
 
 	//プリミティブトポロジ設定
 	Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

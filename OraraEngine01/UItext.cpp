@@ -2,6 +2,8 @@
 #include "renderer.h"
 #include "UItext.h"
 #include "sprite.h"
+#include "shaderManager.h"
+#include "depthShadow.h"
 
 
 void Text::Init()
@@ -18,9 +20,9 @@ void Text::Init()
     //AddComponent<Sprite>()->Init(0.0f, 0.0f, 200.0f, 200.0f, "asset\\texture\\kizuna.jpg");
     VERTEX_3D vertex[4];
     float x = 300.0f;
-    float y = 0.0f;
+    float y = 100.0f;
     float width = 600.0f;
-    float height = 250.0f;
+    float height = 400.0f;
 
 
     vertex[0].Position = D3DXVECTOR3(x, y, 0.0f);
@@ -106,7 +108,9 @@ void Text::Draw()
     Renderer::SetMaterial(material);
 
     //テクスチャ設定 
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+    //Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+    DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, shadow->GetDepthShadowTexture());
 
     //プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

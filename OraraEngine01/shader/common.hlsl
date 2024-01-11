@@ -1,6 +1,3 @@
-
-
-
 cbuffer WorldBuffer : register(b0)
 {
 	matrix World;
@@ -30,9 +27,6 @@ cbuffer MaterialBuffer : register(b3)
 	MATERIAL Material;
 }
 
-
-
-
 struct LIGHT
 {
 	bool Enable;
@@ -40,6 +34,8 @@ struct LIGHT
 	float4 Direction;
 	float4 Diffuse;
 	float4 Ambient;
+    matrix View; //ライトカメラのビュー行列
+    matrix Projection; //ライトカメラのプロジェクション行列
 };
 
 cbuffer LightBuffer : register(b4)
@@ -81,7 +77,6 @@ cbuffer CameraBuffer : register(b7)
     float4 CameraPosition;
 }
 
-
 struct WATER
 {
     float4 Pos;
@@ -112,4 +107,6 @@ struct PS_IN
     float4 Normal        : NORMAL0;
 	float4 Diffuse		 : COLOR0;
 	float2 TexCoord		 : TEXCOORD0;
+    
+    float4 ShadowPosition : POSITION1; //ライトカメラから見たピクセルの座標
 };

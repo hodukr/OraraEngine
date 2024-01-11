@@ -25,6 +25,8 @@ struct LIGHT
     D3DXVECTOR4	Direction;
     D3DXCOLOR	Diffuse;
     D3DXCOLOR	Ambient;
+    D3DXMATRIX  ViewMatrix;       //追加 ライトカメラ行列
+    D3DXMATRIX  ProjectionMatrix; //追加 ライトプロジェクション行列
 };
 
 struct PARAMETER

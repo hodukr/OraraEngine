@@ -67,19 +67,22 @@ void DropFile::CopyFileToProjectFolder(fs::path filePath)
     // プロジェクトフォルダにコピーするためのファイルパスを作成
     fs::path destinationPath = projectRoot / relativeFolderPath / fs::path(filePath).filename();
 
-    try {
-        // ファイルをコピーする
-        //ここでファイルをコピーして指定のパスのフォルダに格納している
-        fs::copy_file(filePath, destinationPath, fs::copy_options::overwrite_existing);
+    if (fs::is_regular_file(filePath))
+    {
+       // ファイルをコピーする
+       //ここでファイルをコピーして指定のパスのフォルダに格納している
+       fs::copy_file(filePath, destinationPath, fs::copy_options::overwrite_existing);
     }
-    catch (const fs::filesystem_error& ex) {
-        if (!fs::is_regular_file(filePath))
-        {
-            assert(fs::exists(filePath));
-            assert(fs::exists(destinationPath));
+    else
+    {
+        assert(fs::exists(filePath));
+        assert(fs::exists(destinationPath));
 
-            //同じパスではなく、シンボリックリンク／ハードリンクでもないので、等価ではない
-            assert(!fs::equivalent(filePath, destinationPath));
-        }
+        //同じパスではなく、シンボリックリンク／ハードリンクでもないので、等価ではない
+        assert(!fs::equivalent(filePath, destinationPath));
     }
+   
+   
+      
+    
 }
