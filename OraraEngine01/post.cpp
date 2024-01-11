@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 #include "renderer.h"
 #include "post.h"
-#include "postPass.h"
+#include "pass_postPass.h"
 #include "shaderManager.h"
 
 

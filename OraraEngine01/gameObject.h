@@ -7,7 +7,7 @@
 #include <cereal/types/memory.hpp>  
 #include <string>
 #include "main.h"
-#include "commonComponent.h"
+#include "com_common.h"
 class GameObject
 {
 private:

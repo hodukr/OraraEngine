@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 #include "renderer.h"
-#include "environmentMapping.h"
-#include "postPass.h"
+#include "pass_environmentMapping.h"
+#include "pass_postPass.h"
 #include <io.h>
 
 
