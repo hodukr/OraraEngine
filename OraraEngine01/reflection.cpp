@@ -1,8 +1,8 @@
 #include "main.h"
 #include "reflection.h"
-#include "commonComponent.h"
-#include "cloth.h"
-#include "waterSurface.h"
+#include "com_common.h"
+#include "com_cloth.h"
+#include "com_waterSurface.h"
 
 
 std::vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
