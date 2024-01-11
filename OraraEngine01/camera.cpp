@@ -41,4 +41,6 @@ void Cameracm::Draw()
         (float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
 
     Renderer::SetProjectionMatrix(&projectionMatrix);
+
+    Renderer::SetCameraPosition(m_GameObject->m_Transform->GetPosition().dx());
 }

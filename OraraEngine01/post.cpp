@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "post.h"
 #include "postPass.h"
+#include "shaderManager.h"
 
 
 void Post::Init()
@@ -98,10 +99,10 @@ void Post::Draw()
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     Renderer::SetMaterial(material);
      
-    // テクスチャ設定  
+    // テクスチャ設定
 
-    //レンダリングテクスチャを取得  
-    PostPass* post = Renderer::GetPass<PostPass>(SHADER_POST);
+    //レンダリングテクスチャを取得
+    PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
     //レンダリングテクスチャを0番にセット  
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
 

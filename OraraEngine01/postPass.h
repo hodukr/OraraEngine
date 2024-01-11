@@ -7,7 +7,7 @@ private:
     ID3D11RenderTargetView* m_PPRenderTargetView{};
     ID3D11ShaderResourceView* m_PPShaderResourceView{};
 public:
-    void CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device) override;
+    void CreatePass() override;
     void Uninit()override;
     const Shader GetPassId()override { return SHADER_POST; }
 

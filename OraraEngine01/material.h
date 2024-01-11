@@ -27,8 +27,6 @@ public:
     std::string GetShaderVSName() { return m_NameVS; }
     std::string GetShaderPSName() { return m_NamePS; }
 
-
-
     template<class Archive>
     void serialize(Archive& archive)
     {

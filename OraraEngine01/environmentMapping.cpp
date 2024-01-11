@@ -4,8 +4,9 @@
 #include "scene.h"
 #include "gameObject.h"
 #include "environmentMapping.h"
+#include "imgui/imgui.h"
 
-void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device)
+void EnvironmentMapping::CreatePass()
 {
     D3D11_TEXTURE2D_DESC td;
     ZeroMemory(&td, sizeof(td));
@@ -15,16 +16,16 @@ void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11De
     td.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     td.Usage = D3D11_USAGE_DEFAULT;
     td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    td.SampleDesc = swapChainDesc.SampleDesc;
+    td.SampleDesc = Renderer::GetSwapChainDesc().SampleDesc;
     td.MiscFlags = 0;
     td.MipLevels = 1;
-    device->CreateTexture2D(&td, NULL, &m_ReflectTexture);
+    Renderer::GetDevice()->CreateTexture2D(&td, NULL, &m_ReflectTexture);
 
     D3D11_RENDER_TARGET_VIEW_DESC rtvd;
     ZeroMemory(&rtvd, sizeof(rtvd));
     rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-    device->CreateRenderTargetView(m_ReflectTexture, &rtvd, &m_ReflectRenderTargetView);
+    Renderer::GetDevice()->CreateRenderTargetView(m_ReflectTexture, &rtvd, &m_ReflectRenderTargetView);
 
     ID3D11Texture2D* depthTexture = NULL;
     ZeroMemory(&td, sizeof(td));
@@ -39,13 +40,13 @@ void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11De
     td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     td.CPUAccessFlags = 0;
     td.MiscFlags = 0;
-    device->CreateTexture2D(&td, NULL, &depthTexture);
+    Renderer::GetDevice()->CreateTexture2D(&td, NULL, &depthTexture);
 
     D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
     ZeroMemory(&dsvd, sizeof(dsvd));
     dsvd.Format = DXGI_FORMAT_D32_FLOAT;
     dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    device->CreateDepthStencilView(depthTexture, &dsvd, &m_ReflectDepthStencilView);
+    Renderer::GetDevice()->CreateDepthStencilView(depthTexture, &dsvd, &m_ReflectDepthStencilView);
 
     depthTexture->Release();
 
@@ -58,8 +59,8 @@ void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11De
     td.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS | D3D11_RESOURCE_MISC_TEXTURECUBE;
     td.MipLevels = 1;
     td.Usage = D3D11_USAGE_DEFAULT;
-    td.SampleDesc = swapChainDesc.SampleDesc;
-    device->CreateTexture2D(&td, NULL, &m_CubeReflectTexture);
+    td.SampleDesc = Renderer::GetSwapChainDesc().SampleDesc;
+    Renderer::GetDevice()->CreateTexture2D(&td, NULL, &m_CubeReflectTexture);
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
     ZeroMemory(&srvd, sizeof(srvd));
@@ -67,7 +68,9 @@ void EnvironmentMapping::CreatePass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11De
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
     srvd.TextureCube.MipLevels = td.MipLevels;
     srvd.TextureCube.MostDetailedMip = 0;
-    device->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_CubeReflectShaderResourceView);
+    Renderer::GetDevice()->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_CubeReflectShaderResourceView);
+
+    m_DrawObjNum = 0;
 }
 
 void EnvironmentMapping::Uninit()
@@ -79,6 +82,8 @@ void EnvironmentMapping::Uninit()
     m_CubeReflectShaderResourceView->Release();
 
     m_DrawObj.clear();
+    m_SelectDrawObj.clear();
+    m_SelectPosObj.clear();
 }
 
 void EnvironmentMapping::Draw()
@@ -123,7 +128,7 @@ void EnvironmentMapping::Draw()
     }
 
     D3DXMATRIX projectionMatrix;
-    D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI / 2, 1.0f, 0.1f, 1000.0f);
+    D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI / 2, 1.0f, 0.1f, 500.0f);
     Renderer::SetProjectionMatrix(&projectionMatrix);
 
     SetReflectViewport();
@@ -133,9 +138,9 @@ void EnvironmentMapping::Draw()
         BeginCube();
         Renderer::SetViewMatrix(&viewMatrixArray[i]);
 
-        for (GameObject* obj : m_DrawObj)
+        for (const auto& obj : m_DrawObj)
         {
-            obj->Draw();
+            obj.second->Draw();
         }
        
         Renderer::GetDeviceContext()->CopySubresourceRegion(
@@ -144,6 +149,88 @@ void EnvironmentMapping::Draw()
             0, 0, 0, GetReflectTexture(), 0, nullptr
         );
     }
+}
+
+void EnvironmentMapping::Update()
+{
+    Scene* scene = Manager::GetScene();
+
+    ImGui::Begin("Shader", 0);
+
+    if (ImGui::TreeNode("EnvironmentMapping"))
+    {
+        //ゲームオブジェクト一覧
+        if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (scene->GetList()[i].empty())
+                    continue;
+                for (auto& gameobject : scene->GetList()[i])
+                {
+                    if (ImGui::Selectable(gameobject->GetName().c_str()))
+                    {
+                        m_SelectPosObj = gameobject->GetName();
+                        m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
+                    }
+                }
+            }
+            ImGui::EndCombo();
+        }
+
+        if (ImGui::TreeNode("DrawObj"))
+        {
+            for (int i = 0; i < m_DrawObjNum; i++)
+            {
+                //ゲームオブジェクト一覧
+                if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (scene->GetList()[j].empty())
+                            continue;
+
+                        for (auto& gameobject : scene->GetList()[j])
+                        {
+                            if (ImGui::Selectable(gameobject->GetName().c_str()))
+                            {
+                                m_SelectDrawObj[i] = gameobject->GetName();
+                                m_DrawObj[i] = gameobject.get();
+                            }
+                        }
+                    }
+
+                    ImGui::EndCombo();
+                }
+            }
+
+            ImGui::Separator();
+
+            if (ImGui::Button("Add List"))
+            {
+                m_DrawObjNum++;
+            }
+
+            ImGui::SameLine();  // 同じ行に次の要素を配置する
+
+            if (ImGui::Button("Erase List"))
+            {
+                if (m_DrawObjNum > 0)
+                {
+                    m_SelectDrawObj.erase(m_DrawObjNum - 1);
+                    m_DrawObj.erase(m_DrawObjNum - 1);
+                    m_DrawObjNum--;
+                }
+            }
+
+            ImGui::TreePop();
+        }
+
+    
+        ImGui::TreePop();
+    }
+    
+    ImGui::End();
 }
 
 void EnvironmentMapping::BeginCube(void)

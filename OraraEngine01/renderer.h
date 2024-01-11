@@ -32,7 +32,7 @@ private:
 	static ID3D11BlendState*		m_BlendState;
 	static ID3D11BlendState*		m_BlendStateATC;
 
-	static std::list<Pass*> m_Pass;
+	static DXGI_SWAP_CHAIN_DESC m_SwapChainDesc;
 public:
 	static void Init();
 	static void Uninit();
@@ -56,32 +56,12 @@ public:
 	static ID3D11Device* GetDevice( void ){ return m_Device; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_DeviceContext; }
 	static ID3D11DepthStencilView* GetDepthStencilView() { return m_DepthStencilView; }
+	static DXGI_SWAP_CHAIN_DESC GetSwapChainDesc() { return m_SwapChainDesc; }
 
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);
 
 	static void SetDefaultViewport(void);
 
-	template<typename T>
-	static T* AddPass(DXGI_SWAP_CHAIN_DESC swapChainDesc, ID3D11Device* device)
-	{
-		Pass* pass = new T();
-		m_Pass.push_back(pass);
-		pass->CreatePass(swapChainDesc, device);
-
-		return dynamic_cast<T*>(pass);
-	}
-
-	template<typename T>
-	static T* GetPass(Shader id)
-	{
-		for (Pass* pass : m_Pass)
-		{
-			if (id == pass->GetPassId())
-			{
-				return dynamic_cast<T*>(pass);
-			}
-		}
-		return nullptr;
-	}
+	
 };

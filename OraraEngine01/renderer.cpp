@@ -30,25 +30,24 @@ ID3D11DepthStencilState* Renderer::m_DepthStateDisable{};
 ID3D11BlendState*		Renderer::m_BlendState{};
 ID3D11BlendState*		Renderer::m_BlendStateATC{};
 
-std::list<Pass*> Renderer::m_Pass{};
+DXGI_SWAP_CHAIN_DESC Renderer::m_SwapChainDesc{};
 
 void Renderer::Init()
 {
 	HRESULT hr = S_OK;
 
 	// デバイス、スワップチェーン作成
-	DXGI_SWAP_CHAIN_DESC swapChainDesc{};
-	swapChainDesc.BufferCount = 1;
-	swapChainDesc.BufferDesc.Width = SCREEN_WIDTH;
-	swapChainDesc.BufferDesc.Height = SCREEN_HEIGHT;
-	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
-	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
-	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swapChainDesc.OutputWindow = GetWindow();
-	swapChainDesc.SampleDesc.Count = 1;
-	swapChainDesc.SampleDesc.Quality = 0;
-	swapChainDesc.Windowed = TRUE;
+	m_SwapChainDesc.BufferCount = 1;
+	m_SwapChainDesc.BufferDesc.Width = SCREEN_WIDTH;
+	m_SwapChainDesc.BufferDesc.Height = SCREEN_HEIGHT;
+	m_SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	m_SwapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
+	m_SwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
+	m_SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	m_SwapChainDesc.OutputWindow = GetWindow();
+	m_SwapChainDesc.SampleDesc.Count = 1;
+	m_SwapChainDesc.SampleDesc.Quality = 0;
+	m_SwapChainDesc.Windowed = TRUE;
 
 	hr = D3D11CreateDeviceAndSwapChain( NULL,
 										D3D_DRIVER_TYPE_HARDWARE,
@@ -57,7 +56,7 @@ void Renderer::Init()
 										NULL,
 										0,
 										D3D11_SDK_VERSION,
-										&swapChainDesc,
+										&m_SwapChainDesc,
 										&m_SwapChain,
 										&m_Device,
 										&m_FeatureLevel,
@@ -73,12 +72,12 @@ void Renderer::Init()
 	// デプスステンシルバッファ作成
 	ID3D11Texture2D* depthStencile{};
 	D3D11_TEXTURE2D_DESC textureDesc{};
-	textureDesc.Width = swapChainDesc.BufferDesc.Width;
-	textureDesc.Height = swapChainDesc.BufferDesc.Height;
+	textureDesc.Width = m_SwapChainDesc.BufferDesc.Width;
+	textureDesc.Height = m_SwapChainDesc.BufferDesc.Height;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_D16_UNORM;
-	textureDesc.SampleDesc = swapChainDesc.SampleDesc;
+	textureDesc.SampleDesc = m_SwapChainDesc.SampleDesc;
 	textureDesc.Usage = D3D11_USAGE_DEFAULT;
 	textureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	textureDesc.CPUAccessFlags = 0;
@@ -234,9 +233,6 @@ void Renderer::Init()
 	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
-
-	AddPass<EnvironmentMapping>(swapChainDesc, m_Device);
-	AddPass<PostPass>(swapChainDesc, m_Device);
 }
 
 
@@ -258,13 +254,6 @@ void Renderer::Uninit()
 	m_SwapChain->Release();
 	m_DeviceContext->Release();
 	m_Device->Release();
-
-	for (Pass* pass : m_Pass)
-	{
-		pass->Uninit();
-		delete pass;
-	}
-	m_Pass.clear();
 }
 
 void Renderer::Begin()
@@ -276,15 +265,10 @@ void Renderer::Begin()
 	m_DeviceContext->ClearDepthStencilView( m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
-
-
 void Renderer::End()
 {
 	m_SwapChain->Present( 1, 0 );
 }
-
-
-
 
 void Renderer::SetDepthEnable( bool Enable )
 {
@@ -294,8 +278,6 @@ void Renderer::SetDepthEnable( bool Enable )
 		m_DeviceContext->OMSetDepthStencilState( m_DepthStateDisable, NULL );
 
 }
-
-
 
 void Renderer::SetATCEnable( bool Enable )
 {
@@ -350,8 +332,6 @@ void Renderer::SetProjectionMatrix( D3DXMATRIX* ProjectionMatrix )
 	m_DeviceContext->UpdateSubresource(m_ProjectionBuffer, 0, NULL, &projection, 0, 0);
 }
 
-
-
 void Renderer::SetMaterial( MATERIAL Material )
 {
 	m_DeviceContext->UpdateSubresource( m_MaterialBuffer, 0, NULL, &Material, 0, 0 );
@@ -359,6 +339,10 @@ void Renderer::SetMaterial( MATERIAL Material )
 
 void Renderer::SetLight( LIGHT Light )
 {
+	//シェーダー側の都合上で行列を転置しておく
+	D3DXMatrixTranspose(&Light.ViewMatrix, &Light.ViewMatrix);
+	D3DXMatrixTranspose(&Light.ProjectionMatrix, &Light.ProjectionMatrix);
+
 	m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, &Light, 0, 0);
 }
 
