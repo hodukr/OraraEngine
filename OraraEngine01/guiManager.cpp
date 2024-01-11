@@ -2,11 +2,11 @@
 #include "main.h"
 #include "renderer.h"
 #include "accessFolder.h"
-#include "menu.h"
-#include "hierarchy.h"
-#include "Inspector.h"
-#include "nodeEditor.h"
-#include "gameManagerGui.h"
+#include "guiw_menu.h"
+#include "guiw_hierarchy.h"
+#include "guiw_inspector.h"
+#include "guiw_nodeEditor.h"
+#include "guiw_gameManagerGui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 #include <fstream>
@@ -564,7 +564,7 @@ void GuiManager::Init()
 
 void GuiManager::Uninit()
 {
-    std::string filename = "asset/scene/Debug.json";
+    std::string filename = "asset/Debug.json";
     std::ofstream outputFile(filename);
     cereal::JSONOutputArchive o_archive(outputFile);
 

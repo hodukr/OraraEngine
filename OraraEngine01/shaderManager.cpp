@@ -3,10 +3,10 @@
 #include "renderer.h"
 #include "scene.h"
 #include "shaderManager.h"
-#include "environmentMapping.h"
-#include "postPass.h"
+#include "pass_environmentMapping.h"
+#include "pass_postPass.h"
 #include "post.h"
-#include "depthShadow.h"
+#include "pass_depthShadow.h"
 
 void ShaderManager::Init()
 {

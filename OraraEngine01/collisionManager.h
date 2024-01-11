@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <list>
-#include "collisionShape.h"
+#include "com_collisionShape.h"
 
 class CollisionManager
 {

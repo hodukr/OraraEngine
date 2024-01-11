@@ -3,7 +3,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "scene.h"
-#include "audio.h"
+#include "com_audio.h"
 #include "guiManager.h"
 #include "shaderManager.h"
 #include "collisionManager.h"
