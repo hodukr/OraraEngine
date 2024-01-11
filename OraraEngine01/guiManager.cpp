@@ -4,10 +4,14 @@
 #include "accessFolder.h"
 #include "menu.h"
 #include "hierarchy.h"
-#include  "Inspector.h"
+#include "Inspector.h"
 #include "nodeEditor.h"
+#include "gameManagerGui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
+#include <fstream>
+#include <cereal/archives/json.hpp>
+#include <filesystem>
 
 static const ImWchar glyphRangesJapanese[] = {
     0x0020, 0x007E, 0x00A2, 0x00A3, 0x00A7, 0x00A8, 0x00AC, 0x00AC, 0x00B0, 0x00B1, 0x00B4, 0x00B4, 0x00B6, 0x00B6, 0x00D7, 0x00D7,
@@ -541,24 +545,34 @@ void GuiManager::SetUp()
     // フォントの読み込みと設定 
     ImGui_ImplWin32_Init(GetWindow());
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
-    m_NodeEditor = new NodeEditorManager;
-    m_NodeEditor->Init();
+    //この時点ではInitがよばれないので注意 
+    AddWindow<Menu>();
+    AddWindow<NodeEditorManager>();
+    AddWindow<Hierarchy>();
+    AddWindow<Inspector>();
+    AddWindow<GameManagerGui>();
 }
 
 void GuiManager::Init()
 {
-    Menu::Instance().Init();
-    Hierarchy::Instance().Init();
-    Inspector::Instance().Init();
+    for (auto window : m_Windows)
+    {
+        window->Init();
+    }
 
 }
 
 void GuiManager::Uninit()
 {
-    Inspector::Instance().Uninit();
-    Hierarchy::Instance().Uninit();
-    Menu::Instance().Uninit();
+    std::string filename = "asset/scene/Debug.json";
+    std::ofstream outputFile(filename);
+    cereal::JSONOutputArchive o_archive(outputFile);
 
+    o_archive(cereal::make_nvp("Debug", *this));
+    for (auto window : m_Windows)
+    {
+        window->Uninit();
+    }
 }
 
 void GuiManager::Update()
@@ -566,19 +580,25 @@ void GuiManager::Update()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+
+    for (auto window : m_Windows)
+    {
+        window->Update();
+    }
     AccessFolder::Instance().CreateFolder();
     AccessFolder::Instance().DrawProjectAssets();
     AccessFolder::Instance().ChangeImageSize();
-    m_NodeEditor->Update();
 
 }
 
 void GuiManager::Draw()
 {
-    Menu::Instance().Draw();
-    Hierarchy::Instance().Draw();
-    Inspector::Instance().Draw();
-    m_NodeEditor->Draw();
+    for (auto window : m_Windows)
+    {
+        if(window->GetShowWindow())
+            window->Draw();
+    }
+
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

@@ -1,4 +1,5 @@
 #include "manager.h"
+#include "guiManager.h"
 #include "scene.h"
 #include "hierarchy.h"
 #include "inspector.h"
@@ -27,7 +28,9 @@ void Hierarchy::Update()
 
 void Hierarchy::Draw()
 {
-    ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoScrollbar);
+    Inspector* inspector = GuiManager::Instance().GetGuiWindow<Inspector>();
+    ImGui::Begin("Hierarchy", &m_IsShowWindow, ImGuiWindowFlags_NoScrollbar);
+    
     if(m_OpenTree)ImGui::SetNextItemOpen(true);
 
     bool opentree = ImGui::TreeNode(m_Scene->GetName().c_str());
@@ -63,7 +66,7 @@ void Hierarchy::Draw()
                 if (ImGui::Selectable(gameobject.get()->GetName().c_str(), push))
                 {
                     m_SelectGameObject = gameobject.get();
-                    Inspector::Instance().SetGameObejct(gameobject.get());
+                    inspector->SetGameObejct(gameobject.get());
                 }
                 ImGui::PopID();
 
@@ -81,8 +84,8 @@ void Hierarchy::Draw()
 
             if (ImGui::Selectable("削除"))
             {
-                if(m_ConfigGameObject == Inspector::Instance().GetGameObject())
-                Inspector::Instance().SetGameObejct(nullptr);
+                if(m_ConfigGameObject == inspector->GetGameObject())
+                    inspector->SetGameObejct(nullptr);
                 m_ConfigGameObject->SetDestroy();
 
             }
@@ -95,7 +98,7 @@ void Hierarchy::Draw()
 
         if (ImGui::Button("オブジェクト追加"))
         {
-            GameObject* gameobjct =  m_Scene->AddGameObject<GameObject>(1);
+            GameObject* gameobjct =  m_Scene->AddGameObject(1);
 
             //ゲームオブジェクト名がかぶってないかを調べる 
             bool flg = true;

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "guiManager.h"
+#include "gameManager.h"
 #include "gameObject.h"
 #include <list>
 #include <typeinfo>
@@ -22,13 +23,21 @@ public:
     Scene(std::string name = "NewScene"):m_Name(name){}
 	virtual void Init()
     {
+		bool newflg = true;
         for (int i = 0; i < 3; i++)
         {
             for (auto& gameobject : m_GameObject[i])
             {
                 gameobject.get()->Init();
+				newflg = false;
             }
         }
+		if (newflg) 
+		{
+			GameObject* obj = AddGameObject(1);
+			obj->SetName("MainCamera");
+			obj->AddComponent<Camera>();
+		}
     }
 
 	virtual void Uninit()
@@ -81,10 +90,10 @@ public:
 
 	//型の分だけ関数が作られる
 	//あまり使わない方がいい
-	template<typename T>//テンプレート関数
-	T* AddGameObject(int Layer)
+	//template<typename T>//テンプレート関数
+	GameObject* AddGameObject(int Layer)
 	{
-		std::unique_ptr<GameObject> gameObject = std::make_unique<T>();
+		std::unique_ptr<GameObject> gameObject = std::make_unique<GameObject>();
 		gameObject->Init();
        
         //std::string name;
@@ -92,7 +101,7 @@ public:
         //gameObject->SetName(name);
         m_GameObject[Layer].push_back(std::move(gameObject));
 
-		return dynamic_cast<T*>(m_GameObject[Layer].back().get());
+		return m_GameObject[Layer].back().get();
 	}
 
 	template<typename T>//テンプレート関数

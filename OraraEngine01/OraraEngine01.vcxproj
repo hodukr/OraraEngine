@@ -151,13 +151,15 @@
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="boxCollision.cpp" />
-    <ClCompile Include="cameracm.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="cloth.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="collisionShape.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="environmentMapping.cpp" />
+    <ClCompile Include="gameManager.cpp" />
+    <ClCompile Include="gameManagerGui.cpp" />
     <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="hierarchy.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -197,7 +199,7 @@
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="audio.h" />
     <ClInclude Include="boxCollision.h" />
-    <ClInclude Include="cameracm.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="cloth.h" />
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="collisionShape.h" />
@@ -208,8 +210,11 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="dropFile.h" />
     <ClInclude Include="environmentMapping.h" />
+    <ClInclude Include="gameManager.h" />
+    <ClInclude Include="gameManagerGui.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="guiManager.h" />
+    <ClInclude Include="imGuiWindow.h" />
     <ClInclude Include="nodeEditor.h" />
     <ClInclude Include="hierarchy.h" />
     <ClInclude Include="imgui\imconfig.h" />

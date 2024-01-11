@@ -15,7 +15,6 @@ void NodeEditorManager::Uninit()
 void NodeEditorManager::Update()
 {
     ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
-    ImGui::Begin("NodeEditor");
 
     if (m_GetNode)
     {
@@ -41,14 +40,13 @@ void NodeEditorManager::Update()
             }
         }
     }
-    ImGui::End();
     ImGui::PopStyleColor();
 
 }
 
 void NodeEditorManager::Draw()
 {
-    ImGui::Begin("NodeEditor");
+    ImGui::Begin("NodeEditor",&m_IsShowWindow);
     DrawNodeEditor(m_Editor);
     ImGui::End();
 }

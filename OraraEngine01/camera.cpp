@@ -1,29 +1,29 @@
 ﻿#include "main.h"
 #include "renderer.h"
 #include "gameObject.h"
-#include "cameracm.h"
+#include "camera.h"
 #include "transform.h"
-Cameracm::Cameracm()
+Camera::Camera()
 {
 
 }
-void Cameracm::Init()
+void Camera::Init()
 {
     m_GameObject->m_Transform->SetPosition(0.0f, 5.0f, -10.0f);
 }
 
-void Cameracm::Uninit()
+void Camera::Uninit()
 {
     Renderer::SetViewMatrix(new D3DXMATRIX);
 
 }
 
-void Cameracm::Update()
+void Camera::Update()
 {
     m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
 }
 
-void Cameracm::Draw()
+void Camera::Draw()
 {
     //ビューマトリクス設定 
     D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

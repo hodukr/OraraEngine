@@ -9,6 +9,7 @@ namespace fs = std::filesystem;
 
 void Inspector::Init()
 {
+    m_GameObject = nullptr;
     m_PopupComponent = nullptr;
     for (int i = 0; i < 3; i++)
     {
@@ -29,7 +30,7 @@ void Inspector::Update()
 
 void Inspector::Draw()
 {
-    ImGui::Begin("Inspector", 0, ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("Inspector", &m_IsShowWindow, ImGuiWindowFlags_NoScrollbar);
 
     if (m_GameObject)
     {
@@ -59,7 +60,8 @@ void Inspector::Draw()
         if (ImGui::BeginPopup("ComponentList")) {
             for (auto it : ReflectionList().GetNameList())
             {
-                if (ImGui::MenuItem(it.c_str())) {
+                std::string name = it.substr(it.find(" ") + 1);
+                if (ImGui::MenuItem(name.c_str())) {
                     m_GameObject->AddComponent(ReflectionList().CreateInstans(it.c_str()));
 
                 }

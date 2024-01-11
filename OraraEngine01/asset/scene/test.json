@@ -35,7 +35,7 @@
                             },
                             {
                                 "polymorphic_id": 2147483650,
-                                "polymorphic_name": "Cameracm",
+                                "polymorphic_name": "Camera",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {}
@@ -50,7 +50,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "Player",
+                        "m_ObjctName": "obj",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -58,9 +58,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": -3.8786802291870119,
+                                            "x": 0.0,
                                             "y": 0.0,
-                                            "z": 10.44948959350586
+                                            "z": 0.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -77,25 +77,11 @@
                             },
                             {
                                 "polymorphic_id": 2147483651,
-                                "polymorphic_name": "Mesh",
+                                "polymorphic_name": "Plane",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Modelpas": "player.obj",
-                                        "m_Material": {
-                                            "m_NameVS": "vertexLightingVS.cso",
-                                            "m_NamePS": "vertexLightingPS.cso"
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483652,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "Player"
+                                        "m_ObjectName": "obj"
                                     }
                                 }
                             }
@@ -108,7 +94,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "player",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -116,9 +102,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 0.0,
+                                            "x": -1.0,
                                             "y": 0.0,
-                                            "z": 0.0
+                                            "z": 4.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -134,12 +120,26 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483653,
-                                "polymorphic_name": "Plane",
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "Mesh",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_ObjectName": "GameObject"
+                                        "m_Modelpas": "player.obj",
+                                        "m_Material": {
+                                            "m_NameVS": "vertexLightingVS.cso",
+                                            "m_NamePS": "vertexLightingPS.cso"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483653,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "player"
                                     }
                                 }
                             }

@@ -9,7 +9,7 @@ std::vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
 
 SetReflectionComponent(Transform)
 SetReflectionComponent(Mesh)
-SetReflectionComponent(Cameracm)
+SetReflectionComponent(Camera)
 SetReflectionComponent(PraticleSystem)
 SetReflectionComponent(Plane)
 SetReflectionComponent(Text)

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "imgui/imgui.h"
+#include "imGuiWindow.h"
 #include <vector>
 struct Node {
     int id{};
@@ -22,7 +23,7 @@ struct NodeEditor {
 };
 
 
-class NodeEditorManager
+class NodeEditorManager:public ImGuiWindow
 {
 private:
     NodeEditor m_Editor;

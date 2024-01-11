@@ -1,14 +1,14 @@
 ﻿#pragma once
 #include "component.h"
 #include "vector.h"
-class Cameracm :public Component
+class Camera :public Component
 {
 private:
     Vector3 m_Target{};
     D3DXMATRIX m_ViewMatrix{};
 
 public:
-    Cameracm();
+    Camera();
     void Init()override;
     void Uninit()override;
     void Update()override;

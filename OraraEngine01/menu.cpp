@@ -21,7 +21,7 @@ void Menu::Uninit()
 
 void Menu::Update()
 {
-
+    m_IsShowWindow = true;
 }
 
 void Menu::Draw()
@@ -35,6 +35,7 @@ void Menu::Draw()
 
         o_archive(cereal::make_nvp("secne", *m_Scene));
     }
+    ImGui::SameLine();
     if (ImGui::Button("load"))
     {
         ImGui::OpenPopup("LoadScene");
@@ -79,6 +80,27 @@ void Menu::Draw()
         }
         ImGui::EndPopup();
     }
+
+    if (ImGui::Selectable("PopWindow"))
+    {
+        ImGui::OpenPopup("WindowList");
+    }
+    if (ImGui::BeginPopup("WindowList"))
+    {
+        for (auto window : GuiManager::Instance().GetList())
+        {
+            std::string name = typeid(*window).name();
+            name = name.substr(name.find(" ") + 1);
+            if (ImGui::Selectable(name.c_str()))
+            {
+                window->SetShowWindow(true);
+            }
+        }
+        
+
+        ImGui::EndPopup();
+    }
+
 
     ImGui::End();
 }

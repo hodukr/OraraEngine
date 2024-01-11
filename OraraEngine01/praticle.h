@@ -89,7 +89,7 @@ private:
     int m_TexNum;
     float m_Scale;
     int m_NumPraticle;
-    class Cameracm* m_Camera;
+    class Camera* m_Camera;
 
     PARTICLEEMITTER m_Emitter;
 

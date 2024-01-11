@@ -3,5 +3,5 @@
 
 Component::Component()
 {
-    m_ObjectName = typeid(*this).name();
+    //m_ObjectName = typeid(*this).name();
 }

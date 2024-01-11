@@ -123,7 +123,7 @@
     <ClCompile Include="component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="cameracm.cpp">
+    <ClCompile Include="camera.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="menu.cpp">
@@ -173,6 +173,12 @@
     </ClCompile>
     <ClCompile Include="plane.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="gameManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="gameManagerGui.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +281,7 @@
     <ClInclude Include="reflection.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="cameracm.h">
+    <ClInclude Include="camera.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="boxCollision.h">
@@ -334,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="shaderManager.h">
       <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="gameManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="gameManagerGui.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="imGuiWindow.h">
+      <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="guiManager.h">
       <Filter>Manager</Filter>

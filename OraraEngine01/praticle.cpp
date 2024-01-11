@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "manager.h"
 #include "scene.h"
-#include "cameracm.h"
+#include "camera.h"
 #include "gameObject.h"
 #include "praticle.h"
 #include "material.h"
@@ -85,7 +85,7 @@ void PraticleSystem::Init()
     m_Camera = nullptr;
     for (auto& obj : scene->GetList()[1])
     {
-        m_Camera = obj.get()->GetComponent<Cameracm>();
+        m_Camera = obj.get()->GetComponent<Camera>();
         if (m_Camera)
             break;
     }
