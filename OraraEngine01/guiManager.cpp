@@ -551,6 +551,7 @@ void GuiManager::SetUp()
     AddWindow<Hierarchy>();
     AddWindow<Inspector>();
     AddWindow<GameManagerGui>();
+    AddWindow<AccessFolder>();
 }
 
 void GuiManager::Init()
@@ -585,9 +586,7 @@ void GuiManager::Update()
     {
         window->Update();
     }
-    AccessFolder::Instance().CreateFolder();
-    AccessFolder::Instance().DrawProjectAssets();
-    AccessFolder::Instance().ChangeImageSize();
+   
 
 }
 

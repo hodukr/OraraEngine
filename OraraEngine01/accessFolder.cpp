@@ -62,7 +62,7 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
 
 void AccessFolder::DrawProjectAssets()
 {
-    ImGui::Begin("Asset");
+    ImGui::Begin("Asset",&m_IsShowWindow);
 
     for (const auto& entry : fs::directory_iterator("asset"))
     {
@@ -73,7 +73,7 @@ void AccessFolder::DrawProjectAssets()
         std::string folderName = folderPath.filename().string();
 
         // フォルダ名が重複しない場合に追加
-        if (m_ProjectFolders.insert(folderName).second);
+        if (folderName.find('.') == std::string::npos && m_ProjectFolders.insert(folderName).second);
     }
 
     // フォルダとファイルを表示
@@ -106,14 +106,50 @@ void AccessFolder::DrawProjectAssets()
                 m_ProjectFolderName = "";
             }
         }
+
+        //右クリックでポップアップを出す 
+        if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+        {
+            ImGui::OpenPopup(folder.c_str());
+        }
+        if (ImGui::BeginPopup(folder.c_str()))
+        {
+            //ファイル消去
+            if (ImGui::Selectable("Delet"))
+            {
+                int result = MessageBox(NULL, ("本当に" + folder + "を消しますか?").c_str(), "警告", MB_YESNO | MB_ICONQUESTION);
+
+                if (result == IDYES)
+                {
+                    // Yesが選択された場合の処理
+                    fs::path filePathToDelete = "asset\\" + folder;
+
+                    // ファイルを削除
+                    if (fs::remove(filePathToDelete))
+                    {
+                        m_ProjectFolders.erase(folder);
+                        m_ProjectFolderName = "";
+                    }
+                    else
+                    {
+                        std::cerr << "Error deleting file: " << filePathToDelete << std::endl;
+                    }
+                }
+                ImGui::EndPopup();
+                break;
+            }
+
+            ImGui::EndPopup();
+        }
     }
+   
 
     ImGui::End();
 }
 
 void AccessFolder::ChangeImageSize()
 {
-    ImGui::Begin("Image Size");
+    ImGui::Begin("Image Size", &m_IsShowWindow);
 
     ImGui::SliderFloat("Image Size  ", &m_ImageSize, 20.0f, 200.0f);
 
@@ -122,7 +158,7 @@ void AccessFolder::ChangeImageSize()
 
 void AccessFolder::CreateFolder()
 {
-    ImGui::Begin("Create Folder in asset");
+    ImGui::Begin("Create Folder in asset", &m_IsShowWindow);
 
     // フォルダ名を入力させるテキストボックスを表示
     ImGui::InputText("Folder Name", m_FolderName, ImGuiInputTextFlags_EnterReturnsTrue);
@@ -149,4 +185,13 @@ void AccessFolder::CreateFolder()
     }
 
     ImGui::End();
+}
+
+
+
+void AccessFolder::Draw()
+{
+    CreateFolder();
+    DrawProjectAssets();
+    ChangeImageSize();
 }
