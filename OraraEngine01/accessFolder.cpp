@@ -29,9 +29,29 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
         // フォルダアイコンを表示
         ImGui::Image((ImTextureID)texture, size, uv);
     }
+    else if (extension == "wav")
+    {
+        int textureNum = TextureManager::LoadTexture("asset\\Music.png");
+        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+        ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+    }
+    else if (extension == "json")
+    {
+        int textureNum = TextureManager::LoadTexture("asset\\Memo.png");
+        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+        ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+    }
+    else if (extension == "obj" || extension == "fbx")
+    {
+        int textureNum = TextureManager::LoadTexture("asset\\3DModel.png");
+        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+        ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+    }
     else
     {
-        // 画像でない場合はテキストとして表示
         ImGui::Image(nullptr, size, uv);
     }
 
@@ -59,10 +79,51 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     }
 }
 
-
-void AccessFolder::DrawProjectAssets()
+void AccessFolder::CreateFolder()
 {
-    ImGui::Begin("Asset",&m_IsShowWindow);
+    ImGui::Begin("Create Folder in asset", &m_IsWindw);
+
+    // フォルダ名を入力させるテキストボックスを表示
+    ImGui::InputText("Folder Name", m_FolderName, ImGuiInputTextFlags_EnterReturnsTrue);
+
+    // フォルダを作成するボタンを表示
+    if (ImGui::Button("Create"))
+    {
+        if (m_FolderName[0] != '\0')
+        {
+            std::string assetFolderPath = "asset/" + std::string(m_FolderName);
+            // フォルダを作成
+            if (fs::create_directory(assetFolderPath))
+            {
+                strcpy(m_CreatedFolderName, m_FolderName);
+                m_CreateFolder = true;
+            }
+        }
+    }
+
+    // フォルダが作成されたら確認メッセージを表示
+    if (m_CreateFolder)
+    {
+        ImGui::Text("Asset folder created: %s", m_CreatedFolderName);
+    }
+
+    ImGui::End();
+}
+
+void AccessFolder::Draw()
+{
+    ImGui::Begin("Asset", &m_IsShowWindow);
+
+    if (ImGui::Button("Create Folder"))
+        m_IsWindw = true;
+    if (m_IsWindw)
+        CreateFolder();
+
+    ImGui::SameLine();
+
+    ImGui::SliderFloat("Icon Size", &m_ImageSize, 20.0f, 200.0f);
+
+    ImGui::Separator();
 
     for (const auto& entry : fs::directory_iterator("asset"))
     {
@@ -83,6 +144,35 @@ void AccessFolder::DrawProjectAssets()
         {
             continue;
         }
+        else
+        {
+            // フォルダの中身を取得
+            bool hasContents = false;
+            for (const auto& entry : fs::directory_iterator("asset/" + folder))
+            {
+                hasContents = true;
+                break;
+            }
+
+            if (hasContents)
+            {
+                int textureNum = TextureManager::LoadTexture("asset\\InFolder.png");
+                ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+                // フォルダアイコンを表示
+                ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+            }
+            else
+            {
+                int textureNum = TextureManager::LoadTexture("asset\\NonFolder.png");
+                ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+
+                // フォルダアイコンを表示
+                ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+            }
+
+            ImGui::SameLine();
+        }
         if (ImGui::TreeNode(folder.c_str()))
         {
             m_ProjectFolderName = folder;
@@ -94,7 +184,9 @@ void AccessFolder::DrawProjectAssets()
                 fs::path folderPath(itemPath);
                 std::string folderName = folderPath.filename().string();
 
-                DrawFolderIconAndName(folderName.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+                std::string extension = folderName.substr(folderName.find_last_of(".") + 1);
+                if (extension != "mtl")
+                    DrawFolderIconAndName(folderName.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
             }
 
             ImGui::TreePop();
@@ -124,6 +216,12 @@ void AccessFolder::DrawProjectAssets()
                     // Yesが選択された場合の処理
                     fs::path filePathToDelete = "asset\\" + folder;
 
+                    for (const auto& entry : fs::directory_iterator(filePathToDelete))
+                    {
+                        // ファイルを削除
+                        fs::remove(entry.path());
+                    }
+
                     // ファイルを削除
                     if (fs::remove(filePathToDelete))
                     {
@@ -142,56 +240,6 @@ void AccessFolder::DrawProjectAssets()
             ImGui::EndPopup();
         }
     }
-   
 
     ImGui::End();
-}
-
-void AccessFolder::ChangeImageSize()
-{
-    ImGui::Begin("Image Size", &m_IsShowWindow);
-
-    ImGui::SliderFloat("Image Size  ", &m_ImageSize, 20.0f, 200.0f);
-
-    ImGui::End();
-}
-
-void AccessFolder::CreateFolder()
-{
-    ImGui::Begin("Create Folder in asset", &m_IsShowWindow);
-
-    // フォルダ名を入力させるテキストボックスを表示
-    ImGui::InputText("Folder Name", m_FolderName, ImGuiInputTextFlags_EnterReturnsTrue);
-
-    // フォルダを作成するボタンを表示
-    if (ImGui::Button("Create"))
-    {
-        if (m_FolderName[0] != '\0')
-        {
-            std::string assetFolderPath = "asset/" + std::string(m_FolderName);
-            // フォルダを作成
-            if (fs::create_directory(assetFolderPath))
-            {
-                strcpy(m_CreatedFolderName, m_FolderName);
-                m_CreateFolder = true;
-            }
-        }
-    }
-
-    // フォルダが作成されたら確認メッセージを表示
-    if (m_CreateFolder)
-    {
-        ImGui::Text("Asset folder created: %s", m_CreatedFolderName);
-    }
-
-    ImGui::End();
-}
-
-
-
-void AccessFolder::Draw()
-{
-    CreateFolder();
-    DrawProjectAssets();
-    ChangeImageSize();
 }
