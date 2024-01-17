@@ -22,12 +22,12 @@ void main(in VS_IN In, out PS_IN Out)
         float size = Praticle.Size;
         if (len < size)
         {
-            Out.Diffuse *= Praticle.Color1 * (1.0f - (len / size)) + Praticle.Color2 * (len / size);
+            Out.Diffuse.rgb *= (Praticle.Color1 * (1.0f - (len / size)) + Praticle.Color2 * (len / size)).rgb;
         }
         else
         {
-            Out.Diffuse *= Praticle.Color2 * (size - (len / size)) + Praticle.Color3 * ((len / size) - 1.0f);
-            //Out.Diffuse.a *= (2.0f - (len / size));
+            Out.Diffuse.rgb *= (Praticle.Color2 * (size - (len / size)) + Praticle.Color3 * ((len / size) - 1.0f)).rgb;
+            Out.Diffuse.a *= In.Diffuse.a;
 
         }
     }

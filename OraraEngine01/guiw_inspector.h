@@ -2,13 +2,15 @@
 #include "singleton.h"
 #include "imGuiWindow.h"
 
+
 class Inspector:public ImGuiWindow
 {
 private:
     class GameObject* m_GameObject;
 
     class Component* m_PopupComponent{};
-    bool m_KeyTransform[3]{};
+    std::unordered_map<int,bool> m_IsRockVector{};
+    int m_NumVector{};
 public:
     void Init();
     void Uninit();
@@ -21,4 +23,5 @@ public:
     const GameObject* GetGameObject(){return m_GameObject;}
 private:
     void DrawComponent(class Component* component);
+    void Drawvariable(struct TypeDate& vardate);
 };

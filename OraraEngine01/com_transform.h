@@ -15,6 +15,9 @@ public:
         m_Position = Vector3(0.0f, 0.0f, 0.0f);
         m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
         m_Scale = Vector3(1.0f, 1.0f, 1.0f);
+        SETDATE(m_Position);
+        SETDATE(m_Rotation);
+        SETDATE(m_Scale);
     }
     void SetPosition(Vector3 pos) { m_Position = pos; }
     void SetPosition(float x,float y,float z) { m_Position.x = x; m_Position.y = y; m_Position.z = z;}
@@ -24,6 +27,8 @@ public:
 
 	Vector3 GetPosition() { return m_Position; }
 
+
+
     void SetOldPosition(Vector3 pos) { m_OldPosition = pos; }
     void SetOldPosition(float x, float y, float z) { m_OldPosition.x = x; m_OldPosition.y = y; m_OldPosition.z = z; }
     void SetOldPositionX(float x) { m_OldPosition.x = x; }
@@ -32,14 +37,17 @@ public:
 
     Vector3 GetOldePosition() { return m_OldPosition; }
    
+
+
     void SetRotation(Vector3 rot) { m_Rotation = rot; }
     void SetRotation(float x, float y, float z) { m_Rotation.x = x; m_Rotation.y = y; m_Rotation.z = z; }
     void SetRotationX(float x) { m_Rotation.x = x; }
     void SetRotationY(float y) { m_Rotation.y = y; }
     void SetRotationZ(float z) { m_Rotation.z = z; }
 
-
 	Vector3 GetRotation() { return m_Rotation; }
+
+
 
     void SetScale(Vector3 sca) { m_Scale = sca; }
     void SetScale(float x, float y, float z) { m_Scale.x = x; m_Scale.y = y; m_Scale.z = z; }
@@ -51,18 +59,21 @@ public:
 
 
 
-
-
-
 	void Translate(Vector3 moveVec) { m_Position += moveVec; }
 	void Rotate(Vector3 rotVec) { m_Rotation += rotVec; }
 	void Scale(Vector3 scaVec) { m_Scale += scaVec; }
 	
+
+
 	Vector3 GetRight();
 	Vector3 GetForward();
 	Vector3 GetUp();
 
+
+
 	void Revolution(Vector3 target, Vector3 axis, float rot, bool isObjRot = false);
+
+
 
 	void Init()override;
 	void Uninit()override;

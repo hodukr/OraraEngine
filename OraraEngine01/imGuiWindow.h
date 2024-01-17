@@ -1,6 +1,7 @@
 #pragma once
 #include <typeinfo>
 #include <cereal/cereal.hpp>
+#include <cereal/types/memory.hpp>
 
 class ImGuiWindow
 {
@@ -14,9 +15,10 @@ public:
 	void SetShowWindow(bool flg) { m_IsShowWindow = flg; }
 	bool GetShowWindow() { return m_IsShowWindow; }
 
-	//template<class Archive>
-	//void serialize(Archive& archive)
-	//{
-	//	archive(CEREAL_NVP(m_IsShowWindow));
-	//}
+	template<class Archive>
+	void serialize(Archive& archive)
+	{
+		archive(CEREAL_NVP(m_IsShowWindow));
+	}
+
 };

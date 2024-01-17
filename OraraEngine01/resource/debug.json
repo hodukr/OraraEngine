@@ -1,0 +1,66 @@
+{
+    "Debug": {
+        "m_Windows": [
+            {
+                "polymorphic_id": 2147483649,
+                "polymorphic_name": "Menu",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": true
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483650,
+                "polymorphic_name": "NodeEditorManager",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": false
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483651,
+                "polymorphic_name": "Hierarchy",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": true
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483652,
+                "polymorphic_name": "Inspector",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": true
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483653,
+                "polymorphic_name": "GameManagerGui",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": false
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483654,
+                "polymorphic_name": "AccessFolder",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": false
+                    }
+                }
+            }
+        ]
+    }
+}

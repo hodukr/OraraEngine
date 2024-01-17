@@ -79,9 +79,6 @@
     <ClCompile Include="collisionManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="pass_depthShadow.cpp">
       <Filter>Pass</Filter>
     </ClCompile>
@@ -195,6 +192,9 @@
     </ClCompile>
     <ClCompile Include="guiw_nodeEditor.cpp">
       <Filter>Debug\ImguiWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +365,9 @@
       <Filter>Debug\ImguiWindow</Filter>
     </ClInclude>
     <ClInclude Include="imGuiWindow.h">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_common.h">
       <Filter>Debug\ImguiWindow</Filter>
     </ClInclude>
   </ItemGroup>

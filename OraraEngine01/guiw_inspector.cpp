@@ -11,16 +11,13 @@ void Inspector::Init()
 {
     m_GameObject = nullptr;
     m_PopupComponent = nullptr;
-    for (int i = 0; i < 3; i++)
-    {
-        m_KeyTransform[i] = false;
-    }
-
+    m_NumVector = 0;
 }
 
 void Inspector::Uninit()
 {
     m_GameObject = nullptr;
+    m_IsRockVector.clear();
 }
 
 void Inspector::Update()
@@ -46,7 +43,7 @@ void Inspector::Draw()
         for (auto& obj : *m_GameObject->GetList())
         {
             DrawComponent(obj.get());
-            
+            m_NumVector = 0;
         }
 
 
@@ -105,8 +102,49 @@ void Inspector::DrawComponent(Component* component)
 
     if (isTreenode)
     {
+        std::vector<TypeDate> datelist = component->GetDateList();
 
-        if (typeid(Transform).name() == comname)
+        for (auto date : datelist)
+        {
+            Drawvariable(date);
+
+
+            //    ImGui::SetNextItemWidth(70.0f);
+            //    if (ImGui::InputFloat(vecx.c_str(), &x) && m_KeyTransform[vecter3index])
+            //    {
+            //        y = x;
+            //        z = x;
+            //    }
+            //    ImGui::SameLine();
+
+            //    ImGui::SetNextItemWidth(70.0f);
+            //    if (ImGui::InputFloat(vecy.c_str(), &y) && m_KeyTransform[vecter3index])
+            //    {
+            //        x = y;
+            //        z = y;
+            //    }
+            //    ImGui::SameLine();
+
+            //    ImGui::SetNextItemWidth(70.0f);
+            //    if (ImGui::InputFloat(vecz.c_str(), &z) && m_KeyTransform[vecter3index])
+            //    {
+            //        x = z;
+            //        y = z;
+            //    }
+            //    ImGui::SameLine();
+            //    ImGui::Text(date.Name.c_str());
+            //    *vector = Vector3(x, y, z);
+            //    vecter3index++;
+            //}
+            //
+            ////D3DXCOLORの表示
+            //if (date.MemberDate.index() == TYPE_D3DXCOLOR)
+            //{
+            //    ImGui::ColorEdit4(date.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(date.MemberDate));
+            //}
+        }
+
+        /*if (typeid(Transform).name() == comname)
         {
             Transform* transfrom = component->GetGameObejct()->m_Transform;
             {//position
@@ -227,9 +265,9 @@ void Inspector::DrawComponent(Component* component)
                 Vector3 sca(x, y, z);
                 transfrom->SetScale(sca);
             }
-        }
+        }*/
 
-        if (typeid(PraticleSystem).name() == comname)
+        /*if (typeid(PraticleSystem).name() == comname)
         {
             PraticleSystem* com = dynamic_cast<PraticleSystem*>(component);
             if (ImGui::TreeNode(com->GetEmitter()->TexName.c_str()))
@@ -288,7 +326,7 @@ void Inspector::DrawComponent(Component* component)
                 ImGui::SliderFloat("DeclineFade", &com->GetEmitter()->DeclineFade,0.0f,1.0f);
 
             }
-        }
+        }*/
 
         if (typeid(Mesh).name() == comname)
         {
@@ -389,5 +427,75 @@ void Inspector::DrawComponent(Component* component)
 
         ImGui::TreePop();
 
+    }
+}
+
+void Inspector::Drawvariable(TypeDate& vardate)
+{
+    switch (vardate.MemberDate.index())
+    {
+    case TYPE_INT:
+        ImGui::InputInt(vardate.Name.c_str(), std::get<TYPE_INT>(vardate.MemberDate));
+        break;
+    case TYPE_FLOAT:
+        ImGui::InputFloat(vardate.Name.c_str(), std::get<TYPE_FLOAT>(vardate.MemberDate));
+
+        break;
+    //case TYPE_STRING:
+
+    //    break;
+    case TYPE_BOOL:
+        ImGui::Checkbox(vardate.Name.c_str(), std::get<TYPE_BOOL>(vardate.MemberDate));
+        break;
+    case TYPE_VECTOR3:
+    {
+        std::string cb;
+        cb = "##" + vardate.Name;
+
+        ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
+        ImGui::SameLine();
+        Vector3* vector = std::get<Vector3*>(vardate.MemberDate);
+
+        std::string vecx = "##X" + vardate.Name;
+        std::string vecy = "##Y" + vardate.Name;
+        std::string vecz = "##Z" + vardate.Name;
+
+        float x = vector->x;
+        float y = vector->y;
+        float z = vector->z;
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecx.c_str(), &x) && m_IsRockVector[m_NumVector])
+        {
+            y = x;
+            z = x;
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecy.c_str(), &y) && m_IsRockVector[m_NumVector])
+        {
+            x = y;
+            z = y;
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecz.c_str(), &z) && m_IsRockVector[m_NumVector])
+        {
+            x = z;
+            y = z;
+        }
+        ImGui::SameLine();
+        ImGui::Text(vardate.Name.c_str());
+        *vector = Vector3(x, y, z);
+        m_NumVector++;
+    }
+        break;
+    case TYPE_D3DXCOLOR:
+        ImGui::ColorEdit4(vardate.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(vardate.MemberDate));
+        break;
+    default:
+        break;
     }
 }

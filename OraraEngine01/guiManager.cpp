@@ -1,5 +1,5 @@
-﻿#include "guiManager.h"
-#include "main.h"
+﻿#include "main.h"
+#include "guiManager.h"
 #include "renderer.h"
 #include "accessFolder.h"
 #include "guiw_menu.h"
@@ -12,6 +12,8 @@
 #include <fstream>
 #include <cereal/archives/json.hpp>
 #include <filesystem>
+
+#define DEBUGFILEPASS "resource\\debug.json"
 
 static const ImWchar glyphRangesJapanese[] = {
     0x0020, 0x007E, 0x00A2, 0x00A3, 0x00A7, 0x00A8, 0x00AC, 0x00AC, 0x00B0, 0x00B1, 0x00B4, 0x00B4, 0x00B6, 0x00B6, 0x00D7, 0x00D7,
@@ -546,17 +548,26 @@ void GuiManager::SetUp()
     ImGui_ImplWin32_Init(GetWindow());
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
     //この時点ではInitがよばれないので注意 
-    AddWindow<Menu>();
-    AddWindow<NodeEditorManager>();
-    AddWindow<Hierarchy>();
-    AddWindow<Inspector>();
-    AddWindow<GameManagerGui>();
-    AddWindow<AccessFolder>();
+
+    if (std::filesystem::exists(DEBUGFILEPASS)) {//デバックファイルがあったら読み込む
+        std::ifstream inputFile(DEBUGFILEPASS);
+        cereal::JSONInputArchive archive(inputFile);
+        archive(*this);
+    }
+    else
+    {
+        AddWindow<Menu>();
+        AddWindow<NodeEditorManager>();
+        AddWindow<Hierarchy>();
+        AddWindow<Inspector>();
+        AddWindow<GameManagerGui>();
+        AddWindow<AccessFolder>();
+    }
 }
 
 void GuiManager::Init()
 {
-    for (auto window : m_Windows)
+    for (auto& window : m_Windows)
     {
         window->Init();
     }
@@ -565,12 +576,11 @@ void GuiManager::Init()
 
 void GuiManager::Uninit()
 {
-    std::string filename = "asset/Debug.json";
-    std::ofstream outputFile(filename);
+    std::ofstream outputFile(DEBUGFILEPASS);
     cereal::JSONOutputArchive o_archive(outputFile);
 
     o_archive(cereal::make_nvp("Debug", *this));
-    for (auto window : m_Windows)
+    for (auto& window : m_Windows)
     {
         window->Uninit();
     }
@@ -582,7 +592,7 @@ void GuiManager::Update()
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    for (auto window : m_Windows)
+    for (auto& window : m_Windows)
     {
         window->Update();
     }
@@ -592,7 +602,7 @@ void GuiManager::Update()
 
 void GuiManager::Draw()
 {
-    for (auto window : m_Windows)
+    for (auto& window : m_Windows)
     {
         if(window->GetShowWindow())
             window->Draw();
@@ -602,3 +612,5 @@ void GuiManager::Draw()
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
+
+

@@ -29,7 +29,6 @@ struct PARTICLEEMITTER {
     Vector3 StartPosition;//開始位置 
     D3DXCOLOR StartColor;//開始カラー 
     float StartRotation;
-    float StartSize;
     float StartLifetime;//生存時間 
     float Speed;
     float EmissionRate = 0;//発生頻度 
@@ -60,7 +59,6 @@ void serialize(Archive& archive, PARTICLEEMITTER& emltter)
 {
     archive(cereal::make_nvp("StartColor", emltter.StartColor),
         cereal::make_nvp("StartRotation", emltter.StartRotation),
-        cereal::make_nvp("StartSize", emltter.StartSize),
         cereal::make_nvp("StartLifetime", emltter.StartLifetime),
         cereal::make_nvp("EmissionRate", emltter.EmissionRate),
         cereal::make_nvp("Speed", emltter.Speed),

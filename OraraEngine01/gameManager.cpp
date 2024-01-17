@@ -1,3 +1,4 @@
+#include "main.h"
 #include "gameManager.h"
 
 void GameManager::Init()

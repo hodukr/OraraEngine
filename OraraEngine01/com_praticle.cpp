@@ -16,7 +16,6 @@ PraticleSystem::PraticleSystem()
     m_Emitter.StartColor = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     m_Emitter.StartLifetime = 2.0f;
     m_Emitter.StartRotation = 0.0f;
-    m_Emitter.StartSize = 1.0f;
     m_Emitter.MaxParticles = 20;
     m_Emitter.EmissionRate = 0.5f;
     m_Emitter.Speed = 0.1f;
@@ -28,6 +27,26 @@ PraticleSystem::PraticleSystem()
     m_Emitter.TexName = "praticle.dds";
 
     m_Emitter.IsGradation = false;
+
+    SetDateList("StartColor", &(m_Emitter.StartColor));
+    SetDateList("StartRotation", &(m_Emitter.StartRotation));
+    SetDateList("StartLifetime", &(m_Emitter.StartLifetime));
+    SetDateList("EmissionRate", &(m_Emitter.EmissionRate));
+    SetDateList("Speed", &(m_Emitter.Speed));
+    SetDateList("MaxParticles", &(m_Emitter.MaxParticles));
+    SetDateList("AddStateVelocity", &(m_Emitter.AddStateVelocity));
+    SetDateList("AddVelocity", &(m_Emitter.AddVelocity));
+    SetDateList("GradationColor", &(m_Emitter.GradationColor[0]));
+    SetDateList("GradationColor1", &(m_Emitter.GradationColor[1]));
+    SetDateList("GradationColor2", &(m_Emitter.GradationColor[2]));
+    SetDateList("IsGradation", &(m_Emitter.IsGradation));
+    SetDateList("Fluctuation", &(m_Emitter.Fluctuation));
+    SetDateList("TexName", &(m_Emitter.TexName));
+    SetDateList("GradationLength", &(m_Emitter.GradationLength));
+    SetDateList("Fade", &(m_Emitter.IsFade));
+    SetDateList("StartFadeTime", &(m_Emitter.StartFadeTime));
+    SetDateList("declineFade", &(m_Emitter.DeclineFade));
+
 }
 
 void PraticleSystem::Init()
@@ -132,7 +151,7 @@ void PraticleSystem::Update()
             {
                 if (par->Timer.GetElapsedTimeInSeconds() >= m_Emitter.StartFadeTime)
                 {
-                    par->Color.a *= m_Emitter.DeclineFade;
+                   par->Color.a *= m_Emitter.DeclineFade; 
                 }
             }
 
