@@ -26,8 +26,21 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
         int textureNum = TextureManager::LoadTexture(it->second.c_str());
         ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
 
-        // フォルダアイコンを表示
+        // ドラッグソースを設定
+        if (ImGui::BeginDragDropSource())
+        {
+            ImGui::SetDragDropPayload("MY_PAYLOAD_TYPE", &name, sizeof(const char*));
+
+            // ドラッグ元の要素の描画
+            ImGui::Image((ImTextureID)texture, size, uv);
+
+            ImGui::EndDragDropSource();
+        }
+     
+        // ドラッグ元の要素の描画
         ImGui::Image((ImTextureID)texture, size, uv);
+
+       
     }
     else if (extension == "wav")
     {
@@ -239,6 +252,20 @@ void AccessFolder::Draw()
 
             ImGui::EndPopup();
         }
+    }
+
+    // ドラッグターゲットを設定
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_PAYLOAD_TYPE"))
+        {
+            const char* draggedItemName = *(const char**)payload->Data;
+
+            // ドラッグ先の要素に対する処理（ここではファイル名を表示）
+            ImGui::Text("Dropped item: %s", draggedItemName);
+        }
+
+        ImGui::EndDragDropTarget();
     }
 
     ImGui::End();

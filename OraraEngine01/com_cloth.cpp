@@ -92,6 +92,8 @@ void Cloth::Init()
         Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer);
     }
 
+    m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\oraraEngine.png");
+
     Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\vertexLightingVS.cso");
 
     Renderer::CreatePixelShader(&m_PixelShader, "shader\\vertexLightingPS.cso");
@@ -287,19 +289,19 @@ void Cloth::Update()
 
     //m_Position = m_Stick->GetPosition() + m_Stick->GetRight() * 2.0f + m_Stick->GetUp() * 2.0f;
     //デバック用
-//#ifdef _DEBUG
-//    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
-//
-//    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
-//    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
-//    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
-//    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
-//    ImGui::Checkbox("IsWind", &m_IsWind);
-//    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
-//    ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
-// 
-//    ImGui::End();
-//#endif //_DEBUG
+#ifdef _DEBUG
+    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
+
+    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
+    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
+    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
+    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
+    ImGui::Checkbox("IsWind", &m_IsWind);
+    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
+    //ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
+ 
+    ImGui::End();
+#endif //_DEBUG
 }
 
 
