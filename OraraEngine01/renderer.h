@@ -55,8 +55,10 @@ public:
 
 	static ID3D11Device* GetDevice( void ){ return m_Device; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_DeviceContext; }
+	static IDXGISwapChain* GetSwapChain() { return m_SwapChain; }
 	static ID3D11DepthStencilView* GetDepthStencilView() { return m_DepthStencilView; }
 	static DXGI_SWAP_CHAIN_DESC GetSwapChainDesc() { return m_SwapChainDesc; }
+	
 
 	static void CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName);
 	static void CreatePixelShader(ID3D11PixelShader** PixelShader, const char* FileName);

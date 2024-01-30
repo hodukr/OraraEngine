@@ -153,7 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="accessFolder.cpp" />
+    <ClCompile Include="sceneCamera.cpp" />
+    <ClCompile Include="guiw_accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="com_audio.cpp" />
     <ClCompile Include="col_boxCollision.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
     <ClCompile Include="dropFile.cpp" />
+    <ClCompile Include="guiw_sceneWindow.cpp" />
     <ClCompile Include="pass_environmentMapping.cpp" />
     <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="guiw_gameManagerGui.cpp">
@@ -242,7 +244,8 @@
     <ClCompile Include="com_waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="accessFolder.h" />
+    <ClInclude Include="sceneCamera.h" />
+    <ClInclude Include="guiw_accessFolder.h" />
     <ClInclude Include="animationModel.h" />
     <ClInclude Include="com_audio.h" />
     <ClInclude Include="col_boxCollision.h" />
@@ -260,6 +263,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="guiw_sceneWindow.h" />
     <ClInclude Include="pass_environmentMapping.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="guiw_gameManagerGui.h" />

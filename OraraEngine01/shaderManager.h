@@ -7,6 +7,7 @@ private:
     Singleton(ShaderManager);
 
 	class Post* m_Post{};
+	class SceneCamera* m_SceneCamera{};
 	std::list<Pass*> m_Pass;
 public:
     void Init();

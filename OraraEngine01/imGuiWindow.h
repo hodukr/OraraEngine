@@ -20,5 +20,4 @@ public:
 	{
 		archive(CEREAL_NVP(m_IsShowWindow));
 	}
-
 };

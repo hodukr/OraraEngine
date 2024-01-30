@@ -67,9 +67,6 @@
     <ClCompile Include="animationModel.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="accessFolder.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="com_camera.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -196,6 +193,15 @@
     <ClCompile Include="pch.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="guiw_accessFolder.cpp">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="guiw_sceneWindow.cpp">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneCamera.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -204,9 +210,6 @@
     </ClInclude>
     <ClInclude Include="animationModel.h">
       <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="accessFolder.h">
-      <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="com_camera.h">
       <Filter>Component</Filter>
@@ -369,6 +372,15 @@
     </ClInclude>
     <ClInclude Include="guiw_common.h">
       <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_accessFolder.h">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_sceneWindow.h">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneCamera.h">
+      <Filter>Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

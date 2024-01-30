@@ -1,17 +1,19 @@
 ﻿#include "main.h"
 #include "guiManager.h"
 #include "renderer.h"
-#include "accessFolder.h"
+#include "guiw_accessFolder.h"
 #include "guiw_menu.h"
 #include "guiw_hierarchy.h"
 #include "guiw_inspector.h"
 #include "guiw_nodeEditor.h"
 #include "guiw_gameManagerGui.h"
+#include "guiw_sceneWindow.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 #include <fstream>
 #include <cereal/archives/json.hpp>
 #include <filesystem>
+#include "input.h"
 
 #define DEBUGFILEPASS "resource\\debug.json"
 
@@ -534,7 +536,6 @@ static const ImWchar glyphRangesJapanese[] = {
     0xFF0E, 0xFF3B, 0xFF3D, 0xFF5D, 0xFF61, 0xFF9F, 0xFFE3, 0xFFE3, 0xFFE5, 0xFFE5, 0xFFFF, 0xFFFF, 0,
 };
 
-
 void GuiManager::SetUp()
 {
     ImGui::CreateContext();
@@ -562,6 +563,7 @@ void GuiManager::SetUp()
         AddWindow<Inspector>();
         AddWindow<GameManagerGui>();
         AddWindow<AccessFolder>();
+        AddWindow<SceneWindow>();
     }
 }
 
@@ -596,8 +598,6 @@ void GuiManager::Update()
     {
         window->Update();
     }
-   
-
 }
 
 void GuiManager::Draw()
@@ -608,6 +608,19 @@ void GuiManager::Draw()
             window->Draw();
     }
 
+    DXGI_SWAP_CHAIN_DESC scDesc;
+    Renderer::GetSwapChain()->GetDesc(&scDesc);
+
+    // バックバッファの幅と高さを取得
+    UINT backBufferWidth = scDesc.BufferDesc.Width;
+    UINT backBufferHeight = scDesc.BufferDesc.Height;
+
+    // ImGuiで表示する例
+    ImGui::Text("Width: %u, Height: %u", backBufferWidth, backBufferHeight);
+    ImGui::Text("X:%f Y:%f", Input::Instance().GetMousePos().x, Input::Instance().GetMousePos().y);
+
+    //ImGui::Text("X:%f Y:%f", scDesc.BufferDesc.Width, scDesc.BufferDesc.Height);
+    
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

@@ -36,11 +36,11 @@ void Camera::Draw()
 
 
     //プロジェクションマトリクス設定 
-    D3DXMATRIX projectionMatrix;
-    D3DXMatrixPerspectiveFovLH(&projectionMatrix, 1.0f,
+   
+    D3DXMatrixPerspectiveFovLH(&m_ProjectionMatrix, 1.0f,
         (float)SCREEN_WIDTH / SCREEN_HEIGHT, 1.0f, 1000.0f);
 
-    Renderer::SetProjectionMatrix(&projectionMatrix);
+    Renderer::SetProjectionMatrix(&m_ProjectionMatrix);
 
-    Renderer::SetCameraPosition(m_GameObject->m_Transform->GetPosition().dx());
+    Renderer::SetCameraPosition(position);
 }
