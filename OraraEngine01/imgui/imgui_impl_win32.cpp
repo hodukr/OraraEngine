@@ -598,7 +598,10 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
         if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
             break;
         io.AddMouseSourceEvent(mouse_source);
-        io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);
+
+        float x = 1280.0f / io.DisplaySize.x ;
+        float y = 720.0f / io.DisplaySize.y;
+        io.AddMousePosEvent((float)mouse_pos.x * x, (float)mouse_pos.y * y);
         break;
     }
     case WM_MOUSELEAVE:
