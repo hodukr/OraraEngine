@@ -33,4 +33,10 @@
 
 HWND GetWindow();
 
+enum SceneState
+{
+	SCENESTATE_NONE = 0,
+	SCENESTATE_SCENE,
+	SCENEStATE_GAME,
+};
 

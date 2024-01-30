@@ -1,7 +1,9 @@
 ﻿#include "main.h"
+#include "manager.h"
 #include "renderer.h"
+#include "scene.h" 
 #include "textureManager.h"
-#include "accessFolder.h"
+#include "guiw_accessFolder.h"
 
 #include <algorithm>
 
@@ -10,6 +12,9 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     // ファイル拡張子を取得
     std::string filename = name;
     std::string extension = filename.substr(filename.find_last_of(".") + 1);
+
+    ID3D11ShaderResourceView* texture = nullptr;
+    int textureNum = 0;
    
     // 拡張子が .png または .jpg の場合にのみ画像を表示
     if (extension == "png" || extension == "jpg" || extension == "dds")
@@ -23,19 +28,8 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
             it = m_Path.find(name);  // 要素を追加後、再度検索してイテレータで中身を取り出さないとバグる
         }
 
-        int textureNum = TextureManager::LoadTexture(it->second.c_str());
-        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
-
-        // ドラッグソースを設定
-        if (ImGui::BeginDragDropSource())
-        {
-            ImGui::SetDragDropPayload("MY_PAYLOAD_TYPE", &name, sizeof(const char*));
-
-            // ドラッグ元の要素の描画
-            ImGui::Image((ImTextureID)texture, size, uv);
-
-            ImGui::EndDragDropSource();
-        }
+        textureNum = TextureManager::LoadTexture(it->second.c_str());
+        texture = *TextureManager::GetTexture(textureNum);
      
         // ドラッグ元の要素の描画
         ImGui::Image((ImTextureID)texture, size, uv);
@@ -44,22 +38,22 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     }
     else if (extension == "wav")
     {
-        int textureNum = TextureManager::LoadTexture("asset\\Music.png");
-        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+        textureNum = TextureManager::LoadTexture("asset\\Music.png");
+        texture = *TextureManager::GetTexture(textureNum);
 
         ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
     }
     else if (extension == "json")
     {
-        int textureNum = TextureManager::LoadTexture("asset\\Memo.png");
-        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+        textureNum = TextureManager::LoadTexture("asset\\Memo.png");
+        texture = *TextureManager::GetTexture(textureNum);
 
         ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
     }
     else if (extension == "obj" || extension == "fbx")
     {
-        int textureNum = TextureManager::LoadTexture("asset\\3DModel.png");
-        ID3D11ShaderResourceView* texture = *TextureManager::GetTexture(textureNum);
+        textureNum = TextureManager::LoadTexture("asset\\3DModel.png");
+        texture = *TextureManager::GetTexture(textureNum);
 
         ImGui::Image((ImTextureID)texture, ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
     }
@@ -71,6 +65,20 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
     // フォルダ名を表示
     ImGui::SameLine();
     ImGui::Button(name);
+
+    // ドラッグソースを設定
+    if (ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload("MY_PAYLOAD_TYPE", &name, sizeof(const char*));
+
+        // ドラッグ元の要素の描画
+        ImGui::Image((ImTextureID)texture, size, uv);
+        std::string path = "asset\\" + m_ProjectFolderName + "\\" + name;
+
+        m_DragName = path;
+
+        ImGui::EndDragDropSource();
+    }
 
     //右クリックでポップアップを出す 
     if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
@@ -254,19 +262,9 @@ void AccessFolder::Draw()
         }
     }
 
-    // ドラッグターゲットを設定
-    if (ImGui::BeginDragDropTarget())
-    {
-        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_PAYLOAD_TYPE"))
-        {
-            const char* draggedItemName = *(const char**)payload->Data;
-
-            // ドラッグ先の要素に対する処理（ここではファイル名を表示）
-            ImGui::Text("Dropped item: %s", draggedItemName);
-        }
-
-        ImGui::EndDragDropTarget();
-    }
+   
+   
+   
 
     ImGui::End();
 }

@@ -57,7 +57,17 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_IsShowWindow": false
+                        "m_IsShowWindow": true
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483655,
+                "polymorphic_name": "SceneWindow",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_IsShowWindow": true
                     }
                 }
             }

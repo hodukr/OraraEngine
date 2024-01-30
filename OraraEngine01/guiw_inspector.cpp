@@ -47,7 +47,7 @@ void Inspector::Draw()
         }
 
 
-       
+
 
         if (ImGui::Button("AddComponent")) {
 

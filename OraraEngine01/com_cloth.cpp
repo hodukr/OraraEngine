@@ -284,10 +284,7 @@ void Cloth::Update()
             m_Vertex[x][y].Position.z += m_Velocity[x][y].z * m_deltaTime;
         }
     }
-    //Scene* scene = Manager::GetScene();
-    //tick* stick = scene->GetGameObject<Stick>();
 
-    //m_Position = m_Stick->GetPosition() + m_Stick->GetRight() * 2.0f + m_Stick->GetUp() * 2.0f;
     //デバック用
 #ifdef _DEBUG
     ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);

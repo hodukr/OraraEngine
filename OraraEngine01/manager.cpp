@@ -18,7 +18,7 @@ CollisionManager* m__CollisionManager{};
 void Manager::Init()
 {
 	Renderer::Init();
-	Input::Init();
+	Input::Instance().Init();
 	Audio::InitMaster();
     GuiManager::Instance().SetUp();
 	SetScene<Scene>();
@@ -44,12 +44,12 @@ void Manager::Uninit()
 
 	Audio::UninitMaster();
 	Renderer::Uninit();
-	Input::Uninit();
+	Input::Instance().Uninit();
 }
 
 void Manager::Update()
 {
-	Input::Update();
+	Input::Instance().Update();
 
 	if(m_NextScene)
 	{

@@ -1,7 +1,7 @@
 #include "main.h"
 #include "dropFile.h"
 #include "guiManager.h"
-#include "accessFolder.h"
+#include "guiw_accessFolder.h"
 #include <list>
 #include <string>
 

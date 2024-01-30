@@ -7,11 +7,15 @@
 #include "pass_postPass.h"
 #include "post.h"
 #include "pass_depthShadow.h"
+#include "sceneCamera.h"
 
 void ShaderManager::Init()
 {
     m_Post = new Post;
     m_Post->Init();
+
+    m_SceneCamera = new SceneCamera;
+    m_SceneCamera->Init();
 
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
@@ -20,6 +24,7 @@ void ShaderManager::Init()
 
 void ShaderManager::Uninit()
 {
+    m_SceneCamera->Uninit();
     m_Post->Uninit();
     delete m_Post;
 
@@ -33,6 +38,8 @@ void ShaderManager::Uninit()
 
 void ShaderManager::Update()
 {
+    m_SceneCamera->Update();
+    
     m_Post->Update();
 
     for (Pass* pass : m_Pass)
@@ -56,7 +63,7 @@ void ShaderManager::Draw()
     PostPass* post = GetPass<PostPass>(SHADER_POST);
     post->BeginPP();
 
-
+    m_SceneCamera->Draw();
     scene->Draw();
 
     Renderer::Begin();

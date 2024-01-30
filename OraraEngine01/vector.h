@@ -118,6 +118,10 @@ public:
         return &x;
     }
 
+	operator D3DXVECTOR3* ()
+	{
+		return reinterpret_cast<D3DXVECTOR3*>(this);
+	}
 
     template<class Archive>
     void serialize(Archive& archive)
