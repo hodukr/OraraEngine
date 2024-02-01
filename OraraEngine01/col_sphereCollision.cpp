@@ -63,7 +63,7 @@ void SphereCollision::Uninit()
 }
 void SphereCollision::Update()
 {
-    m_Position = m_Object->m_Transform->GetPosition();
+    m_Position = m_GameObject->m_Transform->GetPosition();
     m_Position += m_Offset;
 }
 
@@ -192,8 +192,8 @@ bool SphereCollision::CollideWith(BoxCollision* other)
 
         // ポジションの補正
         Vector3 pos = m_Position - m_Offset + vec;
-        m_Object->m_Transform->SetPosition(pos);
-        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
+        m_GameObject->m_Transform->SetPosition(pos);
+        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
         return true;
     }
 
@@ -226,8 +226,8 @@ bool SphereCollision::CollideWith(SphereCollision* other)
 
         // 補正を適用して位置を調整
         Vector3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
-        m_Object->m_Transform->SetPosition(pos);
-        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
+        m_GameObject->m_Transform->SetPosition(pos);
+        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
 
         return true;
     }

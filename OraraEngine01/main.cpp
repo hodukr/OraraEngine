@@ -140,29 +140,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		DragFinish(hdrop);
 #endif // _DEBUG
 		break;
-	case WM_SIZE: {
-		if (Renderer::GetSwapChain() != nullptr)
-		{
-			int newWidth = LOWORD(lParam);
-			int newHeight = HIWORD(lParam);
-
-			// 現在のスワップチェーンの設定を取得
-			DXGI_SWAP_CHAIN_DESC scDesc;
-			Renderer::GetSwapChain()->GetDesc(&scDesc);
-
-			// 新しい幅と高さを設定（例: 800x600）
-			scDesc.BufferDesc.Width = newWidth;
-			scDesc.BufferDesc.Height = newHeight;
-
-			// ResizeBuffersメソッドでバックバッファのサイズを変更
-			Renderer::GetSwapChain()->ResizeBuffers(scDesc.BufferCount, scDesc.BufferDesc.Width, scDesc.BufferDesc.Height, scDesc.BufferDesc.Format, scDesc.Flags);
-
-			// バックバッファのサイズを変更
-			//Renderer::GetSwapChain()->ResizeBuffers(1, newWidth, newHeight, DXGI_FORMAT_B8G8R8A8_UNORM, 0);
-		}
-		
-	}
-	break;
 	default:
 		break;
 	}

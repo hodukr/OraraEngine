@@ -9,7 +9,7 @@ private:
 
     D3DXVECTOR3 m_Size{};
 
-    void SetVertex(VERTEX_3D* vertex);
+    void SetVertex(struct VERTEX_3D* vertex);
 public:
     BoxCollision() { m_Shape = SHAPE_BOX; }
 

@@ -16,15 +16,7 @@ SetReflectionComponent(Text)
 SetReflectionComponent(InputSystem)
 SetReflectionComponent(Cloth)
 SetReflectionComponent(WaterSurface)
-
-//#include <cereal/cereal.hpp>
-//#include <cereal/types/memory.hpp>
-//#include <cereal/types/polymorphic.hpp>
+SetReflectionComponent(CollisionShape)
+SetReflectionComponent(BoxCollision)
 
 
-
-//SetReflectionComponent(Material)
-
-//CEREAL_REGISTER_TYPE_WITH_NAME(Mesh, "Mesh")
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Transform)
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Mesh)

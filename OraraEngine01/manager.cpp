@@ -10,7 +10,7 @@
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};
-CollisionManager* m__CollisionManager{};
+CollisionManager* m_CollisionManager{};
 
 
 
@@ -23,7 +23,7 @@ void Manager::Init()
     GuiManager::Instance().SetUp();
 	SetScene<Scene>();
 
-	m__CollisionManager = new CollisionManager;
+	m_CollisionManager = new CollisionManager;
 
 	ShaderManager::Instance().Init();
 
@@ -37,8 +37,8 @@ void Manager::Uninit()
 	m_Scene->Uninit();
 	delete m_Scene;
 
-	m__CollisionManager->Uninit();
-	delete m__CollisionManager;
+	//m_CollisionManager->Uninit();
+	//delete m_CollisionManager;
 
 	ShaderManager::Instance().Uninit();
 
@@ -51,24 +51,27 @@ void Manager::Update()
 {
 	Input::Instance().Update();
 
+
 	if(m_NextScene)
 	{
 		if (m_Scene)
 		{
 			m_Scene->Uninit();
 			delete m_Scene;
+
+			m_CollisionManager->Uninit();
 		}
 
 		m_Scene = m_NextScene;
 		m_Scene->Init();
+		m_CollisionManager->Init();
         GuiManager::Instance().Init();
 
 		m_NextScene = nullptr;
 	}
-    GuiManager::Instance().Update();
-
-	m_Scene->Update();	
-	m__CollisionManager->Update();
+	GuiManager::Instance().Update();
+	m_Scene->Update();
+	m_CollisionManager->Update();
 	ShaderManager::Instance().Update();
 }
 

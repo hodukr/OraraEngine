@@ -7,3 +7,8 @@ CollisionShape::CollisionShape()
 {
     CollisionManager::SetShape(this);
 }
+
+CollisionShape::~CollisionShape()
+{
+    CollisionManager::DeletShape(this);
+}

@@ -57,7 +57,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_IsShowWindow": true
+                        "m_IsShowWindow": false
                     }
                 }
             },

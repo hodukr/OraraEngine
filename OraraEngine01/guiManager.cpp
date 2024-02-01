@@ -607,19 +607,6 @@ void GuiManager::Draw()
         if(window->GetShowWindow())
             window->Draw();
     }
-
-    DXGI_SWAP_CHAIN_DESC scDesc;
-    Renderer::GetSwapChain()->GetDesc(&scDesc);
-
-    // バックバッファの幅と高さを取得
-    UINT backBufferWidth = scDesc.BufferDesc.Width;
-    UINT backBufferHeight = scDesc.BufferDesc.Height;
-
-    // ImGuiで表示する例
-    ImGui::Text("Width: %u, Height: %u", backBufferWidth, backBufferHeight);
-    ImGui::Text("X:%f Y:%f", Input::Instance().GetMousePos().x, Input::Instance().GetMousePos().y);
-
-    //ImGui::Text("X:%f Y:%f", scDesc.BufferDesc.Width, scDesc.BufferDesc.Height);
     
 
     ImGui::Render();

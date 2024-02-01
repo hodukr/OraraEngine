@@ -12,6 +12,7 @@ class GameObject
 {
 private:
     std::string m_ObjctName;
+    std::string m_Tag;
     bool m_Destroy = false;
     std::list<std::unique_ptr<Component>> m_Component;
 
@@ -19,6 +20,7 @@ public:
     Transform* m_Transform = nullptr;
     GameObject() {
         m_ObjctName = "GameObject";
+        m_Tag = "NoneTag";
     }
     void SetDestroy() { m_Destroy = true; }
 
@@ -71,6 +73,7 @@ public:
         for (const auto& component : m_Component)
         {
             component->Update();
+            component.get_deleter();
         }
         m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
 
@@ -92,6 +95,16 @@ public:
     std::string GetName()
     {
         return m_ObjctName;
+    }
+
+    void SetTag(std::string tag)
+    {
+        m_ObjctName = tag;
+    }
+
+    const std::string GetTag()
+    {
+        return m_Tag;
     }
 
     template<typename T>
@@ -140,7 +153,7 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_ObjctName),CEREAL_NVP(m_Component));
+        archive(CEREAL_NVP(m_ObjctName), CEREAL_NVP(m_Tag), CEREAL_NVP(m_Component));
     }
 };
 
