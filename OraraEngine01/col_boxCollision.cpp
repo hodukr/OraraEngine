@@ -4,6 +4,7 @@
 #include "col_sphereCollision.h"
 #include "gameObject.h"
 #include "input.h"
+#include "imgui/imgui.h"
 
 
 
@@ -49,9 +50,8 @@ void BoxCollision::Uninit()
 }
 void BoxCollision::Update()
 {
-    m_Position = m_Object->m_Transform->GetPosition();
+    m_Position = m_GameObject->m_Transform->GetPosition();
     m_Position += m_Offset;
-
 }
 
 void BoxCollision::Draw()
@@ -140,6 +140,10 @@ bool BoxCollision::CollideWith(BoxCollision* other)
     float minZB = pos.z -  size.z;
     float maxZB = pos.z +  size.z;
 
+    ImGui::Text("OldPosition:%f %f", GetOldPosition().x, GetOldPosition().z);
+    ImGui::Text("TOldPosition:%f %f", m_GameObject->m_Transform->GetOldePosition().x, m_GameObject->m_Transform->GetOldePosition().z);
+    ImGui::Text("Position:%f %f", GetPosition().x, GetPosition().z);
+
     if (minXB < maxXA && maxXB > minXA &&
         minYA < maxYB && maxYA > minYB&&
         minZB < maxZA && maxZB > minZA)
@@ -148,24 +152,24 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             return true;
 
         //ポジション計算用 
-        Vector3 pos = m_Object->m_Transform->GetPosition();
+        Vector3 pos = m_GameObject->m_Transform->GetPosition();
 
         // 補正
         if (maxYB < GetOldPosition().y - m_Size.y && minYA < maxYB || minYB > GetOldPosition().y + m_Size.y && maxYA > minYB)
         {
             //いずれバグる　
-            pos.y = m_Object->m_Transform->GetOldePosition().y;
+            pos.y = m_GameObject->m_Transform->GetOldePosition().y;
         }
         else if(maxXB < GetOldPosition().x - m_Size.x && minXA < maxXB || minXB > GetOldPosition().x + m_Size.x && maxXA > minXB)
         {
-            pos.x = m_Object->m_Transform->GetOldePosition().x;
+            pos.x = m_GameObject->m_Transform->GetOldePosition().x;
         }
         else
         {
-            pos.z = m_Object->m_Transform->GetOldePosition().z;
+            pos.z = m_GameObject->m_Transform->GetOldePosition().z;
         }
       
-        m_Object->m_Transform->SetPosition(pos);
+        m_GameObject->m_Transform->SetPosition(pos);
         m_Position = pos + m_Offset;
        
         return true; 
@@ -207,8 +211,8 @@ bool BoxCollision::CollideWith(SphereCollision* other)
 
         // ポジションの補正
         Vector3 pos = m_Position - m_Offset + vec;
-        m_Object->m_Transform->SetPosition(pos);
-        m_Position = m_Object->m_Transform->GetPosition() + m_Offset;
+        m_GameObject->m_Transform->SetPosition(pos);
+        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
 
         return true;
     }

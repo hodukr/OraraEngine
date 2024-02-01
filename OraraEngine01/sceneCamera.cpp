@@ -81,7 +81,7 @@ void SceneCamera::Update()
     m_Target = GetForward() + m_Position.dx();
    
     Vector3 pos = GetWorldMousePosition(Input::Instance().GetMousePos().x, Input::Instance().GetMousePos().y);
-    ImGui::Text("X:%f Y:%f Z:%f",pos.x,pos.y,pos.z);
+    //ImGui::Text("X:%f Y:%f Z:%f",pos.x,pos.y,pos.z);
 }
 
 void SceneCamera::Draw()

@@ -32,6 +32,7 @@ void InputSystem::Update()
         vel.x = -1.0f;
     }
     vel.NormalizThis();
+    vel = vel * 0.1f;
     m_GameObject->m_Transform->Translate(vel);
 }
 

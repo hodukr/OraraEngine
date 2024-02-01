@@ -7,7 +7,8 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "MainCamera",
+                        "m_Tag": "NoneTag",
                         "m_Component": [
                             {
                                 "polymorphic_id": 2147483649,
@@ -17,8 +18,8 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
+                                            "y": 5.0,
+                                            "z": -10.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -35,26 +36,23 @@
                             },
                             {
                                 "polymorphic_id": 2147483650,
-                                "polymorphic_name": "Plane",
+                                "polymorphic_name": "Camera",
                                 "ptr_wrapper": {
                                     "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "GameObject"
-                                    }
+                                    "data": {}
                                 }
                             }
                         ]
                     }
                 }
-            }
-        ],
-        "m_GameObject[2]": [
+            },
             {
                 "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "asset\\model\\box.obj",
+                        "m_ObjctName": "GameObject",
+                        "m_Tag": "NoneTag",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -62,7 +60,7 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 0.0,
+                                            "x": 4.0,
                                             "y": 0.0,
                                             "z": 0.0
                                         },
@@ -81,15 +79,11 @@
                             },
                             {
                                 "polymorphic_id": 2147483651,
-                                "polymorphic_name": "Mesh",
+                                "polymorphic_name": "BoxCollision",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Modelpas": "box.obj",
-                                        "m_Material": {
-                                            "m_NameVS": "vertexLightingVS.cso",
-                                            "m_NamePS": "vertexLightingPS.cso"
-                                        }
+                                        "m_ObjectName": "GameObject"
                                     }
                                 }
                             }
@@ -102,7 +96,8 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "asset\\model\\player.obj",
+                        "m_ObjctName": "GameObject(1)",
+                        "m_Tag": "NoneTag",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -110,9 +105,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 2.0,
+                                            "x": -0.7000001072883606,
                                             "y": 0.0,
-                                            "z": 0.0
+                                            "z": 0.6000000238418579
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -128,15 +123,21 @@
                                 }
                             },
                             {
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "GameObject(1)"
+                                    }
+                                }
+                            },
+                            {
                                 "polymorphic_id": 3,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Modelpas": "player.obj",
-                                        "m_Material": {
-                                            "m_NameVS": "vertexLightingVS.cso",
-                                            "m_NamePS": "vertexLightingPS.cso"
-                                        }
+                                        "m_ObjectName": "GameObject(1)"
                                     }
                                 }
                             }
@@ -145,6 +146,7 @@
                 }
             }
         ],
+        "m_GameObject[2]": [],
         "m_Name": "NewScene"
     }
 }

@@ -1,8 +1,16 @@
 ﻿#include "main.h"
 #include "collisionManager.h"
 #include "gameObject.h"
+#include "imgui/imgui.h"
 
 std::list<CollisionShape*>  CollisionManager::m_Shape{};
+std::list<CollisionShape*>  CollisionManager::m_NextShape{};
+
+void CollisionManager::Init()
+{
+    m_Shape = m_NextShape;
+    m_NextShape.clear();
+}
 
 void CollisionManager::Uninit()
 {
@@ -17,6 +25,7 @@ void CollisionManager::Update()
     {
         for (auto it2 = std::next(it1); it2 != m_Shape.end(); ++it2)
         {
+
             if (!(*it1)->GetStateMap().empty())
             {
                 auto stateMap1 = (*it1)->GetStateMap();
@@ -40,7 +49,6 @@ void CollisionManager::Update()
                 if (hit)
                 {
                     // 衝突が発生した場合 
-                   // 衝突が発生した場合 
                     if ((*it1)->GetState((*it2)) == COLLISION_NONE)
                     {
                         (*it1)->SetStateMap((*it2), COLLISION_ENTER);
@@ -80,6 +88,7 @@ void CollisionManager::Update()
                         (*it2)->SetStateMap((*it1), COLLISION_NONE);
                     }
                 }
+                ImGui::Text("%d", (*it1)->GetState((*it2)));
             }
             else
             {
@@ -98,6 +107,6 @@ void CollisionManager::Update()
             }
         }
         (*it1)->SetOldPosition((*it1)->GetPosition());
-        (*it1)->GetObjct()->m_Transform->SetOldPosition((*it1)->GetObjct()->m_Transform->GetPosition());
+        (*it1)->GetGameObejct()->m_Transform->SetOldPosition((*it1)->GetGameObejct()->m_Transform->GetPosition());
     }
 }

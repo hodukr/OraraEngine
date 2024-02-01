@@ -8,6 +8,7 @@
 #include "com_plane.h"
 #include "com_uiText.h"
 #include "com_inputSystem.h"
+#include "col_boxCollision.h"
 
 #define SET_COMPONENT_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\
@@ -20,4 +21,6 @@ SET_COMPONENT_CLASS(PraticleSystem)
 SET_COMPONENT_CLASS(Plane)
 SET_COMPONENT_CLASS(Text)
 SET_COMPONENT_CLASS(InputSystem)
+SET_COMPONENT_CLASS(CollisionShape)
+SET_COMPONENT_CLASS(BoxCollision)
 

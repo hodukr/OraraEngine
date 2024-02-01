@@ -104,17 +104,16 @@ public:
 		return m_GameObject[Layer].back().get();
 	}
 
-	template<typename T>//テンプレート関数
-	T* GetGameObject()
+	GameObject* GetGameObject(const char* name)
 	{
 		for (int i = 0; i < 3; i++)
 		{
 			for (auto& object : m_GameObject[i])
 			{
 				//メモリをくうのであまり使わないほうがいい
-				if (typeid(*object) == typeid(T))//型を調べる(RTTI動的型情報)
+				if (object.get()->GetName() == name)//型を調べる(RTTI動的型情報)
 				{
-					return dynamic_cast<T*>(object.get());
+					return object.get();
 				}
 			}
 		}
