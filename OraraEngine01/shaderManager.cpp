@@ -68,5 +68,5 @@ void ShaderManager::Draw()
 
     Renderer::Begin();
 
-    m_Post->Draw();
+    //m_Post->Draw();
 }

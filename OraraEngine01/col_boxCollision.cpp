@@ -154,21 +154,26 @@ bool BoxCollision::CollideWith(BoxCollision* other)
         //ポジション計算用 
         Vector3 pos = m_GameObject->m_Transform->GetPosition();
 
+        static float p;
         // 補正
-        if (maxYB < GetOldPosition().y - m_Size.y && minYA < maxYB || minYB > GetOldPosition().y + m_Size.y && maxYA > minYB)
+        if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
         {
             //いずれバグる　
             pos.y = m_GameObject->m_Transform->GetOldePosition().y;
         }
-        else if(maxXB < GetOldPosition().x - m_Size.x && minXA < maxXB || minXB > GetOldPosition().x + m_Size.x && maxXA > minXB)
+        else if((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
         {
             pos.x = m_GameObject->m_Transform->GetOldePosition().x;
         }
         else
         {
+            p = GetOldPosition().x;
             pos.z = m_GameObject->m_Transform->GetOldePosition().z;
+            
         }
-      
+        ImGui::Text("Pos:%f",p);
+        
+
         m_GameObject->m_Transform->SetPosition(pos);
         m_Position = pos + m_Offset;
        

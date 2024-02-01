@@ -13,9 +13,9 @@ void Plane::Init()
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)
 {
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\shadowVS.cso");
+	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\envMappingVS.cso");
 
-	Renderer::CreatePixelShader(&m_PixelShader, "shader\\shadowPS.cso");
+	Renderer::CreatePixelShader(&m_PixelShader, "shader\\envMappingPS.cso");
 
 	VERTEX_3D vertex[4];
 
@@ -111,10 +111,10 @@ void Plane::Draw()
 
 	//テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-	//EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
-	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetCubeReflectShaderResourceView());
-	DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
-	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+	EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
+	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetCubeReflectShaderResourceView());
+	//DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
 
 
 	//プリミティブトポロジ設定

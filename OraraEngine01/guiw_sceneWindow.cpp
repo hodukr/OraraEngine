@@ -11,7 +11,11 @@
 
 void SceneWindow::Draw()
 {
-	ImGui::Begin("Scene");
+    ImVec2 WindowSize(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+    ImGui::SetNextWindowSize(WindowSize);
+    ImVec2 windowPos((SCREEN_WIDTH / 2.0f) - (SCREEN_WIDTH / 4.0f), 0);
+    ImGui::SetNextWindowPos(windowPos);
+    ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
     ImGuiViewport* viewport = ImGui::GetMainViewport();
     ImVec2 viewportPos = viewport->Pos;
@@ -23,8 +27,8 @@ void SceneWindow::Draw()
     io.DisplaySize.x = static_cast<float>(windowWidth);
     io.DisplaySize.y = static_cast<float>(windowHeight);
 
-    ImVec2 WindowSize(windowWidth * 0.5f, windowHeight * 0.5f);
-    ImVec2 windowPos((windowWidth / 2.0f) - (windowWidth / 4.0f), 0);
+    //ImVec2 WindowSize(windowWidth * 0.5f, windowHeight * 0.5f);
+    //ImVec2 windowPos((windowWidth / 2.0f) - (windowWidth / 4.0f), 0);
 
 	//レンダリングテクスチャを取得
 	PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
