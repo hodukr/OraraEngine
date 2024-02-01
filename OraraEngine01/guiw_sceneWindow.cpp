@@ -12,7 +12,8 @@
 void SceneWindow::Draw()
 {
     ImVec2 WindowSize(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-    ImGui::SetNextWindowSize(WindowSize);
+    ImVec2 WindowSizewindow(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.56f);
+    ImGui::SetNextWindowSize(WindowSizewindow);
     ImVec2 windowPos((SCREEN_WIDTH / 2.0f) - (SCREEN_WIDTH / 4.0f), 0);
     ImGui::SetNextWindowPos(windowPos);
     ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
