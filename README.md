@@ -6,3 +6,6 @@
 
 1.セーブ
 cerealを使用してjsonファイルにScene内のGameObject、またGameObject内のCompoentの情報を保存できるようにしました。
+ComponetはComoponetクラスを基底としてポリモーフィズムで各派生Comoponetを保存できるように対応した。※その場合に各派生クラスと基底クラスの関連づけをCerealに行わなければならないならない。
+1.ロード
+cerealの機能でポリモーフィズムなクラスを代入してくれるのでそのままSceneファイルを読み込み保存したデータをインスタンス化できる。
