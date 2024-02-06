@@ -33,6 +33,7 @@ public:
     }
 
     D3DXMATRIX GetViewMatrix() { return m_ViewMatrix; }
+    D3DXMATRIX GetProjectionMatrix() { return m_ProjectionMatrix; }
     Vector3 GetWorldMousePosition(float x, float y);
     //Vector3* CalcScreenToXZ(Vector3* pout, int x, int y);
 };

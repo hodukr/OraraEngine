@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "main.h"
 #include "guiManager.h"
 #include "gameManager.h"
 #include "gameObject.h"
