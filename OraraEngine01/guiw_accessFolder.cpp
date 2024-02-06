@@ -148,14 +148,10 @@ void AccessFolder::Draw()
 
     for (const auto& entry : fs::directory_iterator("asset"))
     {
-        const std::string& itemPath = entry.path().string();
-
-        // サブフォルダ名を抽出
-        fs::path folderPath(itemPath);
-        std::string folderName = folderPath.filename().string();
+        const std::string& itemPath = entry.path().filename().string();
 
         // フォルダ名が重複しない場合に追加
-        if (folderName.find('.') == std::string::npos && m_ProjectFolders.insert(folderName).second);
+        if (itemPath.find('.') == std::string::npos && m_ProjectFolders.insert(itemPath).second);
     }
 
     // フォルダとファイルを表示
@@ -199,15 +195,11 @@ void AccessFolder::Draw()
             m_ProjectFolderName = folder;
             for (const auto& entry : fs::directory_iterator("asset/" + folder))
             {
-                const std::string& itemPath = entry.path().string();
+                const std::string& itemPath = entry.path().filename().string();
 
-                // サブフォルダ名を抽出
-                fs::path folderPath(itemPath);
-                std::string folderName = folderPath.filename().string();
-
-                std::string extension = folderName.substr(folderName.find_last_of(".") + 1);
+                std::string extension = itemPath.substr(itemPath.find_last_of(".") + 1);
                 if (extension != "mtl")
-                    DrawFolderIconAndName(folderName.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
+                    DrawFolderIconAndName(itemPath.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
             }
 
             ImGui::TreePop();

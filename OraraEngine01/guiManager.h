@@ -7,12 +7,18 @@
 #include <filesystem>
 #include "imGuiWindow.h"
 #include "guiw_common.h"
+#include "imgui/ImGuizmo.h"
 
 class GuiManager
 {
 private:
     Singleton(GuiManager);
     std::list<std::unique_ptr<ImGuiWindow>> m_Windows;
+    bool useWindow = true;
+    int gizmoCount = 1;
+    float camDistance = 8.f;
+    //static ImGuizmo::OPERATION m_CurrentGizmoOperation{};
+    //int a;
 public:
     void SetUp();
     void Init();
@@ -20,6 +26,10 @@ public:
     void Update();
     void Draw();
     //static void SetText(std::string text) { m_Text = text; }
+
+    //void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
+
+
     template<class T>
     T* AddWindow()
     {

@@ -1,5 +1,5 @@
 ﻿#include "main.h"
-#include "guiManager.h"
+#include "manager.h"
 #include "renderer.h"
 #include "guiw_accessFolder.h"
 #include "guiw_menu.h"
@@ -10,10 +10,19 @@
 #include "guiw_sceneWindow.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
+#include "guiManager.h"
 #include <fstream>
 #include <cereal/archives/json.hpp>
 #include <filesystem>
+#include "scene.h"
 #include "input.h"
+#include "shaderManager.h"
+#include "sceneCamera.h"
+#include "com_mesh.h"
+//#include "imgui/imgui_internal.h"
+
+
+
 
 #define DEBUGFILEPASS "resource\\debug.json"
 
@@ -536,6 +545,34 @@ static const ImWchar glyphRangesJapanese[] = {
     0xFF0E, 0xFF3B, 0xFF3D, 0xFF5D, 0xFF61, 0xFF9F, 0xFFE3, 0xFFE3, 0xFFE5, 0xFFE5, 0xFFFF, 0xFFFF, 0,
 };
 
+float objectMatrix[4][16] = {
+  { 1.f, 0.f, 0.f, 0.f,
+    0.f, 1.f, 0.f, 0.f,
+    0.f, 0.f, 1.f, 0.f,
+    0.f, 0.f, 0.f, 1.f },
+
+  { 1.f, 0.f, 0.f, 0.f,
+  0.f, 1.f, 0.f, 0.f,
+  0.f, 0.f, 1.f, 0.f,
+  2.f, 0.f, 0.f, 1.f },
+
+  { 1.f, 0.f, 0.f, 0.f,
+  0.f, 1.f, 0.f, 0.f,
+  0.f, 0.f, 1.f, 0.f,
+  2.f, 0.f, 2.f, 1.f },
+
+  { 1.f, 0.f, 0.f, 0.f,
+  0.f, 1.f, 0.f, 0.f,
+  0.f, 0.f, 1.f, 0.f,
+  0.f, 0.f, 2.f, 1.f }
+};
+
+static const float identityMatrix[16] =
+{ 1.f, 0.f, 0.f, 0.f,
+    0.f, 1.f, 0.f, 0.f,
+    0.f, 0.f, 1.f, 0.f,
+    0.f, 0.f, 0.f, 1.f };
+
 void GuiManager::SetUp()
 {
     ImGui::CreateContext();
@@ -565,6 +602,8 @@ void GuiManager::SetUp()
         AddWindow<AccessFolder>();
         AddWindow<SceneWindow>();
     }
+
+    //m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
 }
 
 void GuiManager::Init()
@@ -593,11 +632,51 @@ void GuiManager::Update()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 
     for (auto& window : m_Windows)
     {
         window->Update();
     }
+    
+    SceneCamera* camera = ShaderManager::Instance().GetSceneCamera();
+
+    ImGuizmo::ViewManipulate(
+        camera->GetViewMatrix(),
+        10.0f,
+        ImVec2(0, 0),
+        ImVec2(128, 128),
+        ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 0.0f))
+    );
+
+    /*Scene* scene = Manager::GetScene();
+
+    for (int i = 0; i < 3; i++)
+    {
+        bool push = false;
+        for (auto& gameobject : scene->GetList()[i])
+        {
+            if (gameobject.get()->GetName() != "MainCamera")
+            {
+                D3DXMATRIX world, scale, rot, trans;
+                D3DXVECTOR3 Scale = gameobject->m_Transform->GetScale().dx();
+                D3DXVECTOR3 Rotation = gameobject->m_Transform->GetRotation().dx();
+                D3DXVECTOR3 Position = gameobject->m_Transform->GetPosition().dx();
+
+                D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
+                D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
+                D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
+                world = scale * rot * trans;
+                m_Matrix = world;
+                ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), ImGuizmo::TRANSLATE, ImGuizmo::WORLD, m_Matrix,NULL);
+            }
+        }
+        ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), identityMatrix, 100.f);
+        ImGuizmo::DrawCubes(camera->GetViewMatrix(), camera->GetProjectionMatrix(), &objectMatrix[0][0], 1);
+        ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), ImGuizmo::TRANSLATE, ImGuizmo::WORLD, objectMatrix[0], NULL);
+    }*/
+
+
 }
 
 void GuiManager::Draw()
@@ -612,5 +691,113 @@ void GuiManager::Draw()
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
+
+//void GuiManager::EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition)
+//{
+//    static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::LOCAL);
+//    static bool useSnap = false;
+//    static float snap[3] = { 1.f, 1.f, 1.f };
+//    static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
+//    static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
+//    static bool boundSizing = false;
+//    static bool boundSizingSnap = false;
+//
+//    if (editTransformDecomposition)
+//    {
+//        if (ImGui::IsKeyPressed(ImGuiKey_T))
+//            m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
+//        if (ImGui::IsKeyPressed(ImGuiKey_E))
+//            m_CurrentGizmoOperation = ImGuizmo::ROTATE;
+//        if (ImGui::IsKeyPressed(ImGuiKey_R)) // r Key
+//            m_CurrentGizmoOperation = ImGuizmo::SCALE;
+//        if (ImGui::RadioButton("Translate", m_CurrentGizmoOperation == ImGuizmo::TRANSLATE))
+//            m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
+//        ImGui::SameLine();
+//        if (ImGui::RadioButton("Rotate", m_CurrentGizmoOperation == ImGuizmo::ROTATE))
+//            m_CurrentGizmoOperation = ImGuizmo::ROTATE;
+//        ImGui::SameLine();
+//        if (ImGui::RadioButton("Scale", m_CurrentGizmoOperation == ImGuizmo::SCALE))
+//            m_CurrentGizmoOperation = ImGuizmo::SCALE;
+//        if (ImGui::RadioButton("Universal", m_CurrentGizmoOperation == ImGuizmo::UNIVERSAL))
+//            m_CurrentGizmoOperation = ImGuizmo::UNIVERSAL;
+//        float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+//        ImGuizmo::DecomposeMatrixToComponents(matrix, matrixTranslation, matrixRotation, matrixScale);
+//        ImGui::InputFloat3("Tr", matrixTranslation);
+//        ImGui::InputFloat3("Rt", matrixRotation);
+//        ImGui::InputFloat3("Sc", matrixScale);
+//        ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, matrix);
+//
+//        if (m_CurrentGizmoOperation != ImGuizmo::SCALE)
+//        {
+//            if (ImGui::RadioButton("Local", mCurrentGizmoMode == ImGuizmo::LOCAL))
+//                mCurrentGizmoMode = ImGuizmo::LOCAL;
+//            ImGui::SameLine();
+//            if (ImGui::RadioButton("World", mCurrentGizmoMode == ImGuizmo::WORLD))
+//                mCurrentGizmoMode = ImGuizmo::WORLD;
+//        }
+//        if (ImGui::IsKeyPressed(ImGuiKey_S))
+//            useSnap = !useSnap;
+//        ImGui::Checkbox("##UseSnap", &useSnap);
+//        ImGui::SameLine();
+//
+//        switch (m_CurrentGizmoOperation)
+//        {
+//        case ImGuizmo::TRANSLATE:
+//            ImGui::InputFloat3("Snap", &snap[0]);
+//            break;
+//        case ImGuizmo::ROTATE:
+//            ImGui::InputFloat("Angle Snap", &snap[0]);
+//            break;
+//        case ImGuizmo::SCALE:
+//            ImGui::InputFloat("Scale Snap", &snap[0]);
+//            break;
+//        }
+//        ImGui::Checkbox("Bound Sizing", &boundSizing);
+//        if (boundSizing)
+//        {
+//            ImGui::PushID(3);
+//            ImGui::Checkbox("##BoundSizing", &boundSizingSnap);
+//            ImGui::SameLine();
+//            ImGui::InputFloat3("Snap", boundsSnap);
+//            ImGui::PopID();
+//        }
+//    }
+//
+//    ImGuiIO& io = ImGui::GetIO();
+//    float viewManipulateRight = io.DisplaySize.x;
+//    float viewManipulateTop = 0;
+//    static ImGuiWindowFlags gizmoWindowFlags = 0;
+//    if (useWindow)
+//    {
+//        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_Appearing);
+//        ImGui::SetNextWindowPos(ImVec2(400, 20), ImGuiCond_Appearing);
+//        ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImVec4)ImColor(0.35f, 0.3f, 0.3f));
+//        ImGui::Begin("Gizmo", 0, gizmoWindowFlags);
+//        ImGuizmo::SetDrawlist();
+//        float windowWidth = (float)ImGui::GetWindowWidth();
+//        float windowHeight = (float)ImGui::GetWindowHeight();
+//        ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+//        viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
+//        viewManipulateTop = ImGui::GetWindowPos().y;
+//        ImGuiWindow* window = ImGui::GetCurrentWindow();
+//        gizmoWindowFlags = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max) ? ImGuiWindowFlags_NoMove : 0;
+//    }
+//    else
+//    {
+//        ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+//    }
+//
+//    ImGuizmo::DrawGrid(cameraView, cameraProjection, identityMatrix, 100.f);
+//    ImGuizmo::DrawCubes(cameraView, cameraProjection, &objectMatrix[0][0], gizmoCount);
+//    ImGuizmo::Manipulate(cameraView, cameraProjection, m_CurrentGizmoOperation, mCurrentGizmoMode, matrix, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
+//
+//    ImGuizmo::ViewManipulate(cameraView, camDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
+//
+//    if (useWindow)
+//    {
+//        ImGui::End();
+//        ImGui::PopStyleColor(1);
+//    }
+//}
 
 

@@ -37,4 +37,6 @@ public:
 		}
 		return nullptr;
 	}
+
+	SceneCamera* GetSceneCamera() { return m_SceneCamera; }
 };
