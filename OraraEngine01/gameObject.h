@@ -73,7 +73,7 @@ public:
         for (const auto& component : m_Component)
         {
             component->Update();
-            component.get_deleter();
+            //component.get_deleter();
         }
         m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
 

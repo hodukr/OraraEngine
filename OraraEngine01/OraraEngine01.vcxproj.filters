@@ -202,6 +202,21 @@
     <ClCompile Include="sceneCamera.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="imgui\ImGuizmo.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImSequencer.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\GraphEditor.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImCurveEdit.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImGradient.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -382,6 +397,27 @@
     <ClInclude Include="sceneCamera.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="imgui\ImGuizmo.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImSequencer.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImZoomSlider.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\GraphEditor.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImApp.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImCurveEdit.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImGradient.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -410,6 +446,9 @@
     </Filter>
     <Filter Include="Debug\ImguiWindow">
       <UniqueIdentifier>{c04786b0-5f41-4d68-9696-632809e740da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Guizmo">
+      <UniqueIdentifier>{07e7470d-17fc-4405-8ea3-60771152a6c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

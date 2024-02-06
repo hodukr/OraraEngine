@@ -1,3 +1,4 @@
+#include "main.h"
 #include "manager.h"
 #include "guiManager.h"
 #include "scene.h"
