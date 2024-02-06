@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "imGuiWindow.h"
 
-class Menu:public ImGuiWindow
+class Menu:public GuiWindowBase
 {
 private:
     class Scene* m_Scene;

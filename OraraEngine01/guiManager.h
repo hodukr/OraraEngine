@@ -13,7 +13,7 @@ class GuiManager
 {
 private:
     Singleton(GuiManager);
-    std::list<std::unique_ptr<ImGuiWindow>> m_Windows;
+    std::list<std::unique_ptr<GuiWindowBase>> m_Windows;
     bool useWindow = true;
     int gizmoCount = 1;
     float camDistance = 8.f;
@@ -53,8 +53,8 @@ public:
         return nullptr;
     }
 
-    std::list<ImGuiWindow*> GetList() {
-        std::list<ImGuiWindow*> windowlist;
+    std::list<GuiWindowBase*> GetList() {
+        std::list<GuiWindowBase*> windowlist;
         for (auto& window : m_Windows)
         {
             windowlist.push_back(window.get());

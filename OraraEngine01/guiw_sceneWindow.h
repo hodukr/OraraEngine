@@ -3,7 +3,7 @@
 #include "imgui/imgui.h"
 #include "imGuiWindow.h"
 
-class SceneWindow :public ImGuiWindow
+class SceneWindow :public GuiWindowBase
 {
 private:
 
