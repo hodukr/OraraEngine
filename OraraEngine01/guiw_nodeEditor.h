@@ -23,7 +23,7 @@ struct NodeEditor {
 };
 
 
-class NodeEditorManager:public ImGuiWindow
+class NodeEditorManager:public GuiWindowBase
 {
 private:
     NodeEditor m_Editor;

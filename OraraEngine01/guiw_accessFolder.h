@@ -9,7 +9,7 @@
 namespace fs = std::filesystem;
 #define MAX_TEXT_NUM 256
 
-class AccessFolder:public ImGuiWindow
+class AccessFolder:public GuiWindowBase
 {
 private:
 	bool m_CreateFolder = false;

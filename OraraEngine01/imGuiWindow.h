@@ -3,7 +3,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
 
-class ImGuiWindow
+class GuiWindowBase
 {
 protected:
 	bool m_IsShowWindow = false;

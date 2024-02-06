@@ -1,7 +1,7 @@
 #pragma once
 #include "imGuiWindow.h"
 
-class GameManagerGui:public ImGuiWindow
+class GameManagerGui:public GuiWindowBase
 {
 private:
 

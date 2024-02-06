@@ -2,7 +2,7 @@
 #include <list>
 #include "imGuiWindow.h"
 #include "singleton.h"
-class Hierarchy :public ImGuiWindow
+class Hierarchy :public GuiWindowBase
 {
 private:
 	class Scene* m_Scene;

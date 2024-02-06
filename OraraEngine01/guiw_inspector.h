@@ -3,7 +3,7 @@
 #include "imGuiWindow.h"
 
 
-class Inspector:public ImGuiWindow
+class Inspector:public GuiWindowBase
 {
 private:
     class GameObject* m_GameObject;

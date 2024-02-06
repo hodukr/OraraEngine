@@ -779,7 +779,7 @@ void GuiManager::Draw()
 //        ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
 //        viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
 //        viewManipulateTop = ImGui::GetWindowPos().y;
-//        ImGuiWindow* window = ImGui::GetCurrentWindow();
+//        GuiWindowBase* window = ImGui::GetCurrentWindow();
 //        gizmoWindowFlags = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max) ? ImGuiWindowFlags_NoMove : 0;
 //    }
 //    else
