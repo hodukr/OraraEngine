@@ -17,8 +17,8 @@ private:
     bool useWindow = true;
     int gizmoCount = 1;
     float camDistance = 8.f;
-    //static ImGuizmo::OPERATION m_CurrentGizmoOperation{};
-    //int a;
+    ImGuizmo::OPERATION m_CurrentGizmoOperation{};
+
 public:
     void SetUp();
     void Init();
@@ -27,7 +27,7 @@ public:
     void Draw();
     //static void SetText(std::string text) { m_Text = text; }
 
-    //void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
+    void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
 
 
     template<class T>
