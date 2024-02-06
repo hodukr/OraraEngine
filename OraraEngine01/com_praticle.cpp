@@ -24,8 +24,8 @@ PraticleSystem::PraticleSystem()
     m_Emitter.GradationColor[0] = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
     m_Emitter.GradationColor[1] = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
     m_Emitter.GradationColor[2] = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-    m_Emitter.TexName = "praticle.dds";
-
+    m_Emitter.TexName.Date = "praticle.dds";
+    m_Emitter.TexName.Pass = "asset\\texture\\";
     m_Emitter.IsGradation = false;
 
     SetDateList("StartColor", &(m_Emitter.StartColor));
@@ -87,7 +87,7 @@ void PraticleSystem::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    std::string name = "asset\\texture\\" + m_Emitter.TexName;
+    std::string name = m_Emitter.TexName.Pass + m_Emitter.TexName.Date;
 
     m_TexNum = TextureManager::LoadTexture(name.c_str());
 
@@ -126,6 +126,12 @@ void PraticleSystem::Uninit()
 
 void PraticleSystem::Update()
 {
+    if (m_Emitter.TexName.IsSet)
+    {
+        m_Emitter.TexName.IsSet = false;
+        std::string name = m_Emitter.TexName.Pass + m_Emitter.TexName.Date;
+        m_TexNum = TextureManager::LoadTexture(name.c_str());
+    }
     while (m_NumPraticle < m_Emitter.MaxParticles)
     {
         AddPraticle();
@@ -183,13 +189,6 @@ void PraticleSystem::Draw()
         if (m_Camera)
             D3DXMATRIX view = m_Camera->GetViewMatrix();
 
-        ////ビューの逆行列 
-        //D3DXMATRIX invView;
-        //D3DXMatrixInverse(&invView, NULL, &view);
-        //invView._41 = 0.0f;
-        //invView._42 = 0.0f;
-        //invView._43 = 0.0f;
-
         //マトリクス設定 
         D3DXMATRIX world, scale, rot, trans;
         D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
@@ -236,14 +235,6 @@ void PraticleSystem::Draw()
     }
 }
 
-
-void PraticleSystem::SetTexture(const char* texname)
-{
-    m_Emitter.TexName = texname;
-    std::string name = "asset\\texture\\" + m_Emitter.TexName;
-
-    m_TexNum = TextureManager::LoadTexture(name.c_str());
-}
 
 void PraticleSystem::InitParticle(PARTICLE* partiale)
 {

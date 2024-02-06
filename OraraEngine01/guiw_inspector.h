@@ -24,4 +24,6 @@ public:
 private:
     void DrawComponent(class Component* component);
     void Drawvariable(struct TypeDate& vardate);
+    std::vector<std::string> AccessFolder(const char* folderPass);//フォルダ内のファイル名の取得
+    void CreatComponent(std::string comname);
 };

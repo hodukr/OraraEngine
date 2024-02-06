@@ -38,7 +38,7 @@ struct PARTICLEEMITTER {
     D3DXCOLOR GradationColor[3];
     bool IsGradation = false;
     float Fluctuation = 0.0f;//揺らぎ
-    std::string TexName;
+    FolderPass TexName;
     float GradationLength = 2.0f;
     bool IsFade = false;
     float StartFadeTime = 1.0f;
@@ -68,7 +68,7 @@ void serialize(Archive& archive, PARTICLEEMITTER& emltter)
         cereal::make_nvp("GradationColor", emltter.GradationColor),
         cereal::make_nvp("IsGradation", emltter.IsGradation),
         cereal::make_nvp("Fluctuation", emltter.Fluctuation),
-        cereal::make_nvp("TexName", emltter.TexName),
+        cereal::make_nvp("TexName", emltter.TexName.Date),
         cereal::make_nvp("GradationLength", emltter.GradationLength),
         cereal::make_nvp("Fade", emltter.IsFade),
         cereal::make_nvp("StartFadeTime", emltter.StartFadeTime),
@@ -103,18 +103,11 @@ public:
     void Draw()override;
 
     PARTICLEEMITTER* GetEmitter() { return &m_Emitter; }
-    void SetTexture(const char* name);
 private:
     void InitParticle(PARTICLE* partiale);
     void AddPraticle();
     bool DeletPraticle();
 public:
-
-   /* template<class Archive>
-    void serialize(Archive& archive)
-    {
-        archive(CEREAL_NVP(m_Emitter));
-    }*/
     template<class Archive>
     void serialize(Archive& archive)
     {

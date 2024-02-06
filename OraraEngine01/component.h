@@ -6,7 +6,9 @@
 #include <cereal/types/memory.hpp>
 
 //lsitに追加したい型をここに書く
-#define VARIATDATE int*, float*, std::string*, bool*,class Vector3*,struct D3DXCOLOR*
+#define VARIATDATE int*, float*,std::string*, bool*,class Vector3*,struct D3DXCOLOR*,FolderPass*
+#define SETDATE(T) SetDateList(#T,&T)
+
 enum VariableDate {
     TYPE_INT,
     TYPE_FLOAT,
@@ -14,6 +16,16 @@ enum VariableDate {
     TYPE_BOOL,
     TYPE_VECTOR3,
     TYPE_D3DXCOLOR,
+    TYPE_FOLDERPASS
+};
+
+//フォルダ内のファイルを使用する場合はこっちを使う
+struct FolderPass
+{
+    std::string Date{};
+    std::string Pass{};//フォルダアクセスする場合に指定する
+    bool IsSet = false;
+
 };
 
 struct TypeDate
@@ -21,7 +33,7 @@ struct TypeDate
     std::string Name;//メンバ変数の名前
     std::variant<VARIATDATE> MemberDate;//メンバ変数のデータ
 };
-#define SETDATE(T) SetDateList(#T,&T)
+
 
 class Component
 {
