@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "component.h"
 #include "vector.h"
+#include <DirectXMath.h>
+using namespace DirectX;
 
 class Transform :public Component
 {
@@ -8,7 +10,10 @@ private:
 	Vector3 m_Position = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_OldPosition = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
+    D3DXQUATERNION m_Qnaternion = D3DXQUATERNION(0.0f,0.0f,0.0f,1.0f);
 	Vector3 m_Scale = Vector3(1.0f, 1.0f, 1.0f);
+
+    D3DXMATRIX m_Matrix{};
 public:
     Transform()
     {
@@ -40,6 +45,11 @@ public:
 
 
     void SetRotation(Vector3 rot) { m_Rotation = rot; }
+    void SetEulerRotation(Vector3 rot){ m_Rotation = D3DXVECTOR3(D3DXToRadian(rot.x), D3DXToRadian(rot.y), D3DXToRadian(rot.z));}
+    void SetQuaternionRotation(D3DXQUATERNION rot)
+    {
+        m_Qnaternion = rot;
+    }
     void SetRotation(float x, float y, float z) { m_Rotation.x = x; m_Rotation.y = y; m_Rotation.z = z; }
     void SetRotationX(float x) { m_Rotation.x = x; }
     void SetRotationY(float y) { m_Rotation.y = y; }
@@ -70,10 +80,11 @@ public:
 	Vector3 GetUp();
 
 
-
 	void Revolution(Vector3 target, Vector3 axis, float rot, bool isObjRot = false);
 
-
+    void SetMatrix(D3DXMATRIX matrix) { m_Matrix = matrix; }
+    D3DXMATRIX* GetMatrixPtr(){ return &m_Matrix; }
+    D3DXMATRIX GetMatrix() { return m_Matrix; }
 
 	void Init()override;
 	void Uninit()override;

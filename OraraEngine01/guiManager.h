@@ -18,7 +18,7 @@ private:
     int gizmoCount = 1;
     float camDistance = 8.f;
     ImGuizmo::OPERATION m_CurrentGizmoOperation{};
-
+    bool one{};
 public:
     void SetUp();
     void Init();

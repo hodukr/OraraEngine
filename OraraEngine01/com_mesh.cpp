@@ -49,17 +49,6 @@ void Mesh::Update()
 void Mesh::Draw()
 {
     m_Material.Draw();
-    //マトリクス設定 
-    D3DXMATRIX world, scale, rot, trans;
-    D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
-    D3DXVECTOR3 Rotation = m_GameObject->m_Transform->GetRotation().dx();
-    D3DXVECTOR3 Position = m_GameObject->m_Transform->GetPosition().dx();
-
-    D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
-    D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
-    D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
-    world = scale * rot * trans;
-    m_Matrix = world;
 
     //シャドウバッファテクスチャを1番へセット
     // テクスチャ設定
@@ -67,10 +56,9 @@ void Mesh::Draw()
 
     Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
 
-    Renderer::SetWorldMatrix(&world);
+    Renderer::SetWorldMatrix(m_GameObject->m_Transform->GetMatrixPtr());
 
     m_Model->Draw();
 
 }
-//CEREAL_REGISTER_TYPE(Mesh);
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Mesh)
+

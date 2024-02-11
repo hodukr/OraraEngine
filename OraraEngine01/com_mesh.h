@@ -5,7 +5,6 @@
 class Mesh :public Component
 {
 private:
-    D3DMATRIX m_Matrix;
     class Model* m_Model;
     std::string m_Modelpas;
     Material m_Material;

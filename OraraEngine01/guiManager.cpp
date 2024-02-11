@@ -20,6 +20,7 @@
 #include "sceneCamera.h"
 #include "com_mesh.h"
 #include "imgui/imgui_internal.h"
+#include "pass_postPass.h"
 
 
 
@@ -658,7 +659,8 @@ void GuiManager::Update()
         ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 0.0f))
     );
 
-    /*Scene* scene = Manager::GetScene();
+    Scene* scene = Manager::GetScene();
+    //static D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
 
     for (int i = 0; i < 3; i++)
     {
@@ -667,36 +669,35 @@ void GuiManager::Update()
         {
             if (gameobject.get()->GetName() != "MainCamera")
             {
-                D3DXMATRIX world, scale, rot, trans;
-                D3DXVECTOR3 Scale = gameobject->m_Transform->GetScale().dx();
-                D3DXVECTOR3 Rotation = gameobject->m_Transform->GetRotation().dx();
-                D3DXVECTOR3 Position = gameobject->m_Transform->GetPosition().dx();
-
-                D3DXMatrixScaling(&scale, Scale.x, Scale.y, Scale.z);
-                D3DXMatrixRotationYawPitchRoll(&rot, Rotation.y, Rotation.x, Rotation.z);
-                D3DXMatrixTranslation(&trans, Position.x, Position.y, Position.z);
-                world = scale * rot * trans;
-                m_Matrix = world;
-                ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), ImGuizmo::TRANSLATE, ImGuizmo::WORLD, m_Matrix,NULL);
+                D3DXMATRIX matrix = gameobject->m_Transform->GetMatrix();
+                EditTransform(camera->GetViewMatrix(), camera->GetProjectionMatrix(), matrix, true);
+                if (ImGuizmo::IsUsing())
+                {
+                    gameobject->m_Transform->SetMatrix(matrix);
+                    D3DXVECTOR3 pos,scale,rot;
+                    ImGuizmo::DecomposeMatrixToComponents(gameobject.get()->m_Transform->GetMatrix(), pos, rot, scale);
+                    gameobject->m_Transform->SetPosition(pos);
+                    gameobject->m_Transform->SetEulerRotation(rot);
+                    gameobject->m_Transform->SetScale(scale);
+                   
+                }
             }
         }
-        ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), identityMatrix, 100.f);
-        ImGuizmo::DrawCubes(camera->GetViewMatrix(), camera->GetProjectionMatrix(), &objectMatrix[0][0], 1);
-        ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), ImGuizmo::TRANSLATE, ImGuizmo::WORLD, objectMatrix[0], NULL);
-    }*/
-
+        
+    }
+    
     ImGuiIO& io = ImGui::GetIO();
-    if (isPerspective)
-    {
-        //Perspective(fov, io.DisplaySize.x / io.DisplaySize.y, 0.1f, 100.f, cameraProjection);
-    }
-    else
-    {
-        float viewHeight = viewWidth * io.DisplaySize.y / io.DisplaySize.x;
+    //if (isPerspective)
+    //{
+       //Perspective(fov, io.DisplaySize.x / io.DisplaySize.y, 0.1f, 100.f, cameraProjection);
+    //}
+    //else
+    //{
+        //float viewHeight = viewWidth * io.DisplaySize.y / io.DisplaySize.x;
         //OrthoGraphic(-viewWidth, viewWidth, -viewHeight, viewHeight, 1000.f, -1000.f, cameraProjection);
-    }
+    //}
     ImGuizmo::SetOrthographic(!isPerspective);
-    ImGuizmo::BeginFrame();
+    
 
     ImGui::SetNextWindowPos(ImVec2(1024, 100), ImGuiCond_Appearing);
     ImGui::SetNextWindowSize(ImVec2(256, 256), ImGuiCond_Appearing);
@@ -705,9 +706,10 @@ void GuiManager::Update()
     ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Appearing);
     ImGui::SetNextWindowSize(ImVec2(320, 340), ImGuiCond_Appearing);
     ImGui::Begin("Editor");
-    if (ImGui::RadioButton("Full view", !useWindow)) useWindow = false;
+    //ImGui::Text("x:%f y:%f z:%f", rot.x, rot.y, rot.z);
+    if (ImGui::RadioButton("Full view", !one)) one = false;
     ImGui::SameLine();
-    if (ImGui::RadioButton("Window", useWindow)) useWindow = true;
+    if (ImGui::RadioButton("Window", one)) one = true;
 
     ImGui::Text("Camera");
     bool viewDirty = false;
@@ -750,7 +752,7 @@ void GuiManager::Update()
         ImGui::Text(ImGuizmo::IsOver(ImGuizmo::SCALE) ? "Over scale gizmo" : "");
     }
     ImGui::Separator();
-    for (int matId = 0; matId < gizmoCount; matId++)
+   /* for (int matId = 0; matId < gizmoCount; matId++)
     {
         ImGuizmo::SetID(matId);
 
@@ -759,7 +761,7 @@ void GuiManager::Update()
         {
             lastUsing = matId;
         }
-    }
+    }*/
 
     ImGui::End();
 
@@ -852,15 +854,17 @@ void GuiManager::EditTransform(float* cameraView, float* cameraProjection, float
     float viewManipulateRight = io.DisplaySize.x;
     float viewManipulateTop = 0;
     static ImGuiWindowFlags gizmoWindowFlags = 0;
+    ImVec2 windowSize;
     if (useWindow)
     {
         ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_Appearing);
         ImGui::SetNextWindowPos(ImVec2(400, 20), ImGuiCond_Appearing);
-        ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImVec4)ImColor(0.35f, 0.3f, 0.3f));
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImVec4)ImColor(0.3f, 0.3f, 0.3f));
         ImGui::Begin("Gizmo", 0, gizmoWindowFlags);
         ImGuizmo::SetDrawlist();
         float windowWidth = (float)ImGui::GetWindowWidth();
         float windowHeight = (float)ImGui::GetWindowHeight();
+        windowSize = ImVec2(windowWidth, windowHeight);
         ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
         viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
         viewManipulateTop = ImGui::GetWindowPos().y;
@@ -873,8 +877,14 @@ void GuiManager::EditTransform(float* cameraView, float* cameraProjection, float
     }
 
     ImGuizmo::DrawGrid(cameraView, cameraProjection, identityMatrix, 100.f);
-    ImGuizmo::DrawCubes(cameraView, cameraProjection, &objectMatrix[0][0], gizmoCount);
-    ImGuizmo::Manipulate(cameraView, cameraProjection, m_CurrentGizmoOperation, mCurrentGizmoMode, matrix, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
+    ImGuizmo::DrawCubes(cameraView, cameraProjection, matrix, 1);
+    //レンダリングテクスチャを取得
+    //PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
+    //レンダリングテクスチャを0番にセット  
+    //Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
+
+    //ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
+    ImGuizmo::Manipulate(cameraView, cameraProjection, m_CurrentGizmoOperation, mCurrentGizmoMode, matrix, NULL /*,useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL*/);
 
     ImGuizmo::ViewManipulate(cameraView, camDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
 
