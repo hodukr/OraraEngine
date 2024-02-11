@@ -18,5 +18,3 @@ SetReflectionComponent(Cloth)
 SetReflectionComponent(WaterSurface)
 SetReflectionComponent(CollisionShape)
 SetReflectionComponent(BoxCollision)
-
-

@@ -9,6 +9,7 @@
 #include "com_uiText.h"
 #include "com_inputSystem.h"
 #include "col_boxCollision.h"
+//endinclude
 
 #define SET_COMPONENT_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\
@@ -23,4 +24,5 @@ SET_COMPONENT_CLASS(Text)
 SET_COMPONENT_CLASS(InputSystem)
 SET_COMPONENT_CLASS(CollisionShape)
 SET_COMPONENT_CLASS(BoxCollision)
+//endSET_COMPONENT_CLASS
 

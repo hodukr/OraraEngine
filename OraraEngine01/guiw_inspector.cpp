@@ -333,6 +333,7 @@ void Inspector::CreatComponent(std::string comname)
 {
     std::string createname = "com_" + comname + ".h";
     fs::path name= fs::current_path();
+    bool isfile = true;
     for (const auto &file : fs::directory_iterator(name))
     {//大文字小文file字を区別しない比較
         std::string filename = file.path().filename().string();
@@ -340,49 +341,59 @@ void Inspector::CreatComponent(std::string comname)
             return std::tolower(a) == std::tolower(b);
             }))
         {
-            return;
+            isfile = false;
         }
     }
 
+    if (isfile) 
     {//ヘッダーファイル生成
-        std::ofstream header_file("com_" + comname + ".h");
-        if (header_file.is_open()) {
-            header_file << "#ifndef " << comname << "_H\n";
-            header_file << "#define " << comname << "_H\n\n";
+        {
+            std::ofstream header_file("com_" + comname + ".h");
+            if (header_file.is_open()) {
+                header_file << "#ifndef " << comname << "_H\n";
+                header_file << "#define " << comname << "_H\n\n";
 
-            header_file << "#include \"component.h\"\n\n";
+                header_file << "#include \"component.h\"\n\n";
 
-            header_file << "class " << comname << ":public Component\n";
-            header_file << "{\n";
-            header_file << "private:\n\n";
-            header_file << "public:\n";
-            header_file << "    void Init()override;\n";
-            header_file << "    void Uninit()override;\n";
-            header_file << "    void Update()override;\n";
-            header_file << "    void Draw()override;\n\n";
-            header_file << "    template<class Archive>\n";
-            header_file << "    void serialize(Archive & archive)\n";
-            header_file << "    {\n";
-            header_file << "        //archive(CEREAL_NVP());\n";
-            header_file << "    }\n";
-            header_file << "};\n";
-            header_file << "\n#endif /* " << comname << "_H */\n";
-            header_file.close();
+                header_file << "class " << comname << ":public Component\n";
+                header_file << "{\n";
+                header_file << "private:\n\n";
+                header_file << "public:\n";
+                header_file << "    void Init()override;\n";
+                header_file << "    void Uninit()override;\n";
+                header_file << "    void Update()override;\n";
+                header_file << "    void Draw()override;\n\n";
+                header_file << "    template<class Archive>\n";
+                header_file << "    void serialize(Archive & archive)\n";
+                header_file << "    {\n";
+                header_file << "        //archive(CEREAL_NVP());\n";
+                header_file << "    }\n";
+                header_file << "};\n";
+                header_file << "\n#endif /* " << comname << "_H */\n";
+                header_file.close();
+            }
+        }
+    //ソースファイル生成
+        {
+            std::ofstream header_file("com_" + comname + ".cpp");
+            if (header_file.is_open()) {
+                header_file << "#include \"main.h\"\n\n";
+                header_file << "#include \"com_" << comname << ".h\"\n\n";
+                header_file << "void " << comname << "::Init()\n{\n\n}\n";
+                header_file << "void " << comname << "::Uninit()\n{\n\n}\n";
+                header_file << "void " << comname << "::Update()\n{\n\n}\n";
+                header_file << "void " << comname << "::Draw()\n{\n\n}\n";
+                header_file.close();
+            }
         }
     }
-    {//ソースファイル生成
-        std::ofstream header_file("com_" + comname + ".cpp");
-        if (header_file.is_open()) {
-            header_file << "#include com_\"" <<comname <<".h\"\n\n";
-            header_file << comname << "::Init()\n{\n\n}\n";
-            header_file << comname << "::Uninit()\n{\n\n}\n";
-            header_file << comname << "::Update()\n{\n\n}\n";
-            header_file << comname << "::Draw()\n{\n\n}\n";
-            header_file.close();
-        }
-    }
 
-    {//com_commonにincludeとdefineの追加
+    std::string projectname = "OraraEngine01.vcxproj";
+    //プロジェクトに追加
+    AddFileToProject(projectname, "com_" + comname + ".h", true);
+    AddFileToProject(projectname, "com_" + comname + ".cpp",false);
+    //com_commonにincludeとSET_COMPONENT_CLASSの追加
+    {
         std::ifstream file_in("com_common.h");
         if (!file_in) {
             return;
@@ -391,13 +402,19 @@ void Inspector::CreatComponent(std::string comname)
         std::vector<std::string> lines;
         std::string line;
         int current_line = 0;
-        bool incfig = true;
-        while (getline(file_in, line)) {
+        while (getline(file_in, line)) 
+        {
             current_line++;
-            if (line == " " && incfig) {
-                incfig = false;
+            if (line.find("//endinclude") != std::string::npos) 
+            {
                 std::string date = line;
                 line = "#include \"com_"+ comname + ".h\"\n";
+                line += date;
+            }
+            else if (line.find("//endSET_COMPONENT_CLASS") != std::string::npos) 
+            {
+                std::string date = line;
+                line = "SET_COMPONENT_CLASS(" + comname + ")\n";
                 line += date;
             }
             lines.push_back(line);
@@ -406,14 +423,172 @@ void Inspector::CreatComponent(std::string comname)
         file_in.close();
 
         std::ofstream file_out("com_common.h");
-        if (!file_out) {
+        if (!file_out) 
+        {
             return;
         }
 
-        for (const std::string& l : lines) {
+        for (const std::string& l : lines) 
+        {
             file_out << l << std::endl;
         }
 
         file_out.close();
     }
+    std::ifstream file_in("com_common.h");
+    if (!file_in) {
+        return;
+    }
+
+    //reflection.cppにSetReflectionComponent追加
+    {
+        std::ofstream file("reflection.cpp", std::ios_base::app); // ファイルを追記モードで開く
+
+        if (!file.is_open()) {
+            std::cerr << "ファイルを開けませんでした。" << std::endl;
+            return;
+        }
+
+        std::string line;
+
+        // ファイルの最後の行を読み取る
+        std::ifstream infile("reflection.cpp");
+        if (infile.is_open()) {
+            while (getline(infile, line)) {
+                // 最後の行を見つける
+            }
+            infile.close();
+        }
+        else {
+            std::cerr << "ファイルを開けませんでした。" << std::endl;
+            return;
+        }
+
+        // 最後の行に追加するテキスト
+        std::string textToAdd = "SetReflectionComponent(" + comname + ")";
+
+        // 最後の行にテキストを追加
+        file << textToAdd << std::endl;
+
+        // ファイルを閉じる
+        file.close();
+
+       // std::cout << "ファイルに文を追加しました。" << std::endl;
+    }
+    
+}
+
+using namespace std;
+
+void Inspector::AddFileToProject(const string& project_file, const string& file_path, bool is_header) {
+    ifstream ifs(project_file);
+    if (!ifs.is_open()) {
+        cerr << "Failed to open project file: " << project_file << endl;
+        return;
+    }
+
+    string line;
+    ofstream ofs(project_file + ".tmp");
+    if (!ofs.is_open()) {
+        cerr << "Failed to create temporary project file." << endl;
+        return;
+    }
+
+    bool found_item_group = false;
+    bool found_existing_item_group = false;
+    bool added_file = false;
+
+    while (getline(ifs, line)) {
+        if (!found_item_group && line.find("<ItemGroup>") != string::npos) {
+            found_item_group = true;
+        }
+
+        if (found_item_group && !found_existing_item_group && (line.find("<ClCompile") != string::npos || line.find("<ClInclude") != string::npos)) {
+            found_existing_item_group = true;
+        }
+
+        if (found_item_group && found_existing_item_group && !added_file) {
+            // Add new file entry
+            if (is_header) {
+                ofs << "    <ClInclude Include=\"" << file_path << "\"/>\n";
+            }
+            else {
+                ofs << "    <ClCompile Include=\"" << file_path << "\"/>\n";
+            }
+            added_file = true;
+        }
+
+        ofs << line << endl;
+    }
+
+    if (!found_item_group || !found_existing_item_group) {
+        // If ItemGroup for source/header files doesn't exist, create a new one
+        ofs << "  <ItemGroup>\n";
+        if (is_header) {
+            ofs << "    <ClInclude Include=\"" << file_path << "\" />\n";
+
+        }
+        else {
+            ofs << "    <ClCompile Include=\"" << file_path << "\" />\n";
+        }
+        ofs << "  </ItemGroup>\n";
+    }
+
+    ifs.close();
+    ofs.close();
+
+    ////フィルタ分け
+    {
+        //入力用
+        ifstream ifs("OraraEngine01.vcxproj.filters");
+        if (!ifs.is_open()) {
+            cerr << "Failed to open filters file: " << "OraraEngine01.vcxproj.filters" << endl;
+            return;
+        }
+
+        vector<string> lines;
+        string line;
+
+        while (getline(ifs, line)) {
+            lines.push_back(line);
+        }
+
+        ifs.close();
+
+        //出力用
+        ofstream ofs("OraraEngine01.vcxproj.filters");
+        if (!ofs.is_open()) {
+            cerr << "Failed to open filters file for writing: " << "OraraEngine01.vcxproj.filters" << endl;
+            return;
+        }
+        bool addfile = true;
+        for (const string& l : lines) {
+            ofs << l << endl;
+            if (is_header)
+            {
+                if (addfile && l.find("<ClInclude Include=") != string::npos) {
+                    ofs << "    <ClInclude Include=\"" << file_path << "\">\n";
+                    ofs << "      <Filter>Component</Filter>\n";
+                    ofs << "    </ClInclude>\n";
+                    addfile = false;
+                }
+
+            }
+            else
+            {
+                if (addfile && l.find("<ClCompile Include=") != string::npos) {
+                    ofs << "    <ClCompile Include=\"" << file_path << "\">\n";
+                    ofs << "      <Filter>Component</Filter>\n";
+                    ofs << "    </ClCompile>\n";
+                    addfile = false;
+                }
+            }
+            
+        }
+        ofs.close();
+    }
+
+    // 元のプロジェクトファイルを一次的なプロジェクトファイルに置き換える
+    remove(project_file.c_str());
+    rename((project_file + ".tmp").c_str(), project_file.c_str());
 }
