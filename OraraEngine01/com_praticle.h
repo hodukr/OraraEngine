@@ -90,7 +90,6 @@ private:
     class Camera* m_Camera;
 
     PARTICLEEMITTER m_Emitter;
-
     std::stack<PARTICLE*> m_StackParticle;
     std::list<PARTICLE*> m_ParticleList;
     ElapsedTimeTracker m_Timer;
@@ -111,7 +110,7 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_Emitter));
+            archive(CEREAL_NVP(m_Emitter));
     }
 };
 

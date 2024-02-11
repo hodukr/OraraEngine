@@ -15,7 +15,7 @@ private:
     std::string m_Tag;
     bool m_Destroy = false;
     std::list<std::unique_ptr<Component>> m_Component;
-
+    int m_Version = 0;
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
@@ -149,6 +149,13 @@ public:
     {
         return &m_Component;
     }
+
+    void SetVersion(int version)
+    {
+        m_Version = version;
+    }
+
+    int GetVersion() { return m_Version; }
 
     template<class Archive>
     void serialize(Archive& archive)

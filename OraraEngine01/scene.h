@@ -16,10 +16,9 @@ namespace fs = std::filesystem;
 class Scene
 {
 protected:
-    //GameObject* m_GameObject[4]{};
     std::string m_Name;
 	std::list<std::unique_ptr<GameObject>> m_GameObject[3];//レイヤー有のSTLのリスト構造
-
+	int m_FileVersion = NOWVERSION;
 public:
     Scene(std::string name = "NewScene"):m_Name(name){}
 	virtual void Init()
@@ -89,9 +88,6 @@ public:
 		}
 	}
 
-	//型の分だけ関数が作られる
-	//あまり使わない方がいい
-	//template<typename T>//テンプレート関数
 	GameObject* AddGameObject(int Layer)
 	{
 		std::unique_ptr<GameObject> gameObject = std::make_unique<GameObject>();
@@ -111,7 +107,7 @@ public:
 		{
 			for (auto& object : m_GameObject[i])
 			{
-				//メモリをくうのであまり使わないほうがいい
+
 				if (object.get()->GetName() == name)//型を調べる(RTTI動的型情報)
 				{
 					return object.get();
@@ -164,10 +160,21 @@ public:
         m_Name = name;
     }
     std::string GetName() { return m_Name; }
-
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_GameObject[0]), CEREAL_NVP(m_GameObject[1]), CEREAL_NVP(m_GameObject[2]), CEREAL_NVP(m_Name));
+		archive(CEREAL_NVP(m_FileVersion),
+			CEREAL_NVP(m_GameObject[0]),
+			CEREAL_NVP(m_GameObject[1]),
+			CEREAL_NVP(m_GameObject[2]), 
+			CEREAL_NVP(m_Name));
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& gameobj : m_GameObject[i])
+			{
+				gameobj.get()->SetVersion(m_FileVersion);
+			}
+		}
     }
 };

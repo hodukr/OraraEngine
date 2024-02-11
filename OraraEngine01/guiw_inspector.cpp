@@ -302,6 +302,58 @@ void Inspector::Drawvariable(TypeDate& vardate)
             ImGui::EndCombo();
         }
         break;
+    case TYPE_CUSTOMVECTOR3:
+    {
+        CustomVector3* date = std::get<TYPE_CUSTOMVECTOR3>(vardate.MemberDate);
+        if (date->State == STATE＿CORRECTION)
+        {
+            std::string cb;
+            cb = "##" + vardate.Name;
+
+            ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
+            ImGui::SameLine();
+            Vector3* vector = date->Vector3date;
+
+            std::string vecx = "##X" + vardate.Name;
+            std::string vecy = "##Y" + vardate.Name;
+            std::string vecz = "##Z" + vardate.Name;
+
+            float x = D3DXToDegree(vector->x);
+            float y = D3DXToDegree(vector->y);
+            float z = D3DXToDegree(vector->z);
+
+            ImGui::SetNextItemWidth(70.0f);
+            if (ImGui::InputFloat(vecx.c_str(), &x) && m_IsRockVector[m_NumVector])
+            {
+                y = x;
+                z = x;
+            }
+            ImGui::SameLine();
+
+            ImGui::SetNextItemWidth(70.0f);
+            if (ImGui::InputFloat(vecy.c_str(), &y) && m_IsRockVector[m_NumVector])
+            {
+                x = y;
+                z = y;
+            }
+            ImGui::SameLine();
+
+            ImGui::SetNextItemWidth(70.0f);
+            if (ImGui::InputFloat(vecz.c_str(), &z) && m_IsRockVector[m_NumVector])
+            {
+                x = z;
+                y = z;
+            }
+            ImGui::SameLine();
+            ImGui::Text(vardate.Name.c_str());
+            x = D3DXToRadian(x);
+            y = D3DXToRadian(y);
+            z = D3DXToRadian(z);
+            *vector = Vector3(x, y, z);
+            m_NumVector++;
+        }
+    }
+        break;
     default:
         break;
     }

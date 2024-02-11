@@ -4,9 +4,10 @@
 #include <vector>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
+#include "vector.h"
 
 //lsitに追加したい型をここに書く
-#define VARIATDATE int*, float*,std::string*, bool*,class Vector3*,struct D3DXCOLOR*,FolderPass*
+#define VARIATDATE int*, float*,std::string*, bool*,class Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*
 #define SETDATE(T) SetDateList(#T,&T)
 
 enum VariableDate {
@@ -16,7 +17,12 @@ enum VariableDate {
     TYPE_BOOL,
     TYPE_VECTOR3,
     TYPE_D3DXCOLOR,
-    TYPE_FOLDERPASS
+    TYPE_FOLDERPASS,
+    TYPE_CUSTOMVECTOR3
+};
+
+enum CastomVector3State {
+    STATE＿CORRECTION
 };
 
 //フォルダ内のファイルを使用する場合はこっちを使う
@@ -26,6 +32,12 @@ struct FolderPass
     std::string Pass{};//フォルダアクセスする場合に指定する
     bool IsSet = false;
 
+};
+
+struct CustomVector3
+{
+    Vector3* Vector3date;
+    CastomVector3State State;
 };
 
 struct TypeDate

@@ -9,6 +9,7 @@
 #include "com_uiText.h"
 #include "com_inputSystem.h"
 #include "col_boxCollision.h"
+#include "com_.h"
 //endinclude
 
 #define SET_COMPONENT_CLASS(Classname)\
@@ -24,5 +25,6 @@ SET_COMPONENT_CLASS(Text)
 SET_COMPONENT_CLASS(InputSystem)
 SET_COMPONENT_CLASS(CollisionShape)
 SET_COMPONENT_CLASS(BoxCollision)
+SET_COMPONENT_CLASS()
 //endSET_COMPONENT_CLASS
 
