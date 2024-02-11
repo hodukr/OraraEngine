@@ -64,9 +64,6 @@
     <ClCompile Include="com_.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="com_.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="com_audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -226,9 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="com_.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="com_.h">
       <Filter>Component</Filter>
     </ClInclude>
