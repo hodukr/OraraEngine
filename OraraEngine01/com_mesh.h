@@ -5,7 +5,7 @@
 class Mesh :public Component
 {
 private:
-    class Model* m_Model;
+    int m_ModelNum{};
     std::string m_Modelpas;
     Material m_Material;
 

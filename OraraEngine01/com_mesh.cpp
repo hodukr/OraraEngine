@@ -4,40 +4,26 @@
 #include "scene.h"
 #include "com_mesh.h"
 #include "com_transform.h"
-#include "model.h"
+#include "modelManager.h"
 #include "com_material.h"
 #include "shaderManager.h"
 #include "pass_depthShadow.h"
 
 void Mesh::SetModel(std::string pas)
 {
-    m_Modelpas = pas;
-    if (m_Model)
-    {
-        m_Model->Unload();
-        delete m_Model;
-    }
-
-    m_Model = new Model;
-
     std::string name = "asset\\model\\" + m_Modelpas;
-    m_Model->Load(name.c_str());
+    m_ModelNum = ModelManager::Load(name.c_str());
 
 }
 
 void Mesh::Init()
 {
-    m_Model = new Model;
-    std::string name = "asset\\model\\" + m_Modelpas;
-    m_Model->Load(name.c_str());
+    SetModel(m_Modelpas);
     m_Material.Init();
 }
 
 void Mesh::Uninit()
 {
-    m_Material.Uninit();
-    m_Model->Unload();
-    delete m_Model;
 }
 
 void Mesh::Update()
@@ -58,7 +44,7 @@ void Mesh::Draw()
 
     Renderer::SetWorldMatrix(m_GameObject->m_Transform->GetMatrixPtr());
 
-    m_Model->Draw();
+    ModelManager::GetModel(m_ModelNum)->Draw();
 
 }
 

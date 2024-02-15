@@ -71,8 +71,8 @@ void Inspector::Draw()
 
         static char str[256];
         ImGui::InputText("ComponentName", str, 256);
-
-        if (ImGui::Button("CreateComponent")) {
+        
+        if (ImGui::Button("CreateComponent") && strcmp(str,"") != 0) {
             CreatComponent(str);
             strcpy_s(str, "");
         }

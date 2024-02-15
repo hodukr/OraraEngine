@@ -6,6 +6,10 @@
 #include <cereal/types/memory.hpp>
 #include "vector.h"
 
+#define SET_COMPONENT_CLASS(Classname)\
+CEREAL_REGISTER_TYPE(Classname)\
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Classname)
+
 //lsitに追加したい型をここに書く
 #define VARIATDATE int*, float*,std::string*, bool*,class Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*
 #define SETDATE(T) SetDateList(#T,&T)

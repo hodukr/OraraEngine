@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include <vector>
 #include "textureManager.h"
+#include "modelManager.h"
 #include <algorithm>
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
@@ -52,6 +53,7 @@ public:
 			m_GameObject[i].clear();
 		}
 		TextureManager::Uninit();
+		ModelManager::Uninit();
         GuiManager::Instance().Uninit();
 
 	}
