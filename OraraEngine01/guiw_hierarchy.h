@@ -18,4 +18,5 @@ public:
 	void Draw();
 
 	void SetScene(Scene* scene) { m_Scene = scene; }
+	GameObject* GetSelectGameObject() { return m_SelectGameObject; }
 };

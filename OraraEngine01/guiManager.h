@@ -14,21 +14,14 @@ class GuiManager
 private:
     Singleton(GuiManager);
     std::list<std::unique_ptr<GuiWindowBase>> m_Windows;
-    bool useWindow = true;
-    int gizmoCount = 1;
-    float camDistance = 8.f;
-    ImGuizmo::OPERATION m_CurrentGizmoOperation{};
-    bool one{};
+    
 public:
     void SetUp();
     void Init();
     void Uninit();
     void Update();
     void Draw();
-    //static void SetText(std::string text) { m_Text = text; }
-
-    void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
-
+    //static void SetText(std::string text) { m_Text = text;
 
     template<class T>
     T* AddWindow()
