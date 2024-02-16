@@ -14,6 +14,7 @@ private:
 	Vector3 m_Scale = Vector3(1.0f, 1.0f, 1.0f);
     CustomVector3 m_RotationDate;
     D3DXMATRIX m_Matrix{};
+
 public:
     Transform()
     {
@@ -47,18 +48,48 @@ public:
 
 
     void SetRotation(Vector3 rot) { m_Rotation = rot; }
-    void SetEulerRotation(Vector3 rot){ m_Rotation = D3DXVECTOR3(D3DXToRadian(rot.x), D3DXToRadian(rot.y), D3DXToRadian(rot.z));}
-    void SetQuaternionRotation(D3DXQUATERNION rot)
-    {
-        m_Qnaternion = rot;
+    void SetDegreeToRadianRotation(Vector3 rot){ m_Rotation = D3DXToRadian(rot);}
+    void SetQuaternionToRadian(D3DXQUATERNION quaternion)
+    {// クオータニオンをオイラー角に変換
+        float roll, pitch, yaw;
+        float x = quaternion.x;
+        float y = quaternion.y;
+        float z = quaternion.z;
+        float w = quaternion.w;
+
+        // Roll (X軸の回転)
+        float sinRoll = 2.0f * (w * x + y * z);
+        float cosRoll = 1.0f - 2.0f * (x * x + y * y);
+        roll = atan2f(sinRoll, cosRoll);
+
+        // Pitch (Y軸の回転)
+        float sinPitch = 2.0f * (w * y - z * x);
+        if (fabsf(sinPitch) >= 1)
+            pitch = copysign(D3DX_PI / 2, sinPitch); // 割り算の誤差を回避
+        else
+            pitch = asinf(sinPitch);
+
+        // Yaw (Z軸の回転)
+        float sinYaw = 2.0f * (w * z + x * y);
+        float cosYaw = 1.0f - 2.0f * (y * y + z * z);
+        yaw = atan2f(sinYaw, cosYaw);
+
+        // ラジアンに変換
+        //roll = XMConvertToRadians(roll);
+        //pitch = XMConvertToRadians(pitch);
+        //yaw = XMConvertToRadians(yaw);
+
+        m_Rotation = Vector3(pitch, yaw, roll);
     }
+    void SetQuaternion(D3DXQUATERNION qnaternion){m_Qnaternion = qnaternion;}
     void SetRotation(float x, float y, float z) { m_Rotation.x = x; m_Rotation.y = y; m_Rotation.z = z; }
     void SetRotationX(float x) { m_Rotation.x = x; }
     void SetRotationY(float y) { m_Rotation.y = y; }
     void SetRotationZ(float z) { m_Rotation.z = z; }
 
 	Vector3 GetRotation() { return m_Rotation; }
-
+    Vector3 GetDegreeRotation() { return D3DXToDegree(m_Rotation); }
+    D3DXQUATERNION GetQuaternion() { return m_Qnaternion; }
 
 
     void SetScale(Vector3 sca) { m_Scale = sca; }
@@ -91,6 +122,7 @@ public:
 	void Init()override;
 	void Uninit()override;
 	void Update()override;
+    void Draw()override;
 
 
 #ifdef _DEBUG

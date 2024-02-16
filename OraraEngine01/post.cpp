@@ -3,7 +3,8 @@
 #include "post.h"
 #include "pass_postPass.h"
 #include "shaderManager.h"
-
+#include "guiManager.h"
+#include "guiw_sceneWindow.h"
 
 void Post::Init()
 {
@@ -103,6 +104,8 @@ void Post::Draw()
 
     //レンダリングテクスチャを取得
     PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
+    SceneWindow* window = GuiManager::Instance().GetGuiWindow<SceneWindow>();
+    window->SetSceneTexture(post->GetPPTexture());
     //レンダリングテクスチャを0番にセット  
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
 

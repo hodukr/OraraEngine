@@ -6,6 +6,8 @@
 #include "input.h"
 #include "imgui/imgui.h"
 #include "imgui/ImGuizmo.h"
+#include "guiManager.h"
+#include "guiw_sceneWindow.h"
 
 
 void SceneCamera::Init()
@@ -53,7 +55,8 @@ void SceneCamera::Update()
         vel.NormalizThis();
         m_Position += vel;
     }
-    if (m_IsMouseUp && !ImGuizmo::IsUsing())
+    SceneWindow* window = GuiManager::Instance().GetGuiWindow<SceneWindow>();
+    if (m_IsMouseUp && !ImGuizmo::IsUsing() && window->GetChildWindowFocused() && window->GetMouseHoveringChildWindow())
     {
         //左クリックが押された瞬間のポジションとカメラの回転角度を取得
         if (Input::Instance().GetMouseInput(MOUSE_TRIGGER_LEFT))
