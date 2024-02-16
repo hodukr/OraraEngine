@@ -131,9 +131,15 @@ void AccessFolder::CreateFolder()
     ImGui::End();
 }
 
+void AccessFolder::SetWinodwConfig()
+{
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.56f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.44f));
+}
+
 void AccessFolder::Draw()
 {
-    ImGui::Begin("Asset", &m_IsShowWindow);
+    ImGui::Begin("Asset", &m_IsShowWindow, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     if (ImGui::Button("Create Folder"))
         m_IsWindw = true;

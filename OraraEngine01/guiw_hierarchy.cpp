@@ -27,10 +27,16 @@ void Hierarchy::Update()
     //Scene* scene = Manager::GetScene();
 }
 
+void Hierarchy::SetWinodwConfig()
+{
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 100.0f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT - 100.0f));
+}
+
 void Hierarchy::Draw()
 {
     Inspector* inspector = GuiManager::Instance().GetGuiWindow<Inspector>();
-    ImGui::Begin("Hierarchy", &m_IsShowWindow, ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("Hierarchy", &m_IsShowWindow, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     
     if(m_OpenTree)ImGui::SetNextItemOpen(true);
 

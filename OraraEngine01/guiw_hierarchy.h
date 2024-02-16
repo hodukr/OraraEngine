@@ -15,6 +15,7 @@ public:
 	void Init();
 	void Uninit();
 	void Update();
+	void SetWinodwConfig();
 	void Draw();
 
 	void SetScene(Scene* scene) { m_Scene = scene; }

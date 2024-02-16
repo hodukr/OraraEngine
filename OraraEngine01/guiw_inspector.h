@@ -15,6 +15,7 @@ public:
     void Init();
     void Uninit();
     void Update();
+    void SetWinodwConfig()override;
     void Draw();
     void SetGameObejct(GameObject* obj){
         m_GameObject = obj;

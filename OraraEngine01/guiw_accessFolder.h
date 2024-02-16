@@ -26,6 +26,7 @@ private:
 	void CreateFolder();
 	void DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv);
 public:
+	void SetWinodwConfig();
 	void Draw()override;
 	std::string GetNowFolder() { return m_ProjectFolderName; }
 	std::string GetDragName() { return m_DragName; }

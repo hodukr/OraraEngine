@@ -27,9 +27,15 @@ void Inspector::Update()
 
 }
 
+void Inspector::SetWinodwConfig()
+{
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH * 0.762f, 0.0f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH - SCREEN_WIDTH * 0.761f, SCREEN_HEIGHT *0.56f));
+}
+
 void Inspector::Draw()
 {
-    ImGui::Begin("Inspector", &m_IsShowWindow, ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("Inspector", &m_IsShowWindow, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     if (m_GameObject)
     {
         //オブジェクト名表示

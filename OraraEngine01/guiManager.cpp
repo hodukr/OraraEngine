@@ -629,8 +629,11 @@ void GuiManager::Draw()
 {
     for (auto& window : m_Windows)
     {
-        if(window->GetShowWindow())
+        if (window->GetShowWindow())
+        {
+            window->SetWinodwConfig();
             window->Draw();
+        }
     }
     
     ImGui::Render();
