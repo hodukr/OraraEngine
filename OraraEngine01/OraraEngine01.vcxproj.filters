@@ -61,7 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="com_.cpp">
+    <ClCompile Include="com_sss.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_eee.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="com_audio.cpp">
@@ -120,9 +123,6 @@
     </ClCompile>
     <ClCompile Include="manager.cpp">
       <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="com_material.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>System</Filter>
@@ -220,10 +220,22 @@
     <ClCompile Include="imgui\ImGradient.cpp">
       <Filter>ImGui\Guizmo</Filter>
     </ClCompile>
+    <ClCompile Include="modelManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="com_.h">
+    <ClInclude Include="com_sss.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_eee.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="com_audio.h">
@@ -294,9 +306,6 @@
     </ClInclude>
     <ClInclude Include="manager.h">
       <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="com_material.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="model.h">
       <Filter>System</Filter>
@@ -423,6 +432,15 @@
     </ClInclude>
     <ClInclude Include="imgui\ImGradient.h">
       <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="modelManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

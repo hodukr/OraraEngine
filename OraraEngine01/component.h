@@ -4,14 +4,16 @@
 #include <vector>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
-#include "vector.h"
 
 #define SET_COMPONENT_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Classname)
 
+//前方宣言
+class Vector3;
+
 //lsitに追加したい型をここに書く
-#define VARIATDATE int*, float*,std::string*, bool*,class Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*
+#define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*
 #define SETDATE(T) SetDateList(#T,&T)
 
 enum VariableDate {
@@ -34,6 +36,7 @@ struct FolderPass
 {
     std::string Date{};
     std::string Pass{};//フォルダアクセスする場合に指定する
+    std::string Extension{'.'};//拡張子の指定無ければ指定しない
     bool IsSet = false;
 
 };

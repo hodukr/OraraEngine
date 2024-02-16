@@ -234,7 +234,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
-    <ClCompile Include="com_material.cpp" />
+    <ClCompile Include="material.cpp" />
     <ClCompile Include="guiw_menu.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -257,6 +257,7 @@
     <ClCompile Include="com_praticle.cpp" />
     <ClCompile Include="reflection.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="pass_depthShadow.cpp" />
     <ClCompile Include="col_sphereCollision.cpp" />
@@ -316,7 +317,7 @@
     <ClInclude Include="guiw_inspector.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
-    <ClInclude Include="com_material.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="guiw_menu.h" />
     <ClInclude Include="com_mesh.h" />
     <ClInclude Include="model.h" />
@@ -329,6 +330,7 @@
     <ClInclude Include="reflection.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderResource.h" />
     <ClInclude Include="pass_depthShadow.h" />

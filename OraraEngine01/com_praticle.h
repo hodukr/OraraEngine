@@ -93,7 +93,7 @@ private:
     std::stack<PARTICLE*> m_StackParticle;
     std::list<PARTICLE*> m_ParticleList;
     ElapsedTimeTracker m_Timer;
-
+    int test;
 public:
     PraticleSystem();
     void Init()override;
@@ -111,6 +111,14 @@ public:
     void serialize(Archive& archive)
     {
             archive(CEREAL_NVP(m_Emitter));
+            try
+            {
+                archive(CEREAL_NVP(test));
+            }
+            catch (const Archive& aa)
+            {
+                test = 0;
+            }
     }
 };
 

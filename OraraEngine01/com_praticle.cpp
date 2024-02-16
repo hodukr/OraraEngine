@@ -5,7 +5,6 @@
 #include "com_camera.h"
 #include "gameObject.h"
 #include "com_praticle.h"
-#include "com_material.h"
 #include "textureManager.h"
 #include "randomNumberGenerator.h"
 

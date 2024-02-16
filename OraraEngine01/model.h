@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "shaderResource.h"
+#include <string>
 // マテリアル構造体
 struct MODEL_MATERIAL
 {
@@ -40,7 +41,7 @@ private:
 	ID3D11Buffer*	m_VertexBuffer;
 	ID3D11Buffer*	m_IndexBuffer;
 
-	char* m_File;
+	std::string m_File;
 	SUBSET*	m_SubsetArray;
 	unsigned int	m_SubsetNum;
 
@@ -54,6 +55,6 @@ public:
 	void Load( const char *FileName );
 	void Unload();
 
-	const char* GetFile() { return m_File; }
+	const std::string& GetFile() { return m_File; }
 
 };

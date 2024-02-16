@@ -5,12 +5,12 @@
 #include "com_mesh.h"
 #include "com_transform.h"
 #include "modelManager.h"
-#include "com_material.h"
 #include "shaderManager.h"
 #include "pass_depthShadow.h"
 
 void Mesh::SetModel(std::string pas)
 {
+    m_Modelpas = pas;
     std::string name = "asset\\model\\" + m_Modelpas;
     m_ModelNum = ModelManager::Load(name.c_str());
 
@@ -19,7 +19,6 @@ void Mesh::SetModel(std::string pas)
 void Mesh::Init()
 {
     SetModel(m_Modelpas);
-    m_Material.Init();
 }
 
 void Mesh::Uninit()
@@ -28,13 +27,15 @@ void Mesh::Uninit()
 
 void Mesh::Update()
 {
-    m_Material.Update();
-
+    if (m_ModelFolder.IsSet)
+    {
+        SetModel(m_ModelFolder.Date);
+        m_ModelFolder.IsSet = false;
+    }
 }
 
 void Mesh::Draw()
 {
-    m_Material.Draw();
 
     //シャドウバッファテクスチャを1番へセット
     // テクスチャ設定

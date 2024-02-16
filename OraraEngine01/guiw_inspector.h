@@ -23,8 +23,9 @@ public:
     const GameObject* GetGameObject(){return m_GameObject;}
 private:
     void DrawComponent(class Component* component);
+    void DrawMaterial();
     void Drawvariable(struct TypeDate& vardate);
     std::vector<std::string> AccessFolder(const char* folderPass);//フォルダ内のファイル名の取得
-    void CreatComponent(std::string comname);
+    void CreatComponentFile(std::string comname);
     void AddFileToProject(const std::string& project_file, const std::string& file_path, bool is_header);
 };

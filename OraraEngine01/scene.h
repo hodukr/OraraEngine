@@ -35,7 +35,7 @@ public:
         }
 		if (newflg) 
 		{
-			GameObject* obj = AddGameObject(1);
+			GameObject* obj = AddGameObject(0);
 			obj->SetName("MainCamera");
 			obj->AddComponent<Camera>();
 		}

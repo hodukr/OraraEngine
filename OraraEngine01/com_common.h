@@ -3,17 +3,12 @@
 #include "com_transform.h"
 #include "com_mesh.h"
 #include "com_camera.h"
-#include "com_material.h"
 #include "com_praticle.h"
 #include "com_plane.h"
 #include "com_uiText.h"
 #include "com_inputSystem.h"
 #include "col_boxCollision.h"
-//endinclude
-
-#define SET_COMPONENT_CLASS(Classname)\
-CEREAL_REGISTER_TYPE(Classname)\
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Classname)
+//endincludex
 
 SET_COMPONENT_CLASS(Transform)
 SET_COMPONENT_CLASS(Mesh)

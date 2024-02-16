@@ -47,7 +47,11 @@ void Inspector::Draw()
             m_NumVector = 0;
         }
 
-
+        //マテリアルの表示
+        if (m_GameObject->GetMaterial())
+        {
+            DrawMaterial();
+        }
 
 
         if (ImGui::Button("AddComponent")) {
@@ -69,12 +73,22 @@ void Inspector::Draw()
 
         }
 
+        //Componentfile作成
         static char str[256];
-        ImGui::InputText("ComponentName", str, 256);
         
-        if (ImGui::Button("CreateComponent") && strcmp(str,"") != 0) {
-            CreatComponent(str);
-            strcpy_s(str, "");
+        if (ImGui::Button("CreateComponentfile")) {
+            ImGui::OpenPopup("CreateComponent");
+        }
+        if (ImGui::BeginPopup("CreateComponent")) {
+            ImGui::InputText("ComponentName", str, 256);
+            if (ImGui::Button("Create") && strcmp(str, "") != 0)
+            {
+                CreatComponentFile(str);
+                strcpy_s(str, "");
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::EndPopup();
+
         }
     }
 
@@ -117,106 +131,36 @@ void Inspector::DrawComponent(Component* component)
             Drawvariable(date);
         }
 
-        if (typeid(Mesh).name() == comname)
-        {
-            Mesh* com = dynamic_cast<Mesh*>(component);
-
-            if (ImGui::TreeNode(com->GetModelpas().c_str()))
-            {
-                // フォルダのパスを指定 
-                std::string folderPath = "asset\\model";
-
-                // ファイル名を格納するためのベクターを作成 
-                std::vector<std::string> fileNames;
-
-                try { 
-                    // 指定されたフォルダ内のファイルをイテレート 
-                    for (const auto& entry : fs::directory_iterator(folderPath)) {
-                        std::string filename = entry.path().filename().string();
-                        std::string extension = filename.substr(filename.find_last_of(".") +1);
-                        if (extension == "obj")
-                        {
-                            // ファイル名をベクターに追加 
-                            fileNames.push_back(entry.path().filename().string());
-                        }
-                    }
-                }
-                catch (const std::filesystem::filesystem_error& ex) {
-                    std::cerr << "Error: " << ex.what() << std::endl;
-                }
-
-                // ファイル名を出力 
-                for (const auto& fileName : fileNames) {
-                    if (ImGui::Selectable(fileName.c_str()))
-                    {
-                        com->SetModel(fileName.c_str());
-                    }
-                }
-                ImGui::TreePop();
-            }
-            Material* material = com->GetMaterial();
-            std::string comname = typeid(*material).name();
-            std::string name = comname.substr(6);
-            if (ImGui::TreeNode(name.c_str())) {
-                // フォルダのパスを指定 
-                std::string folderPath = "shader";
-
-                // ファイル名を格納するためのベクターを作成 
-                std::vector<std::string> fileNamesVS;
-                std::vector<std::string> fileNamesPS;
-
-                try {
-                    // 指定されたフォルダ内のファイルをイテレート 
-                    for (const auto& entry : fs::directory_iterator(folderPath)) {
-
-                        std::string filename = entry.path().filename().string();
-                        std::string extension = filename.substr(filename.find_last_of(".") - 2);
-                        if (extension == "VS.cso")
-                        {
-                            // ファイル名をベクターに追加 
-                            fileNamesVS.push_back(entry.path().filename().string());
-                        }
-                        if (extension == "PS.cso")
-                        {
-                            fileNamesPS.push_back(entry.path().filename().string());
-                        }
-                    }
-                }
-                catch (const std::filesystem::filesystem_error& ex) {
-                    std::cerr << "Error: " << ex.what() << std::endl;
-                }
-                if (ImGui::BeginCombo("VS", material->GetShaderVSName().c_str()))
-                {
-                    // ファイル名を出力 
-                    for (const auto& fileName : fileNamesVS) {
-                        if (ImGui::Selectable(fileName.c_str()))
-                        {
-                            material->SetShaderVS(fileName.c_str());
-                        }
-                    }
-                    ImGui::EndCombo();
-                }
-
-                if (ImGui::BeginCombo("PS",material->GetShaderPSName().c_str()))
-                {
-                    // ファイル名を出力 
-                    for (const auto& fileName : fileNamesPS) {
-                        if (ImGui::Selectable(fileName.c_str()))
-                        {
-                            material->SetShaderPS(fileName.c_str());
-                        }
-                    }
-                    ImGui::EndCombo();
-                }
-                ImGui::TreePop();
-
-            }
-
-        }
-
         ImGui::TreePop();
 
     }
+}
+
+void Inspector::DrawMaterial()
+{
+    if (ImGui::TreeNode("Material"))
+    {
+        
+        if (ImGui::BeginCombo("Shader", m_GameObject->GetMaterial()->GetFileName().c_str()))
+        {
+            std::vector<std::string> shaderfile = AccessFolder("shader");
+            // ファイル名を出力 
+            for (const auto& fileName : shaderfile) {
+
+                if (fileName.find("VS.cso") == fileName.npos)continue;
+                std::string name = fileName.substr(0, fileName.find('V'));
+                if (ImGui::Selectable(name.c_str()))
+                {
+                    m_GameObject->GetMaterial()->SetShader(name.c_str());
+                }
+            }
+            ImGui::EndCombo();
+        }
+        
+        ImGui::TreePop();
+    }
+
+
 }
 
 void Inspector::Drawvariable(TypeDate& vardate)
@@ -288,19 +232,23 @@ void Inspector::Drawvariable(TypeDate& vardate)
         ImGui::ColorEdit4(vardate.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(vardate.MemberDate));
         break;
     case TYPE_FOLDERPASS:
-        if (ImGui::BeginCombo(vardate.Name.c_str(), std::get<TYPE_FOLDERPASS>(vardate.MemberDate)->Date.c_str()))
+    {
+        FolderPass* date = std::get<TYPE_FOLDERPASS>(vardate.MemberDate);
+        if (ImGui::BeginCombo(vardate.Name.c_str(), date->Date.c_str()))
         {
-            std::vector<std::string> files = AccessFolder(std::get<TYPE_FOLDERPASS>(vardate.MemberDate)->Pass.c_str());
+            std::vector<std::string> files = AccessFolder(date->Pass.c_str());
             // ファイル名を出力 
             for (const auto& fileName : files) {
+                if (fileName.find(date->Extension) == std::string::npos)continue;
                 if (ImGui::Selectable(fileName.c_str()))
                 {
-                    std::get<TYPE_FOLDERPASS>(vardate.MemberDate)->Date = fileName;
-                    std::get<TYPE_FOLDERPASS>(vardate.MemberDate)->IsSet = true;
+                    date->Date = fileName;
+                    date->IsSet = true;
                 }
             }
             ImGui::EndCombo();
         }
+    }
         break;
     case TYPE_CUSTOMVECTOR3:
     {
@@ -381,7 +329,7 @@ std::vector<std::string> Inspector::AccessFolder(const char* folderPass)
     return fileNames;
 }
 
-void Inspector::CreatComponent(std::string comname)
+void Inspector::CreatComponentFile(std::string comname)
 {
     std::string createname = "com_" + comname + ".h";
     fs::path name= fs::current_path();
@@ -525,7 +473,6 @@ void Inspector::CreatComponent(std::string comname)
         // ファイルを閉じる
         file.close();
 
-       // std::cout << "ファイルに文を追加しました。" << std::endl;
     }
     
 }

@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "singleton.h"
-
+#include "shader.h"
+#include <string>
+#include <vector>
 class ShaderManager
 {
 private:
@@ -8,6 +10,7 @@ private:
 
 	class Post* m_Post{};
 	class SceneCamera* m_SceneCamera{};
+	std::vector<ShaderDate*> shaders;
 	std::list<Pass*> m_Pass;
 public:
     void Init();
@@ -39,4 +42,7 @@ public:
 	}
 
 	SceneCamera* GetSceneCamera() { return m_SceneCamera; }
+
+	int LoadShader(std::string file);
+	ShaderDate* GetShader(int index) { return shaders[index]; }
 };

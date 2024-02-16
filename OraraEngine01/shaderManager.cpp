@@ -8,7 +8,7 @@
 #include "post.h"
 #include "pass_depthShadow.h"
 #include "sceneCamera.h"
-
+#include "shader.h"
 void ShaderManager::Init()
 {
     m_Post = new Post;
@@ -69,4 +69,20 @@ void ShaderManager::Draw()
     Renderer::Begin();
 
     //m_Post->Draw();
+}
+
+int ShaderManager::LoadShader(std::string file)
+{
+    int ind = 0;
+    for (auto s : shaders)
+    {
+        if (s->GetFile() == file)
+        {
+            return ind;
+        }
+        ind++;
+    }
+    ShaderDate* date = new ShaderDate(file);
+    shaders.emplace_back(date);
+    return shaders.size() - 1;
 }

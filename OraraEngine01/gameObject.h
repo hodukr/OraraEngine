@@ -8,6 +8,7 @@
 #include <string>
 #include "main.h"
 #include "com_common.h"
+#include "material.h"
 class GameObject
 {
 private:
@@ -16,11 +17,14 @@ private:
     bool m_Destroy = false;
     std::list<std::unique_ptr<Component>> m_Component;
     int m_Version = 0;
+    int m_UseShaderNum = -1;//使用するシェーダー番号
+    Material* m_Material{};
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
         m_ObjctName = "GameObject";
         m_Tag = "NoneTag";
+        m_UseShaderNum = -1;
     }
     void SetDestroy() { m_Destroy = true; }
 
@@ -49,6 +53,8 @@ public:
             m_Component.push_back(std::move(transform));
         }
 
+        m_Material = new Material;
+        if(m_Material)m_Material->Init();
 
         for (auto& component : m_Component)
         {
@@ -73,7 +79,6 @@ public:
         for (const auto& component : m_Component)
         {
             component->Update();
-            //component.get_deleter();
         }
         m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
 
@@ -81,6 +86,8 @@ public:
 
     virtual void Draw()
     {
+        if (m_Material)m_Material->Draw();
+
         for (const auto& component : m_Component)
         {
             component->Draw();
@@ -157,6 +164,11 @@ public:
 
     int GetVersion() { return m_Version; }
 
+    Material* GetMaterial() { return m_Material; }
+    void SetMaterial(Material* material)
+    {
+        m_Material = material;
+    }
     template<class Archive>
     void serialize(Archive& archive)
     {
