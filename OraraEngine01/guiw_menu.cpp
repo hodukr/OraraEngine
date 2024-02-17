@@ -24,7 +24,7 @@ void Menu::Update()
     m_IsShowWindow = true;
 }
 
-void Menu::SetWinodwConfig()
+void Menu::SetWindowConfig()
 {
     ImGui::SetNextWindowPos(ImVec2(0.0f,0.0f));
     ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.25f, 100.0f));

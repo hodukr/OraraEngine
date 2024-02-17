@@ -131,10 +131,10 @@ void AccessFolder::CreateFolder()
     ImGui::End();
 }
 
-void AccessFolder::SetWinodwConfig()
+void AccessFolder::SetWindowConfig()
 {
     ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.56f));
-    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.44f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.45f));
 }
 
 void AccessFolder::Draw()

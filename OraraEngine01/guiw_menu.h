@@ -10,7 +10,7 @@ public:
     void Init()override;
     void Uninit()override;
     void Update()override;
-    void SetWinodwConfig()override;
+    void SetWindowConfig()override;
     void Draw()override;
 
 };

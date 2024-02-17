@@ -620,9 +620,6 @@ void GuiManager::Update()
     {
         window->Update();
     }
-    
-   
-
 }
 
 void GuiManager::Draw()
@@ -631,7 +628,7 @@ void GuiManager::Draw()
     {
         if (window->GetShowWindow())
         {
-            window->SetWinodwConfig();
+            window->SetWindowConfig();
             window->Draw();
         }
     }

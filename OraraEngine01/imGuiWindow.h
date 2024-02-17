@@ -11,7 +11,7 @@ public:
 	virtual void Init(){}
 	virtual void Uninit(){}
 	virtual void Update(){}
-	virtual void SetWinodwConfig(){}
+	virtual void SetWindowConfig(){}
 	virtual void Draw(){}
 	void SetShowWindow(bool flg) { m_IsShowWindow = flg; }
 	bool GetShowWindow() { return m_IsShowWindow; }

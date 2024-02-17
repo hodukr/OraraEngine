@@ -27,7 +27,7 @@ void Inspector::Update()
 
 }
 
-void Inspector::SetWinodwConfig()
+void Inspector::SetWindowConfig()
 {
     ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH * 0.762f, 0.0f));
     ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH - SCREEN_WIDTH * 0.761f, SCREEN_HEIGHT *0.56f));

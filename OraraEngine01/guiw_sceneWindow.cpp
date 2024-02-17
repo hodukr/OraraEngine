@@ -1,4 +1,4 @@
-#include "main.h"
+ï»¿#include "main.h"
 #include "manager.h"
 #include "guiw_sceneWindow.h"
 #include "scene.h"
@@ -7,161 +7,105 @@
 #include "shaderManager.h"
 #include "guiManager.h"
 #include "guiw_accessFolder.h"
-#include "imgui/imgui_internal.h"
 #include <filesystem>
 #include "scene.h"
-#include "input.h"
 #include "sceneCamera.h"
 #include "guiw_hierarchy.h"
 
-float objectMatrix[4][16] = {
-  { 1.f, 0.f, 0.f, 0.f,
-    0.f, 1.f, 0.f, 0.f,
-    0.f, 0.f, 1.f, 0.f,
-    0.f, 0.f, 0.f, 1.f },
-
-  { 1.f, 0.f, 0.f, 0.f,
-  0.f, 1.f, 0.f, 0.f,
-  0.f, 0.f, 1.f, 0.f,
-  2.f, 0.f, 0.f, 1.f },
-
-  { 1.f, 0.f, 0.f, 0.f,
-  0.f, 1.f, 0.f, 0.f,
-  0.f, 0.f, 1.f, 0.f,
-  2.f, 0.f, 2.f, 1.f },
-
-  { 1.f, 0.f, 0.f, 0.f,
-  0.f, 1.f, 0.f, 0.f,
-  0.f, 0.f, 1.f, 0.f,
-  0.f, 0.f, 2.f, 1.f }
-};
-
-static const float identityMatrix[16] =
-{ 1.f, 0.f, 0.f, 0.f,
-    0.f, 1.f, 0.f, 0.f,
-    0.f, 0.f, 1.f, 0.f,
-    0.f, 0.f, 0.f, 1.f };
-
-bool isPerspective = true;
-float fov = 27.f;
-float viewWidth = 10.f; // for orthographic
-float camYAngle = 165.f / 180.f * 3.14159f;
-float camXAngle = 32.f / 180.f * 3.14159f;
-
-bool firstFrame = true;
-int lastUsing = 0;
-
 void SceneWindow::Update()
 {
-
     if (ImGui::IsKeyPressed(ImGuiKey_T))
         m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
     if (ImGui::IsKeyPressed(ImGuiKey_E))
         m_CurrentGizmoOperation = ImGuizmo::ROTATE;
     if (ImGui::IsKeyPressed(ImGuiKey_R)) // r Key
         m_CurrentGizmoOperation = ImGuizmo::SCALE;
+}
 
-    //ImGuiIO& io = ImGui::GetIO();
-   
-    //ImGui::SetNextWindowPos(ImVec2(1024, 100), ImGuiCond_Appearing);
-    //ImGui::SetNextWindowSize(ImVec2(256, 256), ImGuiCond_Appearing);
-
-    //// create a window and insert the inspector
-    //ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Appearing);
-    //ImGui::SetNextWindowSize(ImVec2(320, 340), ImGuiCond_Appearing);
-    //ImGui::Begin("Editor");
-    //
-    //
-
-    //if (ImGui::RadioButton("Full view", !m_UseWindow)) m_UseWindow = false;
-    //ImGui::SameLine();
-    //if (ImGui::RadioButton("Window", m_UseWindow)) m_UseWindow = true;
-
-    //ImGui::Text("Camera");
-    //bool viewDirty = false;
-    //if (ImGui::RadioButton("Perspective", isPerspective)) isPerspective = true;
-    //ImGui::SameLine();
-    //if (ImGui::RadioButton("Orthographic", !isPerspective)) isPerspective = false;
-    //if (isPerspective)
-    //{
-    //    ImGui::SliderFloat("Fov", &fov, 20.0f, 110.0f);
-    //}
-    //else
-    //{
-    //    ImGui::SliderFloat("Ortho width", &viewWidth, 1, 20);
-    //}
-    //viewDirty |= ImGui::SliderFloat("Distance", &m_CamDistance, 1.f, 10.f);
-    //ImGui::SliderInt("Gizmo count", &m_GizmoCount, 1, 4);
-
-    //if (viewDirty || firstFrame)
-    //{
-    //    float eye[] = { cosf(camYAngle) * cosf(camXAngle) * m_CamDistance, sinf(camXAngle) * m_CamDistance, sinf(camYAngle) * cosf(camXAngle) * m_CamDistance };
-    //    float at[] = { 0.f, 0.f, 0.f };
-    //    float up[] = { 0.f, 1.f, 0.f };
-    //    //LookAt(eye, at, up, cameraView);
-    //    firstFrame = false;
-    //}
-
-    //ImGui::Text("X: %f Y: %f", io.MousePos.x, io.MousePos.y);
-    //if (ImGuizmo::IsUsing())
-    //{
-    //    ImGui::Text("Using gizmo");
-    //}
-    //else
-    //{
-    //    ImGui::Text(ImGuizmo::IsOver() ? "Over gizmo" : "");
-    //    ImGui::SameLine();
-    //    ImGui::Text(ImGuizmo::IsOver(ImGuizmo::TRANSLATE) ? "Over translate gizmo" : "");
-    //    ImGui::SameLine();
-    //    ImGui::Text(ImGuizmo::IsOver(ImGuizmo::ROTATE) ? "Over rotate gizmo" : "");
-    //    ImGui::SameLine();
-    //    ImGui::Text(ImGuizmo::IsOver(ImGuizmo::SCALE) ? "Over scale gizmo" : "");
-    //}
-    //ImGui::Separator();
-
-    //ImGui::End();
+void SceneWindow::SetWindowConfig()
+{
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.56f));
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH * 0.25f, 0.0f));
 }
 
 void SceneWindow::Draw()
 {
-    ImVec2 WindowSize(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-    ImVec2 WindowSizewindow(SCREEN_WIDTH * 0.512f, SCREEN_HEIGHT * 0.56f);
-    ImGui::SetNextWindowSize(WindowSizewindow);
-    ImVec2 windowPos(SCREEN_WIDTH / 4.0f, 0.0f);
-    ImGui::SetNextWindowPos(windowPos);
-    ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_MenuBar| ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration);
 
-    ImGuiViewport* viewport = ImGui::GetMainViewport();
-    ImVec2 viewportPos = viewport->Pos;
-    ImVec2 viewportSize = viewport->Size;
-    int windowWidth = static_cast<int>(viewportSize.x);
-    int windowHeight = static_cast<int>(viewportSize.y);
+    if (ImGui::BeginMenuBar())
+    {
+        static std::string str = "Editor";
+        const char* menuName = str.c_str();
+        if (ImGui::BeginMenu(menuName))
+        {
+            if (ImGui::MenuItem("Editor"))
+            {
+                str = "Editor";
 
+                //m_IsDrawCamera = false;
+            }
+            if (ImGui::MenuItem("Game"))
+            {
+                str = "Game";
+                //m_IsDrawCamera = true;
+            }
+           
+            ImGui::EndMenu();
+        }
+        if (ImGui::MenuItem("Play"))
+        {
+            //m_IsPlay = true;
+        }
+
+        if (ImGui::MenuItem("Stop"))
+        {
+            //m_IsStop = true;
+        }
+        /*ImGui::Button("Play");
+        ImGui::Button("Stop");*/
+
+        ImGui::EndMenuBar();
+    }
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize.x = static_cast<float>(windowWidth);
-    io.DisplaySize.y = static_cast<float>(windowHeight);
+    float viewManipulateRight = io.DisplaySize.x;
+    float viewManipulateTop = 0;
 
+    ImGuizmo::SetDrawlist();
+    //ã‚°ãƒªãƒƒãƒ‰ç·šã®ç¯„å›²
+    float windowWidth = (float)ImGui::GetWindowWidth();
+    float windowHeight = (float)ImGui::GetWindowHeight();
+    ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+    viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
+    viewManipulateTop = ImGui::GetWindowPos().y;
+
+    //Windowã«å¯¾ã—ã¦ã®ãƒã‚¦ã‚¹ã®çŠ¶æ…‹
+    m_IsChildWindowFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
+    m_IsMouseHoveringChildWindow = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
+
+
+
+    ImVec2 windowSize(SCREEN_WIDTH * 0.50f, SCREEN_HEIGHT * 0.50f);
     if (m_SceneTexture == nullptr)
     {
-        //ƒŒƒ“ƒ_ƒŠƒ“ƒOƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+        //ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
         PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
-        ImGui::Image((ImTextureID)*post->GetPPTexture(), WindowSize);
+        ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
     }
     else
     {
-        ImGui::Image((ImTextureID)*m_SceneTexture, WindowSize);
+        ImGui::Image((ImTextureID)*m_SceneTexture, windowSize);
     }
 
     Scene* scene = Manager::GetScene();
+    Hierarchy* hierarchy = GuiManager::Instance().GetGuiWindow<Hierarchy>();
 
-    // ƒhƒ‰ƒbƒOƒ^[ƒQƒbƒg‚ğİ’è
+    //ãƒ‰ãƒ©ãƒƒã‚¯ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ã§ã‚·ãƒ¼ãƒ³ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‡ºã™
+    // ãƒ‰ãƒ©ãƒƒã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
     if (ImGui::BeginDragDropTarget())
     {
         if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_PAYLOAD_TYPE"))
         {
-            //const char* draggedItemName = *(const char**)payload->Data;
-
-            //ƒhƒ‰ƒbƒOæ‚Ì—v‘f‚É‘Î‚·‚éˆ—
+            //ãƒ‰ãƒ©ãƒƒã‚°å…ˆã®è¦ç´ ã«å¯¾ã™ã‚‹å‡¦ç†
             GameObject* gameObj = scene->AddGameObject(2);
             AccessFolder* acFolder = GuiManager::Instance().GetGuiWindow <AccessFolder>();
             gameObj->SetName(acFolder->GetDragName());
@@ -170,27 +114,29 @@ void SceneWindow::Draw()
             fs::path folderPath(acFolder->GetDragName());
             std::string folderName = folderPath.filename().string();
             mesh->SetModel(folderName);
-
-            //ImGui::Text("Dropped item: %s", draggedItemName);
+            hierarchy->SetSelectGameObject(gameObj);
         }
-
-
         ImGui::EndDragDropTarget();
     }
 
 
-    //’¼s“Š‰eƒ‚[ƒh‚©‚ç“§‹“Š‰e‚É•ÏŠ·
-    ImGuizmo::SetOrthographic(false);
+    //ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç§»å‹•ã€å›è»¢ã€ã‚¹ã‚±ãƒ¼ãƒ«ã®å¤‰æ›´ãªã©
 
-    Hierarchy* hierarchy = GuiManager::Instance().GetGuiWindow<Hierarchy>();
+        //ç›´è¡ŒæŠ•å½±ãƒ¢ãƒ¼ãƒ‰ã‹ã‚‰é€è¦–æŠ•å½±ã«å¤‰æ›
+    ImGuizmo::SetOrthographic(false);
+    SceneCamera* camera = ShaderManager::Instance().GetSceneCamera();
+    //ã‚°ãƒªãƒƒãƒ‰ç·šè¡¨ç¤º
+    ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
+    //å³ä¸Šã®å››è§’(ã©ã“ã‚’è¦‹ã¦ã„ã‚‹ã‹ã®UI)
+    ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
     if (hierarchy->GetSelectGameObject() != nullptr)
     {
-        SceneCamera* camera = ShaderManager::Instance().GetSceneCamera();
         D3DXMATRIX matrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
-        //‚±‚±‚Åƒ}“ñƒsƒ…ƒŒ[ƒg‚È‚Ç‚ğ“K‰
-        EditTransform(camera->GetViewMatrix(), camera->GetProjectionMatrix(), matrix, true);
 
-        //ƒ}ƒjƒsƒ…ƒŒ[ƒg‚ğg‚Á‚Ä‚¢‚©
+        //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ“ä½œ
+        ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_CurrentGizmoOperation, ImGuizmo::MODE(ImGuizmo::LOCAL), matrix, NULL);
+
+        //ãƒãƒ‹ãƒ”ãƒ¥ãƒ¬ãƒ¼ãƒˆã‚’ä½¿ã£ã¦ã„ã‹
         if (ImGuizmo::IsUsing())
         {
             hierarchy->GetSelectGameObject()->m_Transform->SetMatrix(matrix);
@@ -198,10 +144,10 @@ void SceneWindow::Draw()
             //D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
             D3DXMATRIX tempMatrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 
-            //ƒ}ƒgƒŠƒNƒX‚©‚çposition,rotation,scale‚ğ’Šo
+            //ãƒãƒˆãƒªã‚¯ã‚¹ã‹ã‚‰position,rotation,scaleã‚’æŠ½å‡º
             ImGuizmo::DecomposeMatrixToComponents(tempMatrix, pos, rot, scale);
 
-            //ƒ[ƒe[ƒVƒ‡ƒ“‚¾‚¯’¼Ú’Šo”’l‚ğƒoƒO‚é‚Ì‚ÅŒÂ•Êˆ—
+            //ãƒ­ãƒ¼ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã ã‘ç›´æ¥æŠ½å‡ºæ•°å€¤ã‚’ãƒã‚°ã‚‹ã®ã§å€‹åˆ¥å‡¦ç†
             switch (m_CurrentGizmoOperation)
             {
             case ImGuizmo::TRANSLATE:
@@ -209,13 +155,10 @@ void SceneWindow::Draw()
                 break;
             case ImGuizmo::ROTATE:
             {
-                //ƒ}ƒgƒŠƒNƒX‚©‚çƒNƒI[ƒ^ƒjƒIƒ“‚ğ’Šo‚µ‚ÄƒZƒbƒg
+                //ãƒãƒˆãƒªã‚¯ã‚¹ã‹ã‚‰ã‚¯ã‚ªãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’æŠ½å‡ºã—ã¦ã‚»ãƒƒãƒˆ
                 D3DXQUATERNION tempQuaternion;
                 D3DXQuaternionRotationMatrix(&tempQuaternion, &tempMatrix);
-                //tempQuaternion.w = 1.0f;
                 hierarchy->GetSelectGameObject()->m_Transform->SetQuaternion(tempQuaternion);
-                D3DXQUATERNION q = hierarchy->GetSelectGameObject()->m_Transform->GetQuaternion();
-                ImGui::Text("x:%f y:%f z:%f w:%f", q.x, q.y, q.z, q.w);
             }
             break;
             case ImGuizmo::SCALE:
@@ -224,127 +167,5 @@ void SceneWindow::Draw()
             }
         }
     }
-
-	ImGui::End();
-}
-
-void SceneWindow::EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition)
-{
-    static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::LOCAL);
-    static bool useSnap = false;
-    static float snap[3] = { 1.f, 1.f, 1.f };
-    static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
-    static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
-    static bool boundSizing = false;
-    static bool boundSizingSnap = false;
-
-    if (editTransformDecomposition)
-    {
-        
-        if (ImGui::RadioButton("Translate", m_CurrentGizmoOperation == ImGuizmo::TRANSLATE))
-            m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
-        ImGui::SameLine();
-        if (ImGui::RadioButton("Rotate", m_CurrentGizmoOperation == ImGuizmo::ROTATE))
-            m_CurrentGizmoOperation = ImGuizmo::ROTATE;
-        ImGui::SameLine();
-        if (ImGui::RadioButton("Scale", m_CurrentGizmoOperation == ImGuizmo::SCALE))
-            m_CurrentGizmoOperation = ImGuizmo::SCALE;
-        if (ImGui::RadioButton("Universal", m_CurrentGizmoOperation == ImGuizmo::UNIVERSAL))
-            m_CurrentGizmoOperation = ImGuizmo::UNIVERSAL;
-        /*float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-        ImGuizmo::DecomposeMatrixToComponents(matrix, matrixTranslation, matrixRotation, matrixScale);
-        ImGui::InputFloat3("Tr", matrixTranslation);
-        ImGui::InputFloat3("Rt", matrixRotation);
-        ImGui::InputFloat3("Sc", matrixScale);
-        ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, matrix);*/
-
-        if (m_CurrentGizmoOperation != ImGuizmo::SCALE)
-        {
-            if (ImGui::RadioButton("Local", mCurrentGizmoMode == ImGuizmo::LOCAL))
-                mCurrentGizmoMode = ImGuizmo::LOCAL;
-            ImGui::SameLine();
-            if (ImGui::RadioButton("World", mCurrentGizmoMode == ImGuizmo::WORLD))
-                mCurrentGizmoMode = ImGuizmo::WORLD;
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_S))
-            useSnap = !useSnap;
-        ImGui::Checkbox("##UseSnap", &useSnap);
-        ImGui::SameLine();
-
-        switch (m_CurrentGizmoOperation)
-        {
-        case ImGuizmo::TRANSLATE:
-            ImGui::InputFloat3("Snap", &snap[0]);
-            break;
-        case ImGuizmo::ROTATE:
-            ImGui::InputFloat("Angle Snap", &snap[0]);
-            break;
-        case ImGuizmo::SCALE:
-            ImGui::InputFloat("Scale Snap", &snap[0]);
-            break;
-        }
-        ImGui::Checkbox("Bound Sizing", &boundSizing);
-        if (boundSizing)
-        {
-            ImGui::PushID(3);
-            ImGui::Checkbox("##BoundSizing", &boundSizingSnap);
-            ImGui::SameLine();
-            ImGui::InputFloat3("Snap", boundsSnap);
-            ImGui::PopID();
-        }
-    }
-
-    ImGuiIO& io = ImGui::GetIO();
-    float viewManipulateRight = io.DisplaySize.x;
-    float viewManipulateTop = 0;
-    static ImGuiWindowFlags gizmoWindowFlags = 0;
-    ImVec2 windowSize;
-    if (m_UseWindow)
-    {
-        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_Appearing);
-        ImGui::SetNextWindowPos(ImVec2(400, 20), ImGuiCond_Appearing);
-        ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImVec4)ImColor(0.3f, 0.3f, 0.3f));
-        ImGui::Begin("Gizmo", 0, gizmoWindowFlags);
-        ImGuizmo::SetDrawlist();
-        float windowWidth = (float)ImGui::GetWindowWidth();
-        float windowHeight = (float)ImGui::GetWindowHeight();
-        windowSize = ImVec2(windowWidth, windowHeight);
-        ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
-        viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
-        viewManipulateTop = ImGui::GetWindowPos().y;
-        ImGuiWindow* window = ImGui::GetCurrentWindow();
-        gizmoWindowFlags = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max) ? ImGuiWindowFlags_NoMove : 0;
-    }
-    else
-    {
-        ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-    }
-
-    m_IsChildWindowFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
-    m_IsMouseHoveringChildWindow = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
-
-    ImGuizmo::DrawGrid(cameraView, cameraProjection, identityMatrix, 100.f);
-    //ImGuizmo::DrawCubes(cameraView, cameraProjection, matrix, 1);
-     
-    
-    if (m_SceneTexture == nullptr)
-    {
-       //ƒŒƒ“ƒ_ƒŠƒ“ƒOƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-       PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
-       ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
-    }
-    else
-    {
-        ImGui::Image((ImTextureID)*m_SceneTexture, windowSize);
-    }
-
-    ImGuizmo::Manipulate(cameraView, cameraProjection, m_CurrentGizmoOperation, mCurrentGizmoMode, matrix, NULL /*,useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL*/);
-
-    ImGuizmo::ViewManipulate(cameraView, m_CamDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
-
-    if (m_UseWindow)
-    {
-        ImGui::End();
-        ImGui::PopStyleColor(1);
-    }
+    ImGui::End();
 }

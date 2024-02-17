@@ -27,7 +27,7 @@ void Hierarchy::Update()
     //Scene* scene = Manager::GetScene();
 }
 
-void Hierarchy::SetWinodwConfig()
+void Hierarchy::SetWindowConfig()
 {
     ImGui::SetNextWindowPos(ImVec2(0.0f, 100.0f));
     ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT - 100.0f));
@@ -91,6 +91,8 @@ void Hierarchy::Draw()
 
             if (ImGui::Selectable("削除"))
             {
+                if (m_ConfigGameObject == m_SelectGameObject)
+                    m_SelectGameObject = nullptr;
                 if(m_ConfigGameObject == inspector->GetGameObject())
                     inspector->SetGameObejct(nullptr);
                 m_ConfigGameObject->SetDestroy();
