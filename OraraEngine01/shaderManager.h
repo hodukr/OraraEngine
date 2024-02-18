@@ -24,6 +24,7 @@ public:
 		Pass* pass = new T();
 		m_Pass.push_back(pass);
 		pass->CreatePass();
+		pass->Init();
 
 		return dynamic_cast<T*>(pass);
 	}

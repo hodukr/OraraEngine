@@ -22,21 +22,5 @@ void Debug::Draw()
 
     ImGui::PlotHistogram("", value, sizeof(value) / sizeof(float), 0, NULL, 0.0f, 100.0f, ImVec2(280.0f, 80.0f));
 
-    // メモリ使用量のグラフ
-    static float memoryUsage[180]; // 過去のメモリ使用量の値を保持する配列
-    for (int i = 0; i < 179; i++)
-        memoryUsage[i] = memoryUsage[i + 1];
-
-    // 現在のメモリ使用量を計算して配列に追加
-    // ここでは仮の値としてランダムな値を使用しています
-    float currentMemoryUsage = rand() % 100; // 仮のメモリ使用量（0～99）
-    memoryUsage[179] = currentMemoryUsage;
-
-    // 過去のメモリ使用量の最大値を取得
-    float maxMemoryUsage = *std::max_element(memoryUsage, memoryUsage + 180);
-
-    // メモリ使用量のグラフを描画
-    ImGui::PlotHistogram("Memory Usage", memoryUsage, sizeof(memoryUsage) / sizeof(float), 0, NULL, 0.0f, maxMemoryUsage, ImVec2(280.0f, 80.0f));
-
     ImGui::End();
 }

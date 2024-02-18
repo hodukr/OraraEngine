@@ -48,9 +48,12 @@ void DepthShadow::CreatePass()
 void DepthShadow::Init()
 {
     Scene* scene = Manager::GetScene();
-    for (auto& objlist : scene->GetList()[2])
+    if (scene)
     {
-        if(objlist->GetShadow())m_ShadowDrawObj.push_back(objlist.get());
+        for (auto& objlist : scene->GetList()[1])
+        {
+            if (objlist->GetShadow())m_ShadowDrawObj.push_back(objlist.get());
+        }
     }
 }
 

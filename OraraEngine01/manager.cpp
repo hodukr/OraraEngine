@@ -63,10 +63,6 @@ void Manager::Init()
 	}
 	m_CollisionManager = new CollisionManager;
 
-	ShaderManager::Instance().Init();
-
-	//m_Scene = new Title();
-	//m_Scene->Init();
 	m_NextSceneState = SCENESTATE_SCENE;
 	m_NextGameState = GAMESTATE_STOP;
 }
@@ -75,9 +71,6 @@ void Manager::Uninit()
 {
 	m_Scene->Uninit();
 	delete m_Scene;
-
-	//m_CollisionManager->Uninit();
-	//delete m_CollisionManager;
 
 	ShaderManager::Instance().Uninit();
 
