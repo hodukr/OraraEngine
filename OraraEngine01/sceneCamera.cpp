@@ -10,18 +10,18 @@
 #include "guiw_sceneWindow.h"
 
 
-void SceneCamera::Init()
+void EditorCamera::Init()
 {
     m_Position = Vector3(0.0f, 5.0f, -10.0f);
 
 }
 
-void SceneCamera::Uninit()
+void EditorCamera::Uninit()
 {
 
 }
 
-void SceneCamera::Update()
+void EditorCamera::Update()
 {
     //マウスが右クリックされていたら
     if (Input::Instance().GetMouseInput(MOUSE_DOWN_RIGHT))
@@ -83,7 +83,7 @@ void SceneCamera::Update()
     m_Target = GetForward() + m_Position.dx();
 }
 
-void SceneCamera::Draw()
+void EditorCamera::Draw()
 {
     //ビューマトリクス設定 
     D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

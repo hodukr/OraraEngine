@@ -41,25 +41,28 @@ void SceneWindow::Draw()
             if (ImGui::MenuItem("Editor"))
             {
                 str = "Editor";
-
-                //m_IsDrawCamera = false;
+                if (Manager::GetSceneState() != SCENESTATE_SCENE) Manager::SetNextSceneState(SCENESTATE_SCENE);
             }
             if (ImGui::MenuItem("Game"))
             {
                 str = "Game";
-                //m_IsDrawCamera = true;
+                if (Manager::GetSceneState() != SCENESTATE_GAME) Manager::SetNextSceneState(SCENESTATE_GAME);
             }
            
             ImGui::EndMenu();
         }
-        if (ImGui::MenuItem("Play"))
+        static bool isPlay = false;
+        if (ImGui::MenuItem("Play",0,&isPlay))
         {
-            //m_IsPlay = true;
+            Manager::SetNextGameState(GAMESTATE_PLAY);
+            if (Manager::GetSceneState() != SCENESTATE_GAME) Manager::SetNextSceneState(SCENESTATE_GAME);
+            str = "Game";
         }
 
         if (ImGui::MenuItem("Stop"))
         {
-            //m_IsStop = true;
+            isPlay = false;
+            Manager::SetNextGameState(GAMESTATE_STOP);
         }
         /*ImGui::Button("Play");
         ImGui::Button("Stop");*/
@@ -77,6 +80,7 @@ void SceneWindow::Draw()
     ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
     viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
     viewManipulateTop = ImGui::GetWindowPos().y;
+
 
     //Windowに対してのマウスの状態
     m_IsChildWindowFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
@@ -118,51 +122,53 @@ void SceneWindow::Draw()
         ImGui::EndDragDropTarget();
     }
 
-
-    //ゲームオブジェクトの移動、回転、スケールの変更など
-
-        //直行投影モードから透視投影に変換
-    ImGuizmo::SetOrthographic(false);
-    SceneCamera* camera = ShaderManager::Instance().GetSceneCamera();
-    //グリッド線表示
-    //ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
-    //右上の四角(どこを見ているかのUI)
-    ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
-    if (hierarchy->GetSelectGameObject() != nullptr)
+    if (Manager::GetSceneState() == SCENESTATE_SCENE)
     {
-        D3DXMATRIX matrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
+        //ゲームオブジェクトの移動、回転、スケールの変更など
 
-        //オブジェクトの操作
-        ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_CurrentGizmoOperation, ImGuizmo::MODE(ImGuizmo::LOCAL), matrix, NULL);
-
-        //マニピュレートを使っていか
-        if (ImGuizmo::IsUsing())
+            //直行投影モードから透視投影に変換
+        ImGuizmo::SetOrthographic(false);
+        EditorCamera* camera = ShaderManager::Instance().GetSceneCamera();
+        //グリッド線表示
+        //ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
+        //右上の四角(どこを見ているかのUI)
+        ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
+        if (hierarchy->GetSelectGameObject() != nullptr)
         {
-            hierarchy->GetSelectGameObject()->m_Transform->SetMatrix(matrix);
-            D3DXVECTOR3 pos, scale, rot;
-            //D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
-            D3DXMATRIX tempMatrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
+            D3DXMATRIX matrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 
-            //マトリクスからposition,rotation,scaleを抽出
-            ImGuizmo::DecomposeMatrixToComponents(tempMatrix, pos, rot, scale);
+            //オブジェクトの操作
+            ImGuizmo::Manipulate(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_CurrentGizmoOperation, ImGuizmo::MODE(ImGuizmo::LOCAL), matrix, NULL);
 
-            //ローテーションだけ直接抽出数値をバグるので個別処理
-            switch (m_CurrentGizmoOperation)
+            //マニピュレートを使っていか
+            if (ImGuizmo::IsUsing())
             {
-            case ImGuizmo::TRANSLATE:
-                hierarchy->GetSelectGameObject()->m_Transform->SetPosition(pos);
+                hierarchy->GetSelectGameObject()->m_Transform->SetMatrix(matrix);
+                D3DXVECTOR3 pos, scale, rot;
+                //D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
+                D3DXMATRIX tempMatrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
+
+                //マトリクスからposition,rotation,scaleを抽出
+                ImGuizmo::DecomposeMatrixToComponents(tempMatrix, pos, rot, scale);
+
+                //ローテーションだけ直接抽出数値をバグるので個別処理
+                switch (m_CurrentGizmoOperation)
+                {
+                case ImGuizmo::TRANSLATE:
+                    hierarchy->GetSelectGameObject()->m_Transform->SetPosition(pos);
+                    break;
+                case ImGuizmo::ROTATE:
+                {
+                    //マトリクスからクオータニオンを抽出してセット
+                    D3DXQUATERNION tempQuaternion;
+                    D3DXQuaternionRotationMatrix(&tempQuaternion, &tempMatrix);
+                    hierarchy->GetSelectGameObject()->m_Transform->SetQuaternion(tempQuaternion);
+                }
                 break;
-            case ImGuizmo::ROTATE:
-            {
-                //マトリクスからクオータニオンを抽出してセット
-                D3DXQUATERNION tempQuaternion;
-                D3DXQuaternionRotationMatrix(&tempQuaternion, &tempMatrix);
-                hierarchy->GetSelectGameObject()->m_Transform->SetQuaternion(tempQuaternion);
-            }
-            break;
-            case ImGuizmo::SCALE:
-                hierarchy->GetSelectGameObject()->m_Transform->SetScale(scale);
-                break;
+                case ImGuizmo::SCALE:
+                    hierarchy->GetSelectGameObject()->m_Transform->SetScale(scale);
+                    break;
+                }
             }
         }
     }

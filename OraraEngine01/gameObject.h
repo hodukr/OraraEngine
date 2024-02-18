@@ -30,7 +30,6 @@ public:
 
     bool Destroy()
     {
-
         if (m_Destroy)
         {
             Uninit();
@@ -39,6 +38,7 @@ public:
         }
         else
         {
+            m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
             return false;
         }
     }
@@ -83,7 +83,6 @@ public:
         {
             component->Update();
         }
-        m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
 
     };
 

@@ -14,8 +14,8 @@ void ShaderManager::Init()
     m_Post = new Post;
     m_Post->Init();
 
-    m_SceneCamera = new SceneCamera;
-    m_SceneCamera->Init();
+    m_EditorCamera = new EditorCamera;
+    m_EditorCamera->Init();
 
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
@@ -24,7 +24,7 @@ void ShaderManager::Init()
 
 void ShaderManager::Uninit()
 {
-    m_SceneCamera->Uninit();
+    m_EditorCamera->Uninit();
     m_Post->Uninit();
     delete m_Post;
 
@@ -38,7 +38,7 @@ void ShaderManager::Uninit()
 
 void ShaderManager::Update()
 {
-    m_SceneCamera->Update();
+    if(Manager::GetSceneState() == SCENESTATE_SCENE)m_EditorCamera->Update();
     
     m_Post->Update();
 
@@ -63,7 +63,7 @@ void ShaderManager::Draw()
     PostPass* post = GetPass<PostPass>(SHADER_POST);
     post->BeginPP();
 
-    m_SceneCamera->Draw();
+    m_EditorCamera->Draw();
     scene->Draw();
 
     Renderer::Begin();

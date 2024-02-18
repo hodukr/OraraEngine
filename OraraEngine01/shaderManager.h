@@ -9,7 +9,7 @@ private:
     Singleton(ShaderManager);
 
 	class Post* m_Post{};
-	class SceneCamera* m_SceneCamera{};
+	class EditorCamera* m_EditorCamera{};
 	std::vector<ShaderDate*> shaders;
 	std::list<Pass*> m_Pass;
 public:
@@ -41,7 +41,7 @@ public:
 		return nullptr;
 	}
 
-	SceneCamera* GetSceneCamera() { return m_SceneCamera; }
+	EditorCamera* GetSceneCamera() { return m_EditorCamera; }
 
 	int LoadShader(std::string file);
 	ShaderDate* GetShader(int index) { return shaders[index]; }

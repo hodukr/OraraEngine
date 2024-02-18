@@ -2,7 +2,7 @@
 #include "component.h"
 #include "vector.h"
 
-class SceneCamera
+class EditorCamera
 {
 private:
     Vector3 m_Position{};

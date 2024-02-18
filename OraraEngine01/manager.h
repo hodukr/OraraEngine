@@ -12,7 +12,10 @@ private:
 	//Manegerはインスタンスしないので静的に作る
 	static Scene* m_Scene;
 	static Scene* m_NextScene;
-
+	static SceneState m_SceneState;
+	static SceneState m_NextSceneState;
+	static GameState m_GameState;
+	static GameState m_NextGameState;
 public:
 	static void Init();
 	static void Uninit();
@@ -29,5 +32,12 @@ public:
     static void SetScene(Scene* scene)
     {
         m_NextScene = scene;
-    }
+	}
+
+	static void SetNextSceneState(SceneState state) {m_NextSceneState = state;}
+	static SceneState GetSceneState() { return m_SceneState; }
+
+	static void SetNextGameState(GameState state) { m_NextGameState = state; }
+	static GameState GetGameState() { return m_GameState; }
+
 };

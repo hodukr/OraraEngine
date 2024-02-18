@@ -75,7 +75,7 @@ void Menu::Draw()
             if (extension == "json")
             {
                 if (ImGui::Selectable(sceneName.c_str()))
-                {
+                {//シーンfileの情報ロード
                     std::string filename = "asset/scene/" + sceneName + ".json";
                     std::ifstream inputFile(filename);
                     cereal::JSONInputArchive archive(inputFile);

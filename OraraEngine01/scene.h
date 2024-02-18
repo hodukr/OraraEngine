@@ -35,16 +35,17 @@ public:
         }
 		if (newflg) 
 		{
-			GameObject* obj = AddGameObject(1);
-			//obj->SetName("MainCamera");
-			//obj->AddComponent<Camera>();
-			Mesh* mesh = obj->AddComponent<Mesh>();
-			obj->SetName("Sky");
+			GameObject* camera = AddGameObject(0);
+			camera->SetName("MainCamera");
+			camera->AddComponent<Camera>();
+			GameObject* sky = AddGameObject(1);
+			Mesh* mesh = sky->AddComponent<Mesh>();
+			sky->SetName("Sky");
 			mesh->SetModel("sky.obj");
-			obj->m_Transform->SetScale(80.0f,80.0f,80.0f);
+			sky->m_Transform->SetScale(80.0f,80.0f,80.0f);
 			std::unique_ptr<Material> material = std::make_unique<Material>("unlitTexture");
 			material->Init();
-			obj->SetMaterial(std::move(material));
+			sky->SetMaterial(std::move(material));
 		}
     }
 
@@ -75,14 +76,7 @@ public:
 			}
 
 		}
-        for (int i = 0; i < 3; i++)
-        {
-            for (auto& gameObject : m_GameObject[i])
-            {
 
-            }
-			 m_GameObject[i].remove_if([](const std::unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
-        }
 
 	}
 
@@ -96,6 +90,15 @@ public:
 			}
 		}
 	}
+
+	void Destroy()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			m_GameObject[i].remove_if([](const std::unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
+		}
+	}
+
 
 	GameObject* AddGameObject(int Layer)
 	{
