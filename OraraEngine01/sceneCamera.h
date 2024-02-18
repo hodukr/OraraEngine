@@ -1,7 +1,8 @@
 #pragma once
 #include "component.h"
 #include "vector.h"
-class SceneCamera :public Component
+
+class SceneCamera
 {
 private:
     Vector3 m_Position{};
@@ -15,15 +16,17 @@ private:
     bool	m_IsMouseUp;
 
 public:
-    void Init()override;
-    void Uninit()override;
-    void Update()override;
-    void Draw()override;
+    void Init();
+    void Uninit();
+    void Update();
+    void Draw();
 
     Vector3 GetForward()
     {
         D3DXMATRIX rot;
+        
         D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+
         Vector3 forward;
         forward.x = rot._31;
         forward.y = rot._32;
@@ -32,8 +35,31 @@ public:
         return forward;
     }
 
+    Vector3 GetRight()
+    {
+        D3DXMATRIX rot;
+        D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+
+        Vector3 right;
+        right.x = rot._11;
+        right.y = rot._12;
+        right.z = rot._13;
+
+        return right;
+    }
+
+    Vector3 GetUp()
+    {
+        D3DXMATRIX rot;
+        D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+        Vector3 up;
+        up.x = rot._21;
+        up.y = rot._22;
+        up.z = rot._23;
+
+        return up;
+    }
     D3DXMATRIX GetViewMatrix() { return m_ViewMatrix; }
     D3DXMATRIX GetProjectionMatrix() { return m_ProjectionMatrix; }
-    Vector3 GetWorldMousePosition(float x, float y);
 };
 
