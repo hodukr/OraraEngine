@@ -36,8 +36,14 @@ public:
 		if (newflg) 
 		{
 			GameObject* obj = AddGameObject(0);
-			obj->SetName("MainCamera");
-			obj->AddComponent<Camera>();
+			//obj->SetName("MainCamera");
+			//obj->AddComponent<Camera>();
+			Mesh* mesh = obj->AddComponent<Mesh>();
+			mesh->SetModel("sky.obj");
+			obj->m_Transform->SetScale(80.0f,80.0f,80.0f);
+			Material* material = new Material("unlitTexture");
+			material->Init();
+			obj->SetMaterial(material);
 		}
     }
 

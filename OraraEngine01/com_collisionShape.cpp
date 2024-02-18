@@ -5,10 +5,10 @@
 
 CollisionShape::CollisionShape()
 {
-    CollisionManager::SetShape(this);
+    //CollisionManager::SetShape(this);
 }
 
 CollisionShape::~CollisionShape()
 {
-    CollisionManager::DeletShape(this);
+    //CollisionManager::DeletShape(this);
 }

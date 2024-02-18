@@ -8,8 +8,8 @@ std::list<CollisionShape*>  CollisionManager::m_NextShape{};
 
 void CollisionManager::Init()
 {
-    m_Shape = m_NextShape;
-    m_NextShape.clear();
+    //m_Shape = m_NextShape;
+    //m_NextShape.clear();
 }
 
 void CollisionManager::Uninit()

@@ -8,7 +8,7 @@ private:
     std::string m_ShaderName;
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 public:
-    Material() : m_ShaderName("vertexLighting"){}
+    Material(std::string passname = "vertexLighting") : m_ShaderName(passname){}
     void Init();
 
 	void Draw();

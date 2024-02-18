@@ -5,11 +5,14 @@
 #include "gameObject.h"
 #include "input.h"
 #include "imgui/imgui.h"
+#include "collisionManager.h"
 
 
 
 void BoxCollision::Init()
 {
+    CollisionManager::SetShape(this);
+
     m_Size = D3DXVECTOR3(1.5,1.5f,1.5f);
    
     //立方体 
@@ -41,6 +44,8 @@ void BoxCollision::Init()
 
 void BoxCollision::Uninit()
 {
+    CollisionManager::DeletShape(this);
+
     m_VertexLayout->Release();
     m_VertexShader->Release();
     m_PixelShader->Release();

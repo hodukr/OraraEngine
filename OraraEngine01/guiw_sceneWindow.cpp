@@ -71,7 +71,7 @@ void SceneWindow::Draw()
     float viewManipulateTop = 0;
 
     ImGuizmo::SetDrawlist();
-    //グリッド線の範囲
+    ////グリッド線の範囲
     float windowWidth = (float)ImGui::GetWindowWidth();
     float windowHeight = (float)ImGui::GetWindowHeight();
     ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
@@ -109,8 +109,7 @@ void SceneWindow::Draw()
             GameObject* gameObj = scene->AddGameObject(2);
             AccessFolder* acFolder = GuiManager::Instance().GetGuiWindow <AccessFolder>();
             gameObj->SetName(acFolder->GetDragName());
-            Mesh* mesh = new Mesh;
-            gameObj->AddComponent(mesh);
+            Mesh* mesh = gameObj->AddComponent<Mesh>();
             fs::path folderPath(acFolder->GetDragName());
             std::string folderName = folderPath.filename().string();
             mesh->SetModel(folderName);
@@ -126,7 +125,7 @@ void SceneWindow::Draw()
     ImGuizmo::SetOrthographic(false);
     SceneCamera* camera = ShaderManager::Instance().GetSceneCamera();
     //グリッド線表示
-    ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
+    //ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
     //右上の四角(どこを見ているかのUI)
     ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
     if (hierarchy->GetSelectGameObject() != nullptr)

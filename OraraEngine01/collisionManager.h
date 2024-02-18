@@ -16,11 +16,11 @@ public:
 
     static void SetShape(CollisionShape* shape)
     {
-        m_NextShape.push_back(shape);
+        m_Shape.push_back(shape);
     }
     
     static void DeletShape(CollisionShape* deletShape)
     {
-        m_NextShape.remove_if([deletShape](CollisionShape* shape) {return shape == deletShape; });
+        m_Shape.remove_if([deletShape](CollisionShape* shape) {return shape == deletShape; });
     }
 };
