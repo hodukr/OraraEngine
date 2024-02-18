@@ -24,8 +24,8 @@ class CollisionShape :public Component
 {
 protected:
     bool m_Trigger = false; //trueにすると補正はせず当たり判定だけ取る
-    bool m_Dynamic = false;
     Shape m_Shape = SHAPE_NONE;
+    bool m_Dynamic = false;
 
     ID3D11VertexShader* m_VertexShader{};
     ID3D11PixelShader* m_PixelShader{};
@@ -41,7 +41,7 @@ protected:
 
     std::unordered_map<CollisionShape*, CollisionState> m_State;
 public:
-    CollisionShape() { SetDateList("isDynamic", &m_Dynamic); }
+    CollisionShape() {}
     ~CollisionShape() {};
 
     void Init() override {}
@@ -68,10 +68,16 @@ public:
     Vector3 GetOffset() const { return m_Offset; }
     CollisionState GetState(CollisionShape* shape) { return m_State[shape]; }
     std::unordered_map<CollisionShape*, CollisionState> GetStateMap(){ return m_State; }
-    bool GetDynamic() const { return m_Dynamic; }
 
     //コールバック 
     void SetCollisionCallback(const CollisionCallback& callback) { m_CollisionCallback = callback; }
     CollisionCallback GetCollisionCallback() { return m_CollisionCallback; }
+    virtual bool GetDynamic()const { return m_Dynamic; }
+
+    template<class Archive>
+    void serialize(Archive& archive)
+    {
+        archive(CEREAL_NVP(m_Dynamic));
+    }
 };
 

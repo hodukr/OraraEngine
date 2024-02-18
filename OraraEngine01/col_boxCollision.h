@@ -11,7 +11,10 @@ private:
 
     void SetVertex(struct VERTEX_3D* vertex);
 public:
-    BoxCollision() { m_Shape = SHAPE_BOX; }
+    BoxCollision() { 
+        m_Shape = SHAPE_BOX; 
+        SetDateList("IsDynamic", &m_Dynamic);
+    }
 
     void Init() override;
     void Uninit() override;
@@ -24,4 +27,6 @@ public:
     bool CheckCollision(CollisionShape* other) override { return other->CollideWith(this); }
     bool CollideWith(BoxCollision* other) override;
     bool CollideWith(SphereCollision* other) override;
+
+
 };
