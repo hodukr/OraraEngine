@@ -5,6 +5,7 @@
 #include "com_waterSurface.h"
 
 
+
 std::vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
 
 SetReflectionComponent(Transform)
@@ -16,5 +17,5 @@ SetReflectionComponent(Text)
 SetReflectionComponent(InputSystem)
 SetReflectionComponent(Cloth)
 SetReflectionComponent(WaterSurface)
-SetReflectionComponent(CollisionShape)
 SetReflectionComponent(BoxCollision)
+SetReflectionComponent(SphereCollision)

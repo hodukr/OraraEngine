@@ -1,13 +1,14 @@
 {
     "secne": {
         "m_FileVersion": 0,
-        "m_GameObject[0]": [
+        "m_GameObject[0]": [],
+        "m_GameObject[1]": [
             {
                 "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "Sky",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -44,12 +45,18 @@
                                     }
                                 }
                             }
-                        ]
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "unlitTexture"
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        ],
-        "m_GameObject[1]": [
+            },
             {
                 "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
@@ -65,7 +72,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 0.0,
+                                            "y": 2.684070110321045,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -83,7 +90,7 @@
                             },
                             {
                                 "polymorphic_id": 2147483651,
-                                "polymorphic_name": "BoxCollision",
+                                "polymorphic_name": "SphereCollision",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -91,61 +98,15 @@
                                     }
                                 }
                             }
-                        ]
-                    }
-                }
-            },
-            {
-                "polymorphic_id": 1073741824,
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_ObjctName": "GameObject(1)",
-                        "m_Tag": "NoneTag",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Position": {
-                                            "x": -4.319237232208252,
-                                            "y": 0.0,
-                                            "z": 0.7917517423629761
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483652,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "GameObject(1)"
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 3,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "GameObject(1)"
-                                    }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting"
                                 }
                             }
-                        ]
+                        }
                     }
                 }
             }
