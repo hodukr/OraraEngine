@@ -41,11 +41,18 @@ protected:
 
     std::unordered_map<CollisionShape*, CollisionState> m_State;
 public:
-    CollisionShape() {}
+    CollisionShape() 
+    { 
+        SetDateList("IsDynamic", &m_Dynamic);
+        SetDateList("Offset", &m_Offset);
+    }
     ~CollisionShape() {};
 
     void Init() override {}
     void Uninit() override {}
+    void EditorUpdate()override;
+
+    
     void Update() override {}
     void Draw() override {}
 
@@ -77,7 +84,7 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_Dynamic));
+        archive(CEREAL_NVP(m_Dynamic), CEREAL_NVP(m_Offset));
     }
 };
 

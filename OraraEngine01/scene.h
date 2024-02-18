@@ -22,7 +22,7 @@ protected:
 	int m_FileVersion = NOWVERSION;
 public:
     Scene(std::string name = "NewScene"):m_Name(name){}
-	virtual void Init()
+	void Init()
     {
 		bool newflg = true;
         for (int i = 0; i < 3; i++)
@@ -49,7 +49,7 @@ public:
 		}
     }
 
-	virtual void Uninit()
+	void Uninit()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -66,7 +66,19 @@ public:
 
 	}
 
-	virtual void Update()
+	void EditorUpdate()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& gameObject : m_GameObject[i])
+			{
+				gameObject->EditorUpdate();
+			}
+		}
+	}
+
+
+	void Update()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -74,13 +86,11 @@ public:
 			{
 				gameObject->Update();
 			}
-
 		}
-
-
 	}
 
-	virtual void Draw()
+
+	void Draw()
 	{
 		for (int i = 0; i < 3; i++)
 		{

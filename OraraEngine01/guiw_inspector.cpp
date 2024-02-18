@@ -44,12 +44,15 @@ void Inspector::Draw()
         ImGui::InputText("##GameObjectName", buffer, sizeof(buffer));
         m_GameObject->SetName(buffer);
 
-
+        //パスの指定
+        bool shadowflg = m_GameObject->GetShadow();
+        ImGui::Checkbox("DrawShadow", &shadowflg);
+        m_GameObject->SetShadow(shadowflg);
 
         //コンポーネントの表示 
-        for (auto& obj : *m_GameObject->GetList())
+        for (auto& com : *m_GameObject->GetList())
         {
-            DrawComponent(obj.get());
+            DrawComponent(com.get());
             m_NumVector = 0;
         }
 
@@ -59,11 +62,11 @@ void Inspector::Draw()
             DrawMaterial();
         }
 
-
         if (ImGui::Button("AddComponent")) {
 
             ImGui::OpenPopup("ComponentList");
         }
+
         // ポップアップメニュー
         if (ImGui::BeginPopup("ComponentList")) {
             for (auto it : ReflectionList().GetNameList())
@@ -78,7 +81,6 @@ void Inspector::Draw()
             ImGui::EndPopup();
 
         }
-
         //Componentfile作成
         static char str[256];
         
@@ -113,7 +115,6 @@ void Inspector::DrawComponent(Component* component)
         ImGui::OpenPopup("ComponentConfig");
         m_PopupComponent = component;
     }
-
 
     if (m_PopupComponent == component)
     {

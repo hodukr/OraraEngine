@@ -65,6 +65,7 @@ public:
     Component() {};
 	virtual void Init() {};
 	virtual void Uninit() {};
+    virtual void EditorUpdate(){};
 	virtual void Update() {};
 	virtual void Draw() {};
     void SetObjectName(std::string name) { m_ObjectName = name; };

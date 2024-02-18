@@ -125,7 +125,7 @@ void Manager::Update()
 		{
 			m_Scene->Uninit();
 			delete m_Scene;
-
+			ShaderManager::Instance().Uninit();
 			m_CollisionManager->Uninit();
 		}
 
@@ -133,7 +133,7 @@ void Manager::Update()
 		m_Scene->Init();
 		m_CollisionManager->Init();
         GuiManager::Instance().Init();
-
+		ShaderManager::Instance().Init();
 		m_NextScene = nullptr;
 	}
 	GuiManager::Instance().Update();
@@ -141,6 +141,11 @@ void Manager::Update()
 	{
 		m_Scene->Update();
 	}
+	if (m_GameState == GAMESTATE_STOP)
+	{
+		m_Scene->EditorUpdate();
+	}
+
 		m_CollisionManager->Update();
 	m_Scene->Destroy();
 

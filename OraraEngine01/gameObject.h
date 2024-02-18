@@ -15,6 +15,7 @@ private:
     std::string m_ObjctName;
     std::string m_Tag;
     bool m_Destroy = false;
+    bool m_IsShadow = false;
     std::list<std::unique_ptr<Component>> m_Component;
     int m_Version = 0;
     int m_UseShaderNum = -1;//使用するシェーダー番号
@@ -43,7 +44,7 @@ public:
         }
     }
 
-    virtual void Init() {
+    void Init() {
         m_Transform = GetComponent<Transform>();
         if (!m_Transform)
         {
@@ -67,7 +68,7 @@ public:
 
     };
 
-    virtual void Uninit()
+    void Uninit()
     {
         for (const auto& component : m_Component)
         {
@@ -77,7 +78,16 @@ public:
         m_Component.clear();
     };
 
-    virtual void Update()
+    void EditorUpdate()
+    {
+        for (const auto& component : m_Component)
+        {
+            component->EditorUpdate();
+        }
+    }
+
+
+    void Update()
     {
         for (const auto& component : m_Component)
         {
@@ -86,7 +96,7 @@ public:
 
     };
 
-    virtual void Draw()
+    void Draw()
     {
         if (m_Material)m_Material->Draw();
 
@@ -153,7 +163,6 @@ public:
         return nullptr;
     }
 
-
     std::list<std::unique_ptr<Component>>* GetList()
     {
         return &m_Component;
@@ -166,15 +175,24 @@ public:
 
     int GetVersion() { return m_Version; }
 
+    void SetShadow(bool flg) { m_IsShadow = flg; }
+    bool GetShadow() { return m_IsShadow; }
+
     Material* GetMaterial() { return m_Material.get(); }
     void SetMaterial(std::unique_ptr<Material> material)
     {
         m_Material = std::move(material);
     }
+
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_ObjctName), CEREAL_NVP(m_Tag), CEREAL_NVP(m_Component), CEREAL_NVP(m_Material));
+        archive(
+            CEREAL_NVP(m_ObjctName),
+            CEREAL_NVP(m_Tag),
+            CEREAL_NVP(m_Component), 
+            CEREAL_NVP(m_Material),
+            CEREAL_NVP(m_IsShadow)
+        );
     }
 };
-

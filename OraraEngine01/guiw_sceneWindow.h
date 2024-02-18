@@ -25,9 +25,7 @@ public:
     void Update()override;
     void SetWindowConfig()override;
 	void Draw()override;
-    void EditTransform(float* cameraView, float* cameraProjection, float* matrix);
     void SetSceneTexture(ID3D11ShaderResourceView** texture) { m_SceneTexture = texture; }
-    //ID3D11ShaderResourceView** GetSceneTexture() { return m_SceneTexture; }
     bool GetChildWindowFocused() { return m_IsChildWindowFocused; }
     bool GetMouseHoveringChildWindow() { return m_IsMouseHoveringChildWindow; }
 };

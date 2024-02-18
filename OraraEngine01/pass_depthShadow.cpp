@@ -41,16 +41,25 @@ void DepthShadow::CreatePass()
     Renderer::GetDevice()->CreateShaderResourceView(depthTexture, &srvd,
         &m_DepthShadowShaderResourceView);
     depthTexture->Release();
+
+
+}
+
+void DepthShadow::Init()
+{
+    Scene* scene = Manager::GetScene();
+    for (auto& objlist : scene->GetList()[2])
+    {
+        if(objlist->GetShadow())m_ShadowDrawObj.push_back(objlist.get());
+    }
 }
 
 void DepthShadow::Uninit()
 {
+    m_ShadowDrawObj.clear();
     m_DepthShadowDepthStencilView->Release();
     m_DepthShadowShaderResourceView->Release();
   
-   /* m_DrawObj.clear();
-    m_SelectDrawObj.clear();
-    m_SelectPosObj.clear();*/
 }
 
 void DepthShadow::Draw()
@@ -85,7 +94,7 @@ void DepthShadow::Draw()
     //影を落としたいオブジェクトを描画(一応地面も)
     for (const auto& obj : m_ShadowDrawObj)
     {
-        obj.second->Draw();
+        obj->Draw();
     }
 
     //Scene* scene = Manager::GetScene();
@@ -94,12 +103,12 @@ void DepthShadow::Draw()
 
 void DepthShadow::Update()
 {
-    Scene* scene = Manager::GetScene();
+    //Scene* scene = Manager::GetScene();
 
-    ImGui::Begin("Shader", 0);
+    //ImGui::Begin("Shader", 0);
 
-    if (ImGui::TreeNode("Shadow"))
-    {
+  /*  if (ImGui::TreeNode("Shadow"))
+    {*/
     //    //ゲームオブジェクト一覧
     //    if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
     //    {
@@ -119,58 +128,57 @@ void DepthShadow::Update()
     //        ImGui::EndCombo();
     //    }
 
-        if (ImGui::TreeNode("DrawObj"))
-        {
-            for (int i = 0; i < m_DrawObjNum; i++)
-            {
-                //ゲームオブジェクト一覧
-                if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (scene->GetList()[j].empty())
-                            continue;
+    //    if (ImGui::TreeNode("DrawObj"))
+    //    {
+    //        for (int i = 0; i < m_DrawObjNum; i++)
+    //        {
+    //            //ゲームオブジェクト一覧
+    //            if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
+    //            {
+    //                for (int j = 0; j < 3; j++)
+    //                {
+    //                    if (scene->GetList()[j].empty())continue;
 
-                        for (auto& gameobject : scene->GetList()[j])
-                        {
-                            if (ImGui::Selectable(gameobject->GetName().c_str()))
-                            {
-                                m_SelectDrawObj[i] = gameobject->GetName();
-                                m_ShadowDrawObj[i] = gameobject.get();
-                            }
-                        }
-                    }
-                    ImGui::EndCombo();
-                }
-            }
+    //                    for (auto& gameobject : scene->GetList()[j])
+    //                    {
+    //                        if (ImGui::Selectable(gameobject->GetName().c_str()))
+    //                        {
+    //                            m_SelectDrawObj[i] = gameobject->GetName();
+    //                            m_ShadowDrawObj[i] = gameobject.get();
+    //                        }
+    //                    }
+    //                }
+    //                ImGui::EndCombo();
+    //            }
+    //        }
 
-            ImGui::Separator();
+    //        ImGui::Separator();
 
-            if (ImGui::Button("Add Object"))
-            {
-                m_DrawObjNum++;
-            }
+    //        if (ImGui::Button("Add Object"))
+    //        {
+    //            m_DrawObjNum++;
+    //        }
 
-            ImGui::SameLine();  // 同じ行に次の要素を配置する
+    //        ImGui::SameLine();  // 同じ行に次の要素を配置する
 
-            if (ImGui::Button("Erase List"))
-            {
-                if (m_DrawObjNum > 0)
-                {
-                    m_SelectDrawObj.erase(m_DrawObjNum - 1);
-                    m_ShadowDrawObj.erase(m_DrawObjNum - 1);
-                    m_DrawObjNum--;
-                }
-            }
+    //        if (ImGui::Button("Erase List"))
+    //        {
+    //            if (m_DrawObjNum > 0)
+    //            {
+    //                m_SelectDrawObj.erase(m_DrawObjNum - 1);
+    //                m_ShadowDrawObj.erase(m_DrawObjNum - 1);
+    //                m_DrawObjNum--;
+    //            }
+    //        }
 
-            ImGui::TreePop();
-        }
+    //        ImGui::TreePop();
+    //    }
 
 
-        ImGui::TreePop();
-    }
+    //    ImGui::TreePop();
+    //}
 
-    ImGui::End();
+    //ImGui::End();
 }
 
 void DepthShadow::BeginDepth(void)

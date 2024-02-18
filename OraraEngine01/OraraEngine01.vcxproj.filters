@@ -61,12 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="com_sss.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="com_eee.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="com_audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -172,9 +166,6 @@
     <ClCompile Include="col_sphereCollision.cpp">
       <Filter>Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="com_collisionShape.cpp">
-      <Filter>Component\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="dropFile.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
@@ -229,15 +220,12 @@
     <ClCompile Include="material.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="com_collisionShape.cpp">
+      <Filter>Component\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="com_sss.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="com_eee.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="com_audio.h">
       <Filter>Component</Filter>
     </ClInclude>

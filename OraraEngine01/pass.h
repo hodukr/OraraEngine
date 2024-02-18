@@ -12,6 +12,7 @@ class Pass
 {
 public:
     virtual void CreatePass() {};
+    virtual void Init() {};
     virtual void Uninit() {};
     virtual void Draw() {};
     virtual void Update() {};

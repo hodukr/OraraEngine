@@ -15,7 +15,6 @@ private:
 public:
     SphereCollision(){ 
         m_Shape = SHAPE_SPHERE;
-        SetDateList("IsDynamic", &m_Dynamic);
     }
 
     void Init() override;

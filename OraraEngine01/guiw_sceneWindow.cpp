@@ -52,11 +52,21 @@ void SceneWindow::Draw()
             ImGui::EndMenu();
         }
         static bool isPlay = false;
+        bool newplay = isPlay;
         if (ImGui::MenuItem("Play",0,&isPlay))
         {
-            Manager::SetNextGameState(GAMESTATE_PLAY);
-            if (Manager::GetSceneState() != SCENESTATE_GAME) Manager::SetNextSceneState(SCENESTATE_GAME);
-            str = "Game";
+            if (!newplay)
+            {
+                Manager::SetNextGameState(GAMESTATE_PLAY);
+                if (Manager::GetSceneState() != SCENESTATE_GAME) Manager::SetNextSceneState(SCENESTATE_GAME);
+                str = "Game";
+            }
+            else
+            {
+                isPlay = false;
+                Manager::SetNextGameState(GAMESTATE_STOP);
+            }
+            
         }
 
         if (ImGui::MenuItem("Stop"))

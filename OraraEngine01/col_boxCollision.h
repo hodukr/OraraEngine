@@ -13,7 +13,6 @@ private:
 public:
     BoxCollision() { 
         m_Shape = SHAPE_BOX; 
-        SetDateList("IsDynamic", &m_Dynamic);
     }
 
     void Init() override;

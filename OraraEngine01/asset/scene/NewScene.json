@@ -3,7 +3,6 @@
         "m_FileVersion": 0,
         "m_GameObject[0]": [
             {
-                "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
@@ -50,14 +49,14 @@
                                     "m_ShaderName": "vertexLighting"
                                 }
                             }
-                        }
+                        },
+                        "m_IsShadow": false
                     }
                 }
             }
         ],
         "m_GameObject[1]": [
             {
-                "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
@@ -105,12 +104,12 @@
                                     "m_ShaderName": "unlitTexture"
                                 }
                             }
-                        }
+                        },
+                        "m_IsShadow": false
                     }
                 }
             },
             {
-                "polymorphic_id": 1073741824,
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
@@ -142,11 +141,11 @@
                             },
                             {
                                 "polymorphic_id": 2147483652,
-                                "polymorphic_name": "BoxCollision",
+                                "polymorphic_name": "Plane",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Dynamic": false
+                                        "m_ObjectName": "GameObject"
                                     }
                                 }
                             }
@@ -158,69 +157,8 @@
                                     "m_ShaderName": "vertexLighting"
                                 }
                             }
-                        }
-                    }
-                }
-            },
-            {
-                "polymorphic_id": 1073741824,
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_ObjctName": "GameObject(1)",
-                        "m_Tag": "NoneTag",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Position": {
-                                            "x": 3.457268714904785,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 4,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Dynamic": true
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483653,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "GameObject(1)"
-                                    }
-                                }
-                            }
-                        ],
-                        "m_Material": {
-                            "ptr_wrapper": {
-                                "valid": 1,
-                                "data": {
-                                    "m_ShaderName": "vertexLighting"
-                                }
-                            }
-                        }
+                        },
+                        "m_IsShadow": true
                     }
                 }
             }
