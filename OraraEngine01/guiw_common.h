@@ -6,6 +6,7 @@
 #include "guiw_nodeEditor.h"
 #include "guiw_accessFolder.h"
 #include "guiw_sceneWindow.h"
+#include "guiw_debug.h"
 
 #define SET_IMGUIWINDOW_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\
@@ -18,6 +19,7 @@ SET_IMGUIWINDOW_CLASS(Menu)
 SET_IMGUIWINDOW_CLASS(NodeEditorManager)
 SET_IMGUIWINDOW_CLASS(AccessFolder)
 SET_IMGUIWINDOW_CLASS(SceneWindow)
+SET_IMGUIWINDOW_CLASS(Debug);
 
 
 

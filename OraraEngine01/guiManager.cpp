@@ -8,15 +8,12 @@
 #include "guiw_nodeEditor.h"
 #include "guiw_gameManagerGui.h"
 #include "guiw_sceneWindow.h"
+#include "guiw_debug.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 #include "guiManager.h"
 #include <fstream>
 #include <cereal/archives/json.hpp>
-
-
-
-
 
 
 #define DEBUGFILEPASS "resource\\debug.json"
@@ -541,7 +538,6 @@ static const ImWchar glyphRangesJapanese[] = {
 };
 
 
-
 void GuiManager::SetUp()
 {
     ImGui::CreateContext();
@@ -570,9 +566,10 @@ void GuiManager::SetUp()
         AddWindow<GameManagerGui>();
         AddWindow<AccessFolder>();
         AddWindow<SceneWindow>();
+        AddWindow<Debug>();
     }
 
-   
+
 }
 
 void GuiManager::Init()
@@ -602,19 +599,6 @@ void GuiManager::Update()
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
     ImGuizmo::BeginFrame();
-
-    ImGui::Begin("Renderer");
-    ImGui::Text("%.3f ms/frame(%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,ImGui::GetIO().Framerate);
-
-    static float value[180];
-    for (int i = 0; i < 179; i++)
-        value[i] = value[i + 1];
-
-    value[179] = ImGui::GetIO().DeltaTime * 1000.0f; 
-
-    ImGui::PlotHistogram("", value, sizeof(value) / sizeof(float), 0, NULL, 0.0f, 100.0f, ImVec2(0, 50));
-    
-    ImGui::End();
 
     for (auto& window : m_Windows)
     {
