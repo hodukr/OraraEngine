@@ -127,6 +127,8 @@ void BoxCollision::SetVertex(VERTEX_3D* vertex)
 
 bool BoxCollision::CollideWith(BoxCollision* other)
 {
+    if(!m_Dynamic && !other->GetDynamic()) return false;
+
     // Box と Box の当たり判定ロジック
     float minXA = m_Position.x - m_Size.x;
     float maxXA = m_Position.x + m_Size.x;
@@ -156,33 +158,61 @@ bool BoxCollision::CollideWith(BoxCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        //ポジション計算用 
-        Vector3 pos = m_GameObject->m_Transform->GetPosition();
+        if (m_Dynamic)
+        {
+            //ポジション計算用 
+            Vector3 pos = m_GameObject->m_Transform->GetPosition();
 
-        static float p;
-        // 補正
-        if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
-        {
-            //いずれバグる　
-            pos.y = m_GameObject->m_Transform->GetOldePosition().y;
-        }
-        else if((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
-        {
-            pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+            static float p;
+            // 補正
+            if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
+            {
+                //いずれバグる　
+                pos.y = m_GameObject->m_Transform->GetOldePosition().y;
+            }
+            else if ((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
+            {
+                pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+            }
+            else
+            {
+                p = GetOldPosition().x;
+                pos.z = m_GameObject->m_Transform->GetOldePosition().z;
+
+            }
+
+            m_GameObject->m_Transform->SetPosition(pos);
+            m_Position = pos + m_Offset;
+
+            return true;
         }
         else
         {
-            p = GetOldPosition().x;
-            pos.z = m_GameObject->m_Transform->GetOldePosition().z;
-            
-        }
-        ImGui::Text("Pos:%f",p);
-        
+            //ポジション計算用 
+            Vector3 pos = other->m_GameObject->m_Transform->GetPosition();
 
-        m_GameObject->m_Transform->SetPosition(pos);
-        m_Position = pos + m_Offset;
-       
-        return true; 
+            static float p;
+            // 補正
+            if ((maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA) || (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA))
+            {
+                //いずれバグる　
+                pos.y = other->m_GameObject->m_Transform->GetOldePosition().y;
+            }
+            else if ((maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA) || (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA))
+            {
+                pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
+            }
+            else
+            {
+                p = GetOldPosition().x;
+                pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
+
+            }
+          
+            other->m_GameObject->m_Transform->SetPosition(pos);
+            other->m_Position = pos + m_Offset;
+            return true;
+        }
     }
 
     return false;

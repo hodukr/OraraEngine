@@ -24,7 +24,8 @@ enum CollisionState
 class CollisionShape :public Component
 {
 protected:
-    bool m_Trigger = false; //trueにすると補正はせず当たり判定だけ取る 
+    bool m_Trigger = false; //trueにすると補正はせず当たり判定だけ取る
+    bool m_Dynamic = false;
     Shape m_Shape = SHAPE_NONE;
 
     ID3D11VertexShader* m_VertexShader{};
@@ -41,8 +42,8 @@ protected:
 
     std::unordered_map<CollisionShape*, CollisionState> m_State;
 public:
-    CollisionShape();
-    ~CollisionShape();
+    CollisionShape() { SetDateList("isDynamic", &m_Dynamic); }
+    ~CollisionShape() {};
 
     void Init() override {}
     void Uninit() override {}
@@ -59,15 +60,16 @@ public:
     void SetPosition(Vector3 position) { m_Position = position; }
     void SetOldPosition(Vector3 position) { m_OldPosition = position; }
     void SetOffset(Vector3 offset) { m_Offset = offset; }
-    void SetStateMap(CollisionShape* shape, CollisionState state) { m_State[shape] = state; }
+    void SetStateMap(CollisionShape* shape, CollisionState state){ m_State[shape] = state; }
 
-    bool GetTrigger() { return m_Trigger; }
-    Shape GetShape() { return m_Shape; }
-    Vector3 GetPosition() { return m_Position; }
-    Vector3 GetOldPosition() { return m_OldPosition; }
-    Vector3 GetOffset() { return m_Offset; }
+    bool GetTrigger() const { return m_Trigger; }
+    Shape GetShape() const { return m_Shape; }
+    Vector3 GetPosition() const { return m_Position; }
+    Vector3 GetOldPosition() const { return m_OldPosition; }
+    Vector3 GetOffset() const { return m_Offset; }
     CollisionState GetState(CollisionShape* shape) { return m_State[shape]; }
     std::unordered_map<CollisionShape*, CollisionState> GetStateMap(){ return m_State; }
+    bool GetDynamic() const { return m_Dynamic; }
 
     //コールバック 
     void SetCollisionCallback(const CollisionCallback& callback) { m_CollisionCallback = callback; }

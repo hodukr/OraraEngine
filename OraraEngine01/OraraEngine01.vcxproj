@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="imgui\GraphEditor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -182,8 +183,6 @@
     <ClCompile Include="col_boxCollision.cpp" />
     <ClCompile Include="com_camera.cpp" />
     <ClCompile Include="com_cloth.cpp" />
-    <ClCompile Include="collisionManager.cpp" />
-    <ClCompile Include="com_collisionShape.cpp" />
     <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="guiw_sceneWindow.cpp" />
     <ClCompile Include="pass_environmentMapping.cpp" />
