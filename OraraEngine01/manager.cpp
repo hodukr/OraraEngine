@@ -140,8 +140,8 @@ void Manager::Update()
 	if (m_GameState == GAMESTATE_PLAY)
 	{
 		m_Scene->Update();
-		m_CollisionManager->Update();
 	}
+		m_CollisionManager->Update();
 	m_Scene->Destroy();
 
 	ShaderManager::Instance().Update();
