@@ -19,6 +19,11 @@ void CollisionManager::Uninit()
 
 void CollisionManager::Update()
 {
+    for (auto& shape : m_Shape)
+    {
+        if (shape->GetDynamic())
+            shape->Update();
+    }
 
     // すべての形状のペアに対して当たり判定を行う 
     for (auto it1 = m_Shape.begin(); it1 != m_Shape.end(); ++it1)
