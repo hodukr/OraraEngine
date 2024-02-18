@@ -35,15 +35,16 @@ public:
         }
 		if (newflg) 
 		{
-			GameObject* obj = AddGameObject(0);
+			GameObject* obj = AddGameObject(1);
 			//obj->SetName("MainCamera");
 			//obj->AddComponent<Camera>();
 			Mesh* mesh = obj->AddComponent<Mesh>();
+			obj->SetName("Sky");
 			mesh->SetModel("sky.obj");
 			obj->m_Transform->SetScale(80.0f,80.0f,80.0f);
-			Material* material = new Material("unlitTexture");
+			std::unique_ptr<Material> material = std::make_unique<Material>("unlitTexture");
 			material->Init();
-			obj->SetMaterial(material);
+			obj->SetMaterial(std::move(material));
 		}
     }
 

@@ -82,6 +82,7 @@ void Menu::Draw()
                     Scene* inscene = new Scene();
                     archive(*inscene);
                     Manager::SetScene(inscene);
+                    break;
                 }
             }
         }

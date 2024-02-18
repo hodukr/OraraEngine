@@ -18,7 +18,7 @@ private:
     std::list<std::unique_ptr<Component>> m_Component;
     int m_Version = 0;
     int m_UseShaderNum = -1;//使用するシェーダー番号
-    Material* m_Material{};
+    std::unique_ptr<Material> m_Material{};
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
@@ -53,8 +53,11 @@ public:
             m_Component.push_back(std::move(transform));
         }
 
-        m_Material = new Material;
-        if(m_Material)m_Material->Init();
+        if (!m_Material)
+        {
+            m_Material = std::make_unique<Material>();
+        }
+            m_Material->Init();
 
         for (auto& component : m_Component)
         {
@@ -164,15 +167,15 @@ public:
 
     int GetVersion() { return m_Version; }
 
-    Material* GetMaterial() { return m_Material; }
-    void SetMaterial(Material* material)
+    Material* GetMaterial() { return m_Material.get(); }
+    void SetMaterial(std::unique_ptr<Material> material)
     {
-        m_Material = material;
+        m_Material = std::move(material);
     }
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_ObjctName), CEREAL_NVP(m_Tag), CEREAL_NVP(m_Component));
+        archive(CEREAL_NVP(m_ObjctName), CEREAL_NVP(m_Tag), CEREAL_NVP(m_Component), CEREAL_NVP(m_Material));
     }
 };
 
