@@ -12,9 +12,6 @@ private:
     ID3D11Buffer* m_VertexBuffer{};
     ID3D11Buffer* m_IndexBuffer{};
     int m_TexNum{};
-    ID3D11VertexShader* m_VertexShader{};
-    ID3D11PixelShader* m_PixelShader{};
-    ID3D11InputLayout* m_VertexLayout{};
 
     VERTEX_3D					m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
 
@@ -25,12 +22,48 @@ private:
 
     float m_Time{};
     float m_WaveTime{};
-
+    CustomFloat m_WavePitchDate;
+    CustomFloat m_AmplitudeDate;
+    CustomFloat m_WaveLengthDate;
+    CustomFloat m_WaveCycleDate;
 public:
+    WaterSurface()
+    {
+        m_WavePitchDate.Date = &m_WavePitch;
+        m_WavePitchDate.Max = 10.0f;
+
+        m_AmplitudeDate.Date = &m_Amplitude;
+        m_AmplitudeDate.Max = 20.0f;
+
+        m_WaveLengthDate.Date = &m_WaveLength;
+        m_WaveLengthDate.Max = 30.0f;
+
+        m_WaveCycleDate.Date = &m_WaveCycle;
+        m_WaveCycleDate.Max = 20.0f;
+
+        SetDateList("WavePitch", &m_WavePitchDate);
+        SetDateList("Amplitude", &m_AmplitudeDate);
+        SetDateList("WaveLength", &m_WaveLengthDate);
+        SetDateList("WaveCycle", &m_WaveCycleDate);
+    }
     void Init() override;
     void Uninit() override;
     void Update() override;
     void Draw() override;
 
-    //float GetHeight(D3DXVECTOR3 position);
+    template<class Archive>
+        void serialize(Archive & archive)
+    {
+        try
+        {
+            archive(CEREAL_NVP(m_WavePitch),
+                CEREAL_NVP(m_Amplitude),
+                CEREAL_NVP(m_WaveLength),
+                CEREAL_NVP(m_WaveCycle));
+        }
+        catch (const std::exception&)
+        {
+
+        }
+    }
 };

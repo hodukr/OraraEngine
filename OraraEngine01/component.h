@@ -13,7 +13,7 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Classname)
 class Vector3;
 
 //lsitに追加したい型をここに書く
-#define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*
+#define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*,FolderPass*,CustomVector3*,CustomFloat*
 #define SETDATE(T) SetDateList(#T,&T)
 
 enum VariableDate {
@@ -24,11 +24,28 @@ enum VariableDate {
     TYPE_VECTOR3,
     TYPE_D3DXCOLOR,
     TYPE_FOLDERPASS,
-    TYPE_CUSTOMVECTOR3
+    TYPE_CUSTOMVECTOR3,
+    TYPE_CUSTOMFLOAT
 };
 
-enum CastomVector3State {
-    STATE＿CORRECTION
+enum CastomVector3State
+{
+    CASTOM_VECTOR_STATE＿CORRECTION
+};
+
+enum CastomFloatState
+{
+    CASTOM_FLOAT_STATE_NONE,
+    CASTOM_FLOAT_STATE_SLIDER
+};
+
+struct CustomFloat 
+{
+    float* Date{};
+    float Min = 0.0f;
+    float Max = 1.0f;
+    CastomFloatState State;
+    
 };
 
 //フォルダ内のファイルを使用する場合はこっちを使う

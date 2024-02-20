@@ -22,7 +22,7 @@ public:
         m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
         m_Scale = Vector3(1.0f, 1.0f, 1.0f);
         m_RotationDate.Vector3date = &m_Rotation;
-        m_RotationDate.State = STATE＿CORRECTION;
+        m_RotationDate.State = CASTOM_VECTOR_STATE＿CORRECTION;
         SETDATE(m_Position);
         SETDATE(m_RotationDate);
         SETDATE(m_Scale);

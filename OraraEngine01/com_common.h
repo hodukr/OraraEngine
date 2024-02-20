@@ -9,6 +9,7 @@
 #include "com_inputSystem.h"
 #include "col_boxCollision.h"
 #include "col_sphereCollision.h"
+#include "com_waterSurface.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -21,5 +22,6 @@ SET_COMPONENT_CLASS(InputSystem)
 SET_COMPONENT_CLASS(CollisionShape)
 SET_COMPONENT_CLASS(BoxCollision)
 SET_COMPONENT_CLASS(SphereCollision)
+SET_COMPONENT_CLASS(WaterSurface)
 //endSET_COMPONENT_CLASS
 

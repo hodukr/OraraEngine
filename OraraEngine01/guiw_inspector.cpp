@@ -271,7 +271,7 @@ void Inspector::Drawvariable(TypeDate& vardate)
     case TYPE_CUSTOMVECTOR3:
     {
         CustomVector3* date = std::get<TYPE_CUSTOMVECTOR3>(vardate.MemberDate);
-        if (date->State == STATE＿CORRECTION)
+        if (date->State == CASTOM_VECTOR_STATE＿CORRECTION)
         {
             std::string cb;
             cb = "##" + vardate.Name;
@@ -318,6 +318,21 @@ void Inspector::Drawvariable(TypeDate& vardate)
             *vector = Vector3(x, y, z);
             m_NumVector++;
         }
+    }
+        break;
+
+    case TYPE_CUSTOMFLOAT:
+    {
+        CustomFloat* coustomfloat = std::get<TYPE_CUSTOMFLOAT>(vardate.MemberDate);
+        std::string name =  "##" + vardate.Name + "Min";
+        ImGui::SetNextItemWidth(70);
+        ImGui::InputFloat(name.c_str(), &coustomfloat->Min);
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(70);
+
+        name = "##" + vardate.Name + "Max";
+        ImGui::InputFloat(name.c_str(), &coustomfloat->Max);
+        ImGui::SliderFloat(vardate.Name.c_str(), coustomfloat->Date, coustomfloat->Min, coustomfloat->Max);
     }
         break;
     default:
