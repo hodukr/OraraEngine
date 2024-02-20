@@ -5,7 +5,7 @@
 #include "com_camera.h"
 #include "com_praticle.h"
 #include "com_plane.h"
-#include "com_uiText.h"
+#include "com_uiTexture.h"
 #include "com_inputSystem.h"
 #include "col_boxCollision.h"
 #include "col_sphereCollision.h"
@@ -16,7 +16,7 @@ SET_COMPONENT_CLASS(Mesh)
 SET_COMPONENT_CLASS(Camera)
 SET_COMPONENT_CLASS(PraticleSystem)
 SET_COMPONENT_CLASS(Plane)
-SET_COMPONENT_CLASS(Text)
+SET_COMPONENT_CLASS(Texture)
 SET_COMPONENT_CLASS(InputSystem)
 SET_COMPONENT_CLASS(CollisionShape)
 SET_COMPONENT_CLASS(BoxCollision)

@@ -1,5 +1,7 @@
 ﻿#include "reflection.h"
 #include "guiw_inspector.h"
+#include "manager.h"
+#include "scene.h"
 #include "gameObject.h"
 #include "imgui/imgui.h"
 #include <filesystem>
@@ -44,6 +46,8 @@ void Inspector::Draw()
         ImGui::InputText("##GameObjectName", buffer, sizeof(buffer));
         m_GameObject->SetName(buffer);
 
+        ImGui::Text("%d", m_GameObject->GetDrawLayer());
+
         //パスの指定
         bool shadowflg = m_GameObject->GetShadow();
         ImGui::Checkbox("DrawShadow", &shadowflg);
@@ -73,8 +77,15 @@ void Inspector::Draw()
             {
                 std::string name = it.substr(it.find(" ") + 1);
                 if (ImGui::MenuItem(name.c_str())) {
-                    m_GameObject->AddComponent(ReflectionList().CreateInstans(it.c_str()));
+                    DrawLayer objlayer = m_GameObject->GetDrawLayer();
+                    Component* com = m_GameObject->AddComponent(ReflectionList().CreateInstans(it.c_str()));
 
+                    if (objlayer != m_GameObject->GetDrawLayer())
+                    {
+                        Scene* scene = Manager::GetScene();
+                        auto list = scene->GetList();
+                        scene->MoveLayer(list[1], list[m_GameObject->GetDrawLayer()], m_GameObject);
+                    }
                 }
 
             }
@@ -368,6 +379,7 @@ void Inspector::CreatComponentFile(std::string comname)
                 header_file << "public:\n";
                 header_file << "    void Init()override;\n";
                 header_file << "    void Uninit()override;\n";
+                header_file << "    void EditorUpdate()override;\n";
                 header_file << "    void Update()override;\n";
                 header_file << "    void Draw()override;\n\n";
                 header_file << "    template<class Archive>\n";
@@ -388,6 +400,7 @@ void Inspector::CreatComponentFile(std::string comname)
                 header_file << "#include \"com_" << comname << ".h\"\n\n";
                 header_file << "void " << comname << "::Init()\n{\n\n}\n";
                 header_file << "void " << comname << "::Uninit()\n{\n\n}\n";
+                header_file << "void " << comname << "::EditorUpdate()\n{\n\n}\n";
                 header_file << "void " << comname << "::Update()\n{\n\n}\n";
                 header_file << "void " << comname << "::Draw()\n{\n\n}\n";
                 header_file.close();

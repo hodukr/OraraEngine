@@ -182,6 +182,21 @@ public:
         m_Name = name;
     }
     std::string GetName() { return m_Name; }
+
+
+	void MoveLayer(std::list<std::unique_ptr<GameObject>>& listA, std::list<std::unique_ptr<GameObject>>& listB, GameObject* movedate)
+	{
+		// listAからlistBへデータNと同じ要素を移動
+		auto iter = listA.begin();
+		while (iter != listA.end()) {
+			if ((*iter)->GetName() == movedate->GetName()) {
+				listB.splice(listB.end(), listA, iter++);
+			}
+			else {
+				++iter;
+			}
+		}
+	}
     template<class Archive>
     void serialize(Archive& archive)
     {

@@ -266,7 +266,7 @@
     <ClCompile Include="com_sprite.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="com_transform.cpp" />
-    <ClCompile Include="com_uiText.cpp" />
+    <ClCompile Include="com_uiTexture.cpp" />
     <ClCompile Include="com_waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -343,7 +343,7 @@
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="timeProvider.h" />
     <ClInclude Include="com_transform.h" />
-    <ClInclude Include="com_uiText.h" />
+    <ClInclude Include="com_uiTexture.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="com_waterSurface.h" />
   </ItemGroup>

@@ -140,13 +140,19 @@ public:
 //	int m_childCount;
 //	void AddParent(Transform* parent);
 
-
-
 //ファイルへの読み書き 
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_Position), CEREAL_NVP(m_Rotation), CEREAL_NVP(m_Scale));
+        try
+        {
+            archive(CEREAL_NVP(m_Position), CEREAL_NVP(m_Rotation), CEREAL_NVP(m_Scale));
+
+        }
+        catch (const std::exception&)
+        {
+
+        }
     }
 };
 

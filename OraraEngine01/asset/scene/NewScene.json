@@ -50,7 +50,8 @@
                                 }
                             }
                         },
-                        "m_IsShadow": false
+                        "m_IsShadow": false,
+                        "m_DrawLayer": 0
                     }
                 }
             }
@@ -105,7 +106,8 @@
                                 }
                             }
                         },
-                        "m_IsShadow": false
+                        "m_IsShadow": false,
+                        "m_DrawLayer": -1
                     }
                 }
             },
@@ -138,27 +140,18 @@
                                         }
                                     }
                                 }
-                            },
-                            {
-                                "polymorphic_id": 2147483652,
-                                "polymorphic_name": "Plane",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "GameObject"
-                                    }
-                                }
                             }
                         ],
                         "m_Material": {
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "shadow"
+                                    "m_ShaderName": "vertexLighting"
                                 }
                             }
                         },
-                        "m_IsShadow": true
+                        "m_IsShadow": false,
+                        "m_DrawLayer": -1
                     }
                 }
             },
@@ -176,7 +169,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 4.229448318481445,
+                                            "y": 0.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -191,15 +184,6 @@
                                         }
                                     }
                                 }
-                            },
-                            {
-                                "polymorphic_id": 3,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Modelpas": "box.obj"
-                                    }
-                                }
                             }
                         ],
                         "m_Material": {
@@ -210,10 +194,13 @@
                                 }
                             }
                         },
-                        "m_IsShadow": true
+                        "m_IsShadow": false,
+                        "m_DrawLayer": -1
                     }
                 }
-            },
+            }
+        ],
+        "m_GameObject[2]": [
             {
                 "ptr_wrapper": {
                     "valid": 1,
@@ -227,9 +214,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": -4.164309501647949,
-                                            "y": 3.16947865486145,
-                                            "z": 0.0
+                                            "x": 300.0,
+                                            "y": 300.0,
+                                            "z": 300.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -237,19 +224,21 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
+                                            "x": 500.0,
+                                            "y": 500.0,
+                                            "z": 500.0
                                         }
                                     }
                                 }
                             },
                             {
-                                "polymorphic_id": 3,
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "Texture",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Modelpas": "box.obj"
+                                        "FolderPass": "asset\\texture",
+                                        "fileName": "Explosion.png"
                                     }
                                 }
                             }
@@ -258,16 +247,16 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting"
+                                    "m_ShaderName": "unlitTexture"
                                 }
                             }
                         },
-                        "m_IsShadow": true
+                        "m_IsShadow": false,
+                        "m_DrawLayer": 2
                     }
                 }
             }
         ],
-        "m_GameObject[2]": [],
         "m_Name": "NewScene"
     }
 }

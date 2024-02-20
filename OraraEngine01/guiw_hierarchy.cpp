@@ -115,17 +115,21 @@ void Hierarchy::Draw()
             std::string name = gameobjct->GetName();
             while (flg) {
                 flg = false;
-                for (auto& obj : m_Scene->GetList()[1])
+                for (size_t i = 0; i < 3; i++)
                 {
-                    std::string objnum = "(" + std::to_string(num) + ")";
-                    if (name == obj->GetName() && obj.get() != gameobjct)
+                    for (auto& obj : m_Scene->GetList()[i])
                     {
-                        name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
-                        flg = true;
-                        num++;
-                        break;
+                        std::string objnum = "(" + std::to_string(num) + ")";
+                        if (name == obj->GetName() && obj.get() != gameobjct)
+                        {
+                            name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
+                            flg = true;
+                            num++;
+                            break;
+                        }
                     }
                 }
+                
             };
             gameobjct->SetName(name);
             

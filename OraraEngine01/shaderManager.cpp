@@ -16,7 +16,7 @@ void ShaderManager::Init()
 
     m_EditorCamera = new EditorCamera;
     m_EditorCamera->Init();
-
+    
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
     AddPass<PostPass>();

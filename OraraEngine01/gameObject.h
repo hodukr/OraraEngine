@@ -9,11 +9,15 @@
 #include "main.h"
 #include "com_common.h"
 #include "material.h"
+#include "reflection.h"
+
+
 class GameObject
 {
 private:
     std::string m_ObjctName;
     std::string m_Tag;
+    DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     bool m_Destroy = false;
     bool m_IsShadow = false;
     std::list<std::unique_ptr<Component>> m_Component;
@@ -26,6 +30,7 @@ public:
         m_ObjctName = "GameObject";
         m_Tag = "NoneTag";
         m_UseShaderNum = -1;
+        m_DrawLayer = GAME_OBJECT_DRAW_LAYER_NONE;
     }
     void SetDestroy() { m_Destroy = true; }
 
@@ -126,25 +131,41 @@ public:
         return m_Tag;
     }
 
+    void SetDrawLayer(DrawLayer pram)
+    {
+        m_DrawLayer = pram;
+    }
+
+    DrawLayer GetDrawLayer()
+    {
+        return m_DrawLayer;
+    }
+
     template<typename T>
     T* AddComponent()
     {
-        std::unique_ptr<Component> component = std::make_unique<T>();
-        component->SetObjectName(m_ObjctName);
-        component->SetGameObejct(this);
-        component->Init();
-        m_Component.push_back(std::move(component));
+        Component* component = new T;
+        AddComponent(component);
 
         return dynamic_cast<T*>(m_Component.back().get());
     }
 
-    void AddComponent(void* component)
+    Component* AddComponent(void* component)
     {
         std::unique_ptr<Component> com(static_cast<Component*>(component));
+        if (m_DrawLayer == GAME_OBJECT_DRAW_LAYER_NONE)
+        {
+            if (com->GetDrawLayer() != GAME_OBJECT_DRAW_LAYER_NONE)
+            {
+                m_DrawLayer = com->GetDrawLayer();
+            }
+        }
         com->SetObjectName(m_ObjctName);
         com->SetGameObejct(this);
         com->Init();
         m_Component.push_back(std::move(com));
+
+        return m_Component.back().get();
 
     }
 
@@ -187,12 +208,21 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(
-            CEREAL_NVP(m_ObjctName),
-            CEREAL_NVP(m_Tag),
-            CEREAL_NVP(m_Component), 
-            CEREAL_NVP(m_Material),
-            CEREAL_NVP(m_IsShadow)
-        );
+        try
+        {
+            archive(
+                CEREAL_NVP(m_ObjctName),
+                CEREAL_NVP(m_Tag),
+                CEREAL_NVP(m_Component),
+                CEREAL_NVP(m_Material),
+                CEREAL_NVP(m_IsShadow),
+                CEREAL_NVP(m_DrawLayer)
+            );
+        }
+        catch (const std::exception&)
+        {
+
+        }
+        
     }
 };
