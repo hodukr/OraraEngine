@@ -154,7 +154,7 @@ void SceneWindow::Draw()
             if (ImGuizmo::IsUsing())
             {
                 hierarchy->GetSelectGameObject()->m_Transform->SetMatrix(matrix);
-                D3DXVECTOR3 pos, scale, rot;
+                D3DXVECTOR3 pos, scale,rot;
                 //D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
                 D3DXMATRIX tempMatrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 
@@ -169,9 +169,25 @@ void SceneWindow::Draw()
                     break;
                 case ImGuizmo::ROTATE:
                 {
-                    //マトリクスからクオータニオンを抽出してセット
+                    D3DXMATRIX rotationMatrix;
+                    D3DXVECTOR3 mat0 = D3DXVECTOR3(tempMatrix._11, tempMatrix._12, tempMatrix._13);
+                    D3DXVECTOR3 mat1 = D3DXVECTOR3(tempMatrix._21, tempMatrix._22, tempMatrix._23);
+                    D3DXVECTOR3 mat2 = D3DXVECTOR3(tempMatrix._31, tempMatrix._32, tempMatrix._33);
+
+                    // スケール成分を除去した正規化された回転行列を作成
+                    D3DXVec3Normalize(&mat0, &mat0);
+                    D3DXVec3Normalize(&mat1, &mat1);
+                    D3DXVec3Normalize(&mat2, &mat2);
+
+                    rotationMatrix._11 = mat0.x; rotationMatrix._12 = mat0.y; rotationMatrix._13 = mat0.z;
+                    rotationMatrix._21 = mat1.x; rotationMatrix._22 = mat1.y; rotationMatrix._23 = mat1.z;
+                    rotationMatrix._31 = mat2.x; rotationMatrix._32 = mat2.y; rotationMatrix._33 = mat2.z;
+
+                    // 回転をクオータニオンに変換
                     D3DXQUATERNION tempQuaternion;
-                    D3DXQuaternionRotationMatrix(&tempQuaternion, &tempMatrix);
+                    D3DXQuaternionRotationMatrix(&tempQuaternion, &rotationMatrix);
+
+                    // 回転をセット
                     hierarchy->GetSelectGameObject()->m_Transform->SetQuaternion(tempQuaternion);
                 }
                 break;
