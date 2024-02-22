@@ -10,7 +10,7 @@
 #include "com_common.h"
 #include "material.h"
 #include "reflection.h"
-
+#include "pass.h"
 
 class GameObject
 {
@@ -19,7 +19,8 @@ private:
     std::string m_Tag;
     DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     bool m_Destroy = false;
-    bool m_IsShadow = false;
+    //bool m_IsShadow = false;
+    int m_RenderingPass{};
     std::list<std::unique_ptr<Component>> m_Component;
     int m_Version = 0;
     int m_UseShaderNum = -1;//使用するシェーダー番号
@@ -31,6 +32,7 @@ public:
         m_Tag = "NoneTag";
         m_UseShaderNum = -1;
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_NONE;
+        m_RenderingPass = SHADER_NONE;
     }
     void SetDestroy() { m_Destroy = true; }
 
@@ -196,8 +198,11 @@ public:
 
     int GetVersion() { return m_Version; }
 
-    void SetShadow(bool flg) { m_IsShadow = flg; }
-    bool GetShadow() { return m_IsShadow; }
+    //void SetShadow(bool flg) { m_IsShadow = flg; }
+    //bool GetShadow() { return m_IsShadow; }
+
+    void SetPass(int shader) { m_RenderingPass = shader; }
+    int GetPass() { return m_RenderingPass; }
 
     Material* GetMaterial() { return m_Material.get(); }
     void SetMaterial(std::unique_ptr<Material> material)
@@ -215,7 +220,7 @@ public:
                 CEREAL_NVP(m_Tag),
                 CEREAL_NVP(m_Component),
                 CEREAL_NVP(m_Material),
-                CEREAL_NVP(m_IsShadow),
+                CEREAL_NVP(m_RenderingPass),
                 CEREAL_NVP(m_DrawLayer)
             );
         }

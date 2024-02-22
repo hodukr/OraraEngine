@@ -4,11 +4,13 @@
 #include "scene.h"
 #include "gameObject.h"
 #include "imgui/imgui.h"
+#include "pass.h"
 #include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cctype>
+#include <bitset>
 namespace fs = std::filesystem;
 
 void Inspector::Init()
@@ -49,9 +51,8 @@ void Inspector::Draw()
         ImGui::Text("%d", m_GameObject->GetDrawLayer());
 
         //パスの指定
-        bool shadowflg = m_GameObject->GetShadow();
-        ImGui::Checkbox("DrawShadow", &shadowflg);
-        m_GameObject->SetShadow(shadowflg);
+        DrawSetPass();
+
 
         //コンポーネントの表示 
         for (auto& com : *m_GameObject->GetList())
@@ -142,12 +143,12 @@ void Inspector::DrawComponent(Component* component)
 
     if (isTreenode)
     {
-        std::vector<TypeDate> datelist = component->GetDateList();
-
-        for (auto date : datelist)
-        {
-            Drawvariable(date);
-        }
+        //std::vector<TypeDate> datelist = component->GetDateList();
+        component->DrawInspector();
+        //for (auto date : m_DataList)
+        //{
+        //    Drawvariable(date);
+        //}
 
         ImGui::TreePop();
 
@@ -181,163 +182,76 @@ void Inspector::DrawMaterial()
 
 }
 
+void Inspector::DrawSetPass()
+{
+    int passflgs = m_GameObject->GetPass();
+    for (int i = 0; i < sizeof(passflgs) * 8; i++)
+    {
+        if (passflgs & (1 << i))
+        {
+            ImGui::Selectable(Pass::GetName(1 << i).c_str());
+            if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+            {
+                ImGui::OpenPopup(Pass::GetName(1 << i).c_str());
+
+            }
+            if (ImGui::BeginPopup(Pass::GetName(1 << i).c_str())) {
+
+                if (ImGui::Selectable("Delet"))
+                {
+                    passflgs = passflgs & ~(1 << i);
+
+                }
+                ImGui::EndPopup();
+            }
+
+        }
+    }
+
+    if (ImGui::BeginCombo("Pass", ""))
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (!(passflgs & (1 << i)))
+            {
+                if (ImGui::Selectable(Pass::GetName(1 << i).c_str()))
+                {
+                    passflgs |= 1 << i;
+                }
+            }
+        }
+        ImGui::EndCombo();
+    }
+
+    m_GameObject->SetPass(passflgs);
+}
+
 void Inspector::Drawvariable(TypeDate& vardate)
 {
     switch (vardate.MemberDate.index())
     {
     case TYPE_INT:
-        ImGui::InputInt(vardate.Name.c_str(), std::get<TYPE_INT>(vardate.MemberDate));
+        DrawItemInt(vardate);
         break;
     case TYPE_FLOAT:
-        ImGui::InputFloat(vardate.Name.c_str(), std::get<TYPE_FLOAT>(vardate.MemberDate));
-
+        DrawItemFloat(vardate);
         break;
     case TYPE_STRING:
-        char str[256];
-        strncpy_s(str, std::get<TYPE_STRING>(vardate.MemberDate)->c_str(), sizeof(str));
-        ImGui::InputText(vardate.Name.c_str(), str,256);
-        *std::get<TYPE_STRING>(vardate.MemberDate) = str;
+        DrawItemString(vardate);
         break;
     case TYPE_BOOL:
-        ImGui::Checkbox(vardate.Name.c_str(), std::get<TYPE_BOOL>(vardate.MemberDate));
+        DrawItemBool(vardate);
         break;
     case TYPE_VECTOR3:
-    {
-        std::string cb;
-        cb = "##" + vardate.Name;
-
-        ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
-        ImGui::SameLine();
-        Vector3* vector = std::get<Vector3*>(vardate.MemberDate);
-
-        std::string vecx = "##X" + vardate.Name;
-        std::string vecy = "##Y" + vardate.Name;
-        std::string vecz = "##Z" + vardate.Name;
-
-        float x = vector->x;
-        float y = vector->y;
-        float z = vector->z;
-
-        ImGui::SetNextItemWidth(70.0f);
-        if (ImGui::InputFloat(vecx.c_str(), &x) && m_IsRockVector[m_NumVector])
-        {
-            y = x;
-            z = x;
-        }
-        ImGui::SameLine();
-
-        ImGui::SetNextItemWidth(70.0f);
-        if (ImGui::InputFloat(vecy.c_str(), &y) && m_IsRockVector[m_NumVector])
-        {
-            x = y;
-            z = y;
-        }
-        ImGui::SameLine();
-
-        ImGui::SetNextItemWidth(70.0f);
-        if (ImGui::InputFloat(vecz.c_str(), &z) && m_IsRockVector[m_NumVector])
-        {
-            x = z;
-            y = z;
-        }
-        ImGui::SameLine();
-        ImGui::Text(vardate.Name.c_str());
-        *vector = Vector3(x, y, z);
-        m_NumVector++;
-    }
+        DrawItemVector3(vardate);
         break;
     case TYPE_D3DXCOLOR:
-        ImGui::ColorEdit4(vardate.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(vardate.MemberDate));
-        break;
-    case TYPE_FOLDERPASS:
-    {
-        FolderPass* date = std::get<TYPE_FOLDERPASS>(vardate.MemberDate);
-        if (ImGui::BeginCombo(vardate.Name.c_str(), date->Date.c_str()))
-        {
-            std::vector<std::string> files = AccessFolder(date->Pass.c_str());
-            // ファイル名を出力 
-            for (const auto& fileName : files) {
-                if (fileName.find(date->Extension) == std::string::npos)continue;
-                if (ImGui::Selectable(fileName.c_str()))
-                {
-                    date->Date = fileName;
-                    date->IsSet = true;
-                }
-            }
-            ImGui::EndCombo();
-        }
-    }
-        break;
-    case TYPE_CUSTOMVECTOR3:
-    {
-        CustomVector3* date = std::get<TYPE_CUSTOMVECTOR3>(vardate.MemberDate);
-        if (date->State == CASTOM_VECTOR_STATE＿CORRECTION)
-        {
-            std::string cb;
-            cb = "##" + vardate.Name;
-
-            ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
-            ImGui::SameLine();
-            Vector3* vector = date->Vector3date;
-
-            std::string vecx = "##X" + vardate.Name;
-            std::string vecy = "##Y" + vardate.Name;
-            std::string vecz = "##Z" + vardate.Name;
-
-            float x = D3DXToDegree(vector->x);
-            float y = D3DXToDegree(vector->y);
-            float z = D3DXToDegree(vector->z);
-
-            ImGui::SetNextItemWidth(70.0f);
-            if (ImGui::InputFloat(vecx.c_str(), &x) && m_IsRockVector[m_NumVector])
-            {
-                y = x;
-                z = x;
-            }
-            ImGui::SameLine();
-
-            ImGui::SetNextItemWidth(70.0f);
-            if (ImGui::InputFloat(vecy.c_str(), &y) && m_IsRockVector[m_NumVector])
-            {
-                x = y;
-                z = y;
-            }
-            ImGui::SameLine();
-
-            ImGui::SetNextItemWidth(70.0f);
-            if (ImGui::InputFloat(vecz.c_str(), &z) && m_IsRockVector[m_NumVector])
-            {
-                x = z;
-                y = z;
-            }
-            ImGui::SameLine();
-            ImGui::Text(vardate.Name.c_str());
-            x = D3DXToRadian(x);
-            y = D3DXToRadian(y);
-            z = D3DXToRadian(z);
-            *vector = Vector3(x, y, z);
-            m_NumVector++;
-        }
-    }
-        break;
-
-    case TYPE_CUSTOMFLOAT:
-    {
-        CustomFloat* coustomfloat = std::get<TYPE_CUSTOMFLOAT>(vardate.MemberDate);
-        std::string name =  "##" + vardate.Name + "Min";
-        ImGui::SetNextItemWidth(70);
-        ImGui::InputFloat(name.c_str(), &coustomfloat->Min);
-        ImGui::SameLine();
-        ImGui::SetNextItemWidth(70);
-
-        name = "##" + vardate.Name + "Max";
-        ImGui::InputFloat(name.c_str(), &coustomfloat->Max);
-        ImGui::SliderFloat(vardate.Name.c_str(), coustomfloat->Date, coustomfloat->Min, coustomfloat->Max);
-    }
+        DrawItemD3dxcolor(vardate);
         break;
     default:
         break;
     }
+    EndItemDraw();
 }
 
 std::vector<std::string> Inspector::AccessFolder(const char* folderPass)
@@ -625,4 +539,197 @@ void Inspector::AddFileToProject(const string& project_file, const string& file_
     // 元のプロジェクトファイルを一次的なプロジェクトファイルに置き換える
     remove(project_file.c_str());
     rename((project_file + ".tmp").c_str(), project_file.c_str());
+}
+
+void Inspector::DrawItemInt(TypeDate& date)
+{
+    m_IsSet = ImGui::InputInt(date.Name.c_str(), std::get<TYPE_INT>(date.MemberDate));
+
+}
+
+void Inspector::DrawItemFloat(TypeDate& date)
+{
+    switch (date.State) 
+    {
+    case CASTOMDRAWSTATE_FLOAT_SLIDER:
+    {
+        float* coustomfloat = std::get<TYPE_FLOAT>(date.MemberDate);
+        m_IsSet = ImGui::SliderFloat(date.Name.c_str(), coustomfloat, m_SliderMin, m_SliderMax);
+        break;
+    }
+    default:
+        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate));
+        break;
+    }
+}
+
+void Inspector::DrawItemString(TypeDate& date)
+{
+    switch (date.State)
+    {
+    case CASTOMDRAWSTATE_STRING_FOLDER:
+    {
+        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
+        {
+            std::vector<std::string> files = AccessFolder(m_AccessPass.c_str());
+            // ファイル名を出力 
+            for (const auto& fileName : files) {
+                if (fileName.find(m_Extension) == std::string::npos)continue;
+                if (ImGui::Selectable(fileName.c_str()))
+                {
+                    *stringdate = fileName;
+                    m_IsSet = true;
+                }
+            }
+            ImGui::EndCombo();
+        }
+    }
+    break;
+
+    default:
+        char str[256];
+        strncpy_s(str, std::get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
+        m_IsSet = ImGui::InputText(date.Name.c_str(), str, 256);
+        *std::get<TYPE_STRING>(date.MemberDate) = str;
+        break;
+    }
+}
+
+void Inspector::DrawItemBool(TypeDate& date)
+{
+    m_IsSet = ImGui::Checkbox(date.Name.c_str(), std::get<TYPE_BOOL>(date.MemberDate));
+
+}
+
+void Inspector::DrawItemVector3(TypeDate& date)
+{
+    switch (date.State)
+    {
+    case CASTOMDRAWSTATE_VECTOR3_CORRECTION:
+    {
+        Vector3* vec = std::get<TYPE_VECTOR3>(date.MemberDate);
+
+        std::string cb;
+        cb = "##" + date.Name;
+
+        ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
+        ImGui::SameLine();
+
+        std::string vecx = "##X" + date.Name;
+        std::string vecy = "##Y" + date.Name;
+        std::string vecz = "##Z" + date.Name;
+
+        float x = D3DXToDegree(vec->x);
+        float y = D3DXToDegree(vec->y);
+        float z = D3DXToDegree(vec->z);
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecx.c_str(), &x) )
+        {
+            m_IsSet = true;
+            if (m_IsRockVector[m_NumVector])
+            {
+                y = x;
+                z = x;
+            }
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecy.c_str(), &y))
+        {
+            m_IsSet = true;
+            if (m_IsRockVector[m_NumVector])
+            {
+                x = y;
+                z = y;
+            }
+
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecz.c_str(), &z))
+        {
+            m_IsSet = true;
+            if(m_IsRockVector[m_NumVector])
+            {
+                x = z;
+                y = z;
+            }
+        }
+        ImGui::SameLine();
+        ImGui::Text(date.Name.c_str());
+        x = D3DXToRadian(x);
+        y = D3DXToRadian(y);
+        z = D3DXToRadian(z);
+        *vec = Vector3(x, y, z);
+        m_NumVector++;
+    }
+        break;
+    default:
+    {
+        std::string cb;
+        cb = "##" + date.Name;
+
+        ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
+        ImGui::SameLine();
+        Vector3* vector = std::get<Vector3*>(date.MemberDate);
+
+        std::string vecx = "##X" + date.Name;
+        std::string vecy = "##Y" + date.Name;
+        std::string vecz = "##Z" + date.Name;
+
+        float x = vector->x;
+        float y = vector->y;
+        float z = vector->z;
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecx.c_str(), &x))
+        {
+            m_IsSet = true;
+            if (m_IsRockVector[m_NumVector])
+            {
+                y = x;
+                z = x;
+            }
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecy.c_str(), &y))
+        {
+            m_IsSet = true;
+            if (m_IsRockVector[m_NumVector])
+            {
+                x = y;
+                z = y;
+            }
+        }
+        ImGui::SameLine();
+
+        ImGui::SetNextItemWidth(70.0f);
+        if (ImGui::InputFloat(vecz.c_str(), &z))
+        {
+            m_IsSet = true;
+            if (m_IsRockVector[m_NumVector])
+            {
+                x = z;
+                y = z;
+            }
+        }
+        ImGui::SameLine();
+        ImGui::Text(date.Name.c_str());
+        *vector = Vector3(x, y, z);
+        m_NumVector++;
+    }
+        break;
+    }
+    
+}
+
+void Inspector::DrawItemD3dxcolor(TypeDate& date)
+{
+    m_IsSet = ImGui::ColorEdit4(date.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(date.MemberDate));
 }

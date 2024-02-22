@@ -10,6 +10,7 @@
 #include "col_boxCollision.h"
 #include "col_sphereCollision.h"
 #include "com_waterSurface.h"
+#include "com_cloth.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -23,5 +24,6 @@ SET_COMPONENT_CLASS(CollisionShape)
 SET_COMPONENT_CLASS(BoxCollision)
 SET_COMPONENT_CLASS(SphereCollision)
 SET_COMPONENT_CLASS(WaterSurface)
+SET_COMPONENT_CLASS(Cloth)
 //endSET_COMPONENT_CLASS
 

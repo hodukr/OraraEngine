@@ -116,12 +116,12 @@ void Plane::Draw()
 	if (m_GameObject->GetMaterial()->GetFileName() == "envMapping")
 	{
 		EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
-		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetCubeReflectShaderResourceView());
+		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetTexture());
 	}
 	if (m_GameObject->GetMaterial()->GetFileName() == "shadow")
 	{
 		DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
-		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetTexture());
 	}
 
 

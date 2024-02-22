@@ -7,15 +7,22 @@ class Texture : public Component
 private:
     ID3D11Buffer* m_VertexBuffer{};
     int m_TextureNum = -1;
-    FolderPass m_TextureFolder;
     D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    std::string m_Texturefile;
 public:
     Texture() {
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_2D;
-        m_TextureFolder.Date = "field004.jpg";
-        m_TextureFolder.Pass = "asset\\texture";
+        m_Texturefile = "field004.jpg";
         
-        SETDATE(m_TextureFolder);
+    }
+
+    void DrawInspector()
+    {
+        SET_NEXT_FOLDER("asset\\texture", ".");
+        if (SET_DATE_STATE(m_Texturefile, CASTOMDRAWSTATE_STRING_FOLDER))
+        {
+            SetTexture();
+        }
     }
     void Init();
     void Uninit();
@@ -31,8 +38,7 @@ public:
         try
         {
             archive(
-                cereal::make_nvp("FolderPass", m_TextureFolder.Pass),
-                cereal::make_nvp("fileName", m_TextureFolder.Date));
+                cereal::make_nvp("fileName", m_Texturefile));
         }
         catch (const std::exception&)
         {

@@ -94,10 +94,6 @@ void Cloth::Init()
 
     m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\oraraEngine.png");
 
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\vertexLightingVS.cso");
-
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\vertexLightingPS.cso");
-
     // バネの初期化
     int count = 0;
     float	xx, yy, zz;				// 粒子間の距離（成分毎) 
@@ -166,9 +162,6 @@ void Cloth::Uninit()
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
  
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
 }
 
 
@@ -323,13 +316,6 @@ void Cloth::Draw()
     }
 
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
-
-    // 入力レイアウト設定 
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-    // シェーダ設定 
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
 
     // マトリクス設定 

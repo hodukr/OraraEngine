@@ -12,7 +12,6 @@ private:
 	Vector3 m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
     D3DXQUATERNION m_Qnaternion = D3DXQUATERNION(0.0f,0.0f,0.0f,1.0f);
 	Vector3 m_Scale = Vector3(1.0f, 1.0f, 1.0f);
-    CustomVector3 m_RotationDate;
     D3DXMATRIX m_Matrix{};
 
 public:
@@ -21,12 +20,15 @@ public:
         m_Position = Vector3(0.0f, 0.0f, 0.0f);
         m_Rotation = Vector3(0.0f, 0.0f, 0.0f);
         m_Scale = Vector3(1.0f, 1.0f, 1.0f);
-        m_RotationDate.Vector3date = &m_Rotation;
-        m_RotationDate.State = CASTOM_VECTOR_STATE＿CORRECTION;
-        SETDATE(m_Position);
-        SETDATE(m_RotationDate);
-        SETDATE(m_Scale);
+
     }
+    void DrawInspector()override
+    {
+        SET_DATE(m_Position);
+        SET_DATE_STATE(m_Rotation, CASTOMDRAWSTATE_VECTOR3_CORRECTION);
+        SET_DATE(m_Scale);
+    }
+
     void SetPosition(Vector3 pos) { m_Position = pos; }
     void SetPosition(float x,float y,float z) { m_Position.x = x; m_Position.y = y; m_Position.z = z;}
     void SetPositionX(float x) { m_Position.x = x; }

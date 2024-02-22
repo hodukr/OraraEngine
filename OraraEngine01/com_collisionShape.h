@@ -41,11 +41,13 @@ protected:
 
     std::unordered_map<CollisionShape*, CollisionState> m_State;
 public:
-    CollisionShape() 
-    { 
-        SetDateList("IsDynamic", &m_Dynamic);
-        SetDateList("Offset", &m_Offset);
+    CollisionShape() {}
+    void DrawInspector()override
+    {
+        SET_DATE(m_Dynamic);
+        SET_DATE(m_Offset);
     }
+
     ~CollisionShape() {};
 
     void Init() override {}

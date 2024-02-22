@@ -120,7 +120,7 @@ void SceneWindow::Draw()
         if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_PAYLOAD_TYPE"))
         {
             //ドラッグ先の要素に対する処理
-            GameObject* gameObj = scene->AddGameObject(2);
+            GameObject* gameObj = scene->AddGameObject(1);
             AccessFolder* acFolder = GuiManager::Instance().GetGuiWindow <AccessFolder>();
             gameObj->SetName(acFolder->GetDragName());
             Mesh* mesh = gameObj->AddComponent<Mesh>();

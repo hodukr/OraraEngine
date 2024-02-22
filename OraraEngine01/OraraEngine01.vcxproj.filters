@@ -61,9 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="com_ui.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="com_audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -157,9 +154,6 @@
     <ClCompile Include="com_transform.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="com_uiText.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="com_waterSurface.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -226,12 +220,11 @@
     <ClCompile Include="com_collisionShape.cpp">
       <Filter>Component\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="guiw_debug.cpp" />
+    <ClCompile Include="com_uiTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="com_ui.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="com_audio.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -355,9 +348,6 @@
     <ClInclude Include="com_transform.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="com_uiText.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="vector.h">
       <Filter>System</Filter>
     </ClInclude>
@@ -436,6 +426,8 @@
     <ClInclude Include="material.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="guiw_debug.h" />
+    <ClInclude Include="com_uiTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

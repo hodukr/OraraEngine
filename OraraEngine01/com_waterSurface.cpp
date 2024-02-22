@@ -128,16 +128,6 @@ void WaterSurface::Update()
     }
     m_Time += 0.01f;
     m_WaveTime++;
-
-#ifdef _DEBUG
-    ImGui::Begin("WaterSaface", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("Amplitude", &m_Amplitude, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveLength", &m_WaveLength, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveCycle", &m_WaveCycle, 1.0f, 50.0f);
-
-    ImGui::End();
-#endif //_DEBUG
 }
 
 

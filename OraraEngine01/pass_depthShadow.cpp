@@ -30,7 +30,7 @@ void DepthShadow::CreatePass()
     dsvd.Format = DXGI_FORMAT_D32_FLOAT;//ピクセルフォーマットは32BitFLOAT型
     dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
     Renderer::GetDevice()->CreateDepthStencilView(depthTexture, &dsvd,
-        &m_DepthShadowDepthStencilView);
+        &m_DepthStencilView);
 
     //シェーダーリソースビュー作成
     D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
@@ -39,7 +39,7 @@ void DepthShadow::CreatePass()
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvd.Texture2D.MipLevels = 1;
     Renderer::GetDevice()->CreateShaderResourceView(depthTexture, &srvd,
-        &m_DepthShadowShaderResourceView);
+        &m_ShaderResourceView);
     depthTexture->Release();
 
 
@@ -47,21 +47,21 @@ void DepthShadow::CreatePass()
 
 void DepthShadow::Init()
 {
-    Scene* scene = Manager::GetScene();
-    if (scene)
-    {
-        for (auto& objlist : scene->GetList()[1])
-        {
-            if (objlist->GetShadow())m_ShadowDrawObj.push_back(objlist.get());
-        }
-    }
+    //Scene* scene = Manager::GetScene();
+    //if (scene)
+    //{
+    //    for (auto& objlist : scene->GetList()[1])
+    //    {
+    //        if (objlist->GetPass() & SHADER_SHADOW)m_ShadowDrawObj.push_back(objlist.get());
+    //    }
+    //}
 }
 
 void DepthShadow::Uninit()
 {
-    m_ShadowDrawObj.clear();
-    m_DepthShadowDepthStencilView->Release();
-    m_DepthShadowShaderResourceView->Release();
+    //m_ShadowDrawObj.clear();
+    m_DepthStencilView->Release();
+    m_ShaderResourceView->Release();
   
 }
 
@@ -95,9 +95,11 @@ void DepthShadow::Draw()
     Renderer::SetProjectionMatrix(&light.ProjectionMatrix);
 
     //影を落としたいオブジェクトを描画(一応地面も)
-    for (const auto& obj : m_ShadowDrawObj)
+    Scene* scene = Manager::GetScene();
+    for (const auto& obj : scene->GetList()[1])
     {
-        obj->Draw();
+        if(obj->GetPass() &SHADER_SHADOW)
+            obj->Draw();
     }
 
     //Scene* scene = Manager::GetScene();
@@ -187,8 +189,8 @@ void DepthShadow::Update()
 void DepthShadow::BeginDepth(void)
 {
     //シャドウバッファを深度バッファに設定し、内容を1で塗りつぶしておく
-    Renderer::GetDeviceContext()->OMSetRenderTargets(0, NULL, m_DepthShadowDepthStencilView);
-    Renderer::GetDeviceContext()->ClearDepthStencilView(m_DepthShadowDepthStencilView,
+    Renderer::GetDeviceContext()->OMSetRenderTargets(0, NULL, m_DepthStencilView);
+    Renderer::GetDeviceContext()->ClearDepthStencilView(m_DepthStencilView,
         D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 

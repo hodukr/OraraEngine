@@ -27,11 +27,7 @@ void Mesh::Uninit()
 
 void Mesh::Update()
 {
-    if (m_ModelFolder.IsSet)
-    {
-        SetModel(m_ModelFolder.Date);
-        m_ModelFolder.IsSet = false;
-    }
+
 }
 
 void Mesh::Draw()
@@ -41,7 +37,7 @@ void Mesh::Draw()
     // テクスチャ設定
     DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
 
-    Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+    Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetTexture());
 
     Renderer::SetWorldMatrix(m_GameObject->m_Transform->GetMatrixPtr());
 

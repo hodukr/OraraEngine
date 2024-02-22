@@ -65,11 +65,7 @@ void Texture::Uninit()
 }
 void Texture::EditorUpdate()
 {
-    if (m_TextureFolder.IsSet)
-    {
-        m_TextureFolder.IsSet = false;
-        SetTexture();
-    }
+
 }
 void Texture::Update()
 {
@@ -125,7 +121,7 @@ void Texture::Draw()
 
 void Texture::SetTexture()
 {
-    std::string pass = m_TextureFolder.Pass + "\\" + m_TextureFolder.Date;
+    std::string pass = "asset\\texture\\" + m_Texturefile;
     m_TextureNum = TextureManager::LoadTexture(pass.c_str());
 
 }

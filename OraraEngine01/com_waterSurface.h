@@ -13,7 +13,7 @@ private:
     ID3D11Buffer* m_IndexBuffer{};
     int m_TexNum{};
 
-    VERTEX_3D					m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
+    VERTEX_3D m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
 
     float m_WavePitch{};   //波の幅　
     float m_Amplitude{};   //波の振幅  
@@ -22,29 +22,17 @@ private:
 
     float m_Time{};
     float m_WaveTime{};
-    CustomFloat m_WavePitchDate;
-    CustomFloat m_AmplitudeDate;
-    CustomFloat m_WaveLengthDate;
-    CustomFloat m_WaveCycleDate;
 public:
     WaterSurface()
     {
-        m_WavePitchDate.Date = &m_WavePitch;
-        m_WavePitchDate.Max = 10.0f;
-
-        m_AmplitudeDate.Date = &m_Amplitude;
-        m_AmplitudeDate.Max = 20.0f;
-
-        m_WaveLengthDate.Date = &m_WaveLength;
-        m_WaveLengthDate.Max = 30.0f;
-
-        m_WaveCycleDate.Date = &m_WaveCycle;
-        m_WaveCycleDate.Max = 20.0f;
-
-        SetDateList("WavePitch", &m_WavePitchDate);
-        SetDateList("Amplitude", &m_AmplitudeDate);
-        SetDateList("WaveLength", &m_WaveLengthDate);
-        SetDateList("WaveCycle", &m_WaveCycleDate);
+        SET_NEXT_SLIDER(0.0f, 20.0f);
+        SET_DATE_STATE(m_WavePitch, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.0f, 10.0f);
+        SET_DATE_STATE(m_Amplitude, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.0f, 30.0f);
+        SET_DATE_STATE(m_WaveLength, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.0f, 20.0f);
+        SET_DATE_STATE(m_WaveCycle, CASTOMDRAWSTATE_FLOAT_SLIDER);
     }
     void Init() override;
     void Uninit() override;

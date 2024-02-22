@@ -46,7 +46,7 @@ void EnvironmentMapping::CreatePass()
     ZeroMemory(&dsvd, sizeof(dsvd));
     dsvd.Format = DXGI_FORMAT_D32_FLOAT;
     dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    Renderer::GetDevice()->CreateDepthStencilView(depthTexture, &dsvd, &m_ReflectDepthStencilView);
+    Renderer::GetDevice()->CreateDepthStencilView(depthTexture, &dsvd, &m_DepthStencilView);
 
     depthTexture->Release();
 
@@ -68,7 +68,7 @@ void EnvironmentMapping::CreatePass()
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
     srvd.TextureCube.MipLevels = td.MipLevels;
     srvd.TextureCube.MostDetailedMip = 0;
-    Renderer::GetDevice()->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_CubeReflectShaderResourceView);
+    Renderer::GetDevice()->CreateShaderResourceView(m_CubeReflectTexture, &srvd, &m_ShaderResourceView);
 
     m_DrawObjNum = 0;
 }
@@ -77,11 +77,11 @@ void EnvironmentMapping::Uninit()
 {
     m_ReflectTexture->Release();
     m_ReflectRenderTargetView->Release();
-    m_ReflectDepthStencilView->Release();
+    //m_ReflectDepthStencilView->Release();
     m_CubeReflectTexture->Release();
-    m_CubeReflectShaderResourceView->Release();
+    //m_CubeReflectShaderResourceView->Release();
 
-    m_DrawObj.clear();
+    //m_DrawObj.clear();
     m_SelectDrawObj.clear();
     m_SelectPosObj.clear();
 }
@@ -137,10 +137,12 @@ void EnvironmentMapping::Draw()
     {
         BeginCube();
         Renderer::SetViewMatrix(&viewMatrixArray[i]);
+        Scene* scene = Manager::GetScene();
 
-        for (const auto& obj : m_DrawObj)
+        for (const auto& obj : scene->GetList()[1])
         {
-            obj.second->Draw();
+            if(obj->GetPass() & SHADER_ENVIRONMENTMAPPING)
+                obj->Draw();
         }
        
         Renderer::GetDeviceContext()->CopySubresourceRegion(
@@ -153,95 +155,95 @@ void EnvironmentMapping::Draw()
 
 void EnvironmentMapping::Update()
 {
-    Scene* scene = Manager::GetScene();
+    //Scene* scene = Manager::GetScene();
 
-    ImGui::Begin("Shader", 0);
+    //ImGui::Begin("Shader", 0);
 
-    if (ImGui::TreeNode("EnvironmentMapping"))
-    {
-        //ゲームオブジェクト一覧
-        if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                if (scene->GetList()[i].empty())
-                    continue;
-                for (auto& gameobject : scene->GetList()[i])
-                {
-                    if (ImGui::Selectable(gameobject->GetName().c_str()))
-                    {
-                        m_SelectPosObj = gameobject->GetName();
-                        m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
-                    }
-                }
-            }
-            ImGui::EndCombo();
-        }
+    //if (ImGui::TreeNode("EnvironmentMapping"))
+    //{
+    //    //ゲームオブジェクト一覧
+    //    if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
+    //    {
+    //        for (int i = 0; i < 3; i++)
+    //        {
+    //            if (scene->GetList()[i].empty())
+    //                continue;
+    //            for (auto& gameobject : scene->GetList()[i])
+    //            {
+    //                if (ImGui::Selectable(gameobject->GetName().c_str()))
+    //                {
+    //                    m_SelectPosObj = gameobject->GetName();
+    //                    m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
+    //                }
+    //            }
+    //        }
+    //        ImGui::EndCombo();
+    //    }
 
-        if (ImGui::TreeNode("DrawObj"))
-        {
-            for (int i = 0; i < m_DrawObjNum; i++)
-            {
-                //ゲームオブジェクト一覧
-                if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (scene->GetList()[j].empty())
-                            continue;
+    //    if (ImGui::TreeNode("DrawObj"))
+    //    {
+    //        for (int i = 0; i < m_DrawObjNum; i++)
+    //        {
+    //            //ゲームオブジェクト一覧
+    //            if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
+    //            {
+    //                for (int j = 0; j < 3; j++)
+    //                {
+    //                    if (scene->GetList()[j].empty())
+    //                        continue;
 
-                        for (auto& gameobject : scene->GetList()[j])
-                        {
-                            if (ImGui::Selectable(gameobject->GetName().c_str()))
-                            {
-                                m_SelectDrawObj[i] = gameobject->GetName();
-                                m_DrawObj[i] = gameobject.get();
-                            }
-                        }
-                    }
+    //                    for (auto& gameobject : scene->GetList()[j])
+    //                    {
+    //                        if (ImGui::Selectable(gameobject->GetName().c_str()))
+    //                        {
+    //                            m_SelectDrawObj[i] = gameobject->GetName();
+    //                            m_DrawObj[i] = gameobject.get();
+    //                        }
+    //                    }
+    //                }
 
-                    ImGui::EndCombo();
-                }
-            }
+    //                ImGui::EndCombo();
+    //            }
+    //        }
 
-            ImGui::Separator();
+    //        ImGui::Separator();
 
-            if (ImGui::Button("Add List"))
-            {
-                m_DrawObjNum++;
-            }
+    //        if (ImGui::Button("Add List"))
+    //        {
+    //            m_DrawObjNum++;
+    //        }
 
-            ImGui::SameLine();  // 同じ行に次の要素を配置する
+    //        ImGui::SameLine();  // 同じ行に次の要素を配置する
 
-            if (ImGui::Button("Erase List"))
-            {
-                if (m_DrawObjNum > 0)
-                {
-                    m_SelectDrawObj.erase(m_DrawObjNum - 1);
-                    m_DrawObj.erase(m_DrawObjNum - 1);
-                    m_DrawObjNum--;
-                }
-            }
+    //        if (ImGui::Button("Erase List"))
+    //        {
+    //            if (m_DrawObjNum > 0)
+    //            {
+    //                m_SelectDrawObj.erase(m_DrawObjNum - 1);
+    //                m_DrawObj.erase(m_DrawObjNum - 1);
+    //                m_DrawObjNum--;
+    //            }
+    //        }
 
-            ImGui::TreePop();
-        }
+    //        ImGui::TreePop();
+    //    }
 
-    
-        ImGui::TreePop();
-    }
-    
-    ImGui::End();
+    //
+    //    ImGui::TreePop();
+    //}
+    //
+    //ImGui::End();
 }
 
 void EnvironmentMapping::BeginCube(void)
 {
     //レンダリングターゲットを環境マップレンダリング用バッファに設定する 
-    Renderer::GetDeviceContext()->OMSetRenderTargets(1, &m_ReflectRenderTargetView, m_ReflectDepthStencilView);
+    Renderer::GetDeviceContext()->OMSetRenderTargets(1, &m_ReflectRenderTargetView, m_DepthStencilView);
 
     //　バックバッファクリア 
     float ClearColor[4] = { 0.0f,0.0f,0.0f,1.0f };
     Renderer::GetDeviceContext()->ClearRenderTargetView(m_ReflectRenderTargetView, ClearColor);
-    Renderer::GetDeviceContext()->ClearDepthStencilView(m_ReflectDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+    Renderer::GetDeviceContext()->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void EnvironmentMapping::SetReflectViewport(void)

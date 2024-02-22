@@ -50,8 +50,8 @@
                                 }
                             }
                         },
-                        "m_IsShadow": false,
-                        "m_DrawLayer": 0
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": -1
                     }
                 }
             }
@@ -71,7 +71,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 0.0,
+                                            "y": -0.9489164352416992,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -106,7 +106,7 @@
                                 }
                             }
                         },
-                        "m_IsShadow": false,
+                        "m_RenderingPass": 2,
                         "m_DrawLayer": -1
                     }
                 }
@@ -116,6 +116,59 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "GameObject",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 6.506842613220215,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "box.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting"
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 2,
+                        "m_DrawLayer": -1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "GameObject(1)",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -143,14 +196,11 @@
                             },
                             {
                                 "polymorphic_id": 2147483652,
-                                "polymorphic_name": "WaterSurface",
+                                "polymorphic_name": "Plane",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_WavePitch": 2.746999979019165,
-                                        "m_Amplitude": 0.9890000224113464,
-                                        "m_WaveLength": 0.9779999852180481,
-                                        "m_WaveCycle": 2.308000087738037
+                                        "m_ObjectName": "GameObject(1)"
                                     }
                                 }
                             }
@@ -159,12 +209,65 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "unlitTexture"
+                                    "m_ShaderName": "envMapping"
                                 }
                             }
                         },
-                        "m_IsShadow": false,
+                        "m_RenderingPass": 0,
                         "m_DrawLayer": -1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "asset\\model\\acorn.obj",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 2.9009652137756349,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "acorn.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting"
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
                     }
                 }
             }

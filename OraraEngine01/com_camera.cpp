@@ -6,7 +6,6 @@
 #include "com_transform.h"
 Camera::Camera()
 {
-    SetDateList("Target", &m_Target);
     m_DrawLayer = GAME_OBJECT_DRAW_LAYER_CAMERA;
 }
 void Camera::Init()

@@ -6,15 +6,20 @@ class Mesh :public Component
 private:
     int m_ModelNum{};
     std::string m_Modelpas;
-    FolderPass m_ModelFolder;//デバッグでアクセスするフォルダパスの指定
-
+    bool m_IsSet = false;
 public:
     Mesh(std::string pas = "box.obj") :m_Modelpas(pas)
     {
-        m_ModelFolder.Date = m_Modelpas;
-        m_ModelFolder.Pass = "asset\\model";
-        m_ModelFolder.Extension = ".obj";//表示する拡張子
-        SETDATE(m_ModelFolder);
+        m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;
+    }
+    void DrawInspector()override
+    {
+        SET_NEXT_FOLDER("asset\\model", ".obj");
+        if (SET_DATE_STATE(m_Modelpas, CASTOMDRAWSTATE_STRING_FOLDER))
+        {
+            SetModel(m_Modelpas);
+        }
+
     }
     void SetModel(std::string pas);
     

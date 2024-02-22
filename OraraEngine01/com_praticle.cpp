@@ -23,29 +23,35 @@ PraticleSystem::PraticleSystem()
     m_Emitter.GradationColor[0] = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
     m_Emitter.GradationColor[1] = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
     m_Emitter.GradationColor[2] = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
-    m_Emitter.TexName.Date = "praticle.dds";
-    m_Emitter.TexName.Pass = "asset\\texture\\";
+    m_Emitter.TexName = "praticle.dds";
     m_Emitter.IsGradation = false;
+}
 
-    SetDateList("StartColor", &(m_Emitter.StartColor));
-    SetDateList("StartRotation", &(m_Emitter.StartRotation));
-    SetDateList("StartLifetime", &(m_Emitter.StartLifetime));
-    SetDateList("EmissionRate", &(m_Emitter.EmissionRate));
-    SetDateList("Speed", &(m_Emitter.Speed));
-    SetDateList("MaxParticles", &(m_Emitter.MaxParticles));
-    SetDateList("AddStateVelocity", &(m_Emitter.AddStateVelocity));
-    SetDateList("AddVelocity", &(m_Emitter.AddVelocity));
-    SetDateList("GradationColor", &(m_Emitter.GradationColor[0]));
-    SetDateList("GradationColor1", &(m_Emitter.GradationColor[1]));
-    SetDateList("GradationColor2", &(m_Emitter.GradationColor[2]));
-    SetDateList("IsGradation", &(m_Emitter.IsGradation));
-    SetDateList("Fluctuation", &(m_Emitter.Fluctuation));
-    SetDateList("TexName", &(m_Emitter.TexName));
-    SetDateList("GradationLength", &(m_Emitter.GradationLength));
-    SetDateList("Fade", &(m_Emitter.IsFade));
-    SetDateList("StartFadeTime", &(m_Emitter.StartFadeTime));
-    SetDateList("declineFade", &(m_Emitter.DeclineFade));
-
+void PraticleSystem::DrawInspector()
+{
+    SET_NAME_DATE("StartColor", m_Emitter.StartColor);
+    SET_NAME_DATE("StartRotation", m_Emitter.StartRotation);
+    SET_NAME_DATE("StartLifetime", m_Emitter.StartLifetime);
+    SET_NAME_DATE("EmissionRate", m_Emitter.EmissionRate);
+    SET_NAME_DATE("Speed", (m_Emitter.Speed));
+    SET_NAME_DATE("MaxParticles", (m_Emitter.MaxParticles));
+    SET_NAME_DATE("AddStateVelocity", (m_Emitter.AddStateVelocity));
+    SET_NAME_DATE("AddVelocity", (m_Emitter.AddVelocity));
+    SET_NAME_DATE("GradationColor", (m_Emitter.GradationColor[0]));
+    SET_NAME_DATE("GradationColor1", (m_Emitter.GradationColor[1]));
+    SET_NAME_DATE("GradationColor2", (m_Emitter.GradationColor[2]));
+    SET_NAME_DATE("IsGradation", (m_Emitter.IsGradation));
+    SET_NAME_DATE("Fluctuation", (m_Emitter.Fluctuation));
+    SET_NEXT_FOLDER("asset\\texture\\", ".");
+    if (SET_NAME_DATE_STATE("TexName", (m_Emitter.TexName), CASTOMDRAWSTATE_STRING_FOLDER))
+    {
+        std::string name = "asset\\texture\\" + m_Emitter.TexName;
+        m_TexNum = TextureManager::LoadTexture(name.c_str());
+    }
+    SET_NAME_DATE("GradationLength", (m_Emitter.GradationLength));
+    SET_NAME_DATE("Fade", (m_Emitter.IsFade));
+    SET_NAME_DATE("StartFadeTime", (m_Emitter.StartFadeTime));
+    SET_NAME_DATE("declineFade", (m_Emitter.DeclineFade));
 }
 
 void PraticleSystem::Init()
@@ -86,7 +92,7 @@ void PraticleSystem::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    std::string name = m_Emitter.TexName.Pass + m_Emitter.TexName.Date;
+    std::string name = "asset\\texture\\" + m_Emitter.TexName;
 
     m_TexNum = TextureManager::LoadTexture(name.c_str());
 
@@ -125,12 +131,6 @@ void PraticleSystem::Uninit()
 
 void PraticleSystem::Update()
 {
-    if (m_Emitter.TexName.IsSet)
-    {
-        m_Emitter.TexName.IsSet = false;
-        std::string name = m_Emitter.TexName.Pass + m_Emitter.TexName.Date;
-        m_TexNum = TextureManager::LoadTexture(name.c_str());
-    }
     while (m_NumPraticle < m_Emitter.MaxParticles)
     {
         AddPraticle();
