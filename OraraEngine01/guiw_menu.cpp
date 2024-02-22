@@ -24,9 +24,16 @@ void Menu::Update()
     m_IsShowWindow = true;
 }
 
+void Menu::SetWindowConfig()
+{
+    ImGui::SetNextWindowPos(ImVec2(0.0f,0.0f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.25f, 100.0f));
+}
+
 void Menu::Draw()
 {
-    ImGui::Begin("Menu",0);
+
+    ImGui::Begin("Menu",0,ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoResize| ImGuiWindowFlags_NoCollapse);
     if (ImGui::Button("save"))
     {
         std::string filename = "asset/scene/" + m_Scene->GetName() + ".json";
@@ -68,13 +75,14 @@ void Menu::Draw()
             if (extension == "json")
             {
                 if (ImGui::Selectable(sceneName.c_str()))
-                {
+                {//シーンfileの情報ロード
                     std::string filename = "asset/scene/" + sceneName + ".json";
                     std::ifstream inputFile(filename);
                     cereal::JSONInputArchive archive(inputFile);
                     Scene* inscene = new Scene();
                     archive(*inscene);
                     Manager::SetScene(inscene);
+                    break;
                 }
             }
         }
@@ -104,3 +112,4 @@ void Menu::Draw()
 
     ImGui::End();
 }
+

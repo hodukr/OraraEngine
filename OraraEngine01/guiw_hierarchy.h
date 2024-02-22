@@ -2,7 +2,7 @@
 #include <list>
 #include "imGuiWindow.h"
 #include "singleton.h"
-class Hierarchy :public ImGuiWindow
+class Hierarchy :public GuiWindowBase
 {
 private:
 	class Scene* m_Scene;
@@ -15,7 +15,10 @@ public:
 	void Init();
 	void Uninit();
 	void Update();
+	void SetWindowConfig();
 	void Draw();
 
 	void SetScene(Scene* scene) { m_Scene = scene; }
+	void SetSelectGameObject(GameObject* objct) { m_SelectGameObject = objct; }
+	GameObject* GetSelectGameObject() { return m_SelectGameObject; }
 };

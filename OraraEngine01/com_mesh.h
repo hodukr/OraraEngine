@@ -1,17 +1,26 @@
 ﻿#pragma once
 #include "component.h"
-#include "com_material.h"
 
 class Mesh :public Component
 {
 private:
-    D3DMATRIX m_Matrix;
-    class Model* m_Model;
+    int m_ModelNum{};
     std::string m_Modelpas;
-    Material m_Material;
-
+    bool m_IsSet = false;
 public:
-    Mesh(std::string pas = "box.obj") :m_Modelpas(pas) {}
+    Mesh(std::string pas = "box.obj") :m_Modelpas(pas)
+    {
+        m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;
+    }
+    void DrawInspector()override
+    {
+        SET_NEXT_FOLDER("asset\\model", ".obj");
+        if (SET_DATE_STATE(m_Modelpas, CASTOMDRAWSTATE_STRING_FOLDER))
+        {
+            SetModel(m_Modelpas);
+        }
+
+    }
     void SetModel(std::string pas);
     
     void Init() override;
@@ -19,12 +28,11 @@ public:
     void Update() override;
     void Draw()override;
 
-    Material* GetMaterial() { return &m_Material; }
     const std::string GetModelpas() { return m_Modelpas; }
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_Modelpas), CEREAL_NVP(m_Material));
+        archive(CEREAL_NVP(m_Modelpas));
     }
 
 };

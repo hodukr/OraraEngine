@@ -5,11 +5,11 @@
 std::unordered_map<int, TexData> TextureManager::m_Date;
 int TextureManager::m_Index;
 
-const int TextureManager::LoadTexture(const char* file)
+const int TextureManager::LoadTexture(std::string file)
 {
 	for (int i = 0; i < m_Index; i++)
 	{
-		if (strcmp(file, m_Date[i].file) == 0)
+		if (file == m_Date[i].file)
 		{
 			return i;
 		}
@@ -17,7 +17,7 @@ const int TextureManager::LoadTexture(const char* file)
 
 	//テクスチャ読み込み
 	D3DX11CreateShaderResourceViewFromFile(Renderer::GetDevice(),
-		file,
+		file.c_str(),
 		NULL,
 		NULL,
 		&m_Date[m_Index].texture,

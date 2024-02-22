@@ -1,3 +1,4 @@
+#include "main.h"
 #include "manager.h"
 #include "guiManager.h"
 #include "scene.h"
@@ -23,13 +24,19 @@ void Hierarchy::Uninit()
 
 void Hierarchy::Update()
 {
-    //Scene* scene = Manager::GetScene();
+
+}
+
+void Hierarchy::SetWindowConfig()
+{
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 100.0f));
+    ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT - 100.0f));
 }
 
 void Hierarchy::Draw()
 {
     Inspector* inspector = GuiManager::Instance().GetGuiWindow<Inspector>();
-    ImGui::Begin("Hierarchy", &m_IsShowWindow, ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("Hierarchy", &m_IsShowWindow, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     
     if(m_OpenTree)ImGui::SetNextItemOpen(true);
 
@@ -84,6 +91,8 @@ void Hierarchy::Draw()
 
             if (ImGui::Selectable("削除"))
             {
+                if (m_ConfigGameObject == m_SelectGameObject)
+                    m_SelectGameObject = nullptr;
                 if(m_ConfigGameObject == inspector->GetGameObject())
                     inspector->SetGameObejct(nullptr);
                 m_ConfigGameObject->SetDestroy();
@@ -106,17 +115,21 @@ void Hierarchy::Draw()
             std::string name = gameobjct->GetName();
             while (flg) {
                 flg = false;
-                for (auto& obj : m_Scene->GetList()[1])
+                for (size_t i = 0; i < 3; i++)
                 {
-                    std::string objnum = "(" + std::to_string(num) + ")";
-                    if (name == obj->GetName() && obj.get() != gameobjct)
+                    for (auto& obj : m_Scene->GetList()[i])
                     {
-                        name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
-                        flg = true;
-                        num++;
-                        break;
+                        std::string objnum = "(" + std::to_string(num) + ")";
+                        if (name == obj->GetName() && obj.get() != gameobjct)
+                        {
+                            name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
+                            flg = true;
+                            num++;
+                            break;
+                        }
                     }
                 }
+                
             };
             gameobjct->SetName(name);
             

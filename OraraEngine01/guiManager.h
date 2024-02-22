@@ -7,19 +7,22 @@
 #include <filesystem>
 #include "imGuiWindow.h"
 #include "guiw_common.h"
+#include "imgui/ImGuizmo.h"
 
 class GuiManager
 {
 private:
     Singleton(GuiManager);
-    std::list<std::unique_ptr<ImGuiWindow>> m_Windows;
+    std::list<std::unique_ptr<GuiWindowBase>> m_Windows;
+    
 public:
     void SetUp();
     void Init();
     void Uninit();
     void Update();
     void Draw();
-    //static void SetText(std::string text) { m_Text = text; }
+    //static void SetText(std::string text) { m_Text = text;
+
     template<class T>
     T* AddWindow()
     {
@@ -43,8 +46,8 @@ public:
         return nullptr;
     }
 
-    std::list<ImGuiWindow*> GetList() {
-        std::list<ImGuiWindow*> windowlist;
+    std::list<GuiWindowBase*> GetList() {
+        std::list<GuiWindowBase*> windowlist;
         for (auto& window : m_Windows)
         {
             windowlist.push_back(window.get());

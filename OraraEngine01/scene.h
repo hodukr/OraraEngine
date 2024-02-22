@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "main.h"
 #include "guiManager.h"
 #include "gameManager.h"
 #include "gameObject.h"
@@ -6,6 +7,7 @@
 #include <typeinfo>
 #include <vector>
 #include "textureManager.h"
+#include "modelManager.h"
 #include <algorithm>
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
@@ -15,13 +17,12 @@ namespace fs = std::filesystem;
 class Scene
 {
 protected:
-    //GameObject* m_GameObject[4]{};
     std::string m_Name;
 	std::list<std::unique_ptr<GameObject>> m_GameObject[3];//レイヤー有のSTLのリスト構造
-
+	int m_FileVersion = NOWVERSION;
 public:
     Scene(std::string name = "NewScene"):m_Name(name){}
-	virtual void Init()
+	void Init()
     {
 		bool newflg = true;
         for (int i = 0; i < 3; i++)
@@ -34,13 +35,21 @@ public:
         }
 		if (newflg) 
 		{
-			GameObject* obj = AddGameObject(1);
-			obj->SetName("MainCamera");
-			obj->AddComponent<Camera>();
+			GameObject* camera = AddGameObject(0);
+			camera->SetName("MainCamera");
+			camera->AddComponent<Camera>();
+			GameObject* sky = AddGameObject(1);
+			Mesh* mesh = sky->AddComponent<Mesh>();
+			sky->SetName("Sky");
+			mesh->SetModel("sky.obj");
+			sky->m_Transform->SetScale(80.0f,80.0f,80.0f);
+			std::unique_ptr<Material> material = std::make_unique<Material>("unlitTexture");
+			material->Init();
+			sky->SetMaterial(std::move(material));
 		}
     }
 
-	virtual void Uninit()
+	void Uninit()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -52,11 +61,24 @@ public:
 			m_GameObject[i].clear();
 		}
 		TextureManager::Uninit();
+		ModelManager::Uninit();
         GuiManager::Instance().Uninit();
 
 	}
 
-	virtual void Update()
+	void EditorUpdate()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& gameObject : m_GameObject[i])
+			{
+				gameObject->EditorUpdate();
+			}
+		}
+	}
+
+
+	void Update()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -64,20 +86,11 @@ public:
 			{
 				gameObject->Update();
 			}
-
 		}
-        for (int i = 0; i < 3; i++)
-        {
-            for (auto& gameObject : m_GameObject[i])
-            {
-
-            }
-			 m_GameObject[i].remove_if([](const std::unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
-        }
-
 	}
 
-	virtual void Draw()
+
+	void Draw()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -88,9 +101,15 @@ public:
 		}
 	}
 
-	//型の分だけ関数が作られる
-	//あまり使わない方がいい
-	//template<typename T>//テンプレート関数
+	void Destroy()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			m_GameObject[i].remove_if([](const std::unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
+		}
+	}
+
+
 	GameObject* AddGameObject(int Layer)
 	{
 		std::unique_ptr<GameObject> gameObject = std::make_unique<GameObject>();
@@ -110,7 +129,7 @@ public:
 		{
 			for (auto& object : m_GameObject[i])
 			{
-				//メモリをくうのであまり使わないほうがいい
+
 				if (object.get()->GetName() == name)//型を調べる(RTTI動的型情報)
 				{
 					return object.get();
@@ -164,9 +183,35 @@ public:
     }
     std::string GetName() { return m_Name; }
 
+
+	void MoveLayer(std::list<std::unique_ptr<GameObject>>& listA, std::list<std::unique_ptr<GameObject>>& listB, GameObject* movedate)
+	{
+		// listAからlistBへデータNと同じ要素を移動
+		auto iter = listA.begin();
+		while (iter != listA.end()) {
+			if ((*iter)->GetName() == movedate->GetName()) {
+				listB.splice(listB.end(), listA, iter++);
+			}
+			else {
+				++iter;
+			}
+		}
+	}
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_GameObject[0]), CEREAL_NVP(m_GameObject[1]), CEREAL_NVP(m_GameObject[2]), CEREAL_NVP(m_Name));
+		archive(CEREAL_NVP(m_FileVersion),
+			CEREAL_NVP(m_GameObject[0]),
+			CEREAL_NVP(m_GameObject[1]),
+			CEREAL_NVP(m_GameObject[2]), 
+			CEREAL_NVP(m_Name));
+
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& gameobj : m_GameObject[i])
+			{
+				gameobj.get()->SetVersion(m_FileVersion);
+			}
+		}
     }
 };

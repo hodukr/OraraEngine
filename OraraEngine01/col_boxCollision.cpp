@@ -5,11 +5,14 @@
 #include "gameObject.h"
 #include "input.h"
 #include "imgui/imgui.h"
+#include "collisionManager.h"
 
 
 
 void BoxCollision::Init()
 {
+    CollisionManager::SetShape(this);
+
     m_Size = D3DXVECTOR3(1.5,1.5f,1.5f);
    
     //立方体 
@@ -41,6 +44,8 @@ void BoxCollision::Init()
 
 void BoxCollision::Uninit()
 {
+    CollisionManager::DeletShape(this);
+
     m_VertexLayout->Release();
     m_VertexShader->Release();
     m_PixelShader->Release();
@@ -122,6 +127,8 @@ void BoxCollision::SetVertex(VERTEX_3D* vertex)
 
 bool BoxCollision::CollideWith(BoxCollision* other)
 {
+    if(!m_Dynamic && !other->GetDynamic()) return false;
+
     // Box と Box の当たり判定ロジック
     float minXA = m_Position.x - m_Size.x;
     float maxXA = m_Position.x + m_Size.x;
@@ -140,10 +147,6 @@ bool BoxCollision::CollideWith(BoxCollision* other)
     float minZB = pos.z -  size.z;
     float maxZB = pos.z +  size.z;
 
-    ImGui::Text("OldPosition:%f %f", GetOldPosition().x, GetOldPosition().z);
-    ImGui::Text("TOldPosition:%f %f", m_GameObject->m_Transform->GetOldePosition().x, m_GameObject->m_Transform->GetOldePosition().z);
-    ImGui::Text("Position:%f %f", GetPosition().x, GetPosition().z);
-
     if (minXB < maxXA && maxXB > minXA &&
         minYA < maxYB && maxYA > minYB&&
         minZB < maxZA && maxZB > minZA)
@@ -151,33 +154,55 @@ bool BoxCollision::CollideWith(BoxCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        //ポジション計算用 
-        Vector3 pos = m_GameObject->m_Transform->GetPosition();
+        if (m_Dynamic)
+        {
+            //ポジション計算用 
+            Vector3 pos = m_GameObject->m_Transform->GetPosition();
 
-        static float p;
-        // 補正
-        if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
-        {
-            //いずれバグる　
-            pos.y = m_GameObject->m_Transform->GetOldePosition().y;
-        }
-        else if((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
-        {
-            pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+            // 補正
+            if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
+            {
+                //いずれバグる　
+                pos.y = m_GameObject->m_Transform->GetOldePosition().y;
+            }
+            else if ((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
+            {
+                pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+            }
+            else
+            {
+                pos.z = m_GameObject->m_Transform->GetOldePosition().z;
+            }
+
+            m_GameObject->m_Transform->SetPosition(pos);
+            m_Position = pos + m_Offset;
+
+            return true;
         }
         else
         {
-            p = GetOldPosition().x;
-            pos.z = m_GameObject->m_Transform->GetOldePosition().z;
-            
-        }
-        ImGui::Text("Pos:%f",p);
-        
+            //ポジション計算用 
+            Vector3 pos = other->m_GameObject->m_Transform->GetPosition();
 
-        m_GameObject->m_Transform->SetPosition(pos);
-        m_Position = pos + m_Offset;
-       
-        return true; 
+            // 補正
+            if ((maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA) || (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA))
+            {
+                //いずれバグる　
+                pos.y = other->m_GameObject->m_Transform->GetOldePosition().y;
+            }
+            else if ((maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA) || (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA))
+            {
+                pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
+            }
+            else
+            {
+                pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
+            }
+          
+            other->m_GameObject->m_Transform->SetPosition(pos);
+            other->m_Position = pos + other->m_Offset;
+            return true;
+        }
     }
 
     return false;
@@ -185,6 +210,8 @@ bool BoxCollision::CollideWith(BoxCollision* other)
 
 bool BoxCollision::CollideWith(SphereCollision* other)
 {
+    if (!m_Dynamic && !other->GetDynamic()) return false;
+
     // Box と Sphere の当たり判定ロジック
     // BoxとSphereが重なっているかどうかを判定
     float distanceSquared = 0.0f;
@@ -207,19 +234,52 @@ bool BoxCollision::CollideWith(SphereCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        // 重なっている場合の補正
-        float distance = std::sqrt(distanceSquared);
-        Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+        if (m_Dynamic)
+        {
+            // 重なっている場合の補正
+            float distance = std::sqrt(distanceSquared);
 
-        // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
-        Vector3 vec = normal * (other->GetSize() - distance);
+            Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+            if (normal.x == INFINITY)
+                normal.x = 0.0f;
+            if (normal.y == INFINITY)
+                normal.y = 0.0f;
+            if (normal.z == INFINITY)
+                normal.z= 0.0f;
 
-        // ポジションの補正
-        Vector3 pos = m_Position - m_Offset + vec;
-        m_GameObject->m_Transform->SetPosition(pos);
-        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
+            // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
+            Vector3 vec = normal * (other->GetSize() - distance);
 
-        return true;
+            // ポジションの補正
+            Vector3 pos = m_Position - m_Offset + vec;
+            m_GameObject->m_Transform->SetPosition(pos);
+            m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
+
+            return true;
+        }
+        else
+        {
+            // 重なっている場合の補正
+            float distance = std::sqrt(distanceSquared);
+            Vector3 normal = (other->GetPosition() - m_Position) / distance;  // 最短距離ベクトルの正規化
+
+            if (normal.x == INFINITY)
+                normal.x = 0.0f;
+            if (normal.y == INFINITY)
+                normal.y = 0.0f;
+            if (normal.z == INFINITY)
+                normal.z = 0.0f;
+
+            // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
+            Vector3 vec = normal * (other->GetSize() - distance);
+
+            // ポジションの補正
+            Vector3 pos = other->GetPosition() - other->GetOffset() + vec;
+            other->GetGameObejct()->m_Transform->SetPosition(pos);
+            other->GetPosition() = other->GetGameObejct()->m_Transform->GetPosition() + other->GetOffset();
+
+            return true;
+        }
     }
 
     return false;

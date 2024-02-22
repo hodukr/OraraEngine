@@ -8,10 +8,10 @@
 
 void WaterSurface::Init()
 {
-    m_WavePitch = 1.0f;
-    m_Amplitude = 10.0f;
-    m_WaveLength = 14.0f;
-    m_WaveCycle = 7.0f;
+    //m_WavePitch = 1.0f;
+    //m_Amplitude = 10.0f;
+    //m_WaveLength = 14.0f;
+    //m_WaveCycle = 7.0f;
 
     m_Time =0.0f;
      
@@ -100,9 +100,7 @@ void WaterSurface::Init()
 
     m_TexNum = TextureManager::LoadTexture("asset\\texture\\water.jpg");
     
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\unlitTexturePS.cso");
 }
 
 
@@ -111,9 +109,6 @@ void WaterSurface::Uninit()
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
     
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
 }
 
 
@@ -133,16 +128,6 @@ void WaterSurface::Update()
     }
     m_Time += 0.01f;
     m_WaveTime++;
-
-#ifdef _DEBUG
-    ImGui::Begin("WaterSaface", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("Amplitude", &m_Amplitude, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveLength", &m_WaveLength, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveCycle", &m_WaveCycle, 1.0f, 50.0f);
-
-    ImGui::End();
-#endif //_DEBUG
 }
 
 
@@ -184,13 +169,6 @@ void WaterSurface::Draw()
 
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
-    // 入力レイアウト設定
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-    // シェーダ設定
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
 
     // マトリクス設定
     D3DXMATRIX world, scale, rot, trans;
@@ -226,16 +204,6 @@ void WaterSurface::Draw()
 
     // プリミティブトポロジ設定
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-
-  /*  PARAMETER param;
-    ZeroMemory(&param, sizeof(param));
-    param.pos = D3DXVECTOR4(m_Position.x, 0.0f, m_Position.z, 1.0f);
-    param.waveAmplitude = 0.1f;
-    param.waveFrequency = 100.0f;
-    param.speed = 0.01f;
-    param.time = m_WaveTime;
-
-    Renderer::SetParameter(param);*/
 
     // ポリゴン描画
     Renderer::GetDeviceContext()->DrawIndexed(((NUM_VERTEX + 1) * 2) * (NUM_VERTEX - 1) - 2, 0, 0);

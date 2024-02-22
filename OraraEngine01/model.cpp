@@ -45,7 +45,7 @@ void Model::Draw()
 
 void Model::Load( const char *FileName )
 {
-
+	m_File = (char*)FileName;
 	MODEL model;
 	LoadObj( FileName, &model );
 
@@ -126,8 +126,9 @@ void Model::Load( const char *FileName )
 
 void Model::Unload()
 {
-	m_VertexBuffer->Release();
-	m_IndexBuffer->Release();
+
+	if(m_VertexBuffer)m_VertexBuffer->Release();
+	if (m_IndexBuffer)m_IndexBuffer->Release();
 
 	for (unsigned int i = 0; i < m_SubsetNum; i++)
 	{

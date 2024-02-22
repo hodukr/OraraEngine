@@ -10,6 +10,10 @@ private:
 
 public:
     Camera();
+    void DrawInspector()override
+    {
+        SET_DATE(m_Target);
+    }
     void Init()override;
     void Uninit()override;
     void Update()override;

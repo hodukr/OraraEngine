@@ -5,7 +5,6 @@
 #include "com_camera.h"
 #include "gameObject.h"
 #include "com_praticle.h"
-#include "com_material.h"
 #include "textureManager.h"
 #include "randomNumberGenerator.h"
 
@@ -25,28 +24,34 @@ PraticleSystem::PraticleSystem()
     m_Emitter.GradationColor[1] = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
     m_Emitter.GradationColor[2] = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
     m_Emitter.TexName = "praticle.dds";
-
     m_Emitter.IsGradation = false;
+}
 
-    SetDateList("StartColor", &(m_Emitter.StartColor));
-    SetDateList("StartRotation", &(m_Emitter.StartRotation));
-    SetDateList("StartLifetime", &(m_Emitter.StartLifetime));
-    SetDateList("EmissionRate", &(m_Emitter.EmissionRate));
-    SetDateList("Speed", &(m_Emitter.Speed));
-    SetDateList("MaxParticles", &(m_Emitter.MaxParticles));
-    SetDateList("AddStateVelocity", &(m_Emitter.AddStateVelocity));
-    SetDateList("AddVelocity", &(m_Emitter.AddVelocity));
-    SetDateList("GradationColor", &(m_Emitter.GradationColor[0]));
-    SetDateList("GradationColor1", &(m_Emitter.GradationColor[1]));
-    SetDateList("GradationColor2", &(m_Emitter.GradationColor[2]));
-    SetDateList("IsGradation", &(m_Emitter.IsGradation));
-    SetDateList("Fluctuation", &(m_Emitter.Fluctuation));
-    SetDateList("TexName", &(m_Emitter.TexName));
-    SetDateList("GradationLength", &(m_Emitter.GradationLength));
-    SetDateList("Fade", &(m_Emitter.IsFade));
-    SetDateList("StartFadeTime", &(m_Emitter.StartFadeTime));
-    SetDateList("declineFade", &(m_Emitter.DeclineFade));
-
+void PraticleSystem::DrawInspector()
+{
+    SET_NAME_DATE("StartColor", m_Emitter.StartColor);
+    SET_NAME_DATE("StartRotation", m_Emitter.StartRotation);
+    SET_NAME_DATE("StartLifetime", m_Emitter.StartLifetime);
+    SET_NAME_DATE("EmissionRate", m_Emitter.EmissionRate);
+    SET_NAME_DATE("Speed", (m_Emitter.Speed));
+    SET_NAME_DATE("MaxParticles", (m_Emitter.MaxParticles));
+    SET_NAME_DATE("AddStateVelocity", (m_Emitter.AddStateVelocity));
+    SET_NAME_DATE("AddVelocity", (m_Emitter.AddVelocity));
+    SET_NAME_DATE("GradationColor", (m_Emitter.GradationColor[0]));
+    SET_NAME_DATE("GradationColor1", (m_Emitter.GradationColor[1]));
+    SET_NAME_DATE("GradationColor2", (m_Emitter.GradationColor[2]));
+    SET_NAME_DATE("IsGradation", (m_Emitter.IsGradation));
+    SET_NAME_DATE("Fluctuation", (m_Emitter.Fluctuation));
+    SET_NEXT_FOLDER("asset\\texture\\", ".");
+    if (SET_NAME_DATE_STATE("TexName", (m_Emitter.TexName), CASTOMDRAWSTATE_STRING_FOLDER))
+    {
+        std::string name = "asset\\texture\\" + m_Emitter.TexName;
+        m_TexNum = TextureManager::LoadTexture(name.c_str());
+    }
+    SET_NAME_DATE("GradationLength", (m_Emitter.GradationLength));
+    SET_NAME_DATE("Fade", (m_Emitter.IsFade));
+    SET_NAME_DATE("StartFadeTime", (m_Emitter.StartFadeTime));
+    SET_NAME_DATE("declineFade", (m_Emitter.DeclineFade));
 }
 
 void PraticleSystem::Init()
@@ -183,13 +188,6 @@ void PraticleSystem::Draw()
         if (m_Camera)
             D3DXMATRIX view = m_Camera->GetViewMatrix();
 
-        ////ビューの逆行列 
-        //D3DXMATRIX invView;
-        //D3DXMatrixInverse(&invView, NULL, &view);
-        //invView._41 = 0.0f;
-        //invView._42 = 0.0f;
-        //invView._43 = 0.0f;
-
         //マトリクス設定 
         D3DXMATRIX world, scale, rot, trans;
         D3DXVECTOR3 Scale = m_GameObject->m_Transform->GetScale().dx();
@@ -236,14 +234,6 @@ void PraticleSystem::Draw()
     }
 }
 
-
-void PraticleSystem::SetTexture(const char* texname)
-{
-    m_Emitter.TexName = texname;
-    std::string name = "asset\\texture\\" + m_Emitter.TexName;
-
-    m_TexNum = TextureManager::LoadTexture(name.c_str());
-}
 
 void PraticleSystem::InitParticle(PARTICLE* partiale)
 {

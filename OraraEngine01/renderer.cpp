@@ -3,6 +3,9 @@
 #include "pass_environmentMapping.h"
 #include "pass_postPass.h"
 #include <io.h>
+#include <dxgi.h>
+
+#pragma comment (lib, "dxgi.lib")
 
 
 D3D_FEATURE_LEVEL       Renderer::m_FeatureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -36,6 +39,35 @@ void Renderer::Init()
 {
 	HRESULT hr = S_OK;
 
+	IDXGIFactory* pFactory = nullptr;
+	IDXGIAdapter* pAdapter = nullptr;
+
+	CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&pFactory);
+
+	UINT adapterIndex = 0;
+	IDXGIAdapter* pSelectedAdapter = nullptr;
+	SIZE_T maxMemorySize = 0;
+
+	while (true)
+	{
+		if (pFactory->EnumAdapters(adapterIndex, &pAdapter) == DXGI_ERROR_NOT_FOUND)
+		{
+			pAdapter = pSelectedAdapter;
+			break;
+		}
+		DXGI_ADAPTER_DESC adapterDesc;
+		pAdapter->GetDesc(&adapterDesc);
+
+		// メモリサイズが最大のアダプタを選択
+		if (adapterDesc.DedicatedVideoMemory > maxMemorySize)
+		{
+			maxMemorySize = adapterDesc.DedicatedVideoMemory;
+			pSelectedAdapter = pAdapter;
+		}
+
+		adapterIndex++;
+	}
+
 	// デバイス、スワップチェーン作成
 	m_SwapChainDesc.BufferCount = 1;
 	m_SwapChainDesc.BufferDesc.Width = SCREEN_WIDTH;
@@ -49,8 +81,8 @@ void Renderer::Init()
 	m_SwapChainDesc.SampleDesc.Quality = 0;
 	m_SwapChainDesc.Windowed = TRUE;
 
-	hr = D3D11CreateDeviceAndSwapChain( NULL,
-										D3D_DRIVER_TYPE_HARDWARE,
+	hr = D3D11CreateDeviceAndSwapChain( pAdapter,
+										D3D_DRIVER_TYPE_UNKNOWN,
 										NULL,
 										0,
 										NULL,

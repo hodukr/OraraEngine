@@ -27,9 +27,6 @@ class Cloth : public Component
 private:
     ID3D11Buffer* m_VertexBuffer{};
     ID3D11Buffer* m_IndexBuffer{};
-    ID3D11VertexShader* m_VertexShader{};
-    ID3D11PixelShader* m_PixelShader{};
-    ID3D11InputLayout* m_VertexLayout{};
 
     VERTEX_3D				m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
 
@@ -43,11 +40,25 @@ private:
     D3DXVECTOR3 m_Gravity[NUM_VERTEX][NUM_VERTEX]{};             //重力 
     bool        m_OnLock[NUM_VERTEX][NUM_VERTEX]{};              //ロックされているかいないか 
     bool m_IsWind{};                                             //風が吹いているか?　
-    D3DXVECTOR3 m_WindForce{};                                   //風力 
+    Vector3 m_WindForce{};                                   //風力 
     SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
 
     int m_TexNum{};
 public:
+    Cloth(){}
+    void DrawInspector()override
+    {
+        SET_NEXT_SLIDER(0.0, 10.0f);
+        SET_DATE_STATE(m_SpringMass, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.1f, 5.0f);
+        SET_DATE_STATE(m_AttCoefficient, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.1f, 5.0f);
+        SET_DATE_STATE(m_SpringCoefficient, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_NEXT_SLIDER(0.1f, 5.0f);
+        SET_DATE_STATE(m_deltaTime, CASTOMDRAWSTATE_FLOAT_SLIDER);
+        SET_DATE(m_IsWind);
+        SET_DATE(m_WindForce);
+    }
     void Init() override;
     void Uninit() override;
     void Update() override;
@@ -56,10 +67,10 @@ public:
     void SetTexNum(int num) { m_TexNum = num;}
     void SetIsWind(bool wind) { m_IsWind = wind;}
 
-    //template<class Archive>
-    //void serialize(Archive& archive)
-    //{
-       // archive(CEREAL_NVP(m_Modelpas), CEREAL_NVP(m_Material));
-    //}
+    template<class Archive>
+    void serialize(Archive& archive)
+    {
+        //archive(CEREAL_NVP(m_Modelpas), CEREAL_NVP(m_Material));
+    }
 
 };

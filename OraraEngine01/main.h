@@ -29,7 +29,7 @@
 
 #define SCREEN_WIDTH	(1280)
 #define SCREEN_HEIGHT	(720)
-
+#define NOWVERSION		(0)
 
 HWND GetWindow();
 
@@ -37,6 +37,12 @@ enum SceneState
 {
 	SCENESTATE_NONE = 0,
 	SCENESTATE_SCENE,
-	SCENEStATE_GAME,
+	SCENESTATE_GAME,
 };
 
+enum GameState
+{
+	GAMESTATE_NONE = 0,
+	GAMESTATE_STOP,
+	GAMESTATE_PLAY,
+};

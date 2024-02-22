@@ -3,7 +3,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
 
-class ImGuiWindow
+class GuiWindowBase
 {
 protected:
 	bool m_IsShowWindow = false;
@@ -11,6 +11,7 @@ public:
 	virtual void Init(){}
 	virtual void Uninit(){}
 	virtual void Update(){}
+	virtual void SetWindowConfig(){}
 	virtual void Draw(){}
 	void SetShowWindow(bool flg) { m_IsShowWindow = flg; }
 	bool GetShowWindow() { return m_IsShowWindow; }

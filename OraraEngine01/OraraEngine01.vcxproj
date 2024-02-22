@@ -144,6 +144,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +154,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collisionManager.cpp" />
+    <ClCompile Include="com_collisionShape.cpp" />
+    <ClCompile Include="guiw_debug.cpp" />
+    <ClCompile Include="imgui\GraphEditor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\ImCurveEdit.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\ImGradient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\ImGuizmo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\ImSequencer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="modelManager.cpp" />
     <ClCompile Include="sceneCamera.cpp" />
     <ClCompile Include="guiw_accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
@@ -160,8 +185,6 @@
     <ClCompile Include="col_boxCollision.cpp" />
     <ClCompile Include="com_camera.cpp" />
     <ClCompile Include="com_cloth.cpp" />
-    <ClCompile Include="collisionManager.cpp" />
-    <ClCompile Include="com_collisionShape.cpp" />
     <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="guiw_sceneWindow.cpp" />
     <ClCompile Include="pass_environmentMapping.cpp" />
@@ -172,8 +195,10 @@
     </ClCompile>
     <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="guiw_hierarchy.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -211,7 +236,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
-    <ClCompile Include="com_material.cpp" />
+    <ClCompile Include="material.cpp" />
     <ClCompile Include="guiw_menu.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -234,16 +259,26 @@
     <ClCompile Include="com_praticle.cpp" />
     <ClCompile Include="reflection.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="pass_depthShadow.cpp" />
     <ClCompile Include="col_sphereCollision.cpp" />
     <ClCompile Include="com_sprite.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="com_transform.cpp" />
-    <ClCompile Include="com_uiText.cpp" />
+    <ClCompile Include="com_uiTexture.cpp" />
     <ClCompile Include="com_waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="guiw_debug.h" />
+    <ClInclude Include="imgui\GraphEditor.h" />
+    <ClInclude Include="imgui\ImApp.h" />
+    <ClInclude Include="imgui\ImCurveEdit.h" />
+    <ClInclude Include="imgui\ImGradient.h" />
+    <ClInclude Include="imgui\ImGuizmo.h" />
+    <ClInclude Include="imgui\ImSequencer.h" />
+    <ClInclude Include="imgui\ImZoomSlider.h" />
+    <ClInclude Include="modelManager.h" />
     <ClInclude Include="sceneCamera.h" />
     <ClInclude Include="guiw_accessFolder.h" />
     <ClInclude Include="animationModel.h" />
@@ -285,7 +320,7 @@
     <ClInclude Include="guiw_inspector.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
-    <ClInclude Include="com_material.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="guiw_menu.h" />
     <ClInclude Include="com_mesh.h" />
     <ClInclude Include="model.h" />
@@ -298,6 +333,7 @@
     <ClInclude Include="reflection.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderResource.h" />
     <ClInclude Include="pass_depthShadow.h" />
@@ -307,7 +343,7 @@
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="timeProvider.h" />
     <ClInclude Include="com_transform.h" />
-    <ClInclude Include="com_uiText.h" />
+    <ClInclude Include="com_uiTexture.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="com_waterSurface.h" />
   </ItemGroup>

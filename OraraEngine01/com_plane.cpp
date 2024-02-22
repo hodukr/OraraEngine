@@ -13,9 +13,11 @@ void Plane::Init()
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)
 {
-	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\envMappingVS.cso");
+	//Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\envMappingVS.cso");
+	////Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\shadowVS.cso");
 
-	Renderer::CreatePixelShader(&m_PixelShader, "shader\\envMappingPS.cso");
+	//Renderer::CreatePixelShader(&m_PixelShader, "shader\\envMappingPS.cso");
+	//Renderer::CreatePixelShader(&m_PixelShader, "shader\\shadowPS.cso");
 
 	VERTEX_3D vertex[4];
 
@@ -68,9 +70,9 @@ void Plane::Uninit()
 	m_VertexBuffer->Release();
 	m_Texture->Release();
 
-	m_VertexLayout->Release();
+	/*m_VertexLayout->Release();
 	m_VertexShader->Release();
-	m_PixelShader->Release();
+	m_PixelShader->Release();*/
 }
 
 void Plane::Update()
@@ -80,11 +82,11 @@ void Plane::Update()
 void Plane::Draw()
 {
 	// 入力レイアウト設定
-	Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
+	//Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 
-	// シェーダ設定
-	Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-	Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
+	//// シェーダ設定
+	//Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
+	//Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
 	//頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
@@ -111,10 +113,16 @@ void Plane::Draw()
 
 	//テクスチャ設定
 	Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
-	EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
-	Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetCubeReflectShaderResourceView());
-	//DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
-	//Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetDepthShadowTexture());
+	if (m_GameObject->GetMaterial()->GetFileName() == "envMapping")
+	{
+		EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
+		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetTexture());
+	}
+	if (m_GameObject->GetMaterial()->GetFileName() == "shadow")
+	{
+		DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+		Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetTexture());
+	}
 
 
 	//プリミティブトポロジ設定

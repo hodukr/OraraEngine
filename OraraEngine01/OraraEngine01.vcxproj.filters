@@ -118,9 +118,6 @@
     <ClCompile Include="manager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="com_material.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -157,9 +154,6 @@
     <ClCompile Include="com_transform.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="com_uiText.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="com_waterSurface.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -167,9 +161,6 @@
       <Filter>Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="col_sphereCollision.cpp">
-      <Filter>Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="com_collisionShape.cpp">
       <Filter>Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="dropFile.cpp">
@@ -201,6 +192,39 @@
     </ClCompile>
     <ClCompile Include="sceneCamera.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImGuizmo.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImSequencer.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\GraphEditor.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImCurveEdit.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\ImGradient.cpp">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="modelManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="com_collisionShape.cpp">
+      <Filter>Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="com_uiTexture.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="guiw_debug.cpp">
+      <Filter>Debug\ImguiWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -274,9 +298,6 @@
     <ClInclude Include="manager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="com_material.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="model.h">
       <Filter>System</Filter>
     </ClInclude>
@@ -331,9 +352,6 @@
     <ClInclude Include="com_transform.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="com_uiText.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="vector.h">
       <Filter>System</Filter>
     </ClInclude>
@@ -382,6 +400,40 @@
     <ClInclude Include="sceneCamera.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="imgui\ImGuizmo.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImSequencer.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImZoomSlider.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\GraphEditor.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImApp.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImCurveEdit.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\ImGradient.h">
+      <Filter>ImGui\Guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="modelManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="com_uiTexture.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_debug.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -410,6 +462,9 @@
     </Filter>
     <Filter Include="Debug\ImguiWindow">
       <UniqueIdentifier>{c04786b0-5f41-4d68-9696-632809e740da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Guizmo">
+      <UniqueIdentifier>{07e7470d-17fc-4405-8ea3-60771152a6c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

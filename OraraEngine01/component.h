@@ -4,29 +4,29 @@
 #include <vector>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
+#include "guiManager.h"
+#include "guiw_inspector.h"
 
-//lsitに追加したい型をここに書く
-#define VARIATDATE int*, float*, std::string*, bool*,class Vector3*,struct D3DXCOLOR*
-enum VariableDate {
-    TYPE_INT,
-    TYPE_FLOAT,
-    TYPE_STRING,
-    TYPE_BOOL,
-    TYPE_VECTOR3,
-    TYPE_D3DXCOLOR,
-};
+#define SET_COMPONENT_CLASS(Classname)\
+CEREAL_REGISTER_TYPE(Classname)\
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Classname)
 
-struct TypeDate
+//前方宣言
+class Vector3;
+
+enum DrawLayer//描画されるレイヤーの指定
 {
-    std::string Name;//メンバ変数の名前
-    std::variant<VARIATDATE> MemberDate;//メンバ変数のデータ
-};
-#define SETDATE(T) SetDateList(#T,&T)
+    GAME_OBJECT_DRAW_LAYER_NONE = -1,
+    GAME_OBJECT_DRAW_LAYER_CAMERA,
+    GAME_OBJECT_DRAW_LAYER_3D,
+    GAME_OBJECT_DRAW_LAYER_2D,
 
+};
 class Component
 {
 protected:
     std::string m_ObjectName;
+    DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     class GameObject* m_GameObject;
     bool m_Destroy = false;
     std::vector<TypeDate> m_DataList;//メンバ変数を格納する
@@ -34,12 +34,16 @@ public:
     Component() {};
 	virtual void Init() {};
 	virtual void Uninit() {};
+    virtual void EditorUpdate(){};
 	virtual void Update() {};
 	virtual void Draw() {};
+
     void SetObjectName(std::string name) { m_ObjectName = name; };
     void SetGameObejct(GameObject* gameobj) { m_GameObject = gameobj; }
+
     GameObject* GetGameObejct() {return m_GameObject; }
     std::string GettName() { return m_ObjectName; }
+    const DrawLayer& GetDrawLayer() const { return m_DrawLayer; }
 
     void SetDestroy() { m_Destroy = true; }
 
@@ -56,23 +60,32 @@ public:
         }
     }
 
-    std::vector<TypeDate> GetDateList()
-    {
-        return m_DataList;
-    }
+    //std::vector<TypeDate> GetDateList()
+    //{
+    //    return m_DataList;
+    //}
 
-    void SetDateList(std::string name, std::variant<VARIATDATE> date)
-    {
-        name = name.substr(name.find('_') + 1);
-        TypeDate typedate;
-        typedate.Name = name;
-        typedate.MemberDate = date;
-        m_DataList.push_back(typedate);
-    }
+    //void SetDateList(std::string name, std::variant<VARIATDATE> date)
+    //{
+    //    name = name.substr(name.find('_') + 1);
+    //    TypeDate typedate;
+    //    typedate.Name = name;
+    //    typedate.MemberDate = date;
+    //    m_DataList.push_back(typedate);
+    //}
+
+    virtual void DrawInspector(){}
 
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_ObjectName));
+        try
+        {
+            archive(CEREAL_NVP(m_ObjectName));
+        }
+        catch (const std::exception&)
+        {
+
+        }
     }
 };

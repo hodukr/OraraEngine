@@ -1,5 +1,5 @@
 ﻿#include "main.h"
-#include "guiManager.h"
+#include "manager.h"
 #include "renderer.h"
 #include "guiw_accessFolder.h"
 #include "guiw_menu.h"
@@ -8,12 +8,13 @@
 #include "guiw_nodeEditor.h"
 #include "guiw_gameManagerGui.h"
 #include "guiw_sceneWindow.h"
+#include "guiw_debug.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
+#include "guiManager.h"
 #include <fstream>
 #include <cereal/archives/json.hpp>
-#include <filesystem>
-#include "input.h"
+
 
 #define DEBUGFILEPASS "resource\\debug.json"
 
@@ -536,6 +537,7 @@ static const ImWchar glyphRangesJapanese[] = {
     0xFF0E, 0xFF3B, 0xFF3D, 0xFF5D, 0xFF61, 0xFF9F, 0xFFE3, 0xFFE3, 0xFFE5, 0xFFE5, 0xFFFF, 0xFFFF, 0,
 };
 
+
 void GuiManager::SetUp()
 {
     ImGui::CreateContext();
@@ -564,7 +566,10 @@ void GuiManager::SetUp()
         AddWindow<GameManagerGui>();
         AddWindow<AccessFolder>();
         AddWindow<SceneWindow>();
+        AddWindow<Debug>();
     }
+
+
 }
 
 void GuiManager::Init()
@@ -593,6 +598,7 @@ void GuiManager::Update()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 
     for (auto& window : m_Windows)
     {
@@ -604,13 +610,17 @@ void GuiManager::Draw()
 {
     for (auto& window : m_Windows)
     {
-        if(window->GetShowWindow())
+        if (window->GetShowWindow())
+        {
+            window->SetWindowConfig();
             window->Draw();
+        }
     }
     
-
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
+
+
 
 

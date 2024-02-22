@@ -90,35 +90,27 @@ private:
     class Camera* m_Camera;
 
     PARTICLEEMITTER m_Emitter;
-
     std::stack<PARTICLE*> m_StackParticle;
     std::list<PARTICLE*> m_ParticleList;
     ElapsedTimeTracker m_Timer;
-
 public:
     PraticleSystem();
+    void DrawInspector()override;
     void Init()override;
     void Uninit()override;
     void Update()override;
     void Draw()override;
 
     PARTICLEEMITTER* GetEmitter() { return &m_Emitter; }
-    void SetTexture(const char* name);
 private:
     void InitParticle(PARTICLE* partiale);
     void AddPraticle();
     bool DeletPraticle();
 public:
-
-   /* template<class Archive>
-    void serialize(Archive& archive)
-    {
-        archive(CEREAL_NVP(m_Emitter));
-    }*/
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_Emitter));
+            archive(CEREAL_NVP(m_Emitter));
     }
 };
 

@@ -94,10 +94,6 @@ void Cloth::Init()
 
     m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\oraraEngine.png");
 
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\vertexLightingVS.cso");
-
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\vertexLightingPS.cso");
-
     // バネの初期化
     int count = 0;
     float	xx, yy, zz;				// 粒子間の距離（成分毎) 
@@ -166,9 +162,6 @@ void Cloth::Uninit()
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
  
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
 }
 
 
@@ -284,21 +277,6 @@ void Cloth::Update()
             m_Vertex[x][y].Position.z += m_Velocity[x][y].z * m_deltaTime;
         }
     }
-
-    //デバック用
-#ifdef _DEBUG
-    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
-    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
-    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
-    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
-    ImGui::Checkbox("IsWind", &m_IsWind);
-    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
-    //ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
- 
-    ImGui::End();
-#endif //_DEBUG
 }
 
 
@@ -323,13 +301,6 @@ void Cloth::Draw()
     }
 
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
-
-    // 入力レイアウト設定 
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-    // シェーダ設定 
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
 
 
     // マトリクス設定 
