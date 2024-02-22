@@ -220,8 +220,12 @@
     <ClCompile Include="com_collisionShape.cpp">
       <Filter>Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="guiw_debug.cpp" />
-    <ClCompile Include="com_uiTexture.cpp" />
+    <ClCompile Include="com_uiTexture.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="guiw_debug.cpp">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -426,8 +430,10 @@
     <ClInclude Include="material.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="com_uiTexture.h">
+      <Filter>Component</Filter>
+    </ClInclude>
     <ClInclude Include="guiw_debug.h" />
-    <ClInclude Include="com_uiTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

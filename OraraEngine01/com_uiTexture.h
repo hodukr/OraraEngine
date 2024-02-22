@@ -13,7 +13,6 @@ public:
     Texture() {
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_2D;
         m_Texturefile = "field004.jpg";
-        
     }
 
     void DrawInspector()

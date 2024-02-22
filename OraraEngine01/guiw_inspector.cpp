@@ -134,6 +134,13 @@ void Inspector::DrawComponent(Component* component)
 
             if (ImGui::Selectable("Delet"))
             {
+                
+                if (m_PopupComponent->GetDrawLayer() == GAME_OBJECT_DRAW_LAYER_2D)
+                {
+                    Scene* scene = Manager::GetScene();
+                    auto list = scene->GetList();
+                    scene->MoveLayer(list[1], list[m_GameObject->GetDrawLayer()], m_GameObject);
+                }
                 m_PopupComponent->SetDestroy();
 
             }

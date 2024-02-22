@@ -15,25 +15,27 @@ private:
 
     VERTEX_3D m_Vertex[NUM_VERTEX][NUM_VERTEX]{};
 
-    float m_WavePitch{};   //波の幅　
-    float m_Amplitude{};   //波の振幅  
-    float m_WaveLength{};  //波長 
-    float m_WaveCycle{};   //波の間隔 
+    float m_WavePitch{5.0f};   //波の幅　
+    float m_Amplitude{0.8f};   //波の振幅  
+    float m_WaveLength{0.165f};  //波長 
+    float m_WaveCycle{1.17f};   //波の間隔 
 
     float m_Time{};
     float m_WaveTime{};
 public:
-    WaterSurface()
+    WaterSurface(){ }
+    void DrawInspector()
     {
-        SET_NEXT_SLIDER(0.0f, 20.0f);
+        SET_NEXT_SLIDER(0.1f, 20.0f);
         SET_DATE_STATE(m_WavePitch, CASTOMDRAWSTATE_FLOAT_SLIDER);
-        SET_NEXT_SLIDER(0.0f, 10.0f);
+        SET_NEXT_SLIDER(0.1f, 10.0f);
         SET_DATE_STATE(m_Amplitude, CASTOMDRAWSTATE_FLOAT_SLIDER);
-        SET_NEXT_SLIDER(0.0f, 30.0f);
+        SET_NEXT_SLIDER(0.1f, 30.0f);
         SET_DATE_STATE(m_WaveLength, CASTOMDRAWSTATE_FLOAT_SLIDER);
-        SET_NEXT_SLIDER(0.0f, 20.0f);
+        SET_NEXT_SLIDER(0.1f, 20.0f);
         SET_DATE_STATE(m_WaveCycle, CASTOMDRAWSTATE_FLOAT_SLIDER);
     }
+
     void Init() override;
     void Uninit() override;
     void Update() override;

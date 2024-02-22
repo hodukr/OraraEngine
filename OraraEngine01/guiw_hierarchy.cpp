@@ -24,7 +24,7 @@ void Hierarchy::Uninit()
 
 void Hierarchy::Update()
 {
-    //Scene* scene = Manager::GetScene();
+
 }
 
 void Hierarchy::SetWindowConfig()

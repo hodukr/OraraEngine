@@ -277,21 +277,6 @@ void Cloth::Update()
             m_Vertex[x][y].Position.z += m_Velocity[x][y].z * m_deltaTime;
         }
     }
-
-    //デバック用
-#ifdef _DEBUG
-    ImGui::Begin("Cloth", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("SpringMass", &m_SpringMass, 1.0f, 10.0f);
-    ImGui::SliderFloat("AttCoefficient", &m_AttCoefficient, 0.1f, 5.0f);
-    ImGui::SliderFloat("SpringCoefficient", &m_SpringCoefficient, 1.0f, 150.0f);
-    ImGui::SliderFloat("m_deltaTime", &m_deltaTime, 0.01f, 0.120f);
-    ImGui::Checkbox("IsWind", &m_IsWind);
-    ImGui::SliderFloat3("WindForce", m_WindForce,0.0f, 100.0f);
-    //ImGui::SliderFloat3("Scale", m_Scale, 0.0f, 2.0f);
- 
-    ImGui::End();
-#endif //_DEBUG
 }
 
 
