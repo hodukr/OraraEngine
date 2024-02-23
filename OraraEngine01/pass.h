@@ -8,6 +8,7 @@ enum Shader
     SHADER_POST                     = 1 << 0,
     SHADER_ENVIRONMENTMAPPING       = 1 << 1,
     SHADER_SHADOW                   = 1 << 2,
+    SHADER_CREATETEXTURE            = 1 << 3,
 }; 
 
 class Pass
@@ -34,9 +35,6 @@ public:
         {
         case SHADER_NONE:
             break;
-        case SHADER_POST:
-            return "Post";
-            break;
         case SHADER_ENVIRONMENTMAPPING:
             return "EnvironmentMapping";
             break;
@@ -44,6 +42,7 @@ public:
             return "Shadow";
             break;
         default:
+            return "";
             break;
         }
     }

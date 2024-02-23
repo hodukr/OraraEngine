@@ -104,10 +104,9 @@ void Post::Draw()
 
     //レンダリングテクスチャを取得
     PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
-    SceneWindow* window = GuiManager::Instance().GetGuiWindow<SceneWindow>();
-    window->SetSceneTexture(post->GetPPTexture());
+    
     //レンダリングテクスチャを0番にセット  
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
+    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetTexture());
 
 
     // プリミティブトポロジ設定 

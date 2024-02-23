@@ -8,7 +8,6 @@ class SceneWindow :public GuiWindowBase
 {
 private:
     ImGuizmo::OPERATION m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
-    ID3D11ShaderResourceView** m_SceneTexture = nullptr;
 
     bool m_IsChildWindowFocused = false;
     bool m_IsMouseHoveringChildWindow = false;
@@ -25,7 +24,6 @@ public:
     void Update()override;
     void SetWindowConfig()override;
 	void Draw()override;
-    void SetSceneTexture(ID3D11ShaderResourceView** texture) { m_SceneTexture = texture; }
     bool GetChildWindowFocused() { return m_IsChildWindowFocused; }
     bool GetMouseHoveringChildWindow() { return m_IsMouseHoveringChildWindow; }
 };
