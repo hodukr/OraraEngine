@@ -221,9 +221,13 @@ void Inspector::DrawSetPass()
         {
             if (!(passflgs & (1 << i)))
             {
-                if (ImGui::Selectable(Pass::GetName(1 << i).c_str()))
+                std::string name = Pass::GetName(1 << i);
+                if (name != "")
                 {
-                    passflgs |= 1 << i;
+                    if (ImGui::Selectable(name.c_str()))
+                    {
+                        passflgs |= 1 << i;
+                    }
                 }
             }
         }

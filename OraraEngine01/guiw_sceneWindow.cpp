@@ -11,6 +11,7 @@
 #include "scene.h"
 #include "sceneCamera.h"
 #include "guiw_hierarchy.h"
+#include "pass_createTexture.h"
 
 void SceneWindow::Update()
 {
@@ -91,25 +92,18 @@ void SceneWindow::Draw()
     viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
     viewManipulateTop = ImGui::GetWindowPos().y;
 
-
     //Windowに対してのマウスの状態
     m_IsChildWindowFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
     m_IsMouseHoveringChildWindow = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
 
+    ImVec2 windowSize(SCREEN_WIDTH * 0.50f, SCREEN_HEIGHT * 0.50f);   
+    //ここでシーン画面を出力
+    CreateTexture* cTex = ShaderManager::Instance().GetPass<CreateTexture>(SHADER_CREATETEXTURE);
+    ImGui::Image((ImTextureID)*cTex->GetTexture(), windowSize);
+    //PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
+    //ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
 
-
-    ImVec2 windowSize(SCREEN_WIDTH * 0.50f, SCREEN_HEIGHT * 0.50f);
-    if (m_SceneTexture == nullptr)
-    {
-        //レンダリングテクスチャを取得
-        PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
-        ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
-    }
-    else
-    {
-        ImGui::Image((ImTextureID)*m_SceneTexture, windowSize);
-    }
-
+   
     Scene* scene = Manager::GetScene();
     Hierarchy* hierarchy = GuiManager::Instance().GetGuiWindow<Hierarchy>();
 

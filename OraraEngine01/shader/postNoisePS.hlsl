@@ -11,7 +11,7 @@ float Rand(float2 coord)
 }
 void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 {
-    float4 Tex = g_Texture.Sample(g_SamplerState, In.TexCoord);
+    //float4 Tex = g_Texture.Sample(g_SamplerState, In.TexCoord);
 	
     //float noise = clamp(0.2f, 0.5f, Rand(In.TexCoord * Param.Hp.x));
 
@@ -23,8 +23,8 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
   
 
 
-	outDiffuse.rgb = saturate(Tex.rgb)* In.Diffuse.rgb;
-	outDiffuse.a = Tex.a * In.Diffuse.a;
+	//outDiffuse.rgb = saturate(Tex.rgb)* In.Diffuse.rgb;
+	//outDiffuse.a = Tex.a * In.Diffuse.a;
 	
 
 	//////グレースケール変換
@@ -41,17 +41,17 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     //outDiffuse *= sepia;
     
     //モザイク
-    //uv *= screen; //UV値をスクリーン座標へ変換する
-    //uv /= 8.0f; //短形のサイズで割る
-    //uv = floor(uv); //小数部を消す
-    //uv *= 8.0f; //スクリーン座標に戻す
-    //uv /= screen; //スクリーン座標からUV値へ変換する
+    uv *= screen; //UV値をスクリーン座標へ変換する
+    uv /= 8.0f; //短形のサイズで割る
+    uv = floor(uv); //小数部を消す
+    uv *= 8.0f; //スクリーン座標に戻す
+    uv /= screen; //スクリーン座標からUV値へ変換する
     
-    //outDiffuse = g_Texture.Sample(g_SamplerState, uv);
+    outDiffuse = g_Texture.Sample(g_SamplerState, uv);
 
-    //outDiffuse *= In.Diffuse;
+    outDiffuse *= In.Diffuse;
 
-    //outDiffuse.a = 1.0f;
+    outDiffuse.a = 1.0f;
     //    discard;
     
 }

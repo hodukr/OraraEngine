@@ -7,6 +7,7 @@
 #include "pass_postPass.h"
 #include "post.h"
 #include "pass_depthShadow.h"
+#include "pass_createTexture.h"
 #include "sceneCamera.h"
 #include "shader.h"
 void ShaderManager::Init()
@@ -20,6 +21,7 @@ void ShaderManager::Init()
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
     AddPass<PostPass>();
+    AddPass<CreateTexture>();
 }
 
 void ShaderManager::Uninit()
@@ -66,9 +68,11 @@ void ShaderManager::Draw()
     m_EditorCamera->Draw();
     scene->Draw();
 
-    Renderer::Begin();
+    CreateTexture* cTex = GetPass<CreateTexture>(SHADER_CREATETEXTURE);
+    cTex->BeginCT();
+    m_Post->Draw();
 
-    //m_Post->Draw();
+    Renderer::Begin();
 }
 
 int ShaderManager::LoadShader(std::string file)
