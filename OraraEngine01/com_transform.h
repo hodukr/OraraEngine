@@ -104,7 +104,8 @@ public:
 
 
 
-	void Translate(Vector3 moveVec) { m_Position += moveVec; }
+    void Translate(Vector3 moveVec) { m_Position += moveVec; }
+    void Translate(float x, float y, float z) { m_Position += Vector3(x,y,z); }
 	void Rotate(Vector3 rotVec) { m_Rotation += rotVec; }
 	void Scale(Vector3 scaVec) { m_Scale += scaVec; }
 	

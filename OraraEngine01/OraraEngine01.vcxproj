@@ -154,6 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="com_player.cpp"/>
+    <ClInclude Include="com_player.h"/>
+    <ClCompile Include="com_rigidbody.cpp"/>
+    <ClInclude Include="com_rigidbody.h"/>
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
     <ClCompile Include="guiw_debug.cpp" />

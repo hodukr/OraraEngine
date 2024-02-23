@@ -56,7 +56,7 @@ void CollisionManager::Update()
                     if (hit)
                     {
                         // 衝突が発生した場合 
-                        if ((*it1)->GetState((*it2)) == COLLISION_NONE)
+                        if ((*it1)->GetState((*it2)) == COLLISION_NONE || (*it1)->GetState((*it2)) == COLLISION_EXIT)
                         {
                             (*it1)->SetStateMap((*it2), COLLISION_ENTER);
                         }
@@ -65,7 +65,7 @@ void CollisionManager::Update()
                             (*it1)->SetStateMap((*it2), COLLISION_STAY);
                         }
 
-                        if ((*it2)->GetState((*it1)) == COLLISION_NONE)
+                        if ((*it2)->GetState((*it1)) == COLLISION_NONE || (*it1)->GetState((*it2)) == COLLISION_EXIT)
                         {
                             (*it2)->SetStateMap((*it1), COLLISION_ENTER);
                         }

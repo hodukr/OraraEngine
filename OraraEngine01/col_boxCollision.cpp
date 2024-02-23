@@ -13,7 +13,7 @@ void BoxCollision::Init()
 {
     CollisionManager::SetShape(this);
 
-    m_Size = D3DXVECTOR3(1.5,1.5f,1.5f);
+    //m_Size = D3DXVECTOR3(1.5,1.5f,1.5f);
    
     //立方体 
     VERTEX_3D vertex[16];
@@ -156,22 +156,45 @@ bool BoxCollision::CollideWith(BoxCollision* other)
 
         if (m_Dynamic)
         {
+            Vector3 posvec = m_Position - pos;
             //ポジション計算用 
-            Vector3 pos = m_GameObject->m_Transform->GetPosition();
-
+            pos = m_GameObject->m_Transform->GetPosition();
+            float difference = posvec.y - m_Size.y - size.y;
             // 補正
-            if ((maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB) || (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB))
+            if (maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB)
             {
-                //いずれバグる　
-                pos.y = m_GameObject->m_Transform->GetOldePosition().y;
+                float difference = posvec.y - m_Size.y - size.y;
+                pos.y -= difference;
+                m_Direction = BOXHITDIRECTION_DOWN;
             }
-            else if ((maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB) || (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB))
+            else if (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB)
+            {
+                float difference = posvec.y + m_Size.y + size.y;
+                pos.y -= difference;
+                m_Direction = BOXHITDIRECTION_UP;
+
+            }
+            else if (maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB)
             {
                 pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+                m_Direction = BOXHITDIRECTION_LEFT;
+
+            }
+            else if (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB)
+            {
+                pos.x = m_GameObject->m_Transform->GetOldePosition().x;
+                m_Direction = BOXHITDIRECTION_RIGHT;
+
+            }
+            else if(maxZB <= GetOldPosition().z - m_Size.z && minZA <= maxZB)
+            {
+                pos.z = m_GameObject->m_Transform->GetOldePosition().z;
+                m_Direction = BOXHITDIRECTION_BACK;
             }
             else
             {
                 pos.z = m_GameObject->m_Transform->GetOldePosition().z;
+                m_Direction = BOXHITDIRECTION_FORWARD;
             }
 
             m_GameObject->m_Transform->SetPosition(pos);
@@ -182,21 +205,41 @@ bool BoxCollision::CollideWith(BoxCollision* other)
         else
         {
             //ポジション計算用 
+            Vector3 posvec = pos - m_Position;
             Vector3 pos = other->m_GameObject->m_Transform->GetPosition();
-
             // 補正
-            if ((maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA) || (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA))
+            if (maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA)
             {
-                //いずれバグる　
-                pos.y = other->m_GameObject->m_Transform->GetOldePosition().y;
+                float difference = posvec.y - m_Size.y - size.y;
+                pos.y -= difference;
+                other->SetHitDirection(BOXHITDIRECTION_DOWN);
             }
-            else if ((maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA) || (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA))
+            else if (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA)
+            {
+                float difference = posvec.y + m_Size.y + size.y;
+                pos.y -= difference;
+                other->SetHitDirection(BOXHITDIRECTION_UP);
+            }
+            else if (maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
+                other->SetHitDirection(BOXHITDIRECTION_LEFT);
+            }
+            else if (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA)
+            {
+                pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
+                other->SetHitDirection(BOXHITDIRECTION_RIGHT);
+
+            }
+            else if (minZA >= other->GetOldPosition().z + other->m_Size.z && maxZB >= minZA)
+            {
+                pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
+                other->SetHitDirection(BOXHITDIRECTION_BACK);
             }
             else
             {
                 pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
+                other->SetHitDirection(BOXHITDIRECTION_FORWARD);
             }
           
             other->m_GameObject->m_Transform->SetPosition(pos);
