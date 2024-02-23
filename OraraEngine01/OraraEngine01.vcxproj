@@ -154,10 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="com_player.cpp"/>
-    <ClInclude Include="com_player.h"/>
-    <ClCompile Include="com_rigidbody.cpp"/>
-    <ClInclude Include="com_rigidbody.h"/>
+    <ClCompile Include="com_player.cpp" />
+    <ClInclude Include="com_player.h" />
+    <ClCompile Include="com_rigidbody.cpp" />
+    <ClInclude Include="com_rigidbody.h" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
     <ClCompile Include="guiw_debug.cpp" />
@@ -182,6 +182,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="modelManager.cpp" />
+    <ClCompile Include="pass_createTexture.cpp" />
     <ClCompile Include="sceneCamera.cpp" />
     <ClCompile Include="guiw_accessFolder.cpp" />
     <ClCompile Include="animationModel.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="imgui\ImSequencer.h" />
     <ClInclude Include="imgui\ImZoomSlider.h" />
     <ClInclude Include="modelManager.h" />
+    <ClInclude Include="pass_createTexture.h" />
     <ClInclude Include="sceneCamera.h" />
     <ClInclude Include="guiw_accessFolder.h" />
     <ClInclude Include="animationModel.h" />

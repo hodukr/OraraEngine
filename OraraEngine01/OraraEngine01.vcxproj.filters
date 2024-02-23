@@ -232,6 +232,9 @@
     <ClCompile Include="guiw_debug.cpp">
       <Filter>Debug\ImguiWindow</Filter>
     </ClCompile>
+    <ClCompile Include="pass_createTexture.cpp">
+      <Filter>Pass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -446,6 +449,9 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="guiw_debug.h" />
+    <ClInclude Include="pass_createTexture.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
