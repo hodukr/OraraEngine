@@ -3,8 +3,6 @@
 #include "post.h"
 #include "pass_postPass.h"
 #include "shaderManager.h"
-#include "guiManager.h"
-#include "guiw_sceneWindow.h"
 
 void Post::Init()
 {
@@ -45,9 +43,8 @@ void Post::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    //ここにシェーダーファイルのロードを追加 
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\postNoiseVS.cso");
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\postNoisePS.cso");
+    m_DefaultShader = ShaderManager::Instance().LoadShader("unlitTexture");
+    m_PostShader = ShaderManager::Instance().LoadShader("postNoise");
 
     //コンスタントバッファに送るパラメーターの初期化  
     ZeroMemory(&m_Water, sizeof(WATER));
@@ -62,12 +59,6 @@ void Post::Init()
 void Post::Uninit()
 {
     m_VertexBuffer->Release();
-
-    //ここにシェーダーオブジェクトの解放を追加 
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
-
 }
 
 
@@ -79,11 +70,10 @@ void Post::Update()
 
 void Post::Draw()
 {
-    //ここにシェーダー関連の描画準備を追加 
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
+    if(m_IsPost)
+     ShaderManager::Instance().GetShader(m_PostShader)->SetShader();
+    else
+     ShaderManager::Instance().GetShader(m_DefaultShader)->SetShader();
 
     // マトリクス設定 
     Renderer::SetWorldViewProjection2D();
@@ -99,15 +89,12 @@ void Post::Draw()
     ZeroMemory(&material, sizeof(material));
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     Renderer::SetMaterial(material);
-     
-    // テクスチャ設定
 
     //レンダリングテクスチャを取得
     PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
     
     //レンダリングテクスチャを0番にセット  
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetTexture());
-
 
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
