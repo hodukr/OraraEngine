@@ -3,7 +3,8 @@
 
 Texture2D g_Texture : register(t0);
 Texture2D g_TextureShadowDepth : register(t1);
-SamplerState g_SamplerState : register(s1);
+SamplerState g_SamplerState : register(s0);
+SamplerState g_SamplerState1 : register(s1);
 
 // シャドウマップのサイズとフィルターサイズ
 static const float shadowMapSizeX = 1280.0f;
@@ -26,7 +27,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     {
         for (float y = -filterSize; y <= filterSize; y += 1.0)
         {
-            float depth = g_TextureShadowDepth.Sample(g_SamplerState, float2(In.ShadowPosition.x + x / shadowMapSizeX, In.ShadowPosition.y + y / shadowMapSizeY)).r;
+            float depth = g_TextureShadowDepth.Sample(g_SamplerState1, float2(In.ShadowPosition.x + x / shadowMapSizeX, In.ShadowPosition.y + y / shadowMapSizeY)).r;
             
             if (depth < In.ShadowPosition.z - 0.001f)
             {

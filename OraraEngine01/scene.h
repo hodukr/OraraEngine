@@ -22,7 +22,7 @@ protected:
 	int m_FileVersion = NOWVERSION;
 public:
     Scene(std::string name = "NewScene"):m_Name(name){}
-	void Init()
+	virtual void Init()
     {
 		bool newflg = true;
         for (int i = 0; i < 3; i++)
@@ -49,7 +49,7 @@ public:
 		}
     }
 
-	void Uninit()
+	virtual void Uninit()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -78,7 +78,7 @@ public:
 	}
 
 
-	void Update()
+	virtual void Update()
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -90,7 +90,7 @@ public:
 	}
 
 
-	void Draw()
+	virtual void Draw()
 	{
 		for (int i = 0; i < 3; i++)
 		{
