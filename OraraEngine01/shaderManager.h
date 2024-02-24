@@ -46,4 +46,6 @@ public:
 
 	int LoadShader(std::string file);
 	ShaderDate* GetShader(int index) { return shaders[index]; }
+
+	Post* GetPost() { return m_Post; }
 };

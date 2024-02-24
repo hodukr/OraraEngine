@@ -15,6 +15,7 @@ public:
 
 	void SetColor(D3DXCOLOR Color) { m_Color = Color; }
     std::string GetFileName() { return m_ShaderName; }
+    int  GetShaderNum() { return m_ShaderNum; }
     void SetShader(std::string file);
     template<class Archive>
     void serialize(Archive& archive)

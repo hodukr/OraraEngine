@@ -235,6 +235,9 @@
     <ClCompile Include="pass_createTexture.cpp">
       <Filter>Pass</Filter>
     </ClCompile>
+    <ClCompile Include="com_post.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -451,6 +454,9 @@
     <ClInclude Include="guiw_debug.h" />
     <ClInclude Include="pass_createTexture.h">
       <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="com_post.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
