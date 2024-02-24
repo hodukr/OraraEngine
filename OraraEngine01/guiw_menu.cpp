@@ -76,12 +76,7 @@ void Menu::Draw()
             {
                 if (ImGui::Selectable(sceneName.c_str()))
                 {//シーンfileの情報ロード
-                    std::string filename = "asset/scene/" + sceneName + ".json";
-                    std::ifstream inputFile(filename);
-                    cereal::JSONInputArchive archive(inputFile);
-                    Scene* inscene = new Scene();
-                    archive(*inscene);
-                    Manager::SetScene(inscene);
+                    Manager::SetScene(sceneName);
                     break;
                 }
             }

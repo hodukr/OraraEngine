@@ -49,12 +49,7 @@ void Manager::Init()
 		}
 		if (isNewScene)
 		{
-			std::string filename = "asset/scene/NewScene.json";
-			std::ifstream inputFile(filename);
-			cereal::JSONInputArchive archive(inputFile);
-			Scene* inscene = new Scene();
-			archive(*inscene);
-			SetScene(inscene);
+			SetScene("NewScene");
 		}
 		else
 		{
@@ -100,14 +95,7 @@ void Manager::Update()
 				o_archive(cereal::make_nvp("secne", *m_Scene));
 			}
 
-			{
-				std::string filename = "asset/scene/" + m_Scene->GetName() + ".json";
-				std::ifstream inputFile(filename);
-				cereal::JSONInputArchive archive(inputFile);
-				Scene* inscene = new Scene();
-				archive(*inscene);
-				SetScene(inscene);
-			}
+			SetScene(m_Scene->GetName());
 		}
 		
 	}
@@ -152,4 +140,14 @@ void Manager::Draw()
 	GuiManager::Instance().Draw();
 
 	Renderer::End();
+}
+
+void Manager::SetScene(std::string scene)
+{
+	std::string filename = "asset/scene/" + scene + ".json";
+	std::ifstream inputFile(filename);
+	cereal::JSONInputArchive archive(inputFile);
+	Scene* inscene = new Scene();
+	archive(*inscene);
+	m_NextScene = inscene;
 }

@@ -2,24 +2,30 @@
 #include "manager.h"
 #include "guiManager.h"
 #include "scene.h"
+#include "gameObject.h"
 #include "guiw_hierarchy.h"
 #include "guiw_inspector.h"
 #include "imgui/imgui.h"
 #include "input.h"
+#include <cereal/archives/json.hpp>
+#include <fstream>
+namespace fs = std::filesystem;
 
 void Hierarchy::Init()
 {
     m_Scene = Manager::GetScene();
     m_OpenTree = true;
     m_SelectGameObject = nullptr;
+    m_CopyGameObject = nullptr;
 }
 
 
 void Hierarchy::Uninit()
 {
-    m_Scene  =nullptr;
+    m_Scene  = nullptr;
     m_SelectGameObject = nullptr;
     m_ConfigGameObject = nullptr;
+    m_CopyGameObject = nullptr;
 }
 
 void Hierarchy::Update()
@@ -46,15 +52,15 @@ void Hierarchy::Draw()
         ImGui::OpenPopup("SceneConfig");
     }
     if (ImGui::BeginPopup("SceneConfig")) {
-
-            char* name = (char*)m_Scene->GetName().c_str();
-            ImGui::InputText("Name", name,20);
+        char name[128];
+        strncpy_s(name, (char*)m_Scene->GetName().c_str(), sizeof(name));
+            ImGui::InputText("Name", name,sizeof(name));
             std::string rename = name;
-            if ("" != rename && ImGui::GetKeyName(ImGuiKey_Enter))
+            if ("" != rename && Input::Instance().GetKeyPress(VK_RETURN))
             {
                 m_Scene->SetName(rename);
+                ImGui::CloseCurrentPopup();
             }
-
         ImGui::EndPopup();
 
     }
@@ -88,6 +94,14 @@ void Hierarchy::Draw()
         }
 
         if (ImGui::BeginPopup("GameObjectConfig")) {
+            //if (ImGui::Selectable("Copy"))
+            //{
+            //    std::string filename = "resource\\Copy.json";
+            //    std::ofstream outputFile(filename);
+            //    cereal::JSONOutputArchive o_archive(outputFile);
+
+            //    o_archive(cereal::make_nvp("CopyGameObject", *m_SelectGameObject));
+            //}
 
             if (ImGui::Selectable("削除"))
             {

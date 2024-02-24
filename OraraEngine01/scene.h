@@ -114,10 +114,6 @@ public:
 	{
 		std::unique_ptr<GameObject> gameObject = std::make_unique<GameObject>();
 		gameObject->Init();
-       
-        //std::string name;
-        //name = "GameObject";
-        //gameObject->SetName(name);
         m_GameObject[Layer].push_back(std::move(gameObject));
 
 		return m_GameObject[Layer].back().get();

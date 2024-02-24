@@ -29,10 +29,7 @@ public:
 	{
 		m_NextScene = new T();
 	}
-    static void SetScene(Scene* scene)
-    {
-        m_NextScene = scene;
-	}
+	static void SetScene(std::string Scene);
 
 	static void SetNextSceneState(SceneState state) {m_NextSceneState = state;}
 	static SceneState GetSceneState() { return m_SceneState; }

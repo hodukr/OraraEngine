@@ -1,4 +1,5 @@
 #include "main.h"
+#include "manager.h"
 #include "gameObject.h"
 #include "input.h"
 #include "com_player.h"
@@ -50,6 +51,7 @@ void Player::Update()
 		m_JumpPower = 1.0f;
         m_IsGround = false;
         m_Velocity.y = m_JumpPower;
+        Manager::SetScene("newScene");
 	}
     m_Velocity.y -= 0.1f;
 	m_GameObject->m_Transform->Translate(m_Velocity);

@@ -10,6 +10,7 @@ private:
 	std::list<class GameObject*> m_GameObjects;
     GameObject* m_SelectGameObject = nullptr;
     GameObject* m_ConfigGameObject = nullptr;
+	GameObject* m_CopyGameObject = nullptr;
 
 public:
 	void Init();
