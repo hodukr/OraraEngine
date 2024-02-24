@@ -1,5 +1,8 @@
 #include "main.h"
+#include "renderer.h"
 #include "guiw_debug.h"
+#include "shaderManager.h"
+#include "pass_depthShadow.h"
 
 
 void Debug::SetWindowConfig()
@@ -21,6 +24,9 @@ void Debug::Draw()
     value[179] = ImGui::GetIO().DeltaTime * 1000.0f;
 
     ImGui::PlotHistogram("", value, sizeof(value) / sizeof(float), 0, NULL, 0.0f, 100.0f, ImVec2(280.0f, 80.0f));
+
+    DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+    ImGui::Image((ImTextureID)*shadow->GetTexture(), ImVec2(200.0f, 200.0f));
 
     ImGui::End();
 }

@@ -238,6 +238,9 @@
     <ClCompile Include="com_post.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -457,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="com_post.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

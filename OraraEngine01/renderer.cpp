@@ -198,6 +198,19 @@ void Renderer::Init()
 
 	m_DeviceContext->PSSetSamplers( 0, 1, &samplerState );
 
+
+	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	;
+	samplerDesc.MaxAnisotropy = 16;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
+
+	m_DeviceContext->PSSetSamplers(1, 1, &samplerState);
+
 	// 定数バッファ生成
 	D3D11_BUFFER_DESC bufferDesc{};
 	bufferDesc.ByteWidth = sizeof(D3DXMATRIX);

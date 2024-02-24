@@ -47,22 +47,12 @@ void DepthShadow::CreatePass()
 
 void DepthShadow::Init()
 {
-    //Scene* scene = Manager::GetScene();
-    //if (scene)
-    //{
-    //    for (auto& objlist : scene->GetList()[1])
-    //    {
-    //        if (objlist->GetPass() & SHADER_SHADOW)m_ShadowDrawObj.push_back(objlist.get());
-    //    }
-    //}
 }
 
 void DepthShadow::Uninit()
 {
-    //m_ShadowDrawObj.clear();
     m_DepthStencilView->Release();
     m_ShaderResourceView->Release();
-  
 }
 
 void DepthShadow::Draw()
@@ -75,14 +65,14 @@ void DepthShadow::Draw()
     light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
     //ライトカメラのビュー行列を作成
-    D3DXVECTOR3 lightPos = D3DXVECTOR3(-20.0f, 20.0f, -20.0f);
+    D3DXVECTOR3 lightPos = D3DXVECTOR3(0.0f, 150.0f, -20.0f);
     D3DXVECTOR3 lightTarget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     D3DXVECTOR3 lightUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
     D3DXMatrixLookAtLH(&light.ViewMatrix, &lightPos, &lightTarget, &lightUp);
 
     //ライトカメラのプロジェクション行列を作成
     D3DXMatrixPerspectiveFovLH(&light.ProjectionMatrix, 1.0f,
-        (float)SCREEN_WIDTH / SCREEN_HEIGHT, 5.0f, 100.0f);
+        (float)SCREEN_WIDTH / SCREEN_HEIGHT, 5.0f, 300.0f);
 
     //ライト情報をセット
     Renderer::SetLight(light);
@@ -101,89 +91,11 @@ void DepthShadow::Draw()
         if(obj->GetPass() &SHADER_SHADOW)
             obj->Draw();
     }
-
-    //Scene* scene = Manager::GetScene();
-    //scene->Draw();
 }
 
 void DepthShadow::Update()
 {
-    //Scene* scene = Manager::GetScene();
-
-    //ImGui::Begin("Shader", 0);
-
-  /*  if (ImGui::TreeNode("Shadow"))
-    {*/
-    //    //ゲームオブジェクト一覧
-    //    if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
-    //    {
-    //        for (int i = 0; i < 3; i++)
-    //        {
-    //            if (scene->GetList()[i].empty())
-    //                continue;
-    //            for (auto& gameobject : scene->GetList()[i])
-    //            {
-    //                if (ImGui::Selectable(gameobject->GetName().c_str()))
-    //                {
-    //                    m_SelectPosObj = gameobject->GetName();
-    //                    m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
-    //                }
-    //            }
-    //        }
-    //        ImGui::EndCombo();
-    //    }
-
-    //    if (ImGui::TreeNode("DrawObj"))
-    //    {
-    //        for (int i = 0; i < m_DrawObjNum; i++)
-    //        {
-    //            //ゲームオブジェクト一覧
-    //            if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
-    //            {
-    //                for (int j = 0; j < 3; j++)
-    //                {
-    //                    if (scene->GetList()[j].empty())continue;
-
-    //                    for (auto& gameobject : scene->GetList()[j])
-    //                    {
-    //                        if (ImGui::Selectable(gameobject->GetName().c_str()))
-    //                        {
-    //                            m_SelectDrawObj[i] = gameobject->GetName();
-    //                            m_ShadowDrawObj[i] = gameobject.get();
-    //                        }
-    //                    }
-    //                }
-    //                ImGui::EndCombo();
-    //            }
-    //        }
-
-    //        ImGui::Separator();
-
-    //        if (ImGui::Button("Add Object"))
-    //        {
-    //            m_DrawObjNum++;
-    //        }
-
-    //        ImGui::SameLine();  // 同じ行に次の要素を配置する
-
-    //        if (ImGui::Button("Erase List"))
-    //        {
-    //            if (m_DrawObjNum > 0)
-    //            {
-    //                m_SelectDrawObj.erase(m_DrawObjNum - 1);
-    //                m_ShadowDrawObj.erase(m_DrawObjNum - 1);
-    //                m_DrawObjNum--;
-    //            }
-    //        }
-
-    //        ImGui::TreePop();
-    //    }
-
-
-    //    ImGui::TreePop();
-    //}
-
-    //ImGui::End();
+    
 }
 
 void DepthShadow::BeginDepth(void)

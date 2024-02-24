@@ -183,6 +183,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="loading.cpp" />
     <ClCompile Include="modelManager.cpp" />
     <ClCompile Include="pass_createTexture.cpp" />
     <ClCompile Include="sceneCamera.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="imgui\ImGuizmo.h" />
     <ClInclude Include="imgui\ImSequencer.h" />
     <ClInclude Include="imgui\ImZoomSlider.h" />
+    <ClInclude Include="loading.h" />
     <ClInclude Include="modelManager.h" />
     <ClInclude Include="pass_createTexture.h" />
     <ClInclude Include="sceneCamera.h" />
