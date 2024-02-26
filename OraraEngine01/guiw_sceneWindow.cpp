@@ -137,7 +137,7 @@ void SceneWindow::Draw()
         //ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
         //右上の四角(どこを見ているかのUI)
         ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
-        if (hierarchy->GetSelectGameObject() != nullptr)
+        if (hierarchy->GetSelectGameObject() != nullptr && hierarchy->GetSelectGameObject()->GetDrawLayer() != GAME_OBJECT_DRAW_LAYER_2D)
         {
             D3DXMATRIX matrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 

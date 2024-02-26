@@ -178,10 +178,20 @@ void Manager::SetLoaded(Scene* scene)
 
 void Manager::SetScene(std::string scene)
 {
-	std::string filename = "asset/scene/" + scene + ".json";
-	std::ifstream inputFile(filename);
-	cereal::JSONInputArchive archive(inputFile);
-	Scene* inscene = new Scene();
-	archive(*inscene);
-	m_NextScene = inscene;
+	try
+	{
+		std::string filename = "asset/scene/" + scene + ".json";
+		std::ifstream inputFile(filename);
+		cereal::JSONInputArchive archive(inputFile);
+		Scene* inscene = new Scene();
+		archive(*inscene);
+		m_NextScene = inscene;
+	}
+	catch (const std::exception&)
+	{
+		m_NextScene = new Scene;
+		m_NextScene->SetName(scene);
+	}
+
+
 }

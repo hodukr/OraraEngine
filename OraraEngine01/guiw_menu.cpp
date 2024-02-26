@@ -16,7 +16,6 @@ void Menu::Init()
 
 void Menu::Uninit()
 {
-
 }
 
 void Menu::Update()
@@ -102,7 +101,6 @@ void Menu::Draw()
             std::string folderPath = "asset\\scene";
 
             //シーン生成
-            //フォルダ内にNewScene.jsonがあれば読み込む
             bool isScene = true;
             try {
                 // 指定されたフォルダ内のファイルをイテレート 
@@ -120,7 +118,7 @@ void Menu::Draw()
             }
             if (isScene)
             {
-                //Manager::SetScene<Scene>();
+                Manager::SetScene(name);
             }
             else
             {
