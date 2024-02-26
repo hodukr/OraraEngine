@@ -77,11 +77,7 @@ void EnvironmentMapping::Uninit()
 {
     m_ReflectTexture->Release();
     m_ReflectRenderTargetView->Release();
-    //m_ReflectDepthStencilView->Release();
     m_CubeReflectTexture->Release();
-    //m_CubeReflectShaderResourceView->Release();
-
-    //m_DrawObj.clear();
     m_SelectDrawObj.clear();
     m_SelectPosObj.clear();
 }
@@ -151,88 +147,6 @@ void EnvironmentMapping::Draw()
             0, 0, 0, GetReflectTexture(), 0, nullptr
         );
     }
-}
-
-void EnvironmentMapping::Update()
-{
-    //Scene* scene = Manager::GetScene();
-
-    //ImGui::Begin("Shader", 0);
-
-    //if (ImGui::TreeNode("EnvironmentMapping"))
-    //{
-    //    //ゲームオブジェクト一覧
-    //    if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
-    //    {
-    //        for (int i = 0; i < 3; i++)
-    //        {
-    //            if (scene->GetList()[i].empty())
-    //                continue;
-    //            for (auto& gameobject : scene->GetList()[i])
-    //            {
-    //                if (ImGui::Selectable(gameobject->GetName().c_str()))
-    //                {
-    //                    m_SelectPosObj = gameobject->GetName();
-    //                    m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
-    //                }
-    //            }
-    //        }
-    //        ImGui::EndCombo();
-    //    }
-
-    //    if (ImGui::TreeNode("DrawObj"))
-    //    {
-    //        for (int i = 0; i < m_DrawObjNum; i++)
-    //        {
-    //            //ゲームオブジェクト一覧
-    //            if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
-    //            {
-    //                for (int j = 0; j < 3; j++)
-    //                {
-    //                    if (scene->GetList()[j].empty())
-    //                        continue;
-
-    //                    for (auto& gameobject : scene->GetList()[j])
-    //                    {
-    //                        if (ImGui::Selectable(gameobject->GetName().c_str()))
-    //                        {
-    //                            m_SelectDrawObj[i] = gameobject->GetName();
-    //                            m_DrawObj[i] = gameobject.get();
-    //                        }
-    //                    }
-    //                }
-
-    //                ImGui::EndCombo();
-    //            }
-    //        }
-
-    //        ImGui::Separator();
-
-    //        if (ImGui::Button("Add List"))
-    //        {
-    //            m_DrawObjNum++;
-    //        }
-
-    //        ImGui::SameLine();  // 同じ行に次の要素を配置する
-
-    //        if (ImGui::Button("Erase List"))
-    //        {
-    //            if (m_DrawObjNum > 0)
-    //            {
-    //                m_SelectDrawObj.erase(m_DrawObjNum - 1);
-    //                m_DrawObj.erase(m_DrawObjNum - 1);
-    //                m_DrawObjNum--;
-    //            }
-    //        }
-
-    //        ImGui::TreePop();
-    //    }
-
-    //
-    //    ImGui::TreePop();
-    //}
-    //
-    //ImGui::End();
 }
 
 void EnvironmentMapping::BeginCube(void)
