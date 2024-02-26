@@ -1,0 +1,441 @@
+{
+    "secne": {
+        "m_FileVersion": 0,
+        "m_GameObject[0]": [
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "MainCamera",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 2147483649,
+                                "polymorphic_name": "Transform",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 5.0,
+                                            "z": -10.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483650,
+                                "polymorphic_name": "Camera",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 0
+                    }
+                }
+            }
+        ],
+        "m_GameObject[1]": [
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Sky",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 80.0,
+                                            "y": 80.0,
+                                            "z": 80.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483651,
+                                "polymorphic_name": "Mesh",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "sky.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "unlitTexture",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "GameObject",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 20.690460205078126,
+                                            "y": 1.149999976158142,
+                                            "z": 26.78590965270996
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "box.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "BoxCollision",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Size": {
+                                            "x": 20.0,
+                                            "y": 1.5,
+                                            "z": 26.0
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "shadow",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "hurinkazan"
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Player",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 2.671103000640869,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "player.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 1.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Size": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483653,
+                                "polymorphic_name": "Player",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483654,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "Player"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 0.27963215112686159,
+                                        "g": 1.0,
+                                        "b": 0.023166000843048097,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "enemy",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 3.9221723079681398,
+                                            "y": 1.633744239807129,
+                                            "z": -3.373349666595459
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.36340004205703738,
+                                            "y": 0.39607948064804079,
+                                            "z": 0.36340004205703738
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "Slime.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483655,
+                                "polymorphic_name": "Enemy",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.10000000149011612,
+                                        "m_Range": 7.0,
+                                        "m_TargetName": "target"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "target",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": -7.83662748336792,
+                                            "y": 2.3605213165283205,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "box.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 0.030888080596923829,
+                                        "g": 1.0,
+                                        "b": 0.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            }
+        ],
+        "m_GameObject[2]": [],
+        "m_Name": "TestEnemy"
+    }
+}
