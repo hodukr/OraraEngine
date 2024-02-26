@@ -75,6 +75,8 @@ void SceneWindow::Draw()
         {
             isPlay = false;
             Manager::SetNextGameState(GAMESTATE_STOP);
+            Manager::SetNextSceneState(SCENESTATE_SCENE);
+            str = "Editor";
         }
 
         ImGui::EndMenuBar();

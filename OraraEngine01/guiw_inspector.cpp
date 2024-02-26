@@ -186,7 +186,24 @@ void Inspector::DrawMaterial()
         D3DXCOLOR color = m_GameObject->GetMaterial()->GetColor();
         ImGui::ColorEdit4("COLOR", color);
         m_GameObject->GetMaterial()->SetColor(color);
+
+
+        if (ImGui::BeginCombo("Texture", m_GameObject->GetMaterial()->GetTexture().c_str()))
+        {
+            std::vector<std::string> textures = AccessFolder("asset\\texture\\");
+            for (auto& file : textures)
+            {
+                file = file.substr(0, file.find('.'));
+                if (ImGui::Selectable(file.c_str()))
+                {
+                    m_GameObject->GetMaterial()->SetTexture(file);
+                }
+            }
+            ImGui::EndCombo();
+        }
         ImGui::TreePop();
+
+
     }
 
 
@@ -599,8 +616,29 @@ void Inspector::DrawItemString(TypeDate& date)
             ImGui::EndCombo();
         }
     }
-    break;
+        break;
+    case CASTOMDRAWSTATE_STRING_GAMEOBJECT:
+    {
+        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        Scene* scene = Manager::GetScene();
+        if (ImGui::BeginCombo("GameObject", stringdate->c_str()))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (auto& obj : scene->GetList()[i])
+                {
+                    if (ImGui::Selectable(obj->GetName().c_str()))
+                    {
+                        *stringdate = obj->GetName();
+                        m_IsSet = true;
+                    }
 
+                }
+            }
+            ImGui::EndCombo();
+        }
+    }
+        break;
     default:
         char str[256];
         strncpy_s(str, std::get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
