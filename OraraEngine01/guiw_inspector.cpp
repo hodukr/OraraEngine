@@ -183,6 +183,9 @@ void Inspector::DrawMaterial()
             ImGui::EndCombo();
         }
         
+        D3DXCOLOR color = m_GameObject->GetMaterial()->GetColor();
+        ImGui::ColorEdit4("COLOR", color);
+        m_GameObject->GetMaterial()->SetColor(color);
         ImGui::TreePop();
     }
 

@@ -51,7 +51,6 @@ void Player::Update()
 		m_JumpPower = 1.0f;
         m_IsGround = false;
         m_Velocity.y = m_JumpPower;
-        Manager::SetLoadScene("newScene");
 	}
     m_Velocity.y -= 0.1f;
 	m_GameObject->m_Transform->Translate(m_Velocity);

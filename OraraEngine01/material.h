@@ -13,13 +13,21 @@ public:
 
 	void Draw();
 
-	void SetColor(D3DXCOLOR Color) { m_Color = Color; }
+    void SetColor(D3DXCOLOR Color) { m_Color = Color; }
+    D3DXCOLOR GetColor() { return m_Color; }
     std::string GetFileName() { return m_ShaderName; }
     int  GetShaderNum() { return m_ShaderNum; }
     void SetShader(std::string file);
     template<class Archive>
     void serialize(Archive& archive)
     {
-        archive(CEREAL_NVP(m_ShaderName));
+        try
+        {
+            archive(CEREAL_NVP(m_ShaderName), CEREAL_NVP(m_Color));
+        }
+        catch (const std::exception&)
+        {
+
+        }
     }
 };
