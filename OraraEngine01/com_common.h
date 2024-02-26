@@ -15,6 +15,7 @@
 #include "com_player.h"
 #include "com_post.h"
 #include "com_enemy.h"
+#include "com_audio.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -33,6 +34,7 @@ SET_COMPONENT_CLASS(Rigidbody)
 SET_COMPONENT_CLASS(Player)
 SET_COMPONENT_CLASS(ComponentPost)
 SET_COMPONENT_CLASS(Enemy)
+SET_COMPONENT_CLASS(Audio)
 
 //endSET_COMPONENT_CLASS
 

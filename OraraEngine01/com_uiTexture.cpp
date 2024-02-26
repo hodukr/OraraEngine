@@ -119,9 +119,9 @@ void Texture::Draw()
     Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
-void Texture::SetTexture(std::string pas)
+void Texture::SetTexture(std::string file)
 {
-    m_Texturefile = pas;
+    m_Texturefile = file;
     std::string pass = "asset\\texture\\" + m_Texturefile;
     m_TextureNum = TextureManager::LoadTexture(pass.c_str());
 

@@ -4,11 +4,20 @@
 #include "input.h"
 #include "com_enemy.h"
 
+void Enemy::DrawInspector()
+{
+    Scene* scene = Manager::GetScene();
+    SET_DATE(m_Speed);
+    SET_DATE(m_Range);
+    if (SET_DATE_STATE(m_TargetName, CASTOMDRAWSTATE_STRING_GAMEOBJECT))
+        m_Target = scene->GetGameObject(m_TargetName.c_str());
+}
+
 void Enemy::Init()
 {
     m_Collision = m_GameObject->GetComponent<BoxCollision>();
     Scene* scene = Manager::GetScene();
-    m_Player = scene->GetGameObject("Player");
+    m_Target = scene->GetGameObject(m_TargetName.c_str());
 
     // コールバック関数を登録   
     if (m_Collision)
@@ -37,7 +46,7 @@ void Enemy::EditorUpdate()
 }
 void Enemy::Update()
 {
-    Vector3 vec = m_Player->m_Transform->GetPosition() - m_GameObject->m_Transform->GetPosition();
+    Vector3 vec = m_Target->m_Transform->GetPosition() - m_GameObject->m_Transform->GetPosition();
     if (vec.LengthSpr() <= m_Range * m_Range)
     {
         if (vec.LengthSpr() >= m_Speed * m_Speed)
@@ -51,4 +60,5 @@ void Enemy::Draw()
 {
 
 }
+
 

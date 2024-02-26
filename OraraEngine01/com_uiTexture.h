@@ -29,7 +29,7 @@ public:
     void Update();
     void Draw();
 
-    void SetTexture(std::string pas);
+    void SetTexture(std::string file);
 
     template<class Archive>
     void serialize(Archive& archive)

@@ -21,7 +21,7 @@ public:
         }
 
     }
-    void SetModel(std::string pas);
+    void SetModel(std::string file);
     
     void Init() override;
     void Uninit() override;
