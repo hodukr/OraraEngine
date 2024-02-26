@@ -78,7 +78,7 @@ void Texture::Draw()
 
     VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
     Vector3 pos = m_GameObject->m_Transform->GetPosition();
-    Vector3 size = m_GameObject->m_Transform->GetScale();
+    Vector3 size = m_GameObject->m_Transform->GetScale() * 200.0f;
     vertex[0].Position = D3DXVECTOR3(pos.x, pos.y, 0.0f);
     vertex[0].Normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
     vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);

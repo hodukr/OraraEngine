@@ -45,10 +45,6 @@ void DepthShadow::CreatePass()
 
 }
 
-void DepthShadow::Init()
-{
-}
-
 void DepthShadow::Uninit()
 {
     m_DepthStencilView->Release();
@@ -65,14 +61,14 @@ void DepthShadow::Draw()
     light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
     //ライトカメラのビュー行列を作成
-    D3DXVECTOR3 lightPos = D3DXVECTOR3(0.0f, 150.0f, -20.0f);
+    D3DXVECTOR3 lightPos = D3DXVECTOR3(20.0f, 20.0f, -20.0f);
     D3DXVECTOR3 lightTarget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
     D3DXVECTOR3 lightUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
     D3DXMatrixLookAtLH(&light.ViewMatrix, &lightPos, &lightTarget, &lightUp);
 
     //ライトカメラのプロジェクション行列を作成
     D3DXMatrixPerspectiveFovLH(&light.ProjectionMatrix, 1.0f,
-        (float)SCREEN_WIDTH / SCREEN_HEIGHT, 5.0f, 300.0f);
+        (float)SCREEN_WIDTH / SCREEN_HEIGHT, 5.0f, 100.0f);
 
     //ライト情報をセット
     Renderer::SetLight(light);
@@ -91,11 +87,6 @@ void DepthShadow::Draw()
         if(obj->GetPass() &SHADER_SHADOW)
             obj->Draw();
     }
-}
-
-void DepthShadow::Update()
-{
-    
 }
 
 void DepthShadow::BeginDepth(void)
