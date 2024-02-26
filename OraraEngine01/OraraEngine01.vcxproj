@@ -162,6 +162,7 @@
     <ClInclude Include="com_rigidbody.h" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
+    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="guiw_debug.cpp" />
     <ClCompile Include="imgui\GraphEditor.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

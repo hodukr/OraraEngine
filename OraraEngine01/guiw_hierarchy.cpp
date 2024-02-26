@@ -94,14 +94,6 @@ void Hierarchy::Draw()
         }
 
         if (ImGui::BeginPopup("GameObjectConfig")) {
-            //if (ImGui::Selectable("Copy"))
-            //{
-            //    std::string filename = "resource\\Copy.json";
-            //    std::ofstream outputFile(filename);
-            //    cereal::JSONOutputArchive o_archive(outputFile);
-
-            //    o_archive(cereal::make_nvp("CopyGameObject", *m_SelectGameObject));
-            //}
 
             if (ImGui::Selectable("削除"))
             {
@@ -113,7 +105,6 @@ void Hierarchy::Draw()
 
             }
             ImGui::EndPopup();
-
         }
 
 
@@ -122,31 +113,7 @@ void Hierarchy::Draw()
         if (ImGui::Button("オブジェクト追加"))
         {
             GameObject* gameobjct =  m_Scene->AddGameObject(1);
-
-            //ゲームオブジェクト名がかぶってないかを調べる 
-            bool flg = true;
-            int num = 1;
-            std::string name = gameobjct->GetName();
-            while (flg) {
-                flg = false;
-                for (size_t i = 0; i < 3; i++)
-                {
-                    for (auto& obj : m_Scene->GetList()[i])
-                    {
-                        std::string objnum = "(" + std::to_string(num) + ")";
-                        if (name == obj->GetName() && obj.get() != gameobjct)
-                        {
-                            name = gameobjct->GetName() + "(" + std::to_string(num) + ")";
-                            flg = true;
-                            num++;
-                            break;
-                        }
-                    }
-                }
-                
-            };
-            gameobjct->SetName(name);
-            
+            gameobjct->SetName(gameobjct->GetName());
         }
         ImGui::TreePop();
     }
