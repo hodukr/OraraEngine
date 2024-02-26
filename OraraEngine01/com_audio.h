@@ -17,9 +17,8 @@ private:
 	int						m_Length{};
 	int						m_PlayLength{};
 
-	float                   m_Volume;
-	std::string             m_SoundName;
-	std::string             m_SoundFile;
+	float                   m_Volume{};
+	std::string             m_SoundFile{""};
 
 public:
 	static void InitMaster();

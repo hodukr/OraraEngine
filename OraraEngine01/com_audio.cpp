@@ -94,7 +94,8 @@ void Audio::Load(const char *fileName)
 
 void Audio::Init()
 {
-	SetSound(m_SoundFile);
+	if(m_SoundFile != "")
+		SetSound(m_SoundFile);
 }
 
 void Audio::Uninit()
@@ -149,8 +150,8 @@ void Audio::Play(bool loop)
 
 void Audio::SetSound(std::string file)
 {
-	m_SoundName = file;
-	std::string pass = "asset\\audio\\" + m_SoundName;
+	m_SoundFile = file;
+	std::string pass = "asset\\audio\\" + file;
 	Load(pass.c_str());
 }
 
