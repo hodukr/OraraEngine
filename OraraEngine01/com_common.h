@@ -14,6 +14,7 @@
 #include "com_rigidbody.h"
 #include "com_player.h"
 #include "com_post.h"
+#include "com_enemy.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -30,6 +31,8 @@ SET_COMPONENT_CLASS(WaterSurface)
 SET_COMPONENT_CLASS(Cloth)
 SET_COMPONENT_CLASS(Rigidbody)
 SET_COMPONENT_CLASS(Player)
-SET_COMPONENT_CLASS(ComponentPost);
+SET_COMPONENT_CLASS(ComponentPost)
+SET_COMPONENT_CLASS(Enemy)
+
 //endSET_COMPONENT_CLASS
 

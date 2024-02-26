@@ -154,7 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="com_enemy.cpp" />
     <ClCompile Include="com_player.cpp" />
+    <ClInclude Include="com_enemy.h" />
     <ClInclude Include="com_player.h" />
     <ClCompile Include="com_post.cpp" />
     <ClCompile Include="com_rigidbody.cpp" />
