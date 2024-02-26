@@ -29,7 +29,7 @@ void Model::Draw()
 	for( unsigned int i = 0; i < m_SubsetNum; i++ )
 	{
 		// マテリアル設定
-		//Renderer::SetMaterial( m_SubsetArray[i].Material.Material );
+		Renderer::SetMaterialModel( m_SubsetArray[i].Material.Material );
 
 		// テクスチャ設定
 		if(m_SubsetArray[i].Material.Texture)

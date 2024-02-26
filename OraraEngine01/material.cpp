@@ -8,7 +8,7 @@ void Material::Init()
 	SetShader(m_ShaderName);
 	if (m_TextureName != "")
 	{
-		SetTexture(m_TextureName);
+		SetTexture(m_TextureName,m_Extension);
 	}
 }
 
@@ -36,10 +36,11 @@ void Material::SetShader(std::string file)
 	m_ShaderNum = ShaderManager::Instance().LoadShader(m_ShaderName);
 }
 
-void Material::SetTexture(std::string name)
+void Material::SetTexture(std::string name,std::string extension)
 {
 	m_TextureName = name;
-	std::string pass = "asset\\texture\\"+ name + ".png";
+	m_Extension = extension;
+	std::string pass = "asset\\texture\\"+ name + m_Extension;
 	m_TextureNum = TextureManager::LoadTexture(pass);
 }
 

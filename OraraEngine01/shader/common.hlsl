@@ -22,9 +22,9 @@ struct MATERIAL
 	float2 Dummy;
 };
 
-cbuffer MaterialBuffer : register(b3)
+cbuffer MaterialModelBuffer : register(b3)
 {
-	MATERIAL Material;
+	MATERIAL MaterialModel;
 }
 
 struct LIGHT
@@ -89,6 +89,11 @@ struct WATER
 cbuffer WaterBuffer : register(b8)
 {
     WATER Water;
+}
+
+cbuffer MaterialBuffer : register(b9)
+{
+    MATERIAL Material;
 }
 
 struct VS_IN

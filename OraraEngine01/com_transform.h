@@ -119,6 +119,7 @@ public:
 
 	void Init()override;
 	void Uninit()override;
+    void EditorUpdate()override;
 	void Update()override;
     void Draw()override;
 

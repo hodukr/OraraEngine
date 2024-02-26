@@ -193,10 +193,11 @@ void Inspector::DrawMaterial()
             std::vector<std::string> textures = AccessFolder("asset\\texture\\");
             for (auto& file : textures)
             {
+                std::string extension = file.substr(file.find('.'));
                 file = file.substr(0, file.find('.'));
                 if (ImGui::Selectable(file.c_str()))
                 {
-                    m_GameObject->GetMaterial()->SetTexture(file);
+                    m_GameObject->GetMaterial()->SetTexture(file, extension);
                 }
             }
             ImGui::EndCombo();

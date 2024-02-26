@@ -4,7 +4,7 @@
 class Post
 {
 private:
-    bool m_IsPost = true;
+    bool m_IsPost = false;
     int  m_DefaultShader{};
     int  m_PostShader{};
 
