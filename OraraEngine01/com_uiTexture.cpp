@@ -53,7 +53,7 @@ void Texture::Init()
     sd.pSysMem = vertex;
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
-    SetTexture();
+    SetTexture(m_Texturefile);
     //テクスチャ読み込み 
     //AddComponent<Sprite>()->Init(300.0f,300.0f,200.0f,200.0f, "asset\\texture\\kizuna.jpg");
 
@@ -119,8 +119,9 @@ void Texture::Draw()
     Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
-void Texture::SetTexture()
+void Texture::SetTexture(std::string pas)
 {
+    m_Texturefile = pas;
     std::string pass = "asset\\texture\\" + m_Texturefile;
     m_TextureNum = TextureManager::LoadTexture(pass.c_str());
 

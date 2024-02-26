@@ -113,10 +113,7 @@ public:
         }
     };
 
-    void SetName(std::string name)
-    {
-        m_ObjctName = name;
-    }
+    void SetName(std::string name);
 
     std::string GetName()
     {

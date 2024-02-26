@@ -76,11 +76,6 @@ public:
         float cosYaw = 1.0f - 2.0f * (y * y + z * z);
         yaw = atan2f(sinYaw, cosYaw);
 
-        // ラジアンに変換
-        //roll = XMConvertToRadians(roll);
-        //pitch = XMConvertToRadians(pitch);
-        //yaw = XMConvertToRadians(yaw);
-
         m_Rotation = Vector3(pitch, yaw, roll);
     }
     void SetQuaternion(D3DXQUATERNION qnaternion){m_Qnaternion = qnaternion;}

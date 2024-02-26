@@ -241,6 +241,9 @@
     <ClCompile Include="loading.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
