@@ -23,7 +23,7 @@ private:
     float m_Time{};
     float m_WaveTime{};
 public:
-    WaterSurface(){ }
+    WaterSurface(){ m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D; }
     void DrawInspector()
     {
         SET_NEXT_SLIDER(0.1f, 20.0f);

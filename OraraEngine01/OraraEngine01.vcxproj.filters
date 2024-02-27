@@ -244,6 +244,9 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="com_enemy.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -457,7 +460,6 @@
     <ClInclude Include="com_uiTexture.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="guiw_debug.h" />
     <ClInclude Include="pass_createTexture.h">
       <Filter>Pass</Filter>
     </ClInclude>
@@ -466,6 +468,12 @@
     </ClInclude>
     <ClInclude Include="loading.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="com_enemy.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_debug.h">
+      <Filter>Debug\ImguiWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
