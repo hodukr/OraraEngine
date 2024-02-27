@@ -125,7 +125,7 @@ void SceneWindow::Draw()
             GameObject* gameObj = nullptr;
             if (afterDot == "png" || afterDot == "jpg" || afterDot == "dds")
             {
-                gameObj = scene->AddGameObject(2);
+                gameObj = scene->AddGameObject(1);
                 Texture* texture = gameObj->AddComponent<Texture>();
                 texture->SetTexture(folderName);
                 gameObj->GetMaterial()->SetShader("unlitTexture");

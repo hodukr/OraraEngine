@@ -22,6 +22,7 @@ enum DrawLayer//描画されるレイヤーの指定
     GAME_OBJECT_DRAW_LAYER_2D,
 
 };
+
 class Component
 {
 protected:
