@@ -1,10 +1,13 @@
-﻿
-#include "main.h"
+﻿#include "main.h"
 #include "renderer.h"
 #include "com_waterSurface.h"
 #include "textureManager.h"
 #include "imgui/imgui.h"
 #include "gameObject.h"
+#include "pass_depthShadow.h"
+#include "pass_environmentMapping.h"
+#include "shaderManager.h"
+
 
 void WaterSurface::Init()
 {
@@ -200,7 +203,16 @@ void WaterSurface::Draw()
 
     // テクスチャ設定
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
-    //Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, Renderer::GetCubeReflectShaderResourceView());
+    if (m_GameObject->GetMaterial()->GetFileName() == "envMapping")
+    {
+        EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
+        Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetTexture());
+    }
+    if (m_GameObject->GetMaterial()->GetFileName() == "shadow")
+    {
+        DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+        Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetTexture());
+    }
 
     // プリミティブトポロジ設定
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
