@@ -2,16 +2,22 @@
 #define moveCamera_H
 
 #include "component.h"
+#include "cereal/types/string.hpp"
 
 class MoveCamera:public Component
 {
 private:
     class GameObject* m_Target = nullptr;
-    std::string TargetName{""};
+    std::string m_TargetName{""};
+    Vector3 m_Offset{};
 public:
     void DrawInspector()
     {
-        SET_DATE_STATE(TargetName, CASTOMDRAWSTATE_STRING_GAMEOBJECT);
+        if (SET_DATE_STATE(m_TargetName, CASTOMDRAWSTATE_STRING_GAMEOBJECT))
+        {
+            SetTarget();
+        }
+        SET_DATE(m_Offset);
     }
     void Init()override;
     void Uninit()override;
@@ -19,10 +25,11 @@ public:
     void Update()override;
     void Draw()override;
 
+    void SetTarget();
     template<class Archive>
     void serialize(Archive & archive)
     {
-        //archive(CEREAL_NVP());
+        archive(CEREAL_NVP(m_TargetName), CEREAL_NVP(m_Offset));
     }
 };
 

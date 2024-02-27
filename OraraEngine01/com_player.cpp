@@ -7,12 +7,7 @@
 
 void Player::Init()
 {
-	m_Collision = m_GameObject->GetComponent<BoxCollision>();
-    GameObject* gameObject = Manager::GetScene()->GetGameObject("Water");
-    if (gameObject)
-    {
-        m_WaterSurface = gameObject->GetComponent<WaterSurface>();
-    }
+    m_Collision = m_GameObject->GetComponent<BoxCollision>();
     // コールバック関数を登録   
     if (m_Collision)
     {
@@ -62,16 +57,7 @@ void Player::Update()
     m_Velocity.y -= 0.1f;
 	m_GameObject->m_Transform->Translate(m_Velocity);
 
-    if (m_WaterSurface)
-    {
-        float groundHeight = m_WaterSurface->GetHeigt(m_GameObject->m_Transform->GetPosition());
-        float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
-        if (difference < 0)
-        {
-            m_GameObject->m_Transform->SetPositionY(groundHeight);
-            m_Velocity.y = 0.0f;
-        }
-    }
+
 }
 void Player::Draw()
 {

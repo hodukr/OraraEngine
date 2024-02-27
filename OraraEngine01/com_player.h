@@ -10,7 +10,6 @@ private:
     Vector3 m_Velocity{};
     bool m_IsGround = false;
     class BoxCollision* m_Collision{};
-    class WaterSurface* m_WaterSurface{};
 public:
     void DrawInspector()
     {

@@ -18,6 +18,7 @@
 #include "com_audio.h"
 #include "com_moveCamera.h"
 #include "com_spriteAnimation.h"
+#include "com_floating.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -39,5 +40,6 @@ SET_COMPONENT_CLASS(Enemy)
 SET_COMPONENT_CLASS(Audio)
 SET_COMPONENT_CLASS(MoveCamera)
 SET_COMPONENT_CLASS(SpriteAnimation)
+SET_COMPONENT_CLASS(Floating)
 //endSET_COMPONENT_CLASS
 
