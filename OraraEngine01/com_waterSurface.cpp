@@ -11,11 +11,6 @@
 
 void WaterSurface::Init()
 {
-    //m_WavePitch = 1.0f;
-    //m_Amplitude = 10.0f;
-    //m_WaveLength = 14.0f;
-    //m_WaveCycle = 7.0f;
-
     m_Time =0.0f;
      
     // 頂点バッファ生成
@@ -225,10 +220,10 @@ void WaterSurface::Draw()
 float WaterSurface::GetHeigt(Vector3 Position)
 {
     int x, z;
-
+    Vector3 scale = m_GameObject->m_Transform->GetScale();
     //ブロック番号算出
-    x = Position.x / 5.0f + 10.0f;
-    z = Position.z / -5.0f + 10.0f;
+    x = Position.x / (m_WavePitch * scale.x)+10.0f;
+    z = Position.z / (-m_WavePitch * scale.x) + 10.0f;
 
     D3DXVECTOR3 pos0, pos1, pos2, pos3;
 

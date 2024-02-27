@@ -39,6 +39,7 @@ void Player::Init()
                 {
                     m_IsGround = false;
                 }
+
             });
     }
 }
@@ -67,7 +68,7 @@ void Player::Update()
         float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
         if (difference < 0)
         {
-            m_GameObject->m_Transform->Translate(0.0f,-difference,0.0f);
+            m_GameObject->m_Transform->SetPositionY(groundHeight);
             m_Velocity.y = 0.0f;
         }
     }
