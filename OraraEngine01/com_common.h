@@ -18,7 +18,11 @@
 #include "com_audio.h"
 #include "com_moveCamera.h"
 #include "com_spriteAnimation.h"
+<<<<<<< HEAD
 #include "com_floating.h"
+=======
+#include "com_changeScene.h"
+>>>>>>> feature/EngineComp(kari)
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -40,6 +44,10 @@ SET_COMPONENT_CLASS(Enemy)
 SET_COMPONENT_CLASS(Audio)
 SET_COMPONENT_CLASS(MoveCamera)
 SET_COMPONENT_CLASS(SpriteAnimation)
+<<<<<<< HEAD
 SET_COMPONENT_CLASS(Floating)
+=======
+SET_COMPONENT_CLASS(ChangeScene)
+>>>>>>> feature/EngineComp(kari)
 //endSET_COMPONENT_CLASS
 

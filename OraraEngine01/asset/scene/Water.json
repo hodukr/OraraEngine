@@ -79,7 +79,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": -8.935707092285157,
+                                            "y": -6.700889587402344,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -88,9 +88,9 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 180.0,
-                                            "y": 180.0,
-                                            "z": 180.0
+                                            "x": 80.0,
+                                            "y": 80.0,
+                                            "z": 80.0
                                         }
                                     }
                                 }
@@ -131,7 +131,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "Water",
+                        "m_ObjctName": "GameObject",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -141,7 +141,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": -2.8969082832336427,
+                                            "y": 0.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -150,9 +150,9 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 3.5,
-                                            "y": 3.5,
-                                            "z": 3.5
+                                            "x": 5.0,
+                                            "y": 5.0,
+                                            "z": 5.0
                                         }
                                     }
                                 }
@@ -164,9 +164,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_WavePitch": 5.0,
-                                        "m_Amplitude": 0.1469999998807907,
-                                        "m_WaveLength": 0.49300000071525576,
-                                        "m_WaveCycle": 5.215000152587891
+                                        "m_Amplitude": 0.20000000298023225,
+                                        "m_WaveLength": 0.8230000138282776,
+                                        "m_WaveCycle": 5.105999946594238
                                     }
                                 }
                             }
@@ -176,185 +176,6 @@
                                 "valid": 1,
                                 "data": {
                                     "m_ShaderName": "envMapping",
-                                    "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "m_TextureName": "",
-                                    "m_Extension": ""
-                                }
-                            }
-                        },
-                        "m_RenderingPass": 0,
-                        "m_DrawLayer": -1
-                    }
-                }
-            },
-            {
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_ObjctName": "box",
-                        "m_Tag": "NoneTag",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Position": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 10.0
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 3,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Modelpas": "box.obj"
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483653,
-                                "polymorphic_name": "BoxCollision",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Dynamic": false,
-                                        "m_Offset": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Size": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            }
-                        ],
-                        "m_Material": {
-                            "ptr_wrapper": {
-                                "valid": 1,
-                                "data": {
-                                    "m_ShaderName": "unlitTexture",
-                                    "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "m_TextureName": "field",
-                                    "m_Extension": ".jpg"
-                                }
-                            }
-                        },
-                        "m_RenderingPass": 0,
-                        "m_DrawLayer": 1
-                    }
-                }
-            },
-            {
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_ObjctName": "player",
-                        "m_Tag": "NoneTag",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Position": {
-                                            "x": 0.0,
-                                            "y": 2.391267776489258,
-                                            "z": 10.0
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483654,
-                                "polymorphic_name": "Player",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {}
-                                }
-                            },
-                            {
-                                "polymorphic_id": 3,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Modelpas": "torus.obj"
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 5,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Dynamic": true,
-                                        "m_Offset": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Size": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483655,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "player"
-                                    }
-                                }
-                            }
-                        ],
-                        "m_Material": {
-                            "ptr_wrapper": {
-                                "valid": 1,
-                                "data": {
-                                    "m_ShaderName": "vertexLighting",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,

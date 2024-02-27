@@ -21,7 +21,8 @@ public:
     int  GetShaderNum() { return m_ShaderNum; }
     void SetShader(std::string file);
     void SetTexture(std::string name, std::string extension);
-    std::string GetTexture() { return m_TextureName; }
+    std::string GetTextureName() { return m_TextureName; }
+    int GetTextureNum(){ return m_TextureNum; }
     template<class Archive>
     void serialize(Archive& archive)
     {
