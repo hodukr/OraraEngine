@@ -16,6 +16,8 @@
 #include "com_post.h"
 #include "com_enemy.h"
 #include "com_audio.h"
+#include "com_moveCamera.h"
+#include "com_spriteAnimation.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -35,6 +37,7 @@ SET_COMPONENT_CLASS(Player)
 SET_COMPONENT_CLASS(ComponentPost)
 SET_COMPONENT_CLASS(Enemy)
 SET_COMPONENT_CLASS(Audio)
-
+SET_COMPONENT_CLASS(MoveCamera)
+SET_COMPONENT_CLASS(SpriteAnimation)
 //endSET_COMPONENT_CLASS
 

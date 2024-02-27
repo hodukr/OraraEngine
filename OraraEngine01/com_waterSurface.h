@@ -40,6 +40,7 @@ public:
     void Uninit() override;
     void Update() override;
     void Draw() override;
+    float GetHeigt(Vector3 Position);
 
     template<class Archive>
         void serialize(Archive & archive)

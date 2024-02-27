@@ -61,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="com_moveCamera.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
     <ClCompile Include="com_player.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -250,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="com_moveCamera.h">
+      <Filter>Component</Filter>
+    </ClInclude>
     <ClInclude Include="com_player.h">
       <Filter>Component</Filter>
     </ClInclude>

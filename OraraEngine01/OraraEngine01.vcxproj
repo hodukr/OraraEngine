@@ -126,6 +126,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +146,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>main.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,6 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="com_moveCamera.cpp" />
+    <ClInclude Include="com_moveCamera.h" />
     <ClCompile Include="com_enemy.cpp" />
     <ClCompile Include="com_player.cpp" />
     <ClInclude Include="com_enemy.h" />
@@ -164,6 +168,7 @@
     <ClInclude Include="com_rigidbody.h" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
+    <ClCompile Include="com_spriteAnimation.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="guiw_debug.cpp" />
     <ClCompile Include="imgui\GraphEditor.cpp">
@@ -281,6 +286,7 @@
     <ClCompile Include="com_waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="com_spriteAnimation.h" />
     <ClInclude Include="guiw_debug.h" />
     <ClInclude Include="imgui\GraphEditor.h" />
     <ClInclude Include="imgui\ImApp.h" />

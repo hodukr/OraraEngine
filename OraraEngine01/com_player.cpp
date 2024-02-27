@@ -3,10 +3,16 @@
 #include "gameObject.h"
 #include "input.h"
 #include "com_player.h"
+#include "com_waterSurface.h"
 
 void Player::Init()
 {
 	m_Collision = m_GameObject->GetComponent<BoxCollision>();
+    GameObject* gameObject = Manager::GetScene()->GetGameObject("Water");
+    if (gameObject)
+    {
+        m_WaterSurface = gameObject->GetComponent<WaterSurface>();
+    }
     // コールバック関数を登録   
     if (m_Collision)
     {
@@ -54,6 +60,17 @@ void Player::Update()
 	}
     m_Velocity.y -= 0.1f;
 	m_GameObject->m_Transform->Translate(m_Velocity);
+
+    if (m_WaterSurface)
+    {
+        float groundHeight = m_WaterSurface->GetHeigt(m_GameObject->m_Transform->GetPosition());
+        float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
+        if (difference < 0)
+        {
+            m_GameObject->m_Transform->Translate(0.0f,-difference,0.0f);
+            m_Velocity.y = 0.0f;
+        }
+    }
 }
 void Player::Draw()
 {

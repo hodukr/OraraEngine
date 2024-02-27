@@ -17,6 +17,11 @@ public:
 
 	float Length(){return sqrtf(x * x + y * y);}
 	float LengthSpr(){return (x * x + y * y);}
+	template<class Archive>
+	void serialize(Archive& archive)
+	{
+		archive(CEREAL_NVP(x), CEREAL_NVP(y));
+	}
 };
 
 class Vector3
