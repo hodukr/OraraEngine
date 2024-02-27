@@ -188,7 +188,7 @@ void Inspector::DrawMaterial()
         m_GameObject->GetMaterial()->SetColor(color);
 
 
-        if (ImGui::BeginCombo("Texture", m_GameObject->GetMaterial()->GetTexture().c_str()))
+        if (ImGui::BeginCombo("Texture", m_GameObject->GetMaterial()->GetTextureName().c_str()))
         {
             std::vector<std::string> textures = AccessFolder("asset\\texture\\");
             for (auto& file : textures)

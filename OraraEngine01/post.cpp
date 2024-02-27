@@ -3,6 +3,7 @@
 #include "post.h"
 #include "pass_postPass.h"
 #include "shaderManager.h"
+#include "textureManager.h"
 
 void Post::Init()
 {
@@ -53,6 +54,10 @@ void Post::Init()
     m_Water.WaveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
     m_Water.Pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
     m_Water.Speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
+
+    ZeroMemory(&m_Param, sizeof(PARAMETER));
+    m_Param.dissolveThreshold = 0.0f;
+    m_Param.dissolveRange = 0.1f;
 }
 
 
@@ -64,7 +69,18 @@ void Post::Uninit()
 
 void Post::Update()
 {
-    m_Water.Time++;
+    if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+        m_Water.Time++;
+    else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
+    {
+        m_Param.dissolveThreshold += m_Delta;
+
+        if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+        {
+            m_Delta *= -1;
+        }
+    }
+
 }
 
 
@@ -77,7 +93,6 @@ void Post::Draw()
 
     // マトリクス設定 
     Renderer::SetWorldViewProjection2D();
-
 
     // 頂点バッファ設定 
     UINT stride = sizeof(VERTEX_3D);
@@ -99,8 +114,15 @@ void Post::Draw()
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-    //乱数をシェーダーに送る 
-    Renderer::SetWater(m_Water);
+    if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+        Renderer::SetWater(m_Water);
+    else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
+    {
+        if (m_TextureNum > -1)
+            Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, TextureManager::GetTexture(m_TextureNum));
+
+        Renderer::SetParameter(m_Param);
+    }
 
     // ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(4, 0);

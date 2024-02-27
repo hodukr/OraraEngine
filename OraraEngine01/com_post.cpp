@@ -11,6 +11,8 @@ void ComponentPost::Update()
 	post->SetIsPost(m_IsPost);
 	
 	post->SetPostShader(m_GameObject->GetMaterial()->GetShaderNum());
+
+	post->SetTextureNum(m_GameObject->GetMaterial()->GetTextureNum());
 }
 
 void ComponentPost::EditorUpdate()
@@ -21,6 +23,8 @@ void ComponentPost::EditorUpdate()
 
 	post->SetPostShader(m_GameObject->GetMaterial()->GetShaderNum());
 	
+	post->SetTextureNum(m_GameObject->GetMaterial()->GetTextureNum());
+
 }
 
 

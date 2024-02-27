@@ -5,7 +5,7 @@
 void ShaderDate::Load(const std::string file)
 {
 	if (m_VertexLayout || m_VertexShader || m_PixelShader)return;
-
+	m_File = file;
 	std::string vs = "shader\\" + file + "VS.cso";
 	std::string ps = "shader\\" + file + "PS.cso";
 	Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, vs.c_str());

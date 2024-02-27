@@ -262,6 +262,12 @@
     <ClCompile Include="com_enemy.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="com_spriteAnimation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_changeScene.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -492,6 +498,12 @@
     </ClInclude>
     <ClInclude Include="guiw_debug.h">
       <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="com_spriteAnimation.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_changeScene.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
