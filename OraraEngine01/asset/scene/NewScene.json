@@ -17,8 +17,8 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 5.0,
-                                            "z": -10.0
+                                            "y": 0.0,
+                                            "z": 0.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -36,14 +36,6 @@
                             {
                                 "polymorphic_id": 2147483650,
                                 "polymorphic_name": "Camera",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {}
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483651,
-                                "polymorphic_name": "MoveCamera",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {}
@@ -104,7 +96,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483652,
+                                "polymorphic_id": 2147483651,
                                 "polymorphic_name": "Mesh",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -130,7 +122,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 2,
                         "m_DrawLayer": 1
                     }
                 }
@@ -139,7 +131,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "box",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -149,7 +141,76 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 2.087613105773926,
+                                            "y": 0.7821649312973023,
+                                            "z": 7.973830223083496
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 3,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "box.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "Floating",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Water",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -158,26 +219,23 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 3.0,
-                                            "y": 3.0,
-                                            "z": 3.0
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
                                         }
                                     }
                                 }
                             },
                             {
                                 "polymorphic_id": 2147483653,
-                                "polymorphic_name": "SpriteAnimation",
+                                "polymorphic_name": "WaterSurface",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_Divide": {
-                                            "x": 4.0,
-                                            "y": 4.0
-                                        },
-                                        "m_AnimSpeed": 2,
-                                        "m_Loop": 0,
-                                        "m_NumTexture": 15
+                                        "m_WavePitch": 10.138999938964844,
+                                        "m_Amplitude": 0.25600001215934756,
+                                        "m_WaveLength": 0.16500000655651093,
+                                        "m_WaveCycle": 5.324999809265137
                                     }
                                 }
                             }
@@ -186,15 +244,15 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "unlitTexture",
+                                    "m_ShaderName": "envMapping",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 1.0
                                     },
-                                    "m_TextureName": "Explosion",
-                                    "m_Extension": ".png"
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
                                 }
                             }
                         },
