@@ -49,6 +49,10 @@ struct PARAMETER
     float4 BaseColor;
     float4 LostColor;
     float4 DiffColor;
+    
+    float dissolveThreshold;
+    float dissolveRange;
+    float2 dummy;
 };
 
 cbuffer ParamBuffer : register(b5)

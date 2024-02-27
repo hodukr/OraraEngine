@@ -35,6 +35,10 @@ struct PARAMETER
     D3DXCOLOR	BaseColor;
     D3DXCOLOR	LostColor;
     D3DXCOLOR	DiffColor;
+
+    float dissolveThreshold;
+    float dissolveRange;
+    float dummy[2];
 };
 
 struct WATER
