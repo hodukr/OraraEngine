@@ -8,7 +8,7 @@ class Player:public Component
 private:
     float m_JumpPower{};
     Vector3 m_Velocity{};
-    bool m_IsGround = false;
+    int m_IsGround = 0;
     class BoxCollision* m_Collision{};
 public:
     void DrawInspector()

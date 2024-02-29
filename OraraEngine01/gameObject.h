@@ -19,7 +19,6 @@ private:
     std::string m_Tag;
     DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     bool m_Destroy = false;
-    //bool m_IsShadow = false;
     int m_RenderingPass{};
     std::list<std::unique_ptr<Component>> m_Component;
     int m_Version = 0;
@@ -194,9 +193,6 @@ public:
     }
 
     int GetVersion() { return m_Version; }
-
-    //void SetShadow(bool flg) { m_IsShadow = flg; }
-    //bool GetShadow() { return m_IsShadow; }
 
     void SetPass(int shader) { m_RenderingPass = shader; }
     int GetPass() { return m_RenderingPass; }

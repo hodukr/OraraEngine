@@ -18,7 +18,8 @@ private:
     ID3D11Buffer* m_VertexBuffer{};
 
     Vector3 m_Size{1.0f,1.0f,1.0f};
-    BoxHitDirection m_Direction{BOXHITDIRECTION_NONE};
+    Vector3 m_CorrectionSize{ 1.0f,1.0f,1.0f };
+    std::unordered_map<BoxCollision*, BoxHitDirection> m_Directions;
     void SetVertex(struct VERTEX_3D* vertex);
 public:
     BoxCollision() { 
@@ -32,6 +33,7 @@ public:
     }
     void Init() override;
     void Uninit() override;
+    void EditorUpdate()override;
     void Update() override;
     void Draw() override;
 
@@ -42,8 +44,8 @@ public:
     bool CollideWith(BoxCollision* other) override;
     bool CollideWith(SphereCollision* other) override;
 
-    void SetHitDirection(BoxHitDirection direction) { m_Direction = direction; }
-    BoxHitDirection GetHitDirection() { return m_Direction; }
+    void SetHitDirection(BoxCollision* boxCollision,BoxHitDirection direction) { m_Directions[boxCollision] = direction; }
+    BoxHitDirection GetHitDirection(BoxCollision* boxCollision) { return m_Directions[boxCollision]; }
     template<class Archive>
     void serialize(Archive& archive)
     {

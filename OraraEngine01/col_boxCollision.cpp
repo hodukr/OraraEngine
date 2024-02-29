@@ -53,6 +53,11 @@ void BoxCollision::Uninit()
     m_VertexBuffer->Release();
 
 }
+void BoxCollision::EditorUpdate()
+{
+    m_Position = m_GameObject->m_Transform->GetPosition();
+    m_Position += m_Offset;
+}
 void BoxCollision::Update()
 {
     m_Position = m_GameObject->m_Transform->GetPosition();
@@ -127,8 +132,7 @@ void BoxCollision::SetVertex(VERTEX_3D* vertex)
 
 bool BoxCollision::CollideWith(BoxCollision* other)
 {
-    if(!m_Dynamic && !other->GetDynamic()) return false;
-
+    if (!m_Dynamic && !other->GetDynamic())return false;
     // Box と Box の当たり判定ロジック
     float minXA = m_Position.x - m_Size.x;
     float maxXA = m_Position.x + m_Size.x;
@@ -148,11 +152,28 @@ bool BoxCollision::CollideWith(BoxCollision* other)
     float maxZB = pos.z +  size.z;
 
     if (minXB < maxXA && maxXB > minXA &&
-        minYA < maxYB && maxYA > minYB&&
+        minYA < maxYB && maxYA > minYB &&
         minZB < maxZA && maxZB > minZA)
     {
         if (m_Trigger || other->GetTrigger())
             return true;
+        float difference[6];
+        difference[0] = minYA - maxYB;
+        difference[1] = maxYA - minYB;
+        difference[2] = minXA - maxXB;
+        difference[3] = maxXA - minXB;
+        difference[4] = minZA - maxZB;
+        difference[5] = maxZA - minZB;
+        float diffmin = fabs(difference[0]);
+        int index = 0;
+        for (int i = 1; i < 6; i++)
+        {
+            if (diffmin > fabs(difference[i]))
+            {
+                diffmin = fabs(difference[i]);
+                index = i;
+            }
+        }
 
         if (m_Dynamic)
         {
@@ -161,40 +182,49 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             pos = m_GameObject->m_Transform->GetPosition();
             float difference = posvec.y - m_Size.y - size.y;
             // 補正
-            if (maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB)
+            //if (maxYB <= GetOldPosition().y - m_Size.y && minYA <= maxYB)
+            if (index == 0 && minYA <= maxYB)
             {
                 float difference = posvec.y - m_Size.y - size.y;
                 pos.y -= difference;
-                m_Direction = BOXHITDIRECTION_DOWN;
+                m_Directions[other] = BOXHITDIRECTION_DOWN;
+                other->SetHitDirection(this,BOXHITDIRECTION_UP);
             }
-            else if (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB)
+            //else if (minYB >= GetOldPosition().y + m_Size.y && maxYA >= minYB)
+            else if (index == 1 && maxYA >= minYB)
             {
                 float difference = posvec.y + m_Size.y + size.y;
                 pos.y -= difference;
-                m_Direction = BOXHITDIRECTION_UP;
-
+                m_Directions[other] = BOXHITDIRECTION_UP;
+                other->SetHitDirection(this, BOXHITDIRECTION_DOWN);
             }
-            else if (maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB)
+            //else if (maxXB <= GetOldPosition().x - m_Size.x && minXA <= maxXB)
+            else if (index == 2 && minXA <= maxXB)
             {
                 pos.x = m_GameObject->m_Transform->GetOldePosition().x;
-                m_Direction = BOXHITDIRECTION_LEFT;
-
+                m_Directions[other] = BOXHITDIRECTION_LEFT;
+                other->SetHitDirection(this, BOXHITDIRECTION_RIGHT);
             }
-            else if (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB)
+            //else if (minXB >= GetOldPosition().x + m_Size.x && maxXA >= minXB)
+            else if (index == 3 && maxXA >= minXB)
             {
                 pos.x = m_GameObject->m_Transform->GetOldePosition().x;
-                m_Direction = BOXHITDIRECTION_RIGHT;
+                m_Directions[other] = BOXHITDIRECTION_RIGHT;
+                other->SetHitDirection(this, BOXHITDIRECTION_LEFT);
 
             }
-            else if(maxZB <= GetOldPosition().z - m_Size.z && minZA <= maxZB)
+            //else if (maxZB <= GetOldPosition().z - m_Size.z && minZA <= maxZB)
+            else if (index == 4 && minZA <= maxZB)
             {
                 pos.z = m_GameObject->m_Transform->GetOldePosition().z;
-                m_Direction = BOXHITDIRECTION_BACK;
+                m_Directions[other] = BOXHITDIRECTION_BACK;
+                other->SetHitDirection(this, BOXHITDIRECTION_FORWARD);
             }
             else
             {
                 pos.z = m_GameObject->m_Transform->GetOldePosition().z;
-                m_Direction = BOXHITDIRECTION_FORWARD;
+                m_Directions[other] = BOXHITDIRECTION_FORWARD;
+                other->SetHitDirection(this, BOXHITDIRECTION_BACK);
             }
 
             m_GameObject->m_Transform->SetPosition(pos);
@@ -212,34 +242,40 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             {
                 float difference = posvec.y - m_Size.y - size.y;
                 pos.y -= difference;
-                other->SetHitDirection(BOXHITDIRECTION_DOWN);
+                other->SetHitDirection(this, BOXHITDIRECTION_DOWN);
+                m_Directions[other] = BOXHITDIRECTION_UP;
             }
             else if (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA)
             {
                 float difference = posvec.y + m_Size.y + size.y;
                 pos.y -= difference;
-                other->SetHitDirection(BOXHITDIRECTION_UP);
+                other->SetHitDirection(this, BOXHITDIRECTION_UP);
+                m_Directions[other] = BOXHITDIRECTION_DOWN;
             }
             else if (maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
-                other->SetHitDirection(BOXHITDIRECTION_LEFT);
+                other->SetHitDirection(this, BOXHITDIRECTION_LEFT);
+                m_Directions[other] = BOXHITDIRECTION_RIGHT;
             }
             else if (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
-                other->SetHitDirection(BOXHITDIRECTION_RIGHT);
+                other->SetHitDirection(this, BOXHITDIRECTION_RIGHT);
+                m_Directions[other] = BOXHITDIRECTION_LEFT;
 
             }
             else if (minZA >= other->GetOldPosition().z + other->m_Size.z && maxZB >= minZA)
             {
                 pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
-                other->SetHitDirection(BOXHITDIRECTION_BACK);
+                other->SetHitDirection(this, BOXHITDIRECTION_BACK);
+                m_Directions[other] = BOXHITDIRECTION_FORWARD;
             }
             else
             {
                 pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
-                other->SetHitDirection(BOXHITDIRECTION_FORWARD);
+                other->SetHitDirection(this, BOXHITDIRECTION_FORWARD);
+                m_Directions[other] = BOXHITDIRECTION_BACK;
             }
           
             other->m_GameObject->m_Transform->SetPosition(pos);

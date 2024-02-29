@@ -13,28 +13,31 @@ void Player::Init()
     {
         m_Collision->SetCollisionCallback([&](CollisionState state, CollisionShape* other)
             {
-                if (state == COLLISION_ENTER)
-                {
-                    if (m_Collision->GetHitDirection() == BOXHITDIRECTION_DOWN)
+                BoxCollision* boxother = (BoxCollision*)other;
+                    if (state == COLLISION_ENTER)
                     {
-                        m_IsGround = true;
-                        m_Velocity.y = -0.1f;
+                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
+                        {
+                            m_IsGround++;
+                            m_Velocity.y = -0.1f;
+                        }
+                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_DOWN)
+                        {
+                            m_Velocity.y = -0.1f;
+                        }
                     }
-                    if (m_Collision->GetHitDirection() == BOXHITDIRECTION_UP)
+                    else if (state == COLLISION_STAY)
                     {
-                        m_Velocity.y = -0.1f;
+                        if (m_Collision->GetHitDirection(boxother) == BOXHITDIRECTION_DOWN)
+                            m_Velocity.y = 0.0f;
                     }
-                }
-                else if (state == COLLISION_STAY)
-                {
-                    if(m_Collision->GetHitDirection() == BOXHITDIRECTION_DOWN)
-                        m_Velocity.y = 0.0f;
-                }
-                else if (state == COLLISION_EXIT)
-                {
-                    m_IsGround = false;
-                }
-
+                    else if (state == COLLISION_EXIT)
+                    {
+                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
+                        {
+                            m_IsGround--;
+                        }
+                    }
             });
     }
 }
@@ -48,10 +51,10 @@ void Player::EditorUpdate()
 }
 void Player::Update()
 {
-	if (Input::Instance().GetKeyTrigger(VK_SPACE) && m_IsGround)
+	if (Input::Instance().GetKeyTrigger(VK_SPACE) && m_IsGround > 0)
 	{
 		m_JumpPower = 1.0f;
-        m_IsGround = false;
+        //m_IsGround--;
         m_Velocity.y = m_JumpPower;
 	}
     m_Velocity.y -= 0.1f;
