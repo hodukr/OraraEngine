@@ -5,6 +5,9 @@
 class ChangeScene :public Component
 {
 private:
+    bool m_isFadeOut = false;
+    bool m_isFadeIn = false;
+    bool m_StartFadeIn = false;
     std::string m_SceneName{""};
 public:
     void DrawInspector()

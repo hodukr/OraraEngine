@@ -9,6 +9,8 @@ void ComponentPost::Update()
 	Post* post = ShaderManager::Instance().GetPost();
 
 	post->SetIsPost(m_IsPost);
+
+	post->SetDebug(m_Debug);
 	
 	post->SetPostShader(m_GameObject->GetMaterial()->GetShaderNum());
 
@@ -20,6 +22,8 @@ void ComponentPost::EditorUpdate()
 	Post* post = ShaderManager::Instance().GetPost();
 
 	post->SetIsPost(m_IsPost);
+
+	post->SetDebug(m_Debug);
 
 	post->SetPostShader(m_GameObject->GetMaterial()->GetShaderNum());
 	

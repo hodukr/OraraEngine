@@ -17,8 +17,11 @@ void MoveCamera::EditorUpdate()
 }
 void MoveCamera::Update()
 {
-	Vector3 pos = m_Target->m_Transform->GetPosition() + m_Offset;
-	m_GameObject->m_Transform->SetPosition(pos);
+	if (m_TargetName != "")
+	{
+		Vector3 pos = m_Target->m_Transform->GetPosition() + m_Offset;
+		m_GameObject->m_Transform->SetPosition(pos);
+	}
 }
 void MoveCamera::Draw()
 {
