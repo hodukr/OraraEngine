@@ -69,18 +69,35 @@ void Post::Uninit()
 
 void Post::Update()
 {
-    if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
-        m_Water.Time++;
-    else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
+    if (m_Debug)
     {
-        m_Param.dissolveThreshold += m_Delta;
-
-        if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+        if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+            m_Water.Time++;
+        else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
         {
-            m_Delta *= -1;
+            m_Param.dissolveThreshold += m_WipeSpeed;
+
+            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            {
+                m_WipeSpeed *= -1;
+            }
         }
     }
+    else
+    {
+        if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+            m_Water.Time++;
+        else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe" && m_IsWipe)
+        {
+            m_Param.dissolveThreshold += m_WipeSpeed;
 
+            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            {
+                m_WipeSpeed = 0;
+                m_IsWipe = false;
+            }
+        }
+    }
 }
 
 
