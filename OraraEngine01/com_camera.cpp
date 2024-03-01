@@ -10,7 +10,6 @@ Camera::Camera()
 }
 void Camera::Init()
 {
-    m_GameObject->m_Transform->SetPosition(0.0f, 5.0f, -10.0f);
     m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();;
 }
 
@@ -22,11 +21,11 @@ void Camera::Uninit()
 
 void Camera::Update()
 {
-    m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
 }
 
 void Camera::Draw()
 {
+    m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
     if (Manager::GetSceneState() == SCENESTATE_SCENE)return;
 
     //ビューマトリクス設定 

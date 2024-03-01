@@ -8,10 +8,7 @@ private:
     std::string m_Modelpas;
     bool m_IsSet = false;
 public:
-    Mesh(std::string pas = "box.obj") :m_Modelpas(pas)
-    {
-        m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;
-    }
+    Mesh(std::string pas = "box.obj") :m_Modelpas(pas){m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;}
     void DrawInspector()override
     {
         SET_NEXT_FOLDER("asset\\model", ".obj");
@@ -21,7 +18,7 @@ public:
         }
 
     }
-    void SetModel(std::string pas);
+    void SetModel(std::string file);
     
     void Init() override;
     void Uninit() override;

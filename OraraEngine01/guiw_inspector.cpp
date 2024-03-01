@@ -183,7 +183,28 @@ void Inspector::DrawMaterial()
             ImGui::EndCombo();
         }
         
+        D3DXCOLOR color = m_GameObject->GetMaterial()->GetColor();
+        ImGui::ColorEdit4("COLOR", color);
+        m_GameObject->GetMaterial()->SetColor(color);
+
+
+        if (ImGui::BeginCombo("Texture", m_GameObject->GetMaterial()->GetTextureName().c_str()))
+        {
+            std::vector<std::string> textures = AccessFolder("asset\\texture\\");
+            for (auto& file : textures)
+            {
+                std::string extension = file.substr(file.find('.'));
+                file = file.substr(0, file.find('.'));
+                if (ImGui::Selectable(file.c_str()))
+                {
+                    m_GameObject->GetMaterial()->SetTexture(file, extension);
+                }
+            }
+            ImGui::EndCombo();
+        }
         ImGui::TreePop();
+
+
     }
 
 
@@ -221,9 +242,13 @@ void Inspector::DrawSetPass()
         {
             if (!(passflgs & (1 << i)))
             {
-                if (ImGui::Selectable(Pass::GetName(1 << i).c_str()))
+                std::string name = Pass::GetName(1 << i);
+                if (name != "")
                 {
-                    passflgs |= 1 << i;
+                    if (ImGui::Selectable(name.c_str()))
+                    {
+                        passflgs |= 1 << i;
+                    }
                 }
             }
         }
@@ -565,7 +590,7 @@ void Inspector::DrawItemFloat(TypeDate& date)
         break;
     }
     default:
-        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate));
+        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate),0.0f,0.0f,"%.5f");
         break;
     }
 }
@@ -592,8 +617,29 @@ void Inspector::DrawItemString(TypeDate& date)
             ImGui::EndCombo();
         }
     }
-    break;
+        break;
+    case CASTOMDRAWSTATE_STRING_GAMEOBJECT:
+    {
+        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        Scene* scene = Manager::GetScene();
+        if (ImGui::BeginCombo("GameObject", stringdate->c_str()))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (auto& obj : scene->GetList()[i])
+                {
+                    if (ImGui::Selectable(obj->GetName().c_str()))
+                    {
+                        *stringdate = obj->GetName();
+                        m_IsSet = true;
+                    }
 
+                }
+            }
+            ImGui::EndCombo();
+        }
+    }
+        break;
     default:
         char str[256];
         strncpy_s(str, std::get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
@@ -615,6 +661,8 @@ void Inspector::DrawItemVector3(TypeDate& date)
     {
     case CASTOMDRAWSTATE_VECTOR3_CORRECTION:
     {
+        ImGui::Text(date.Name.c_str());
+
         Vector3* vec = std::get<TYPE_VECTOR3>(date.MemberDate);
 
         std::string cb;
@@ -666,8 +714,6 @@ void Inspector::DrawItemVector3(TypeDate& date)
                 y = z;
             }
         }
-        ImGui::SameLine();
-        ImGui::Text(date.Name.c_str());
         x = D3DXToRadian(x);
         y = D3DXToRadian(y);
         z = D3DXToRadian(z);
@@ -677,6 +723,8 @@ void Inspector::DrawItemVector3(TypeDate& date)
         break;
     default:
     {
+        ImGui::Text(date.Name.c_str());
+
         std::string cb;
         cb = "##" + date.Name;
 
@@ -726,8 +774,6 @@ void Inspector::DrawItemVector3(TypeDate& date)
                 y = z;
             }
         }
-        ImGui::SameLine();
-        ImGui::Text(date.Name.c_str());
         *vector = Vector3(x, y, z);
         m_NumVector++;
     }

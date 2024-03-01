@@ -19,6 +19,7 @@ private:
 	static ID3D11Buffer*			m_ViewBuffer;
 	static ID3D11Buffer*			m_ProjectionBuffer;
 	static ID3D11Buffer*			m_MaterialBuffer;
+	static ID3D11Buffer*			m_MaterialModelBuffer;
 	static ID3D11Buffer*			m_LightBuffer;
 	static ID3D11Buffer*            m_ParameterBuffer;
 	static ID3D11Buffer*            m_PraticleBuffer;
@@ -46,6 +47,7 @@ public:
 	static void SetViewMatrix(D3DXMATRIX* ViewMatrix);
 	static void SetProjectionMatrix(D3DXMATRIX* ProjectionMatrix);
 	static void SetMaterial(MATERIAL Material);
+	static void SetMaterialModel(MATERIAL Material);
     static void SetLight(LIGHT Light);
 
 	static void SetParameter(PARAMETER param);

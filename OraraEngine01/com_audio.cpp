@@ -1,5 +1,6 @@
 
 #include "main.h"
+#include "input.h"
 #include "com_audio.h"
 
 
@@ -28,7 +29,7 @@ void Audio::UninitMaster()
 }
 
 
-void Audio::Load(const char *FileName)
+void Audio::Load(const char *fileName)
 {
 
 	// サウンドデータ読込
@@ -44,7 +45,7 @@ void Audio::Load(const char *FileName)
 		LONG readlen;
 
 
-		hmmio = mmioOpen((LPSTR)FileName, &mmioinfo, MMIO_READ);
+		hmmio = mmioOpen((LPSTR)fileName, &mmioinfo, MMIO_READ);
 		assert(hmmio);
 
 		riffchunkinfo.fccType = mmioFOURCC('W', 'A', 'V', 'E');
@@ -91,6 +92,12 @@ void Audio::Load(const char *FileName)
 }
 
 
+void Audio::Init()
+{
+	if(m_SoundFile != "")
+		SetSound(m_SoundFile);
+}
+
 void Audio::Uninit()
 {
 	m_SourceVoice->Stop();
@@ -99,8 +106,19 @@ void Audio::Uninit()
 	delete[] m_SoundData;
 }
 
+void Audio::Update()
+{
+	if (Input::Instance().GetKeyTrigger(VK_SPACE))
+		Play(true);
+	if (Input::Instance().GetKeyTrigger(VK_RETURN))
+		Stop();
+	if (Input::Instance().GetKeyTrigger(VK_DOWN))
+		SetVolumeDown(0.01f);
+	if (Input::Instance().GetKeyTrigger(VK_UP))
+		SetVolumeUp(0.01f);
+}
 
-void Audio::Play(bool Loop)
+void Audio::Play(bool loop)
 {
 	m_SourceVoice->Stop();
 	m_SourceVoice->FlushSourceBuffers();
@@ -116,7 +134,7 @@ void Audio::Play(bool Loop)
 	bufinfo.PlayLength = m_PlayLength;
 
 	// ループ設定
-	if (Loop)
+	if (loop)
 	{
 		bufinfo.LoopBegin = 0;
 		bufinfo.LoopLength = m_PlayLength;
@@ -125,17 +143,15 @@ void Audio::Play(bool Loop)
 
 	m_SourceVoice->SubmitSourceBuffer(&bufinfo, NULL);
 
-/*
-	float outputMatrix[4] = { 0.0f , 0.0f, 1.0f , 0.0f };
-	m_SourceVoice->SetOutputMatrix(m_MasteringVoice, 2, 2, outputMatrix);
-	//m_SourceVoice->SetVolume(0.1f);
-*/
-
-
 	// 再生
 	m_SourceVoice->Start();
 
 }
 
-
+void Audio::SetSound(std::string file)
+{
+	m_SoundFile = file;
+	std::string pass = "asset\\audio\\" + file;
+	Load(pass.c_str());
+}
 

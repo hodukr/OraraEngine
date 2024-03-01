@@ -22,9 +22,9 @@ struct MATERIAL
 	float2 Dummy;
 };
 
-cbuffer MaterialBuffer : register(b3)
+cbuffer MaterialModelBuffer : register(b3)
 {
-	MATERIAL Material;
+	MATERIAL MaterialModel;
 }
 
 struct LIGHT
@@ -49,6 +49,10 @@ struct PARAMETER
     float4 BaseColor;
     float4 LostColor;
     float4 DiffColor;
+    
+    float dissolveThreshold;
+    float dissolveRange;
+    float2 dummy;
 };
 
 cbuffer ParamBuffer : register(b5)
@@ -89,6 +93,11 @@ struct WATER
 cbuffer WaterBuffer : register(b8)
 {
     WATER Water;
+}
+
+cbuffer MaterialBuffer : register(b9)
+{
+    MATERIAL Material;
 }
 
 struct VS_IN

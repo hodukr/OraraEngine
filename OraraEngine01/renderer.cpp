@@ -20,6 +20,7 @@ ID3D11Buffer*			Renderer::m_WorldBuffer{};
 ID3D11Buffer*			Renderer::m_ViewBuffer{};
 ID3D11Buffer*			Renderer::m_ProjectionBuffer{};
 ID3D11Buffer*			Renderer::m_MaterialBuffer{};
+ID3D11Buffer*			Renderer::m_MaterialModelBuffer{};
 ID3D11Buffer*			Renderer::m_LightBuffer{};
 ID3D11Buffer*           Renderer::m_ParameterBuffer{};
 ID3D11Buffer*           Renderer::m_PraticleBuffer{};
@@ -99,7 +100,6 @@ void Renderer::Init()
 	m_SwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&renderTarget );
 	m_Device->CreateRenderTargetView( renderTarget, NULL, &m_RenderTargetView );
 	renderTarget->Release();
-
 
 	// デプスステンシルバッファ作成
 	ID3D11Texture2D* depthStencile{};
@@ -199,6 +199,19 @@ void Renderer::Init()
 
 	m_DeviceContext->PSSetSamplers( 0, 1, &samplerState );
 
+
+	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	;
+	samplerDesc.MaxAnisotropy = 16;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
+
+	m_DeviceContext->PSSetSamplers(1, 1, &samplerState);
+
 	// 定数バッファ生成
 	D3D11_BUFFER_DESC bufferDesc{};
 	bufferDesc.ByteWidth = sizeof(D3DXMATRIX);
@@ -219,9 +232,9 @@ void Renderer::Init()
 
 	bufferDesc.ByteWidth = sizeof(MATERIAL);
 
-	m_Device->CreateBuffer( &bufferDesc, NULL, &m_MaterialBuffer );
-	m_DeviceContext->VSSetConstantBuffers( 3, 1, &m_MaterialBuffer );
-	m_DeviceContext->PSSetConstantBuffers( 3, 1, &m_MaterialBuffer );
+	m_Device->CreateBuffer(&bufferDesc, NULL, &m_MaterialModelBuffer);
+	m_DeviceContext->VSSetConstantBuffers(3, 1, &m_MaterialModelBuffer);
+	m_DeviceContext->PSSetConstantBuffers(3, 1, &m_MaterialModelBuffer);
 
 	bufferDesc.ByteWidth = sizeof(LIGHT);
 
@@ -251,6 +264,12 @@ void Renderer::Init()
 	m_DeviceContext->VSSetConstantBuffers(8, 1, &m_WaterBuffer);
 	m_DeviceContext->PSSetConstantBuffers(8, 1, &m_WaterBuffer);
 
+	bufferDesc.ByteWidth = sizeof(MATERIAL);
+
+	m_Device->CreateBuffer(&bufferDesc, NULL, &m_MaterialBuffer);
+	m_DeviceContext->VSSetConstantBuffers(9, 1, &m_MaterialBuffer);
+	m_DeviceContext->PSSetConstantBuffers(9, 1, &m_MaterialBuffer);
+
 	// ライト初期化
 	LIGHT light{};
 	light.Enable = true;
@@ -276,6 +295,7 @@ void Renderer::Uninit()
 	m_ProjectionBuffer->Release();
 	m_LightBuffer->Release();
 	m_MaterialBuffer->Release();
+	m_MaterialModelBuffer->Release();
 	m_PraticleBuffer->Release();
 	m_CameraBuffer->Release();
 	m_WaterBuffer->Release();
@@ -364,9 +384,14 @@ void Renderer::SetProjectionMatrix( D3DXMATRIX* ProjectionMatrix )
 	m_DeviceContext->UpdateSubresource(m_ProjectionBuffer, 0, NULL, &projection, 0, 0);
 }
 
-void Renderer::SetMaterial( MATERIAL Material )
+void Renderer::SetMaterial(MATERIAL Material)
 {
-	m_DeviceContext->UpdateSubresource( m_MaterialBuffer, 0, NULL, &Material, 0, 0 );
+	m_DeviceContext->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
+}
+
+void Renderer::SetMaterialModel( MATERIAL Material )
+{
+	m_DeviceContext->UpdateSubresource( m_MaterialModelBuffer, 0, NULL, &Material, 0, 0 );
 }
 
 void Renderer::SetLight( LIGHT Light )

@@ -20,7 +20,7 @@ public:
         SET_NEXT_FOLDER("asset\\texture", ".");
         if (SET_DATE_STATE(m_Texturefile, CASTOMDRAWSTATE_STRING_FOLDER))
         {
-            SetTexture();
+            SetTexture(m_Texturefile);
         }
     }
     void Init();
@@ -29,7 +29,7 @@ public:
     void Update();
     void Draw();
 
-    void SetTexture();
+    void SetTexture(std::string file);
 
     template<class Archive>
     void serialize(Archive& archive)

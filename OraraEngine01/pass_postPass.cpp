@@ -42,7 +42,7 @@ void PostPass::CreatePass()
     srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvd.Texture2D.MipLevels = 1;
-    Renderer::GetDevice()->CreateShaderResourceView(ppTexture, &srvd, &m_PPShaderResourceView);
+    Renderer::GetDevice()->CreateShaderResourceView(ppTexture, &srvd, &m_ShaderResourceView);
 
     ppTexture->Release();
 }
@@ -50,7 +50,6 @@ void PostPass::CreatePass()
 void PostPass::Uninit()
 {
     m_PPRenderTargetView->Release();
-    m_PPShaderResourceView->Release();
 }
 
 void PostPass::BeginPP()

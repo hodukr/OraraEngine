@@ -1,0 +1,402 @@
+{
+    "secne": {
+        "m_FileVersion": 0,
+        "m_GameObject[0]": [
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "MainCamera",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 2147483649,
+                                "polymorphic_name": "Transform",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483650,
+                                "polymorphic_name": "Camera",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483651,
+                                "polymorphic_name": "MoveCamera",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_TargetName": "Player",
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 2.0,
+                                            "z": -5.0
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 0
+                    }
+                }
+            }
+        ],
+        "m_GameObject[1]": [
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Sky",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 80.0,
+                                            "y": 80.0,
+                                            "z": 80.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "Mesh",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "sky.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "unlitTexture",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 2,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Water",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483653,
+                                "polymorphic_name": "WaterSurface",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_WavePitch": 10.357999801635743,
+                                        "m_Amplitude": 0.20200000703334809,
+                                        "m_WaveLength": 0.16500000655651093,
+                                        "m_WaveCycle": 5.324999809265137
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "envMapping",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 4.0,
+                                            "y": 3.0,
+                                            "z": 4.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483654,
+                                "polymorphic_name": "Floating",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483655,
+                                "polymorphic_name": "BoxCollision",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": -0.5,
+                                            "z": 0.8999999761581421
+                                        },
+                                        "m_Size": {
+                                            "x": 3.0,
+                                            "y": 1.0,
+                                            "z": 6.800000190734863
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Player",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 1.643949270248413,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "kinoko.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 7,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.699999988079071,
+                                            "z": 0.0
+                                        },
+                                        "m_Size": {
+                                            "x": 1.0,
+                                            "y": 0.699999988079071,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483656,
+                                "polymorphic_name": "Player",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483657,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.30000001192092898,
+                                        "m_IsDirection": true
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            }
+        ],
+        "m_GameObject[2]": [],
+        "m_Name": "Stage1"
+    }
+}

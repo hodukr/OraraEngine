@@ -25,7 +25,14 @@ public:
     void DrawInspector()override
     {
         SET_DATE(m_Position);
-        SET_DATE_STATE(m_Rotation, CASTOMDRAWSTATE_VECTOR3_CORRECTION);
+        if (SET_DATE_STATE(m_Rotation, CASTOMDRAWSTATE_VECTOR3_CORRECTION))
+        {
+            D3DXMATRIX rotationMatrix; 
+            D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(m_Rotation.y), D3DXToRadian(m_Rotation.x), D3DXToRadian(m_Rotation.z));
+
+            // 回転行列からクオータニオンに変換します
+            D3DXQuaternionRotationMatrix(&m_Qnaternion, &rotationMatrix);
+        }
         SET_DATE(m_Scale);
     }
 
@@ -76,11 +83,6 @@ public:
         float cosYaw = 1.0f - 2.0f * (y * y + z * z);
         yaw = atan2f(sinYaw, cosYaw);
 
-        // ラジアンに変換
-        //roll = XMConvertToRadians(roll);
-        //pitch = XMConvertToRadians(pitch);
-        //yaw = XMConvertToRadians(yaw);
-
         m_Rotation = Vector3(pitch, yaw, roll);
     }
     void SetQuaternion(D3DXQUATERNION qnaternion){m_Qnaternion = qnaternion;}
@@ -104,7 +106,8 @@ public:
 
 
 
-	void Translate(Vector3 moveVec) { m_Position += moveVec; }
+    void Translate(Vector3 moveVec) { m_Position += moveVec; }
+    void Translate(float x, float y, float z) { m_Position += Vector3(x,y,z); }
 	void Rotate(Vector3 rotVec) { m_Rotation += rotVec; }
 	void Scale(Vector3 scaVec) { m_Scale += scaVec; }
 	
@@ -123,6 +126,7 @@ public:
 
 	void Init()override;
 	void Uninit()override;
+    void EditorUpdate()override;
 	void Update()override;
     void Draw()override;
 
@@ -148,7 +152,13 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_Position), CEREAL_NVP(m_Rotation), CEREAL_NVP(m_Scale));
+            archive(CEREAL_NVP(m_Position),
+                CEREAL_NVP(m_Rotation),
+                CEREAL_NVP(m_Scale),
+                cereal::make_nvp("Qx", m_Qnaternion.x),
+                cereal::make_nvp("Qy", m_Qnaternion.y),
+                cereal::make_nvp("Qz", m_Qnaternion.z),
+                cereal::make_nvp( "Qw", m_Qnaternion.w));
 
         }
         catch (const std::exception&)

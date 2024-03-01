@@ -13,12 +13,6 @@ void Plane::Init()
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)
 {
-	//Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\envMappingVS.cso");
-	////Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\shadowVS.cso");
-
-	//Renderer::CreatePixelShader(&m_PixelShader, "shader\\envMappingPS.cso");
-	//Renderer::CreatePixelShader(&m_PixelShader, "shader\\shadowPS.cso");
-
 	VERTEX_3D vertex[4];
 
 	vertex[0].Position = D3DXVECTOR3(x, 0.0f, z + depth);
@@ -70,9 +64,6 @@ void Plane::Uninit()
 	m_VertexBuffer->Release();
 	m_Texture->Release();
 
-	/*m_VertexLayout->Release();
-	m_VertexShader->Release();
-	m_PixelShader->Release();*/
 }
 
 void Plane::Update()
@@ -81,13 +72,6 @@ void Plane::Update()
 
 void Plane::Draw()
 {
-	// 入力レイアウト設定
-	//Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-	//// シェーダ設定
-	//Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-	//Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
 	//頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;

@@ -53,7 +53,7 @@ void Texture::Init()
     sd.pSysMem = vertex;
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
-    SetTexture();
+    SetTexture(m_Texturefile);
     //テクスチャ読み込み 
     //AddComponent<Sprite>()->Init(300.0f,300.0f,200.0f,200.0f, "asset\\texture\\kizuna.jpg");
 
@@ -78,7 +78,7 @@ void Texture::Draw()
 
     VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
     Vector3 pos = m_GameObject->m_Transform->GetPosition();
-    Vector3 size = m_GameObject->m_Transform->GetScale();
+    Vector3 size = m_GameObject->m_Transform->GetScale() * 200.0f;
     vertex[0].Position = D3DXVECTOR3(pos.x, pos.y, 0.0f);
     vertex[0].Normal = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
     vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -119,8 +119,9 @@ void Texture::Draw()
     Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
-void Texture::SetTexture()
+void Texture::SetTexture(std::string file)
 {
+    m_Texturefile = file;
     std::string pass = "asset\\texture\\" + m_Texturefile;
     m_TextureNum = TextureManager::LoadTexture(pass.c_str());
 

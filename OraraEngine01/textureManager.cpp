@@ -38,7 +38,10 @@ void TextureManager::Uninit()
 {
 	for (int i = 0; i < m_Index; i++)
 	{
-		m_Date[i].texture->Release();
+		if (m_Date[i].texture)
+		{
+			m_Date[i].texture->Release();
+		}
 	}
 	m_Date.clear();
 	m_Index = 0;

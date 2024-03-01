@@ -17,7 +17,17 @@ public:
 
 	float Length(){return sqrtf(x * x + y * y);}
 	float LengthSpr(){return (x * x + y * y);}
+	template<class Archive>
+	void serialize(Archive& archive)
+	{
+		archive(CEREAL_NVP(x), CEREAL_NVP(y));
+	}
 };
+
+#define VEC3D3DX(vec3,d3dx) \
+d3dx.x = vec3.x;			\
+d3dx.y = vec3.y;			\
+d3dx.z = vec3.z;			
 
 class Vector3
 {

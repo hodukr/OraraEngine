@@ -7,18 +7,22 @@
 #include "shaderManager.h"
 #include "guiManager.h"
 #include "guiw_accessFolder.h"
+#include <fstream>
+#include <cereal/archives/json.hpp>
 #include <filesystem>
 #include "scene.h"
 #include "sceneCamera.h"
 #include "guiw_hierarchy.h"
+#include "pass_createTexture.h"
+#include "com_uiTexture.h"
 
 void SceneWindow::Update()
 {
-    if (ImGui::IsKeyPressed(ImGuiKey_T))
+    if (ImGui::IsKeyPressed(ImGuiKey_1))
         m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
-    if (ImGui::IsKeyPressed(ImGuiKey_E))
+    if (ImGui::IsKeyPressed(ImGuiKey_2))
         m_CurrentGizmoOperation = ImGuizmo::ROTATE;
-    if (ImGui::IsKeyPressed(ImGuiKey_R)) // r Key
+    if (ImGui::IsKeyPressed(ImGuiKey_3)) // r Key
         m_CurrentGizmoOperation = ImGuizmo::SCALE;
 }
 
@@ -73,9 +77,9 @@ void SceneWindow::Draw()
         {
             isPlay = false;
             Manager::SetNextGameState(GAMESTATE_STOP);
+            Manager::SetNextSceneState(SCENESTATE_SCENE);
+            str = "Editor";
         }
-        /*ImGui::Button("Play");
-        ImGui::Button("Stop");*/
 
         ImGui::EndMenuBar();
     }
@@ -91,25 +95,15 @@ void SceneWindow::Draw()
     viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
     viewManipulateTop = ImGui::GetWindowPos().y;
 
-
     //Windowに対してのマウスの状態
     m_IsChildWindowFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_ChildWindows);
     m_IsMouseHoveringChildWindow = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
 
-
-
-    ImVec2 windowSize(SCREEN_WIDTH * 0.50f, SCREEN_HEIGHT * 0.50f);
-    if (m_SceneTexture == nullptr)
-    {
-        //レンダリングテクスチャを取得
-        PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
-        ImGui::Image((ImTextureID)*post->GetPPTexture(), windowSize);
-    }
-    else
-    {
-        ImGui::Image((ImTextureID)*m_SceneTexture, windowSize);
-    }
-
+    ImVec2 windowSize(SCREEN_WIDTH * 0.50f, SCREEN_HEIGHT * 0.50f);   
+    //ここでシーン画面を出力
+    CreateTexture* cTex = ShaderManager::Instance().GetPass<CreateTexture>(SHADER_CREATETEXTURE);
+    ImGui::Image((ImTextureID)*cTex->GetTexture(), windowSize);
+   
     Scene* scene = Manager::GetScene();
     Hierarchy* hierarchy = GuiManager::Instance().GetGuiWindow<Hierarchy>();
 
@@ -120,14 +114,53 @@ void SceneWindow::Draw()
         if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_PAYLOAD_TYPE"))
         {
             //ドラッグ先の要素に対する処理
-            GameObject* gameObj = scene->AddGameObject(1);
             AccessFolder* acFolder = GuiManager::Instance().GetGuiWindow <AccessFolder>();
-            gameObj->SetName(acFolder->GetDragName());
-            Mesh* mesh = gameObj->AddComponent<Mesh>();
             fs::path folderPath(acFolder->GetDragName());
             std::string folderName = folderPath.filename().string();
-            mesh->SetModel(folderName);
-            hierarchy->SetSelectGameObject(gameObj);
+            // ドットの位置を検索
+            size_t dotPosition = folderName.find_last_of(".");
+            // ドットの前の部分文字列を取得
+            std::string beforeDot = folderName.substr(0, dotPosition);
+            // ドットの後の部分文字列を取得
+            std::string afterDot = folderName.substr(dotPosition + 1);
+
+            GameObject* gameObj = nullptr;
+            if (afterDot == "png" || afterDot == "jpg" || afterDot == "dds")
+            {
+                gameObj = scene->AddGameObject(1);
+                Texture* texture = gameObj->AddComponent<Texture>();
+                texture->SetTexture(folderName);
+                gameObj->GetMaterial()->SetShader("unlitTexture");
+                scene->MoveLayer(scene->GetList()[1], scene->GetList()[2], gameObj);
+                hierarchy->SetSelectGameObject(gameObj);
+            }
+            else if (afterDot == "obj")
+            {
+                gameObj = scene->AddGameObject(1);
+                Mesh* mesh = gameObj->AddComponent<Mesh>();
+                mesh->SetModel(folderName);
+                hierarchy->SetSelectGameObject(gameObj);
+            }
+            else if (afterDot == "prefab")
+            {
+                try
+                {
+                    std::ifstream inputFile("asset/prefab/" + folderName);
+                    cereal::JSONInputArchive archive(inputFile);
+                    std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+                    archive(*obj);
+                    GameObject* object = scene->SetGameObject(std::move(obj));
+                    object->m_Transform->SetPosition(0.0f,0.0f,0.0f);
+                    hierarchy->SetSelectGameObject(object);
+                }
+                catch (const std::exception&)
+                {
+
+                }
+            }
+
+            if (gameObj) 
+                gameObj->SetName(beforeDot);
         }
         ImGui::EndDragDropTarget();
     }
@@ -139,11 +172,10 @@ void SceneWindow::Draw()
             //直行投影モードから透視投影に変換
         ImGuizmo::SetOrthographic(false);
         EditorCamera* camera = ShaderManager::Instance().GetSceneCamera();
-        //グリッド線表示
-        //ImGuizmo::DrawGrid(camera->GetViewMatrix(), camera->GetProjectionMatrix(), m_IdentityMatrix, 100.0f);
+
         //右上の四角(どこを見ているかのUI)
         ImGuizmo::ViewManipulate(camera->GetViewMatrix(), 8.0f, ImVec2(viewManipulateRight - 100.0f, viewManipulateTop), ImVec2(100.0f, 100.0f), 0x10101010);
-        if (hierarchy->GetSelectGameObject() != nullptr)
+        if (hierarchy->GetSelectGameObject() != nullptr && hierarchy->GetSelectGameObject()->GetDrawLayer() != GAME_OBJECT_DRAW_LAYER_2D)
         {
             D3DXMATRIX matrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 
@@ -155,7 +187,6 @@ void SceneWindow::Draw()
             {
                 hierarchy->GetSelectGameObject()->m_Transform->SetMatrix(matrix);
                 D3DXVECTOR3 pos, scale,rot;
-                //D3DXQUATERNION rot = D3DXQUATERNION(0.0f, 0.0, 0.0f, 1.0f);
                 D3DXMATRIX tempMatrix = hierarchy->GetSelectGameObject()->m_Transform->GetMatrix();
 
                 //マトリクスからposition,rotation,scaleを抽出

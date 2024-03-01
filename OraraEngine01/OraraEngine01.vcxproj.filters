@@ -58,9 +58,36 @@
     <FxCompile Include="shader\waterSurfaceVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="shader\wipePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\wipeVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\dissolvePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\dissolveVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\toonPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\toonVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="com_moveCamera.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_player.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_rigidbody.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
     <ClCompile Include="com_audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -226,9 +253,45 @@
     <ClCompile Include="guiw_debug.cpp">
       <Filter>Debug\ImguiWindow</Filter>
     </ClCompile>
+    <ClCompile Include="pass_createTexture.cpp">
+      <Filter>Pass</Filter>
+    </ClCompile>
+    <ClCompile Include="com_post.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="com_enemy.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_spriteAnimation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_changeScene.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_floating.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="com_rotObjct.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="com_moveCamera.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_player.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_rigidbody.h">
+      <Filter>Component</Filter>
+    </ClInclude>
     <ClInclude Include="com_audio.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -433,7 +496,33 @@
     <ClInclude Include="com_uiTexture.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="guiw_debug.h" />
+    <ClInclude Include="pass_createTexture.h">
+      <Filter>Pass</Filter>
+    </ClInclude>
+    <ClInclude Include="com_post.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="com_enemy.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="guiw_debug.h">
+      <Filter>Debug\ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="com_spriteAnimation.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_changeScene.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_floating.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_rotObject.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

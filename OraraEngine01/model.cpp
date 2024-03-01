@@ -29,7 +29,7 @@ void Model::Draw()
 	for( unsigned int i = 0; i < m_SubsetNum; i++ )
 	{
 		// マテリアル設定
-		Renderer::SetMaterial( m_SubsetArray[i].Material.Material );
+		Renderer::SetMaterialModel( m_SubsetArray[i].Material.Material );
 
 		// テクスチャ設定
 		if(m_SubsetArray[i].Material.Texture)
@@ -39,6 +39,10 @@ void Model::Draw()
 		Renderer::GetDeviceContext()->DrawIndexed( m_SubsetArray[i].IndexNum, m_SubsetArray[i].StartIndex, 0 );
 	}
 
+	MATERIAL material;
+	ZeroMemory(&material, sizeof(MATERIAL));
+	material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	Renderer::SetMaterialModel(material);
 }
 
 

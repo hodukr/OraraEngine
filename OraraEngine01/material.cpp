@@ -2,10 +2,14 @@
 #include"renderer.h"
 #include "material.h"
 #include "shaderManager.h"
-
+#include "textureManager.h"
 void Material::Init()
 {
 	SetShader(m_ShaderName);
+	if (m_TextureName != "")
+	{
+		SetTexture(m_TextureName,m_Extension);
+	}
 }
 
 void Material::Draw()
@@ -19,12 +23,25 @@ void Material::Draw()
 	material.Diffuse = m_Color;
 	material.TextureEnable = false;
 	Renderer::SetMaterial(material);
+
+	if (m_TextureNum >= 0)
+	{
+		Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TextureNum));
+	}
 }
 
 void Material::SetShader(std::string file)
 {
 	m_ShaderName = file;
 	m_ShaderNum = ShaderManager::Instance().LoadShader(m_ShaderName);
+}
+
+void Material::SetTexture(std::string name,std::string extension)
+{
+	m_TextureName = name;
+	m_Extension = extension;
+	std::string pass = "asset\\texture\\"+ name + m_Extension;
+	m_TextureNum = TextureManager::LoadTexture(pass);
 }
 
 
