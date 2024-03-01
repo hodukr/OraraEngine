@@ -49,7 +49,7 @@
                                     "data": {
                                         "m_Speed": 0.10000000149011612,
                                         "m_Range": 100.0,
-                                        "m_TargetName": "GameObject(1)"
+                                        "m_TargetName": "CameraTarget"
                                     }
                                 }
                             }
@@ -100,9 +100,9 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 80.0,
-                                            "y": 80.0,
-                                            "z": 80.0
+                                            "x": 200.0,
+                                            "y": 200.0,
+                                            "z": 200.0
                                         }
                                     }
                                 }
@@ -114,6 +114,21 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Modelpas": "sky.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483653,
+                                "polymorphic_name": "RotObject",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.00009999999747378752,
+                                        "m_Axis": {
+                                            "x": 0.0,
+                                            "y": 1.0,
+                                            "z": 0.0
+                                        }
                                     }
                                 }
                             }
@@ -170,12 +185,12 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483653,
+                                "polymorphic_id": 2147483654,
                                 "polymorphic_name": "WaterSurface",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_WavePitch": 5.0,
+                                        "m_WavePitch": 10.576000213623047,
                                         "m_Amplitude": 0.4740000069141388,
                                         "m_WaveLength": 0.16500000655651093,
                                         "m_WaveCycle": 5.105999946594238
@@ -217,9 +232,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 0.3420136570930481,
-                                            "y": -0.1591130495071411,
-                                            "z": -8.870741844177246
+                                            "x": 0.4035980701446533,
+                                            "y": 0.35790306329727175,
+                                            "z": -12.278366088867188
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -229,7 +244,7 @@
                                         "m_Scale": {
                                             "x": 10.0,
                                             "y": 10.0,
-                                            "z": 10.0
+                                            "z": 10.03600025177002
                                         }
                                     }
                                 }
@@ -244,7 +259,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483654,
+                                "polymorphic_id": 2147483655,
                                 "polymorphic_name": "Floating",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -252,7 +267,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483655,
+                                "polymorphic_id": 2147483656,
                                 "polymorphic_name": "BoxCollision",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -263,10 +278,10 @@
                                             "y": 0.0,
                                             "z": 2.5
                                         },
-                                        "m_Size": {
-                                            "x": 7.5,
-                                            "y": 2.0,
-                                            "z": 17.0
+                                        "m_Scale": {
+                                            "x": 0.699999988079071,
+                                            "y": 0.20000000298023225,
+                                            "z": 1.7000000476837159
                                         }
                                     }
                                 }
@@ -349,7 +364,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": 1
                     }
                 }
@@ -394,7 +409,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 7,
+                                "polymorphic_id": 8,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -404,16 +419,16 @@
                                             "y": 2.0,
                                             "z": 0.0
                                         },
-                                        "m_Size": {
-                                            "x": 3.0,
-                                            "y": 2.0,
-                                            "z": 3.0
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 0.699999988079071,
+                                            "z": 1.0
                                         }
                                     }
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483656,
+                                "polymorphic_id": 2147483657,
                                 "polymorphic_name": "Player",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -446,7 +461,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "CameraTarget",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -498,7 +513,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "GameObject(1)",
+                        "m_ObjctName": "ChangeScene",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -508,8 +523,8 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 9.0,
-                                            "z": -44.0
+                                            "y": 0.0,
+                                            "z": 0.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -523,21 +538,42 @@
                                         }
                                     }
                                 }
+                            },
+                            {
+                                "polymorphic_id": 2147483658,
+                                "polymorphic_name": "ChangeScene",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "SceneName": "Stage.json"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483659,
+                                "polymorphic_name": "ComponentPost",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_IsPost": true,
+                                        "m_Debug": false
+                                    }
+                                }
                             }
                         ],
                         "m_Material": {
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "wipe",
                                     "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
+                                        "r": 0.0,
+                                        "g": 0.8363022804260254,
+                                        "b": 0.9845559597015381,
                                         "a": 1.0
                                     },
-                                    "m_TextureName": "",
-                                    "m_Extension": ""
+                                    "m_TextureName": "wipe (1)",
+                                    "m_Extension": ".png"
                                 }
                             }
                         },
@@ -579,7 +615,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483657,
+                                "polymorphic_id": 2147483660,
                                 "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -614,7 +650,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": -1
                     }
                 }
@@ -650,7 +686,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483658,
+                                "polymorphic_id": 2147483661,
                                 "polymorphic_name": "Texture",
                                 "ptr_wrapper": {
                                     "valid": 1,

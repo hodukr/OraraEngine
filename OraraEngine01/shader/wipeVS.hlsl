@@ -12,6 +12,6 @@ void main(in VS_IN In, out PS_IN Out)
     Out.WorldPosition = float4(0.0, 0.0, 0.0, 0.0);
     Out.Normal = float4(0.0, 0.0, 0.0, 0.0);
     
-	Out.Diffuse = In.Diffuse;
+    Out.Diffuse =  In.Diffuse * Material.Diffuse;
     Out.TexCoord = In.TexCoord;
 }

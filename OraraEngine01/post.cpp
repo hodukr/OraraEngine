@@ -4,6 +4,7 @@
 #include "pass_postPass.h"
 #include "shaderManager.h"
 #include "textureManager.h"
+#include "material.h"
 
 void Post::Init()
 {
@@ -116,10 +117,12 @@ void Post::Draw()
     UINT offset = 0;
     Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-    // マテリアル設定 
     MATERIAL material;
-    ZeroMemory(&material, sizeof(material));
-    material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    ZeroMemory(&material, sizeof(MATERIAL));
+    if (m_Material)
+        material.Diffuse = m_Material->GetColor();
+    else
+        material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     Renderer::SetMaterial(material);
 
     //レンダリングテクスチャを取得

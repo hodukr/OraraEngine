@@ -277,6 +277,9 @@
     <ClCompile Include="com_floating.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="com_rotObjct.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -515,6 +518,9 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="com_floating.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_rotObject.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
