@@ -9,6 +9,8 @@ static const float pi = 3.1415926535f;
 
 void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 {
+    outDiffuse.rgb = g_Texture.Sample(g_SamplerState, In.TexCoord);
+    
     // 法線を正規化して格納する
     float4 normal = normalize(In.Normal);
 
@@ -34,7 +36,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     float4 envColor = g_TextureEnvCube.Sample(g_SamplerState, refv/*float3(refv.xy + uv.xy, refv.z)*/);
 
     // スフィアマップ
-    outDiffuse.rgb = envColor.rgb;
+    outDiffuse.rgb *= envColor.rgb;
     outDiffuse.a = In.Diffuse.a;
     //outDiffuse = g_Texture.Sample(g_SamplerState, In.TexCoord);
 

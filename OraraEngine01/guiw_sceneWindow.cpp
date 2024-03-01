@@ -16,11 +16,11 @@
 
 void SceneWindow::Update()
 {
-    if (ImGui::IsKeyPressed(ImGuiKey_T))
+    if (ImGui::IsKeyPressed(ImGuiKey_1))
         m_CurrentGizmoOperation = ImGuizmo::TRANSLATE;
-    if (ImGui::IsKeyPressed(ImGuiKey_E))
+    if (ImGui::IsKeyPressed(ImGuiKey_2))
         m_CurrentGizmoOperation = ImGuizmo::ROTATE;
-    if (ImGui::IsKeyPressed(ImGuiKey_R)) // r Key
+    if (ImGui::IsKeyPressed(ImGuiKey_3)) // r Key
         m_CurrentGizmoOperation = ImGuizmo::SCALE;
 }
 

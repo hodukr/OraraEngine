@@ -21,8 +21,7 @@ void Cloth::Init()
         }
     }
 
-    m_IsWind = false;
-    m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);
+   
    
     // 頂点バッファ生成
     {
@@ -92,7 +91,7 @@ void Cloth::Init()
         Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer);
     }
 
-    m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\oraraEngine.png");
+    m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\title1.png");
 
     // バネの初期化
     int count = 0;
@@ -329,7 +328,7 @@ void Cloth::Draw()
     ZeroMemory(&material, sizeof(material));
     material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     material.TextureEnable = true;
-    Renderer::SetMaterial(material);
+    Renderer::SetMaterialModel(material);
 
     // テクスチャ設定  
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));

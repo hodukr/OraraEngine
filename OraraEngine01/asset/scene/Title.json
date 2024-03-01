@@ -16,9 +16,9 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 0.0,
-                                            "y": 5.0,
-                                            "z": -10.0
+                                            "x": 7.714935779571533,
+                                            "y": 21.4733829498291,
+                                            "z": -14.29395580291748
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -43,10 +43,14 @@
                             },
                             {
                                 "polymorphic_id": 2147483651,
-                                "polymorphic_name": "MoveCamera",
+                                "polymorphic_name": "Enemy",
                                 "ptr_wrapper": {
                                     "valid": 1,
-                                    "data": {}
+                                    "data": {
+                                        "m_Speed": 0.10000000149011612,
+                                        "m_Range": 100.0,
+                                        "m_TargetName": "GameObject(1)"
+                                    }
                                 }
                             }
                         ],
@@ -87,7 +91,7 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": -2.250281572341919,
+                                            "y": -0.9868941307067871,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -139,7 +143,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "ChangeScene",
+                        "m_ObjctName": "Water",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -158,20 +162,313 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
+                                            "x": 2.0,
+                                            "y": 2.0,
+                                            "z": 2.0
                                         }
                                     }
                                 }
                             },
                             {
                                 "polymorphic_id": 2147483653,
-                                "polymorphic_name": "ChangeScene",
+                                "polymorphic_name": "WaterSurface",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "SceneName": "Water.json"
+                                        "m_WavePitch": 5.0,
+                                        "m_Amplitude": 0.4740000069141388,
+                                        "m_WaveLength": 0.16500000655651093,
+                                        "m_WaveCycle": 5.105999946594238
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "envMapping",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "water",
+                                    "m_Extension": ".jpg"
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.3420136570930481,
+                                            "y": -0.1591130495071411,
+                                            "z": -8.870741844177246
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 10.0,
+                                            "y": 10.0,
+                                            "z": 10.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483654,
+                                "polymorphic_name": "Floating",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483655,
+                                "polymorphic_name": "BoxCollision",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 2.5
+                                        },
+                                        "m_Size": {
+                                            "x": 7.5,
+                                            "y": 2.0,
+                                            "z": 17.0
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "shadow",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Stick",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 14.777397155761719,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 3.0,
+                                            "y": 3.0,
+                                            "z": 3.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "Stick.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "kinoko",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": -0.21949195861816407,
+                                            "y": 3.0847394466400148,
+                                            "z": -17.123960494995118
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 3.0,
+                                            "y": 3.0,
+                                            "z": 3.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "kinoko.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 7,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 2.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Size": {
+                                            "x": 3.0,
+                                            "y": 2.0,
+                                            "z": 3.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483656,
+                                "polymorphic_name": "Player",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 4,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "GameObject",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 9.0,
+                                            "z": -44.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
                                     }
                                 }
                             }
@@ -201,7 +498,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "water",
+                        "m_ObjctName": "GameObject(1)",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -211,8 +508,8 @@
                                     "data": {
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
+                                            "y": 9.0,
+                                            "z": -44.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -220,23 +517,10 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 3.0,
-                                            "y": 3.0,
-                                            "z": 3.0
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
                                         }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483654,
-                                "polymorphic_name": "WaterSurface",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_WavePitch": 5.0,
-                                        "m_Amplitude": 0.20200000703334809,
-                                        "m_WaveLength": 0.16500000655651093,
-                                        "m_WaveCycle": 5.216000080108643
                                     }
                                 }
                             }
@@ -245,7 +529,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "envMapping",
+                                    "m_ShaderName": "vertexLighting",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -258,7 +542,7 @@
                             }
                         },
                         "m_RenderingPass": 0,
-                        "m_DrawLayer": 1
+                        "m_DrawLayer": -1
                     }
                 }
             }
@@ -268,7 +552,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "Title",
+                        "m_ObjctName": "flag",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -277,8 +561,8 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 150.0,
-                                            "y": 0.0,
+                                            "x": 10.651252746582032,
+                                            "y": 22.120159149169923,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -287,20 +571,29 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 5.0,
-                                            "y": 1.5,
-                                            "z": 2.0
+                                            "x": 0.2169124037027359,
+                                            "y": 0.15000000596046449,
+                                            "z": 0.15000000596046449
                                         }
                                     }
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483655,
-                                "polymorphic_name": "Texture",
+                                "polymorphic_id": 2147483657,
+                                "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "fileName": "Title.png"
+                                        "m_SpringMass": 5.0,
+                                        "m_AttCoefficient": 2.0,
+                                        "m_SpringCoefficient": 50.0,
+                                        "m_deltaTime": 0.11999999731779099,
+                                        "m_IsWind": true,
+                                        "m_WindForce": {
+                                            "x": 2.0,
+                                            "y": 4.0,
+                                            "z": 0.0
+                                        }
                                     }
                                 }
                             }
@@ -316,13 +609,13 @@
                                         "b": 1.0,
                                         "a": 1.0
                                     },
-                                    "m_TextureName": "",
-                                    "m_Extension": ""
+                                    "m_TextureName": "field",
+                                    "m_Extension": ".jpg"
                                 }
                             }
                         },
                         "m_RenderingPass": 0,
-                        "m_DrawLayer": 2
+                        "m_DrawLayer": -1
                     }
                 }
             },
@@ -339,8 +632,8 @@
                                     "valid": 1,
                                     "data": {
                                         "m_Position": {
-                                            "x": 350.0,
-                                            "y": 500.0,
+                                            "x": 450.0,
+                                            "y": 600.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -349,15 +642,16 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 3.0,
-                                            "y": 1.0,
-                                            "z": 2.0
+                                            "x": 2.0,
+                                            "y": 0.5,
+                                            "z": 1.0
                                         }
                                     }
                                 }
                             },
                             {
-                                "polymorphic_id": 7,
+                                "polymorphic_id": 2147483658,
+                                "polymorphic_name": "Texture",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
