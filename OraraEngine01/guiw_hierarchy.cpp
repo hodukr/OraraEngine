@@ -109,13 +109,77 @@ void Hierarchy::Draw()
 
 
         ImGui::Separator();
-
-        if (ImGui::Button("オブジェクト追加"))
-        {
-            GameObject* gameobjct =  m_Scene->AddGameObject(1);
-            gameobjct->SetName(gameobjct->GetName());
-        }
         ImGui::TreePop();
     }
+    DrawCreateObject();
     ImGui::End();
 }
+
+void Hierarchy::DrawCreateObject()
+{
+    if (ImGui::Button("オブジェクト追加"))
+    {
+        ImGui::OpenPopup("CreateGameObject");
+    }
+
+    if (ImGui::BeginPopup("CreateGameObject"))
+    {
+        if (ImGui::Button("GameObject"))
+        {
+            GameObject* gameobjct = m_Scene->AddGameObject(1);
+            gameobjct->SetName(gameobjct->GetName());
+        }
+        if (ImGui::Button("Prefab"))
+        {
+            ImGui::OpenPopup("CreatePrefab");
+        }
+
+        if (ImGui::BeginPopup("CreatePrefab"))
+        {
+            // フォルダのパスを指定 
+            std::string folderPath = "asset/prefab/";
+
+            // ファイル名を格納するためのベクターを作成 
+            std::vector<std::string> fileNames;
+
+            try {
+                // 指定されたフォルダ内のファイルをイテレート 
+                for (const auto& entry : fs::directory_iterator(folderPath)) {
+                    std::string name = entry.path().filename().string();
+                    fileNames.push_back(name);
+                }
+            }
+            catch (const std::filesystem::filesystem_error& ex) {
+                std::cerr << "Error: " << ex.what() << std::endl;
+            }
+            for (auto& file : fileNames)
+            {
+                std::string name = file.substr(0, file.find("."));
+                if(ImGui::Selectable(name.c_str()))
+                {
+                    try
+                    {
+                        std::string filename = "asset/prefab/" + file;
+                        std::ifstream inputFile(filename);
+                        cereal::JSONInputArchive archive(inputFile);
+                        std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+                        archive(*obj);
+                        m_Scene->SetGameObject(std::move(obj));
+                    }
+                    catch (const std::exception&)
+                    {
+
+                    }
+                }
+            }
+
+
+            ImGui::EndPopup();
+        }
+
+
+        ImGui::EndPopup();
+    }
+    
+}
+

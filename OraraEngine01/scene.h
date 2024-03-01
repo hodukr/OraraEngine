@@ -112,11 +112,18 @@ public:
 
 	GameObject* AddGameObject(int Layer)
 	{
-		std::unique_ptr<GameObject> gameObject = std::make_unique<GameObject>();
-		gameObject->Init();
-        m_GameObject[Layer].push_back(std::move(gameObject));
+		return SetGameObject(std::make_unique<GameObject>());
+	}
 
-		return m_GameObject[Layer].back().get();
+	GameObject* SetGameObject(std::unique_ptr<GameObject>  gameObject)
+	{
+		gameObject->Init();
+		gameObject->SetName(gameObject->GetName());
+		int drawLayer = 1;
+		if (gameObject->GetDrawLayer() > 0)drawLayer = gameObject->GetDrawLayer();
+		m_GameObject[drawLayer].push_back(std::move(gameObject));
+
+		return m_GameObject[drawLayer].back().get();
 	}
 
 	GameObject* GetGameObject(const char* name)
