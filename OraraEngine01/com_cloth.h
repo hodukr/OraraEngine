@@ -39,8 +39,8 @@ private:
     D3DXVECTOR3 m_Resultant[NUM_VERTEX][NUM_VERTEX]{};           //合力 
     D3DXVECTOR3 m_Gravity[NUM_VERTEX][NUM_VERTEX]{};             //重力 
     bool        m_OnLock[NUM_VERTEX][NUM_VERTEX]{};              //ロックされているかいないか 
-    bool m_IsWind{};                                             //風が吹いているか?　
-    Vector3 m_WindForce{};                                   //風力 
+    bool m_IsWind = false;                                             //風が吹いているか?　
+    Vector3 m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);                                   //風力 
     SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
 
     int m_TexNum{};
@@ -70,7 +70,19 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
-        //archive(CEREAL_NVP(m_Modelpas), CEREAL_NVP(m_Material));
+        try
+        {
+            archive(CEREAL_NVP(m_SpringMass),
+                CEREAL_NVP(m_AttCoefficient),
+                CEREAL_NVP(m_SpringCoefficient),
+                CEREAL_NVP(m_deltaTime),
+                CEREAL_NVP(m_IsWind),
+                CEREAL_NVP(m_WindForce));
+        }
+        catch (const std::exception&)
+        {
+
+        }
     }
 
 };
