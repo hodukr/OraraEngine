@@ -57,11 +57,18 @@ void BoxCollision::EditorUpdate()
 {
     m_Position = m_GameObject->m_Transform->GetPosition();
     m_Position += m_Offset;
+
+
+    m_Size = m_GameObject->m_Transform->GetScale();
+    m_Size *= m_Scale;
 }
 void BoxCollision::Update()
 {
     m_Position = m_GameObject->m_Transform->GetPosition();
     m_Position += m_Offset;
+
+    m_Size = m_GameObject->m_Transform->GetScale();
+    m_Size *= m_Scale;
 }
 
 void BoxCollision::Draw()

@@ -17,7 +17,8 @@ class BoxCollision : public CollisionShape
 private:
     ID3D11Buffer* m_VertexBuffer{};
 
-    Vector3 m_Size{1.0f,1.0f,1.0f};
+    Vector3 m_Size{1.0f,1.0f,1.0f}; //当たり判定のサイズ
+    Vector3 m_Scale{ 1.0f,1.0f,1.0f };  //サイズの倍率等倍はゲームオブジェクトのスケール基準 
     Vector3 m_CorrectionSize{ 1.0f,1.0f,1.0f };
     std::unordered_map<BoxCollision*, BoxHitDirection> m_Directions;
     void SetVertex(struct VERTEX_3D* vertex);
@@ -29,7 +30,7 @@ public:
     void DrawInspector()
     {
         CollisionShape::DrawInspector();
-        SET_DATE(m_Size);
+        SET_DATE(m_Scale);
     }
     void Init() override;
     void Uninit() override;
@@ -37,7 +38,6 @@ public:
     void Update() override;
     void Draw() override;
 
-    void SetSize(Vector3 size) { m_Size = size; }
     Vector3 GetSize() { return m_Size; }
 
     bool CheckCollision(CollisionShape* other) override { return other->CollideWith(this); }
@@ -51,7 +51,7 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_Dynamic), CEREAL_NVP(m_Offset), CEREAL_NVP(m_Size));
+            archive(CEREAL_NVP(m_Dynamic), CEREAL_NVP(m_Offset), CEREAL_NVP(m_Scale));
         }
         catch (const std::exception&)
         {

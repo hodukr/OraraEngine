@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-
+class Material;
 class Post
 {
 private:
@@ -15,6 +15,7 @@ private:
 
     WATER m_Water{};
     PARAMETER m_Param{};
+    Material* m_Material{};
     float m_WipeSpeed = 0.01f;
     float m_RandNum{};
     
@@ -30,6 +31,7 @@ public:
     void SetTextureNum(int num) { m_TextureNum = num; }
     void SetWipeSpeed(float speed) { m_WipeSpeed = speed; }
     void SetIsWipe(bool flag) { m_IsWipe = flag; }
+    void SetMaterial(Material* material) { m_Material = material; }
     void SetThreshold(int value) { m_Param.dissolveThreshold = value; }
     bool GetIsWipe() { return m_IsWipe; }
 

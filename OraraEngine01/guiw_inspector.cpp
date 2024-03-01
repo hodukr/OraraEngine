@@ -590,7 +590,7 @@ void Inspector::DrawItemFloat(TypeDate& date)
         break;
     }
     default:
-        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate));
+        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate),0.0f,0.0f,"%.5f");
         break;
     }
 }
@@ -661,6 +661,8 @@ void Inspector::DrawItemVector3(TypeDate& date)
     {
     case CASTOMDRAWSTATE_VECTOR3_CORRECTION:
     {
+        ImGui::Text(date.Name.c_str());
+
         Vector3* vec = std::get<TYPE_VECTOR3>(date.MemberDate);
 
         std::string cb;
@@ -712,8 +714,6 @@ void Inspector::DrawItemVector3(TypeDate& date)
                 y = z;
             }
         }
-        ImGui::SameLine();
-        ImGui::Text(date.Name.c_str());
         x = D3DXToRadian(x);
         y = D3DXToRadian(y);
         z = D3DXToRadian(z);
@@ -723,6 +723,8 @@ void Inspector::DrawItemVector3(TypeDate& date)
         break;
     default:
     {
+        ImGui::Text(date.Name.c_str());
+
         std::string cb;
         cb = "##" + date.Name;
 
@@ -772,8 +774,6 @@ void Inspector::DrawItemVector3(TypeDate& date)
                 y = z;
             }
         }
-        ImGui::SameLine();
-        ImGui::Text(date.Name.c_str());
         *vector = Vector3(x, y, z);
         m_NumVector++;
     }

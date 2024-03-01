@@ -10,7 +10,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 {
 	//背景色を設定
     outDiffuse.rgb = g_Texture.Sample(g_SamplerState, In.TexCoord);
-	
+    	
 	//ワイプ用テクスチャからサンプリング(rgbaからrだけを抽出する)
     float dissolveValue = g_TextureWipe.Sample(g_SamplerState, In.TexCoord);
 	
@@ -23,5 +23,10 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     //step(x,y) →　x <= yなら1を返す  そうでないなら0を返す
     outDiffuse.a = step(Param.dissolveThreshold, dissolveValue);
     
-    outDiffuse.a *= 1.0f;
+    if (outDiffuse.a <= 0.1f)
+    {
+        outDiffuse.rgb = In.Diffuse.rgb;
+        outDiffuse.a = 1.0f;
+    }
+
 }

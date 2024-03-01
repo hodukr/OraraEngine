@@ -172,6 +172,7 @@
     <ClInclude Include="com_rigidbody.h" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="com_collisionShape.cpp" />
+    <ClCompile Include="com_rotObjct.cpp" />
     <ClCompile Include="com_spriteAnimation.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="guiw_debug.cpp" />
@@ -290,6 +291,7 @@
     <ClCompile Include="com_waterSurface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="com_rotObject.h" />
     <ClInclude Include="com_spriteAnimation.h" />
     <ClInclude Include="guiw_debug.h" />
     <ClInclude Include="imgui\GraphEditor.h" />
