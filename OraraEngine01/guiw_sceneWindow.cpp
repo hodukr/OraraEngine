@@ -7,6 +7,8 @@
 #include "shaderManager.h"
 #include "guiManager.h"
 #include "guiw_accessFolder.h"
+#include <fstream>
+#include <cereal/archives/json.hpp>
 #include <filesystem>
 #include "scene.h"
 #include "sceneCamera.h"
@@ -139,6 +141,24 @@ void SceneWindow::Draw()
                 mesh->SetModel(folderName);
                 hierarchy->SetSelectGameObject(gameObj);
             }
+            else if (afterDot == "prefab")
+            {
+                try
+                {
+                    std::ifstream inputFile("asset/prefab/" + folderName);
+                    cereal::JSONInputArchive archive(inputFile);
+                    std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+                    archive(*obj);
+                    GameObject* object = scene->SetGameObject(std::move(obj));
+                    object->m_Transform->SetPosition(0.0f,0.0f,0.0f);
+                    hierarchy->SetSelectGameObject(object);
+                }
+                catch (const std::exception&)
+                {
+
+                }
+            }
+
             if (gameObj) 
                 gameObj->SetName(beforeDot);
         }

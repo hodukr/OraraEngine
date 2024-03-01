@@ -25,7 +25,14 @@ public:
     void DrawInspector()override
     {
         SET_DATE(m_Position);
-        SET_DATE_STATE(m_Rotation, CASTOMDRAWSTATE_VECTOR3_CORRECTION);
+        if (SET_DATE_STATE(m_Rotation, CASTOMDRAWSTATE_VECTOR3_CORRECTION))
+        {
+            D3DXMATRIX rotationMatrix; 
+            D3DXMatrixRotationYawPitchRoll(&rotationMatrix, D3DXToRadian(m_Rotation.y), D3DXToRadian(m_Rotation.x), D3DXToRadian(m_Rotation.z));
+
+            // 回転行列からクオータニオンに変換します
+            D3DXQuaternionRotationMatrix(&m_Qnaternion, &rotationMatrix);
+        }
         SET_DATE(m_Scale);
     }
 
@@ -145,7 +152,13 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_Position), CEREAL_NVP(m_Rotation), CEREAL_NVP(m_Scale));
+            archive(CEREAL_NVP(m_Position),
+                CEREAL_NVP(m_Rotation),
+                CEREAL_NVP(m_Scale),
+                cereal::make_nvp("Qx", m_Qnaternion.x),
+                cereal::make_nvp("Qy", m_Qnaternion.y),
+                cereal::make_nvp("Qz", m_Qnaternion.z),
+                cereal::make_nvp( "Qw", m_Qnaternion.w));
 
         }
         catch (const std::exception&)

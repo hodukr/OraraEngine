@@ -112,6 +112,8 @@ void Hierarchy::Draw()
         ImGui::TreePop();
     }
     DrawCreateObject();
+    CleatePrefab();
+
     ImGui::End();
 }
 
@@ -181,5 +183,27 @@ void Hierarchy::DrawCreateObject()
         ImGui::EndPopup();
     }
     
+}
+
+void Hierarchy::CleatePrefab()
+{
+    if (m_SelectGameObject)
+    { 
+        if (ImGui::Button("CreatePrefab"))
+        {
+            try
+            {
+                std::string filename = "asset/prefab/" + m_SelectGameObject->GetName() + ".json.prefab";
+                std::ofstream outputFile(filename);
+                cereal::JSONOutputArchive o_archive(outputFile);
+
+                o_archive(cereal::make_nvp(m_SelectGameObject->GetName().c_str(), *m_SelectGameObject));
+            }
+            catch (const std::exception&)
+            {
+                //MessageBox(NULL, "正常に保存ができませんでした", "警告", MB_OK);
+            }
+        }
+    }
 }
 
