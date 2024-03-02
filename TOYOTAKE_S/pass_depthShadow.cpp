@@ -30,7 +30,7 @@ void DepthShadow::CreatePass()
     dsvd.Format = DXGI_FORMAT_D32_FLOAT;//ピクセルフォーマットは32BitFLOAT型
     dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
     Renderer::GetDevice()->CreateDepthStencilView(depthTexture, &dsvd,
-        &m_DepthShadowDepthStencilView);
+        &m_DepthStencilView);
 
     //シェーダーリソースビュー作成
     D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
@@ -39,18 +39,16 @@ void DepthShadow::CreatePass()
     srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvd.Texture2D.MipLevels = 1;
     Renderer::GetDevice()->CreateShaderResourceView(depthTexture, &srvd,
-        &m_DepthShadowShaderResourceView);
+        &m_ShaderResourceView);
     depthTexture->Release();
+
+
 }
 
 void DepthShadow::Uninit()
 {
-    m_DepthShadowDepthStencilView->Release();
-    m_DepthShadowShaderResourceView->Release();
-  
-   /* m_DrawObj.clear();
-    m_SelectDrawObj.clear();
-    m_SelectPosObj.clear();*/
+    m_DepthStencilView->Release();
+    m_ShaderResourceView->Release();
 }
 
 void DepthShadow::Draw()
@@ -83,101 +81,19 @@ void DepthShadow::Draw()
     Renderer::SetProjectionMatrix(&light.ProjectionMatrix);
 
     //影を落としたいオブジェクトを描画(一応地面も)
-    for (const auto& obj : m_ShadowDrawObj)
-    {
-        obj.second->Draw();
-    }
-
-    //Scene* scene = Manager::GetScene();
-    //scene->Draw();
-}
-
-void DepthShadow::Update()
-{
     Scene* scene = Manager::GetScene();
-
-    ImGui::Begin("Shader", 0);
-
-    if (ImGui::TreeNode("Shadow"))
+    for (const auto& obj : scene->GetList()[1])
     {
-    //    //ゲームオブジェクト一覧
-    //    if (ImGui::BeginCombo("EnvMapObjPos", m_SelectPosObj.c_str()))
-    //    {
-    //        for (int i = 0; i < 3; i++)
-    //        {
-    //            if (scene->GetList()[i].empty())
-    //                continue;
-    //            for (auto& gameobject : scene->GetList()[i])
-    //            {
-    //                if (ImGui::Selectable(gameobject->GetName().c_str()))
-    //                {
-    //                    m_SelectPosObj = gameobject->GetName();
-    //                    m_EnvMapObjPos = gameobject.get()->m_Transform->GetPosition().dx();
-    //                }
-    //            }
-    //        }
-    //        ImGui::EndCombo();
-    //    }
-
-        if (ImGui::TreeNode("DrawObj"))
-        {
-            for (int i = 0; i < m_DrawObjNum; i++)
-            {
-                //ゲームオブジェクト一覧
-                if (ImGui::BeginCombo(std::to_string(i).c_str(), m_SelectDrawObj[i].c_str()))
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (scene->GetList()[j].empty())
-                            continue;
-
-                        for (auto& gameobject : scene->GetList()[j])
-                        {
-                            if (ImGui::Selectable(gameobject->GetName().c_str()))
-                            {
-                                m_SelectDrawObj[i] = gameobject->GetName();
-                                m_ShadowDrawObj[i] = gameobject.get();
-                            }
-                        }
-                    }
-                    ImGui::EndCombo();
-                }
-            }
-
-            ImGui::Separator();
-
-            if (ImGui::Button("Add Object"))
-            {
-                m_DrawObjNum++;
-            }
-
-            ImGui::SameLine();  // 同じ行に次の要素を配置する
-
-            if (ImGui::Button("Erase List"))
-            {
-                if (m_DrawObjNum > 0)
-                {
-                    m_SelectDrawObj.erase(m_DrawObjNum - 1);
-                    m_ShadowDrawObj.erase(m_DrawObjNum - 1);
-                    m_DrawObjNum--;
-                }
-            }
-
-            ImGui::TreePop();
-        }
-
-
-        ImGui::TreePop();
+        if(obj->GetPass() &SHADER_SHADOW)
+            obj->Draw();
     }
-
-    ImGui::End();
 }
 
 void DepthShadow::BeginDepth(void)
 {
     //シャドウバッファを深度バッファに設定し、内容を1で塗りつぶしておく
-    Renderer::GetDeviceContext()->OMSetRenderTargets(0, NULL, m_DepthShadowDepthStencilView);
-    Renderer::GetDeviceContext()->ClearDepthStencilView(m_DepthShadowDepthStencilView,
+    Renderer::GetDeviceContext()->OMSetRenderTargets(0, NULL, m_DepthStencilView);
+    Renderer::GetDeviceContext()->ClearDepthStencilView(m_DepthStencilView,
         D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 

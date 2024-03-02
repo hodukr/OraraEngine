@@ -4,9 +4,12 @@
 #include "col_boxCollision.h"
 #include "gameObject.h"
 #include "input.h"
+#include "collisionManager.h"
 
 void SphereCollision::Init()
 {
+    CollisionManager::SetShape(this);
+
     m_Size = 1.5f;
 
     VERTEX_3D vertex[VERTEX_NUM];
@@ -52,6 +55,8 @@ void SphereCollision::Init()
 
 void SphereCollision::Uninit()
 {
+    CollisionManager::DeletShape(this);
+
     m_VertexLayout->Release();
     m_VertexShader->Release();
     m_PixelShader->Release();
@@ -162,6 +167,8 @@ void SphereCollision::SetVertex(VERTEX_3D* vertex,int index)
 
 bool SphereCollision::CollideWith(BoxCollision* other)
 {
+    if (!m_Dynamic && !other->GetDynamic()) return false;
+
     // Sphere と Box の当たり判定ロジック
     float distanceSquared = 0.0f;
 
@@ -183,18 +190,52 @@ bool SphereCollision::CollideWith(BoxCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        // 重なっている場合の補正
-        float distance = std::sqrt(distanceSquared);
-        Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
+        if (m_Dynamic)
+        {
+            // 重なっている場合の補正
+            float distance = std::sqrt(distanceSquared);
+            Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
 
-        // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
-        Vector3 vec = normal * (m_Size - distance);
+            if (normal.x == INFINITY)
+                normal.x = 0.0f;
+            if (normal.y == INFINITY)
+                normal.y = 0.0f;
+            if (normal.z == INFINITY)
+                normal.z = 0.0f;
 
-        // ポジションの補正
-        Vector3 pos = m_Position - m_Offset + vec;
-        m_GameObject->m_Transform->SetPosition(pos);
-        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
-        return true;
+            // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
+            Vector3 vec = normal * (m_Size - distance);
+
+            // ポジションの補正
+            Vector3 pos = m_Position - m_Offset + vec;
+            m_GameObject->m_Transform->SetPosition(pos);
+            m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
+
+            return true;
+        }
+        else
+        {
+            // 重なっている場合の補正
+            float distance = std::sqrt(distanceSquared);
+            Vector3 normal = (other->GetPosition() - m_Position) / distance;  // 最短距離ベクトルの正規化
+
+            if (normal.x == INFINITY)
+                normal.x = 0.0f;
+            if (normal.y == INFINITY)
+                normal.y = 0.0f;
+            if (normal.z == INFINITY)
+                normal.z = 0.0f;
+
+            // 補正ベクトルの計算（ボックスの頂点から球への最短距離ベクトル）
+            Vector3 vec = normal * (m_Size - distance);
+
+            // ポジションの補正
+            Vector3 pos = other->GetPosition() - other->GetOffset() + vec;
+            other->GetGameObejct()->m_Transform->SetPosition(pos);
+            other->GetPosition() = other->GetGameObejct()->m_Transform->GetPosition() + other->GetOffset();
+
+            return true;
+        }
     }
 
     return false;
@@ -202,6 +243,8 @@ bool SphereCollision::CollideWith(BoxCollision* other)
 
 bool SphereCollision::CollideWith(SphereCollision* other)
 {
+    if (!m_Dynamic && !other->GetDynamic()) return false;
+
     D3DXVECTOR3 vec = m_Position.dx() - other->GetPosition().dx();
     //Sphere と Sphere の当たり判定ロジック
     float distanceSquared = D3DXVec3LengthSq(&vec);
@@ -212,24 +255,48 @@ bool SphereCollision::CollideWith(SphereCollision* other)
         if (m_Trigger || other->GetTrigger())
             return true;
 
-        float distance = std::sqrt(distanceSquared);
-
-        // 重なりの量を計算
-        float overlapDistance = distance - (m_Size + other->GetSize());
-
-        // 重なりの方向を計算（正規化されたベクトル）
-        Vector3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-        if (distanceSquared > 0.0f)
+        if (m_Dynamic)
         {
-            overlapDirection = vec / distance;
+            float distance = std::sqrt(distanceSquared);
+
+            // 重なりの量を計算
+            float overlapDistance = distance - (m_Size + other->GetSize());
+
+            // 重なりの方向を計算（正規化されたベクトル）
+            Vector3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+            if (distanceSquared > 0.0f)
+            {
+                overlapDirection = vec / distance;
+            }
+
+            // 補正を適用して位置を調整
+            Vector3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
+            m_GameObject->m_Transform->SetPosition(pos);
+            m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
+
+            return true;
         }
+        else
+        {
+            float distance = std::sqrt(distanceSquared);
 
-        // 補正を適用して位置を調整
-        Vector3 pos = (m_Position - m_Offset) - overlapDirection * overlapDistance * 0.5f;
-        m_GameObject->m_Transform->SetPosition(pos);
-        m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
+            // 重なりの量を計算
+            float overlapDistance = distance - (m_Size + other->GetSize());
 
-        return true;
+            // 重なりの方向を計算（正規化されたベクトル）
+            Vector3 overlapDirection = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+            if (distanceSquared > 0.0f)
+            {
+                overlapDirection = vec / distance;
+            }
+
+            // 補正を適用して位置を調整
+            Vector3 pos = (other->m_Position - other->m_Offset) + overlapDirection * overlapDistance * 0.5f;
+            other->m_GameObject->m_Transform->SetPosition(pos);
+            other->m_Position = other->m_GameObject->m_Transform->GetPosition() + other->m_Offset;
+
+            return true;
+        }
     }
     return false;
 }

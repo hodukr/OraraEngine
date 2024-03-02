@@ -13,7 +13,9 @@ private:
 
     void SetVertex(VERTEX_3D* vertex, int index);
 public:
-    SphereCollision(){ m_Shape = SHAPE_SPHERE; }
+    SphereCollision(){ 
+        m_Shape = SHAPE_SPHERE;
+    }
 
     void Init() override;
     void Uninit() override;
