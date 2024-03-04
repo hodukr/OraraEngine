@@ -1,18 +1,16 @@
-﻿
-#include "main.h"
+﻿#include "main.h"
 #include "renderer.h"
 #include "com_waterSurface.h"
 #include "textureManager.h"
 #include "imgui/imgui.h"
 #include "gameObject.h"
+#include "pass_depthShadow.h"
+#include "pass_environmentMapping.h"
+#include "shaderManager.h"
+
 
 void WaterSurface::Init()
 {
-    m_WavePitch = 1.0f;
-    m_Amplitude = 10.0f;
-    m_WaveLength = 14.0f;
-    m_WaveCycle = 7.0f;
-
     m_Time =0.0f;
      
     // 頂点バッファ生成
@@ -100,9 +98,7 @@ void WaterSurface::Init()
 
     m_TexNum = TextureManager::LoadTexture("asset\\texture\\water.jpg");
     
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\unlitTextureVS.cso");
 
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\unlitTexturePS.cso");
 }
 
 
@@ -111,9 +107,6 @@ void WaterSurface::Uninit()
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
     
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
 }
 
 
@@ -133,16 +126,6 @@ void WaterSurface::Update()
     }
     m_Time += 0.01f;
     m_WaveTime++;
-
-#ifdef _DEBUG
-    ImGui::Begin("WaterSaface", 0, ImGuiWindowFlags_NoScrollbar);
-
-    ImGui::SliderFloat("Amplitude", &m_Amplitude, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveLength", &m_WaveLength, 1.0f, 50.0f);
-    ImGui::SliderFloat("WaveCycle", &m_WaveCycle, 1.0f, 50.0f);
-
-    ImGui::End();
-#endif //_DEBUG
 }
 
 
@@ -184,13 +167,6 @@ void WaterSurface::Draw()
 
     Renderer::GetDeviceContext()->Unmap(m_VertexBuffer, 0);
 
-    // 入力レイアウト設定
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-
-    // シェーダ設定
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
 
     // マトリクス設定
     D3DXMATRIX world, scale, rot, trans;
@@ -222,24 +198,69 @@ void WaterSurface::Draw()
 
     // テクスチャ設定
     Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
-    //Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, Renderer::GetCubeReflectShaderResourceView());
+    if (m_GameObject->GetMaterial()->GetFileName() == "envMapping")
+    {
+        EnvironmentMapping* envMap = ShaderManager::Instance().GetPass<EnvironmentMapping>(SHADER_ENVIRONMENTMAPPING);
+        Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, envMap->GetTexture());
+    }
+    if (m_GameObject->GetMaterial()->GetFileName() == "shadow")
+    {
+        DepthShadow* shadow = ShaderManager::Instance().GetPass<DepthShadow>(SHADER_SHADOW);
+        Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, shadow->GetTexture());
+    }
 
     // プリミティブトポロジ設定
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-  /*  PARAMETER param;
-    ZeroMemory(&param, sizeof(param));
-    param.pos = D3DXVECTOR4(m_Position.x, 0.0f, m_Position.z, 1.0f);
-    param.waveAmplitude = 0.1f;
-    param.waveFrequency = 100.0f;
-    param.speed = 0.01f;
-    param.time = m_WaveTime;
-
-    Renderer::SetParameter(param);*/
-
     // ポリゴン描画
     Renderer::GetDeviceContext()->DrawIndexed(((NUM_VERTEX + 1) * 2) * (NUM_VERTEX - 1) - 2, 0, 0);
 
+}
+
+float WaterSurface::GetHeigt(Vector3 Position)
+{
+    int x, z;
+    Vector3 scale = m_GameObject->m_Transform->GetScale();
+    //ブロック番号算出
+    x = Position.x / (m_WavePitch * scale.x)+10.0f;
+    z = Position.z / (-m_WavePitch * scale.x) + 10.0f;
+
+    D3DXVECTOR3 pos0, pos1, pos2, pos3;
+
+    pos0 = m_Vertex[x][z].Position;
+    pos1 = m_Vertex[x + 1][z].Position;
+    pos2 = m_Vertex[x][z + 1].Position;
+    pos3 = m_Vertex[x + 1][z + 1].Position;
+
+    D3DXVECTOR3 v12, v1p, c;
+    v12 = pos2 - pos1;
+    v1p = Position.dx() - pos1;
+
+    D3DXVec3Cross(&c, &v12, &v1p);
+
+    float py;
+    D3DXVECTOR3 n;
+    if (c.y > 0.0f)
+    {
+        //左上ポリゴン
+        D3DXVECTOR3 v10;
+        v10 = pos0 - pos1;
+        D3DXVec3Cross(&n, &v10, &v12);
+    }
+    else
+    {
+        //右下ポリゴン
+        D3DXVECTOR3 v13;
+        v13 = pos3 - pos1;
+        D3DXVec3Cross(&n, &v12, &v13);
+    }
+
+    //高さ取得
+    py = -((Position.x - pos1.x) * n.x
+        + (Position.z - pos1.z) * n.z) / n.y + pos1.y;
+
+
+    return py;
 }
 
 

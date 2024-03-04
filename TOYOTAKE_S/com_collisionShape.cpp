@@ -1,14 +1,9 @@
 #include "main.h"
-#include "renderer.h"
+#include "gameObject.h"
 #include "com_collisionShape.h"
-#include "collisionManager.h"
 
-CollisionShape::CollisionShape()
-{
-    CollisionManager::SetShape(this);
-}
 
-CollisionShape::~CollisionShape()
+void CollisionShape::EditorUpdate()
 {
-    CollisionManager::DeletShape(this);
+	m_Position = m_GameObject->m_Transform->GetPosition() + m_Offset;
 }

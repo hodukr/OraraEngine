@@ -3,7 +3,8 @@
 #include "post.h"
 #include "pass_postPass.h"
 #include "shaderManager.h"
-
+#include "textureManager.h"
+#include "material.h"
 
 void Post::Init()
 {
@@ -44,9 +45,8 @@ void Post::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    //ここにシェーダーファイルのロードを追加 
-    Renderer::CreateVertexShader(&m_VertexShader, &m_VertexLayout, "shader\\postNoiseVS.cso");
-    Renderer::CreatePixelShader(&m_PixelShader, "shader\\postNoisePS.cso");
+    m_DefaultShader = ShaderManager::Instance().LoadShader("unlitTexture");
+    m_PostShader = ShaderManager::Instance().LoadShader("postNoise");
 
     //コンスタントバッファに送るパラメーターの初期化  
     ZeroMemory(&m_Water, sizeof(WATER));
@@ -55,63 +55,94 @@ void Post::Init()
     m_Water.WaveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
     m_Water.Pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
     m_Water.Speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
+
+    ZeroMemory(&m_Param, sizeof(PARAMETER));
+    m_Param.dissolveThreshold = 0.0f;
+    m_Param.dissolveRange = 0.1f;
 }
 
 
 void Post::Uninit()
 {
     m_VertexBuffer->Release();
-
-    //ここにシェーダーオブジェクトの解放を追加 
-    m_VertexLayout->Release();
-    m_VertexShader->Release();
-    m_PixelShader->Release();
-
 }
 
 
 void Post::Update()
 {
-    m_Water.Time++;
+    if (m_Debug)
+    {
+        if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+            m_Water.Time++;
+        else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
+        {
+            m_Param.dissolveThreshold += m_WipeSpeed;
+
+            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            {
+                m_WipeSpeed *= -1;
+            }
+        }
+    }
+    else
+    {
+        if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+            m_Water.Time++;
+        else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe" && m_IsWipe)
+        {
+            m_Param.dissolveThreshold += m_WipeSpeed;
+
+            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            {
+                m_WipeSpeed = 0;
+                m_IsWipe = false;
+            }
+        }
+    }
 }
 
 
 void Post::Draw()
 {
-    //ここにシェーダー関連の描画準備を追加 
-    Renderer::GetDeviceContext()->IASetInputLayout(m_VertexLayout);
-    Renderer::GetDeviceContext()->VSSetShader(m_VertexShader, NULL, 0);
-    Renderer::GetDeviceContext()->PSSetShader(m_PixelShader, NULL, 0);
-
+    if(m_IsPost)
+     ShaderManager::Instance().GetShader(m_PostShader)->SetShader();
+    else
+     ShaderManager::Instance().GetShader(m_DefaultShader)->SetShader();
 
     // マトリクス設定 
     Renderer::SetWorldViewProjection2D();
-
 
     // 頂点バッファ設定 
     UINT stride = sizeof(VERTEX_3D);
     UINT offset = 0;
     Renderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
-    // マテリアル設定 
     MATERIAL material;
-    ZeroMemory(&material, sizeof(material));
-    material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+    ZeroMemory(&material, sizeof(MATERIAL));
+    if (m_Material)
+        material.Diffuse = m_Material->GetColor();
+    else
+        material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
     Renderer::SetMaterial(material);
-     
-    // テクスチャ設定
 
     //レンダリングテクスチャを取得
     PostPass* post = ShaderManager::Instance().GetPass<PostPass>(SHADER_POST);
+    
     //レンダリングテクスチャを0番にセット  
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetPPTexture());
-
+    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, post->GetTexture());
 
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-    //乱数をシェーダーに送る 
-    Renderer::SetWater(m_Water);
+    if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
+        Renderer::SetWater(m_Water);
+    else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
+    {
+        if (m_TextureNum > -1)
+            Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, TextureManager::GetTexture(m_TextureNum));
+
+        Renderer::SetParameter(m_Param);
+    }
 
     // ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(4, 0);

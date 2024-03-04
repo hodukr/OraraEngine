@@ -9,7 +9,7 @@
 namespace fs = std::filesystem;
 #define MAX_TEXT_NUM 256
 
-class AccessFolder:public ImGuiWindow
+class AccessFolder:public GuiWindowBase
 {
 private:
 	bool m_CreateFolder = false;
@@ -26,6 +26,7 @@ private:
 	void CreateFolder();
 	void DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv);
 public:
+	void SetWindowConfig();
 	void Draw()override;
 	std::string GetNowFolder() { return m_ProjectFolderName; }
 	std::string GetDragName() { return m_DragName; }

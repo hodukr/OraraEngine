@@ -7,24 +7,26 @@
 #include "pass_postPass.h"
 #include "post.h"
 #include "pass_depthShadow.h"
+#include "pass_createTexture.h"
 #include "sceneCamera.h"
-
+#include "shader.h"
 void ShaderManager::Init()
 {
     m_Post = new Post;
     m_Post->Init();
 
-    m_SceneCamera = new SceneCamera;
-    m_SceneCamera->Init();
-
+    m_EditorCamera = new EditorCamera;
+    m_EditorCamera->Init();
+    
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
     AddPass<PostPass>();
+    AddPass<CreateTexture>();
 }
 
 void ShaderManager::Uninit()
 {
-    m_SceneCamera->Uninit();
+    m_EditorCamera->Uninit();
     m_Post->Uninit();
     delete m_Post;
 
@@ -38,7 +40,7 @@ void ShaderManager::Uninit()
 
 void ShaderManager::Update()
 {
-    m_SceneCamera->Update();
+    if(Manager::GetSceneState() == SCENESTATE_SCENE)m_EditorCamera->Update();
     
     m_Post->Update();
 
@@ -63,10 +65,28 @@ void ShaderManager::Draw()
     PostPass* post = GetPass<PostPass>(SHADER_POST);
     post->BeginPP();
 
-    m_SceneCamera->Draw();
+    m_EditorCamera->Draw();
     scene->Draw();
 
-    Renderer::Begin();
+    CreateTexture* cTex = GetPass<CreateTexture>(SHADER_CREATETEXTURE);
+    cTex->BeginCT();
+    m_Post->Draw();
 
-    //m_Post->Draw();
+    Renderer::Begin();
+}
+
+int ShaderManager::LoadShader(std::string file)
+{
+    int ind = 0;
+    for (auto s : shaders)
+    {
+        if (s->GetFile() == file)
+        {
+            return ind;
+        }
+        ind++;
+    }
+    ShaderDate* date = new ShaderDate(file);
+    shaders.emplace_back(date);
+    return shaders.size() - 1;
 }
