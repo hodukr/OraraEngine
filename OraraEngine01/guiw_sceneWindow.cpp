@@ -88,7 +88,7 @@ void SceneWindow::Draw()
     float viewManipulateTop = 0;
 
     ImGuizmo::SetDrawlist();
-    ////グリッド線の範囲
+
     float windowWidth = (float)ImGui::GetWindowWidth();
     float windowHeight = (float)ImGui::GetWindowHeight();
     ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
@@ -169,7 +169,7 @@ void SceneWindow::Draw()
     {
         //ゲームオブジェクトの移動、回転、スケールの変更など
 
-            //直行投影モードから透視投影に変換
+        //直行投影モードから透視投影に変換
         ImGuizmo::SetOrthographic(false);
         EditorCamera* camera = ShaderManager::Instance().GetSceneCamera();
 
