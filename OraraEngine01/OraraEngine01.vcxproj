@@ -158,9 +158,11 @@
   <ItemGroup>
     <ClCompile Include="com_changeScene.cpp" />
     <ClCompile Include="com_floating.cpp" />
+    <ClCompile Include="com_goal.cpp" />
     <ClCompile Include="com_moveCamera.cpp" />
     <ClInclude Include="com_changeScene.h" />
     <ClInclude Include="com_floating.h" />
+    <ClInclude Include="com_goal.h" />
     <ClInclude Include="com_moveCamera.h" />
     <ClCompile Include="com_enemy.cpp" />
     <ClCompile Include="com_player.cpp" />

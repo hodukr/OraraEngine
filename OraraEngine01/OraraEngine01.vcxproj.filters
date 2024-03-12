@@ -280,6 +280,9 @@
     <ClCompile Include="com_rotObjct.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="com_goal.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -521,6 +524,9 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="com_rotObject.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="com_goal.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
