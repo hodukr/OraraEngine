@@ -55,10 +55,17 @@ void Inspector::Draw()
 
 
         //コンポーネントの表示 
+        int index = 0;
         for (auto& com : *m_GameObject->GetList())
         {
+            std::string name ="##" + std::to_string(index);
+            bool flg = com.get()->GetInable();
+            ImGui::Checkbox(name.c_str(), &flg);
+            com.get()->SetInable(flg);
+            ImGui::SameLine();
             DrawComponent(com.get());
             m_NumVector = 0;
+            index++;
         }
 
         //マテリアルの表示

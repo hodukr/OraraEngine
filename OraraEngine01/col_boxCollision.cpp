@@ -245,34 +245,34 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             Vector3 posvec = pos - m_Position;
             Vector3 pos = other->m_GameObject->m_Transform->GetPosition();
             // 補正
-            if (maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA)
+            if (index == 1 && minYB <= maxYA)
             {
                 float difference = posvec.y - m_Size.y - size.y;
                 pos.y -= difference;
                 other->SetHitDirection(this, BOXHITDIRECTION_DOWN);
                 m_Directions[other] = BOXHITDIRECTION_UP;
             }
-            else if (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA)
+            else if (index == 0 && maxYB >= minYA)
             {
                 float difference = posvec.y + m_Size.y + size.y;
                 pos.y -= difference;
                 other->SetHitDirection(this, BOXHITDIRECTION_UP);
                 m_Directions[other] = BOXHITDIRECTION_DOWN;
             }
-            else if (maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA)
+            else if (index == 3  && minXB <= maxXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
                 other->SetHitDirection(this, BOXHITDIRECTION_LEFT);
                 m_Directions[other] = BOXHITDIRECTION_RIGHT;
             }
-            else if (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA)
+            else if (index == 2 && maxXB >= minXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
                 other->SetHitDirection(this, BOXHITDIRECTION_RIGHT);
                 m_Directions[other] = BOXHITDIRECTION_LEFT;
 
             }
-            else if (minZA >= other->GetOldPosition().z + other->m_Size.z && maxZB >= minZA)
+            else if (index == 4 && maxZB >= minZA)
             {
                 pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
                 other->SetHitDirection(this, BOXHITDIRECTION_BACK);

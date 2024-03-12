@@ -2,7 +2,7 @@
 #define player_H
 
 #include "component.h"
-
+#include <unordered_map>
 class Player:public Component
 {
 private:
@@ -10,6 +10,7 @@ private:
     Vector3 m_Velocity{};
     int m_IsGround = 0;
     class BoxCollision* m_Collision{};
+    std::unordered_map<BoxCollision*, bool> m_IsOldUpHit{};
 public:
     void DrawInspector()
     {
