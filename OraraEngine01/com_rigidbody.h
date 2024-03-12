@@ -7,6 +7,8 @@ class Rigidbody:public Component
 {
 private:
     float m_Gravity{};
+    Vector3 m_Velocity{};
+    class BoxCollision* m_Collision{};
 public:
     void DrawInspector()
     {

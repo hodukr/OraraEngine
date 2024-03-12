@@ -29,7 +29,11 @@
                                             "x": 1.0,
                                             "y": 1.0,
                                             "z": 1.0
-                                        }
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
                                     }
                                 }
                             },
@@ -106,7 +110,11 @@
                                             "x": 80.0,
                                             "y": 80.0,
                                             "z": 80.0
-                                        }
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
                                     }
                                 }
                             },
@@ -168,7 +176,11 @@
                                             "x": 1.0,
                                             "y": 1.0,
                                             "z": 1.0
-                                        }
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
                                     }
                                 }
                             },
@@ -222,7 +234,7 @@
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
-                                            "z": 0.0
+                                            "z": -1.355419635772705
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -230,10 +242,14 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 4.0,
-                                            "y": 3.0,
-                                            "z": 4.0
-                                        }
+                                            "x": 7.162271499633789,
+                                            "y": 4.768653869628906,
+                                            "z": 7.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
                                     }
                                 }
                             },
@@ -264,12 +280,12 @@
                                         "m_Offset": {
                                             "x": 0.0,
                                             "y": 0.0,
-                                            "z": 0.699999988079071
+                                            "z": 1.7000000476837159
                                         },
-                                        "m_Size": {
-                                            "x": 3.0,
-                                            "y": 1.0,
-                                            "z": 7.0
+                                        "m_Scale": {
+                                            "x": 0.699999988079071,
+                                            "y": 0.20000000298023225,
+                                            "z": 1.7000000476837159
                                         }
                                     }
                                 }
@@ -311,7 +327,7 @@
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 2.3075671195983888,
-                                            "z": 0.0
+                                            "z": -10.386544227600098
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -322,7 +338,11 @@
                                             "x": 1.0,
                                             "y": 1.0,
                                             "z": 1.0
-                                        }
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
                                     }
                                 }
                             },
@@ -346,9 +366,9 @@
                                             "y": 0.699999988079071,
                                             "z": 0.0
                                         },
-                                        "m_Size": {
+                                        "m_Scale": {
                                             "x": 1.0,
-                                            "y": 0.699999988079071,
+                                            "y": 1.0,
                                             "z": 1.0
                                         }
                                     }
@@ -360,6 +380,17 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483657,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.30000001192092898,
+                                        "m_IsDirection": true
+                                    }
                                 }
                             }
                         ],
@@ -376,6 +407,122 @@
                                     },
                                     "m_TextureName": "",
                                     "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "box",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 1.8152141571044922,
+                                            "z": 7.897049903869629
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "box.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 7,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483658,
+                                "polymorphic_name": "ChangeScene",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "SceneName": "Stage1.json",
+                                        "m_UseButton": false
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483659,
+                                "polymorphic_name": "Goal",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_HitObjName": "Player"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483660,
+                                "polymorphic_name": "ComponentPost",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_IsPost": true,
+                                        "m_Debug": false
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "wipe",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "wipe (1)",
+                                    "m_Extension": ".png"
                                 }
                             }
                         },

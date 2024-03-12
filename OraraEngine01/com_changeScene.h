@@ -5,13 +5,15 @@
 class ChangeScene :public Component
 {
 private:
-    bool m_isFadeOut = false;
-    bool m_isFadeIn = false;
+    bool m_UseButton = false;
+    bool m_IsFadeOut = false;
+    bool m_IsFadeIn = false;
     bool m_StartFadeIn = false;
     std::string m_SceneName{""};
 public:
     void DrawInspector()
     {
+        SET_DATE(m_UseButton);
         SET_NEXT_FOLDER("asset\\scene", ".");
         if (SET_DATE_STATE(m_SceneName, CASTOMDRAWSTATE_STRING_FOLDER))
         {
@@ -20,11 +22,9 @@ public:
 
     }
     void Init()override;
-    void Uninit()override;
-    void EditorUpdate()override;
     void Update()override;
-    void Draw()override;
 
+    void SetIsFadeOut(bool flag) { m_IsFadeOut = flag; }
     void SetScene(std::string name) { m_SceneName = name; }
     void SceneChange(std::string name);
 
@@ -33,7 +33,7 @@ public:
     {
         try
         {
-            archive(cereal::make_nvp("SceneName", m_SceneName));
+            archive(cereal::make_nvp("SceneName", m_SceneName), CEREAL_NVP(m_UseButton));
         }
         catch (const std::exception&)
         {

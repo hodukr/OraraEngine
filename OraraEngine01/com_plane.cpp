@@ -8,7 +8,7 @@
 
 void Plane::Init()
 {
-    Init(-50, -50, 100, 100, "asset\\texture\\field.jpg");
+    Init(-50, -50, 100, 100, "asset\\texture\\water.jpg");
 }
 
 void Plane::Init(float x, float z, float width, float depth, const char* texture)

@@ -33,11 +33,9 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     refv = normalize(refv);
 
     // テクスチャから色をサンプリングする
-    float4 envColor = g_TextureEnvCube.Sample(g_SamplerState, refv/*float3(refv.xy + uv.xy, refv.z)*/);
+    float4 envColor = g_TextureEnvCube.Sample(g_SamplerState, /*refv*/float3(refv.xy + uv.xy, refv.z));
 
     // スフィアマップ
     outDiffuse.rgb *= envColor.rgb;
     outDiffuse.a = In.Diffuse.a;
-    //outDiffuse = g_Texture.Sample(g_SamplerState, In.TexCoord);
-
 }

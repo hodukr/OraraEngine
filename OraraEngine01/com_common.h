@@ -21,6 +21,7 @@
 #include "com_floating.h"
 #include "com_changeScene.h"
 #include "com_rotObject.h"
+#include "com_goal.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -45,5 +46,6 @@ SET_COMPONENT_CLASS(SpriteAnimation)
 SET_COMPONENT_CLASS(Floating)
 SET_COMPONENT_CLASS(ChangeScene)
 SET_COMPONENT_CLASS(RotObject)
+SET_COMPONENT_CLASS(Goal)
 //endSET_COMPONENT_CLASS
 
