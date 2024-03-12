@@ -1,6 +1,6 @@
 {
-    "GameObject(1)": {
-        "m_ObjctName": "GameObject(1)",
+    "wood": {
+        "m_ObjctName": "wood",
         "m_Tag": "NoneTag",
         "m_Component": [
             {
@@ -11,7 +11,7 @@
                     "data": {
                         "m_Position": {
                             "x": 0.0,
-                            "y": 2.7111830711364748,
+                            "y": 0.0,
                             "z": 0.0
                         },
                         "m_Rotation": {
@@ -20,9 +20,9 @@
                             "z": 0.0
                         },
                         "m_Scale": {
-                            "x": 1.0,
-                            "y": 1.0,
-                            "z": 1.0
+                            "x": 4.0,
+                            "y": 3.0,
+                            "z": 4.0
                         },
                         "Qx": 0.0,
                         "Qy": 0.0,
@@ -37,7 +37,35 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_Modelpas": "box.obj"
+                        "m_Modelpas": "wood.obj"
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483651,
+                "polymorphic_name": "Floating",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {}
+                }
+            },
+            {
+                "polymorphic_id": 2147483652,
+                "polymorphic_name": "BoxCollision",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Dynamic": false,
+                        "m_Offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.8999999761581421
+                        },
+                        "m_Scale": {
+                            "x": 0.75,
+                            "y": 0.15000000596046449,
+                            "z": 1.7300000190734864
+                        }
                     }
                 }
             }

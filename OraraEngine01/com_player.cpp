@@ -14,30 +14,32 @@ void Player::Init()
         m_Collision->SetCollisionCallback([&](CollisionState state, CollisionShape* other)
             {
                 BoxCollision* boxother = (BoxCollision*)other;
-                    if (state == COLLISION_ENTER)
+                if (state == COLLISION_ENTER)
+                {
+                    if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
                     {
-                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
-                        {
-                            m_IsGround++;
-                            m_Velocity.y = -0.1f;
-                        }
-                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_DOWN)
-                        {
-                            m_Velocity.y = -0.1f;
-                        }
+                        m_IsGround++;
+                        m_Velocity.y = -0.1f;
+                        m_IsOldUpHit[boxother] = true;
                     }
-                    else if (state == COLLISION_STAY)
+                    else if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_DOWN)
                     {
-                        if (m_Collision->GetHitDirection(boxother) == BOXHITDIRECTION_DOWN)
-                            m_Velocity.y = 0.0f;
+                        m_Velocity.y = -0.1f;
                     }
-                    else if (state == COLLISION_EXIT)
+                }
+                else if (state == COLLISION_STAY)
+                {
+                    if (m_Collision->GetHitDirection(boxother) == BOXHITDIRECTION_DOWN)
+                        m_Velocity.y = 0.0f;
+                }
+                else if (state == COLLISION_EXIT)
+                {
+                    if (m_IsOldUpHit[boxother])
                     {
-                        if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
-                        {
-                            m_IsGround--;
-                        }
+                        m_IsGround--;
+                        m_IsOldUpHit[boxother] = false;
                     }
+                }
             });
     }
 }

@@ -10,6 +10,9 @@ private:
     class GameObject* m_Target = nullptr;
     std::string m_TargetName{""};
     Vector3 m_Offset{};
+    bool m_IsMoveDirX = true;
+    bool m_IsMoveDirY = true;
+    bool m_IsMoveDirZ = true;
 public:
     void DrawInspector()
     {
@@ -18,6 +21,9 @@ public:
             SetTarget();
         }
         SET_DATE(m_Offset);
+        SET_DATE(m_IsMoveDirX);
+        SET_DATE(m_IsMoveDirY);
+        SET_DATE(m_IsMoveDirZ);
     }
     void Init()override;
     void Uninit()override;
@@ -29,7 +35,7 @@ public:
     template<class Archive>
     void serialize(Archive & archive)
     {
-        archive(CEREAL_NVP(m_TargetName), CEREAL_NVP(m_Offset));
+        archive(CEREAL_NVP(m_TargetName), CEREAL_NVP(m_Offset), CEREAL_NVP(m_IsMoveDirX), CEREAL_NVP(m_IsMoveDirY), CEREAL_NVP(m_IsMoveDirZ));
     }
 };
 

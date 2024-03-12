@@ -31,6 +31,7 @@ protected:
     class GameObject* m_GameObject;
     bool m_Destroy = false;
     std::vector<TypeDate> m_DataList;//メンバ変数を格納する
+    bool m_Inable = true;
 public:
     Component() {};
 	virtual void Init() {};
@@ -61,6 +62,8 @@ public:
         }
     }
 
+    void SetInable(bool flg) { m_Inable = flg; }
+    bool GetInable() { return m_Inable; }
     //std::vector<TypeDate> GetDateList()
     //{
     //    return m_DataList;
@@ -82,7 +85,7 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_ObjectName));
+            archive(CEREAL_NVP(m_ObjectName), CEREAL_NVP(m_Inable));
         }
         catch (const std::exception&)
         {

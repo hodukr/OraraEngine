@@ -52,19 +52,12 @@ public:
 
     void Init() {
         m_Transform = GetComponent<Transform>();
-        if (!m_Transform)
-        {
-            std::unique_ptr<Transform> transform = std::make_unique<Transform>();
-            transform.get()->SetGameObejct(this);
-            m_Transform = transform.get();
-            m_Component.push_back(std::move(transform));
-        }
 
         if (!m_Material)
         {
             m_Material = std::make_unique<Material>();
         }
-            m_Material->Init();
+        m_Material->Init();
 
         for (auto& component : m_Component)
         {
@@ -88,7 +81,7 @@ public:
     {
         for (const auto& component : m_Component)
         {
-            component->EditorUpdate();
+            if (component->GetInable())component->EditorUpdate();
         }
     }
 
@@ -97,7 +90,7 @@ public:
     {
         for (const auto& component : m_Component)
         {
-            component->Update();
+            if (component->GetInable())component->Update();
         }
 
     };
@@ -108,7 +101,7 @@ public:
 
         for (const auto& component : m_Component)
         {
-            component->Draw();
+            if (component->GetInable())component->Draw();
         }
     };
 

@@ -20,6 +20,9 @@ void MoveCamera::Update()
 	if (m_TargetName != "")
 	{
 		Vector3 pos = m_Target->m_Transform->GetPosition() + m_Offset;
+		if (!m_IsMoveDirX)pos.x = m_GameObject->m_Transform->GetPosition().x;
+		if (!m_IsMoveDirY)pos.y = m_GameObject->m_Transform->GetPosition().y;
+		if (!m_IsMoveDirZ)pos.z = m_GameObject->m_Transform->GetPosition().z;
 		m_GameObject->m_Transform->SetPosition(pos);
 	}
 }
