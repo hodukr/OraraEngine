@@ -44,6 +44,8 @@ private:
     SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
 
     int m_TexNum{};
+    PARAMETER m_Param{};
+    class Material* m_Material{};
 public:
     Cloth(){}
     void DrawInspector()override
@@ -66,6 +68,10 @@ public:
 
     void SetTexNum(int num) { m_TexNum = num;}
     void SetIsWind(bool wind) { m_IsWind = wind;}
+
+    //ディゾルブの処理用とりあえずここに記述
+    void SetParam(PARAMETER param) { m_Param = param; }
+    float GetThreshold() { return m_Param.dissolveThreshold; }
 
     template<class Archive>
     void serialize(Archive& archive)
