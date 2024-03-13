@@ -5,14 +5,15 @@ class Goal :public Component
 {
 private:
     bool  m_IsGoal = false;
+    class InputSystem* m_HitObj{};
+    class Cloth* m_Cloth{};
     class BoxCollision* m_Collision{};
     class ChangeScene* m_ChangeScene{};
+    PARAMETER m_Param{};
     std::string m_HitObjName{""};
+    std::string m_ClothName{""};
 public:
-    void DrawInspector()
-    {
-        SET_DATE_STATE(m_HitObjName, CASTOMDRAWSTATE_STRING_GAMEOBJECT);
-    }
+    void DrawInspector();
     void Init()override;
     void Update()override;
 
@@ -21,7 +22,7 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_HitObjName));
+            archive(CEREAL_NVP(m_HitObjName), CEREAL_NVP(m_ClothName));
         }
         catch (const std::exception&)
         {
