@@ -129,9 +129,9 @@ void Inspector::Draw()
         for (auto& com : *m_GameObject->GetList())
         {
             std::string name ="##" + std::to_string(index);
-            bool flg = com.get()->GetInable();
+            bool flg = com.get()->GetEnable();
             ImGui::Checkbox(name.c_str(), &flg);
-            com.get()->SetInable(flg);
+            com.get()->SetEnable(flg);
             ImGui::SameLine();
             DrawComponent(com.get());
             m_NumVector = 0;

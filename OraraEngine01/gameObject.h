@@ -87,7 +87,7 @@ public:
     {
         for (const auto& component : m_Component)
         {
-            if (component->GetInable())component->EditorUpdate();
+            if (component->GetEnable())component->EditorUpdate();
         }
     }
 
@@ -96,7 +96,7 @@ public:
     {
         for (const auto& component : m_Component)
         {
-            if (component->GetInable())component->Update();
+            if (component->GetEnable())component->Update();
         }
 
     };
@@ -107,7 +107,7 @@ public:
 
         for (const auto& component : m_Component)
         {
-            if (component->GetInable())component->Draw();
+            if (component->GetEnable())component->Draw();
         }
     };
 
