@@ -9,7 +9,6 @@ private:
     class Cloth* m_Cloth{};
     class BoxCollision* m_Collision{};
     class ChangeScene* m_ChangeScene{};
-    PARAMETER m_Param{};
     std::string m_HitObjName{""};
     std::string m_ClothName{""};
 public:

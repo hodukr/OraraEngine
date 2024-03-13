@@ -48,23 +48,26 @@ void Post::Init()
     m_DefaultShader = ShaderManager::Instance().LoadShader("unlitTexture");
     m_PostShader = ShaderManager::Instance().LoadShader("postNoise");
 
-    //コンスタントバッファに送るパラメーターの初期化  
-    ZeroMemory(&m_Water, sizeof(WATER));
-    //波紋用ステータス 
-    m_Water.WaveAmplitude = 0.05f;                   //波の感覚：0.00～0.10   
-    m_Water.WaveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
-    m_Water.Pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
-    m_Water.Speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
 
-    ZeroMemory(&m_Param, sizeof(PARAMETER));
-    m_Param.dissolveThreshold = 0.0f;
-    m_Param.dissolveRange = 0.1f;
+    //コンスタントバッファに送るパラメーターの初期化  
+    m_Water = new WATER;
+    //波紋用ステータス 
+    m_Water->WaveAmplitude = 0.05f;                   //波の感覚：0.00～0.10   
+    m_Water->WaveFrequency = 50.0f;                  // 波の数多いほど細かく：0.0～100.0   
+    m_Water->Pos = D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
+    m_Water->Speed = 0.01f;                          //中心から広がっていく速度：0.0～1.0
+
+    m_Param = new PARAMETER;
+    m_Param->dissolveThreshold = 0.0f;
+    m_Param->dissolveRange = 0.1f;
 }
 
 
 void Post::Uninit()
 {
     m_VertexBuffer->Release();
+    delete m_Water;
+    delete m_Param;
 }
 
 
@@ -73,12 +76,12 @@ void Post::Update()
     if (m_Debug)
     {
         if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
-            m_Water.Time++;
+            m_Water->Time++;
         else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
         {
-            m_Param.dissolveThreshold += m_WipeSpeed;
+            m_Param->dissolveThreshold += m_WipeSpeed;
 
-            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            if (m_Param->dissolveThreshold >= 1.1f || m_Param->dissolveThreshold <= -0.1f)
             {
                 m_WipeSpeed *= -1;
             }
@@ -87,12 +90,12 @@ void Post::Update()
     else
     {
         if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
-            m_Water.Time++;
+            m_Water->Time++;
         else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe" && m_IsWipe)
         {
-            m_Param.dissolveThreshold += m_WipeSpeed;
+            m_Param->dissolveThreshold += m_WipeSpeed;
 
-            if (m_Param.dissolveThreshold >= 1.1f || m_Param.dissolveThreshold <= -0.1f)
+            if (m_Param->dissolveThreshold >= 1.1f || m_Param->dissolveThreshold <= -0.1f)
             {
                 m_WipeSpeed = 0;
                 m_IsWipe = false;
@@ -135,13 +138,13 @@ void Post::Draw()
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
     if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "waterSurface")
-        Renderer::SetWater(m_Water);
+        Renderer::SetWater(*m_Water);
     else if (ShaderManager::Instance().GetShader(m_PostShader)->GetFile() == "wipe")
     {
         if (m_TextureNum > -1)
             Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, TextureManager::GetTexture(m_TextureNum));
 
-        Renderer::SetParameter(m_Param);
+        Renderer::SetParameter(*m_Param);
     }
 
     // ポリゴン描画 

@@ -38,10 +38,6 @@ void Goal::Init()
                 }
             });
     }
-
-    ZeroMemory(&m_Param, sizeof(PARAMETER));
-    m_Param.dissolveThreshold = 0.0f;
-    m_Param.dissolveRange = 0.1f;
 }
 
 void Goal::Update()
@@ -56,13 +52,12 @@ void Goal::Update()
         m_ChangeScene->SetIsFadeOut(true);
         m_IsGoal = false;
     }
-    static float delta;
-    m_Param.dissolveThreshold += delta;
+    static float delta = 0.05f;
+    m_Cloth->GetParameter()->dissolveThreshold += delta;
 
-    if (m_Cloth->GetThreshold() >= 1.1f || m_Cloth->GetThreshold() <= -0.1f)
+    if (m_Cloth->GetParameter()->dissolveThreshold >= 1.1f || m_Cloth->GetParameter()->dissolveThreshold <= -0.1f)
     {
         delta *= -1;
     }
-    m_Cloth->SetParam(m_Param);
 }
 
