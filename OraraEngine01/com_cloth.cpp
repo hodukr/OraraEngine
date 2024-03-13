@@ -154,9 +154,9 @@ void Cloth::Init()
         }
     }
     
-    ZeroMemory(&m_Param, sizeof(PARAMETER));
-    m_Param.dissolveThreshold = 0.0f;
-    m_Param.dissolveRange = 0.1f;
+    m_Parameter = new PARAMETER;
+    m_Parameter->dissolveThreshold = 0.0f;
+    m_Parameter->dissolveRange = 0.1f;
 }
 
 
@@ -164,7 +164,7 @@ void Cloth::Uninit()
 {
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
- 
+    delete m_Parameter;
 }
 
 
@@ -342,7 +342,7 @@ void Cloth::Draw()
     if (ShaderManager::Instance().GetShader(m_GameObject->GetMaterial()->GetShaderNum())->GetFile() == "dissolve")
     {
         Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, TextureManager::GetTexture(m_TexNum));
-        Renderer::SetParameter(m_Param);
+        Renderer::SetParameter(*m_Parameter);
     }
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

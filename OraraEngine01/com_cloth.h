@@ -22,6 +22,9 @@ struct SPRING
     float	Length;				    // 自然長 
 };
 
+
+class PARAMETER;
+
 class Cloth : public Component
 {
 private:
@@ -44,7 +47,7 @@ private:
     SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
 
     int m_TexNum{};
-    PARAMETER m_Param{};
+    PARAMETER* m_Parameter{};
     class Material* m_Material{};
 public:
     Cloth(){}
@@ -70,8 +73,7 @@ public:
     void SetIsWind(bool wind) { m_IsWind = wind;}
 
     //ディゾルブの処理用とりあえずここに記述
-    void SetParam(PARAMETER param) { m_Param = param; }
-    float GetThreshold() { return m_Param.dissolveThreshold; }
+    PARAMETER* GetParameter() { return m_Parameter; }
 
     template<class Archive>
     void serialize(Archive& archive)
