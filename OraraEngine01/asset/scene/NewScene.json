@@ -7,7 +7,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "MainCamera",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "Untagged",
                         "m_Component": [
                             {
                                 "polymorphic_id": 2147483649,
@@ -74,7 +74,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "Sky",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "Untagged",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -140,7 +140,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "box",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "Untagged",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -233,7 +233,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "Water",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "eee",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -302,7 +302,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "Player",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "Untagged",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -405,7 +405,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "GameObject",
-                        "m_Tag": "NoneTag",
+                        "m_Tag": "Untagged",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,

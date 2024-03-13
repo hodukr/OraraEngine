@@ -120,4 +120,11 @@ private:
         m_AccessPass = "";
         m_Extension = "";
     }
+
+//    template<class Archive>
+//    void serialize(Archive& archive)
+//    {
+//        archive(CEREAL_NVP(m_Taglist));
+//    }
 };
+

@@ -54,13 +54,13 @@ void Hierarchy::Draw()
     if (ImGui::BeginPopup("SceneConfig")) {
         char name[128];
         strncpy_s(name, (char*)m_Scene->GetName().c_str(), sizeof(name));
-            ImGui::InputText("Name", name,sizeof(name));
-            std::string rename = name;
-            if ("" != rename && Input::Instance().GetKeyPress(VK_RETURN))
-            {
-                m_Scene->SetName(rename);
-                ImGui::CloseCurrentPopup();
-            }
+        ImGui::InputText("Name", name, sizeof(name));
+        std::string rename = name;
+        if ("" != rename && Input::Instance().GetKeyPress(VK_RETURN))
+        {
+            m_Scene->SetName(rename);
+            ImGui::CloseCurrentPopup();
+        }
         ImGui::EndPopup();
 
     }
@@ -82,14 +82,11 @@ void Hierarchy::Draw()
                     inspector->SetGameObejct(gameobject.get());
                 }
                 ImGui::PopID();
-
                 if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
                 {
                     ImGui::OpenPopup("GameObjectConfig"); 
                     m_ConfigGameObject = gameobject.get();
-
                 }
-
             }
         }
 
@@ -106,7 +103,6 @@ void Hierarchy::Draw()
             }
             ImGui::EndPopup();
         }
-
 
         ImGui::Separator();
         ImGui::TreePop();

@@ -2,11 +2,19 @@
 #include <typeinfo>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
+#include <cereal/archives/json.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/string.hpp>
+
+#define SET_COMPONENT_CLASS(Classname)\
+CEREAL_REGISTER_TYPE(Classname)\
+CEREAL_REGISTER_POLYMORPHIC_RELATION(GuiWindowBase, Classname)
 
 class GuiWindowBase
 {
 protected:
-	bool m_IsShowWindow = false;
+	bool m_IsShowWindow = true;
 public:
 	virtual void Init(){}
 	virtual void Uninit(){}

@@ -1,14 +1,7 @@
 ﻿#include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "guiw_accessFolder.h"
-#include "guiw_menu.h"
-#include "guiw_hierarchy.h"
-#include "guiw_inspector.h"
-#include "guiw_nodeEditor.h"
-#include "guiw_gameManagerGui.h"
-#include "guiw_sceneWindow.h"
-#include "guiw_debug.h"
+#include "guiw_common.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
 #include "guiManager.h"
@@ -553,9 +546,16 @@ void GuiManager::SetUp()
     //この時点ではInitがよばれないので注意 
 
     if (std::filesystem::exists(DEBUGFILEPASS)) {//デバックファイルがあったら読み込む
-        std::ifstream inputFile(DEBUGFILEPASS);
-        cereal::JSONInputArchive archive(inputFile);
-        archive(*this);
+        try
+        {
+            std::ifstream inputFile(DEBUGFILEPASS);
+            cereal::JSONInputArchive archive(inputFile);
+            archive(*this);
+        }
+        catch (const std::exception&)
+        {
+        }
+
     }
     else
     {
@@ -563,7 +563,6 @@ void GuiManager::SetUp()
         AddWindow<NodeEditorManager>();
         AddWindow<Hierarchy>();
         AddWindow<Inspector>();
-        AddWindow<GameManagerGui>();
         AddWindow<AccessFolder>();
         AddWindow<SceneWindow>();
         AddWindow<Debug>();

@@ -17,7 +17,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_IsShowWindow": false
+                        "m_IsShowWindow": true
                     }
                 }
             },
@@ -43,16 +43,6 @@
             },
             {
                 "polymorphic_id": 2147483653,
-                "polymorphic_name": "GameManagerGui",
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_IsShowWindow": false
-                    }
-                }
-            },
-            {
-                "polymorphic_id": 2147483654,
                 "polymorphic_name": "AccessFolder",
                 "ptr_wrapper": {
                     "valid": 1,
@@ -62,7 +52,7 @@
                 }
             },
             {
-                "polymorphic_id": 2147483655,
+                "polymorphic_id": 2147483654,
                 "polymorphic_name": "SceneWindow",
                 "ptr_wrapper": {
                     "valid": 1,
@@ -72,7 +62,7 @@
                 }
             },
             {
-                "polymorphic_id": 2147483656,
+                "polymorphic_id": 2147483655,
                 "polymorphic_name": "Debug",
                 "ptr_wrapper": {
                     "valid": 1,

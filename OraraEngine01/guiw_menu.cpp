@@ -16,6 +16,7 @@ void Menu::Init()
 
 void Menu::Uninit()
 {
+
 }
 
 void Menu::Update()

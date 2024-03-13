@@ -12,9 +12,6 @@
 #include <vector>
 #include <cctype>
 #include <bitset>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/string.hpp>
 #include <fstream>
 namespace fs = std::filesystem;
 
@@ -32,7 +29,7 @@ void Inspector::Init()
         m_Taglist.emplace_back("Untagged");
     }
     
-
+    m_DeletTag = "";
     m_GameObject = nullptr;
     m_PopupComponent = nullptr;
     m_NumVector = 0;
@@ -76,31 +73,35 @@ void Inspector::Draw()
         {
             for (auto& tag : m_Taglist)
             {
-                ImGui::PushID(&tag);
-
                 bool tagsekect = ImGui::Selectable(tag.c_str());
                 if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
                 {
-                    ImGui::OpenPopup("TagDelet");
                     m_DeletTag = tag;
                 }
-                if (ImGui::BeginPopup("TagDelet"))
-                {
-                    if (ImGui::Button("DeletTag"))
-                    {
-                        DeletTag(m_DeletTag);
-                    }
-                    ImGui::EndPopup();
-                }
+
 
                 if (tagsekect)
                 {
                     m_GameObject->SetTag(tag);
                 }
-                ImGui::PopID();
+
+            }
+            if (m_DeletTag != "")
+            {
+                ImGui::OpenPopup("TagDelet");
 
             }
 
+            if (ImGui::BeginPopup("TagDelet"))
+            {
+                if (ImGui::Button("DeletTag"))
+                {
+                    DeletTag(m_DeletTag);
+                    m_DeletTag = "";
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
             if (ImGui::Button("AddTag"))
             {
                 ImGui::OpenPopup("CreateTag");

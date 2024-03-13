@@ -1,5 +1,4 @@
 #pragma once
-#include "guiw_gameManagerGui.h"
 #include "guiw_hierarchy.h"
 #include "guiw_inspector.h"
 #include "guiw_menu.h"
@@ -12,7 +11,6 @@
 CEREAL_REGISTER_TYPE(Classname)\
 CEREAL_REGISTER_POLYMORPHIC_RELATION(GuiWindowBase, Classname);
 
-SET_IMGUIWINDOW_CLASS(GameManagerGui)
 SET_IMGUIWINDOW_CLASS(Hierarchy)
 SET_IMGUIWINDOW_CLASS(Inspector)
 SET_IMGUIWINDOW_CLASS(Menu)

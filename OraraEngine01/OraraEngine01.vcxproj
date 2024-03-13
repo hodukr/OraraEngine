@@ -212,10 +212,6 @@
     <ClCompile Include="guiw_sceneWindow.cpp" />
     <ClCompile Include="pass_environmentMapping.cpp" />
     <ClCompile Include="gameManager.cpp" />
-    <ClCompile Include="guiw_gameManagerGui.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="guiw_hierarchy.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -328,7 +324,6 @@
     <ClInclude Include="guiw_sceneWindow.h" />
     <ClInclude Include="pass_environmentMapping.h" />
     <ClInclude Include="gameManager.h" />
-    <ClInclude Include="guiw_gameManagerGui.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="guiManager.h" />
     <ClInclude Include="imGuiWindow.h" />
