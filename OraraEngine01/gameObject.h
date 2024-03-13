@@ -28,7 +28,7 @@ public:
     Transform* m_Transform = nullptr;
     GameObject() {
         m_ObjctName = "GameObject";
-        m_Tag = "NoneTag";
+        m_Tag = "Untagged";
         m_UseShaderNum = -1;
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_NONE;
         m_RenderingPass = SHADER_NONE;
@@ -120,7 +120,7 @@ public:
 
     void SetTag(std::string tag)
     {
-        m_ObjctName = tag;
+        m_Tag = tag;
     }
 
     const std::string GetTag()

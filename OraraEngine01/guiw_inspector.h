@@ -2,6 +2,7 @@
 #include "singleton.h"
 #include "imGuiWindow.h"
 #include <variant>
+#include <list>
 
 #define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*
 #define SET_DATE(T) GuiManager::Instance().GetGuiWindow<Inspector>()->SetDate(#T, &T)
@@ -46,6 +47,8 @@ private:
     class Component* m_PopupComponent{};
     std::unordered_map<int,bool> m_IsRockVector{};
     int m_NumVector{};
+    std::list<std::string> m_Taglist{};
+    std::string m_DeletTag{};
     //std::vector<TypeDate> m_DataList;//Componentのメンバ変数を格納する
 
 //component表示に必要な変数
@@ -96,6 +99,7 @@ private:
     std::vector<std::string> AccessFolder(const char* folderPass);//フォルダ内のファイル名の取得
     void CreatComponentFile(std::string comname);
     void AddFileToProject(const std::string& project_file, const std::string& file_path, bool is_header);
+    void DeletTag(std::string tag);
 
     void DrawItemInt(TypeDate& date);
     void DrawItemFloat(TypeDate& date);

@@ -21,6 +21,7 @@ public:
 
 	void SetScene(Scene* scene) { m_Scene = scene; }
 	void SetSelectGameObject(GameObject* objct) { m_SelectGameObject = objct; }
+	
 	GameObject* GetSelectGameObject() { return m_SelectGameObject; }
 private:
 	void DrawCreateObject();

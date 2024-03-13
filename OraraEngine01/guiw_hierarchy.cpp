@@ -117,6 +117,8 @@ void Hierarchy::Draw()
     ImGui::End();
 }
 
+
+
 void Hierarchy::DrawCreateObject()
 {
     if (ImGui::Button("オブジェクト追加"))

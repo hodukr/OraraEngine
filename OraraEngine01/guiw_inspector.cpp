@@ -5,16 +5,34 @@
 #include "gameObject.h"
 #include "imgui/imgui.h"
 #include "pass.h"
+#include "input.h"
 #include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cctype>
 #include <bitset>
+#include <cereal/archives/json.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/string.hpp>
+#include <fstream>
 namespace fs = std::filesystem;
 
 void Inspector::Init()
 {
+    try
+    {
+        std::string filename = "resource/inspector.json";
+        std::ifstream inputFile(filename);
+        cereal::JSONInputArchive archive(inputFile);
+        archive(m_Taglist);
+    }
+    catch (const std::exception&)
+    {
+        m_Taglist.emplace_back("Untagged");
+    }
+    
+
     m_GameObject = nullptr;
     m_PopupComponent = nullptr;
     m_NumVector = 0;
@@ -24,6 +42,11 @@ void Inspector::Uninit()
 {
     m_GameObject = nullptr;
     m_IsRockVector.clear();
+    std::string filename = "resource/inspector.json";
+    std::ofstream outputFile(filename);
+    cereal::JSONOutputArchive o_archive(outputFile);
+
+    o_archive(cereal::make_nvp("Tag", m_Taglist));
 }
 
 void Inspector::Update()
@@ -48,7 +71,54 @@ void Inspector::Draw()
         ImGui::InputText("##GameObjectName", buffer, sizeof(buffer));
         m_GameObject->SetName(buffer);
 
-        ImGui::Text("%d", m_GameObject->GetDrawLayer());
+        ImGui::SameLine();
+        if (ImGui::BeginCombo("Tag", m_GameObject->GetTag().c_str()))
+        {
+            for (auto& tag : m_Taglist)
+            {
+                ImGui::PushID(&tag);
+
+                bool tagsekect = ImGui::Selectable(tag.c_str());
+                if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+                {
+                    ImGui::OpenPopup("TagDelet");
+                    m_DeletTag = tag;
+                }
+                if (ImGui::BeginPopup("TagDelet"))
+                {
+                    if (ImGui::Button("DeletTag"))
+                    {
+                        DeletTag(m_DeletTag);
+                    }
+                    ImGui::EndPopup();
+                }
+
+                if (tagsekect)
+                {
+                    m_GameObject->SetTag(tag);
+                }
+                ImGui::PopID();
+
+            }
+
+            if (ImGui::Button("AddTag"))
+            {
+                ImGui::OpenPopup("CreateTag");
+            }
+            if (ImGui::BeginPopup("CreateTag"))
+            {
+                char tagname[64];
+                ZeroMemory(&tagname, sizeof(tagname));
+                ImGui::InputText("Tag", tagname, sizeof(tagname));
+                if (Input::Instance().GetKeyPress(VK_RETURN))
+                {
+                    m_Taglist.emplace_back(tagname);
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+            ImGui::EndCombo();
+        }
 
         //パスの指定
         DrawSetPass();
@@ -580,6 +650,21 @@ void Inspector::AddFileToProject(const string& project_file, const string& file_
     rename((project_file + ".tmp").c_str(), project_file.c_str());
 }
 
+void Inspector::DeletTag(std::string tag)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (auto& obj : Manager::GetScene()->GetList()[i])
+        {
+            if (obj.get()->GetTag() == tag)
+            {
+                obj.get()->SetTag(*m_Taglist.begin());
+            }
+        }
+    }
+    m_Taglist.remove(tag);
+}
+
 void Inspector::DrawItemInt(TypeDate& date)
 {
     m_IsSet = ImGui::InputInt(date.Name.c_str(), std::get<TYPE_INT>(date.MemberDate));
@@ -629,7 +714,7 @@ void Inspector::DrawItemString(TypeDate& date)
     {
         std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
         Scene* scene = Manager::GetScene();
-        if (ImGui::BeginCombo("GameObject", stringdate->c_str()))
+        if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
         {
             for (int i = 0; i < 3; i++)
             {
