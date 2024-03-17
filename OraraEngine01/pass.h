@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <unordered_map>
-#include <string>
 //新たにパスクラスをを追加したらここにIDを追加する
 enum Shader
 {
@@ -45,5 +43,6 @@ public:
             return "";
             break;
         }
+        return "";
     }
 };

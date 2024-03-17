@@ -1,12 +1,4 @@
 ﻿#pragma once
-
-#include <list>
-#include <Vector>
-#include <cereal/cereal.hpp>
-#include <cereal/types/list.hpp>
-#include <cereal/types/memory.hpp>  
-#include <string>
-#include "main.h"
 #include "com_common.h"
 #include "material.h"
 #include "reflection.h"

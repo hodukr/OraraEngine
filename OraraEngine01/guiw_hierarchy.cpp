@@ -8,8 +8,7 @@
 #include "imgui/imgui.h"
 #include "input.h"
 #include <cereal/archives/json.hpp>
-#include <fstream>
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 
 void Hierarchy::Init()
 {
@@ -55,7 +54,7 @@ void Hierarchy::Draw()
         char name[128];
         strncpy_s(name, (char*)m_Scene->GetName().c_str(), sizeof(name));
         ImGui::InputText("Name", name, sizeof(name));
-        std::string rename = name;
+        string rename = name;
         if ("" != rename && Input::Instance().GetKeyPress(VK_RETURN))
         {
             m_Scene->SetName(rename);
@@ -137,36 +136,36 @@ void Hierarchy::DrawCreateObject()
         if (ImGui::BeginPopup("CreatePrefab"))
         {
             // フォルダのパスを指定 
-            std::string folderPath = "asset/prefab/";
+            string folderPath = "asset/prefab/";
 
             // ファイル名を格納するためのベクターを作成 
-            std::vector<std::string> fileNames;
+            vector<string> fileNames;
 
             try {
                 // 指定されたフォルダ内のファイルをイテレート 
                 for (const auto& entry : fs::directory_iterator(folderPath)) {
-                    std::string name = entry.path().filename().string();
+                    string name = entry.path().filename().string();
                     fileNames.push_back(name);
                 }
             }
-            catch (const std::filesystem::filesystem_error& ex) {
-                std::cerr << "Error: " << ex.what() << std::endl;
+            catch (const filesystem::filesystem_error& ex) {
+                cerr << "Error: " << ex.what() << endl;
             }
             for (auto& file : fileNames)
             {
-                std::string name = file.substr(0, file.find("."));
+                string name = file.substr(0, file.find("."));
                 if(ImGui::Selectable(name.c_str()))
                 {
                     try
                     {
-                        std::string filename = "asset/prefab/" + file;
-                        std::ifstream inputFile(filename);
+                        string filename = "asset/prefab/" + file;
+                        ifstream inputFile(filename);
                         cereal::JSONInputArchive archive(inputFile);
-                        std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+                        unique_ptr<GameObject> obj = make_unique<GameObject>();
                         archive(*obj);
-                        m_Scene->SetGameObject(std::move(obj));
+                        m_Scene->SetGameObject(move(obj));
                     }
-                    catch (const std::exception&)
+                    catch (const exception&)
                     {
 
                     }
@@ -191,13 +190,13 @@ void Hierarchy::CleatePrefab()
         {
             try
             {
-                std::string filename = "asset/prefab/" + m_SelectGameObject->GetName() + ".json.prefab";
-                std::ofstream outputFile(filename);
+                string filename = "asset/prefab/" + m_SelectGameObject->GetName() + ".json.prefab";
+                ofstream outputFile(filename);
                 cereal::JSONOutputArchive o_archive(outputFile);
 
                 o_archive(cereal::make_nvp(m_SelectGameObject->GetName().c_str(), *m_SelectGameObject));
             }
-            catch (const std::exception&)
+            catch (const exception&)
             {
                 //MessageBox(NULL, "正常に保存ができませんでした", "警告", MB_OK);
             }

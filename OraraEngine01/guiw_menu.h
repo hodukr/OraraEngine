@@ -4,7 +4,7 @@
 class Menu:public GuiWindowBase
 {
 private:
-    class Scene* m_Scene;
+    class Scene* m_Scene = nullptr;
 
 public:
     void Init()override;

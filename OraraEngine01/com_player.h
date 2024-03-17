@@ -2,7 +2,6 @@
 #define player_H
 
 #include "component.h"
-#include <unordered_map>
 class Player:public Component
 {
 private:

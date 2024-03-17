@@ -2,10 +2,7 @@
 #include <typeinfo>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/list.hpp>
-#include <cereal/types/string.hpp>
+
 
 #define SET_IMGUIWINDOW_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\

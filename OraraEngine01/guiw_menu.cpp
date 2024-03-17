@@ -1,12 +1,9 @@
-﻿#include "manager.h"
+﻿#include "main.h"
+#include "manager.h"
 #include "scene.h"
 #include "guiw_menu.h"
 #include "imgui/imgui.h"
-
-#include <fstream>
 #include <cereal/archives/json.hpp>
-#include <filesystem>
-#include <vector>
 
 namespace fs = std::filesystem;
 void Menu::Init()
@@ -170,6 +167,6 @@ bool Menu::SaveScene()
     {
         MessageBox(NULL, "正常に保存ができませんでした", "警告", MB_OK);
     }
-    
+    return false;
 }
 

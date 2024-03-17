@@ -1,8 +1,6 @@
 #pragma once
 #include "pass.h"
-#include <string>
-#include <unordered_map>
-#include <list>
+
 
 class DepthShadow :public Pass
 {

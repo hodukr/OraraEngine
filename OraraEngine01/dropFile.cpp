@@ -2,8 +2,6 @@
 #include "dropFile.h"
 #include "guiManager.h"
 #include "guiw_accessFolder.h"
-#include <list>
-#include <string>
 
 HDROP DropFile::m_Drop{};
 std::list<fs::path> DropFile::m_fullPathNames;

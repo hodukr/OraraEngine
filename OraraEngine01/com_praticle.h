@@ -3,7 +3,6 @@
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
 #include <stack>
-#include <list>
 #include "timeProvider.h"
 #include <unordered_map>
 

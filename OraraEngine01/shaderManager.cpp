@@ -99,5 +99,5 @@ int ShaderManager::LoadShader(std::string file)
     }
     ShaderDate* date = new ShaderDate(file);
     shaders.emplace_back(date);
-    return shaders.size() - 1;
+    return static_cast<int>(shaders.size()) - 1;
 }

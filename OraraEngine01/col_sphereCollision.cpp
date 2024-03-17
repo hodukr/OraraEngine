@@ -173,15 +173,15 @@ bool SphereCollision::CollideWith(BoxCollision* other)
     float distanceSquared = 0.0f;
 
     // X軸方向の距離
-    float dx = std::max(0.0f, std::abs(m_Position.x - other->GetPosition().x) - other->GetSize().x);
+    float dx = max(0.0f, abs(m_Position.x - other->GetPosition().x) - other->GetSize().x);
     distanceSquared += dx * dx;
 
     // Y軸方向の距離
-    float dy = std::max(0.0f, std::abs(m_Position.y - other->GetPosition().y) - other->GetSize().y);
+    float dy = max(0.0f, abs(m_Position.y - other->GetPosition().y) - other->GetSize().y);
     distanceSquared += dy * dy;
 
     // Z軸方向の距離
-    float dz = std::max(0.0f, std::abs(m_Position.z - other->GetPosition().z) - other->GetSize().z);
+    float dz = max(0.0f, abs(m_Position.z - other->GetPosition().z) - other->GetSize().z);
     distanceSquared += dz * dz;
 
     // Sphereの半径との比較
@@ -193,7 +193,7 @@ bool SphereCollision::CollideWith(BoxCollision* other)
         if (m_Dynamic)
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
             Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
 
             if (normal.x == INFINITY)
@@ -216,7 +216,7 @@ bool SphereCollision::CollideWith(BoxCollision* other)
         else
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
             Vector3 normal = (other->GetPosition() - m_Position) / distance;  // 最短距離ベクトルの正規化
 
             if (normal.x == INFINITY)
@@ -257,7 +257,7 @@ bool SphereCollision::CollideWith(SphereCollision* other)
 
         if (m_Dynamic)
         {
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
 
             // 重なりの量を計算
             float overlapDistance = distance - (m_Size + other->GetSize());
@@ -278,7 +278,7 @@ bool SphereCollision::CollideWith(SphereCollision* other)
         }
         else
         {
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
 
             // 重なりの量を計算
             float overlapDistance = distance - (m_Size + other->GetSize());

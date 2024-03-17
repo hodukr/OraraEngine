@@ -1,4 +1,5 @@
-﻿#include "reflection.h"
+﻿#include "main.h"
+#include "reflection.h"
 #include "guiw_inspector.h"
 #include "manager.h"
 #include "scene.h"
@@ -6,13 +7,12 @@
 #include "imgui/imgui.h"
 #include "pass.h"
 #include "input.h"
-#include <filesystem>
 #include <iostream>
-#include <fstream>
-#include <vector>
 #include <cctype>
 #include <bitset>
-#include <fstream>
+#include <cereal/archives/json.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/string.hpp>
 namespace fs = std::filesystem;
 
 void Inspector::Init()

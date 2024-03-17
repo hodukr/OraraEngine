@@ -303,15 +303,15 @@ bool BoxCollision::CollideWith(SphereCollision* other)
     float distanceSquared = 0.0f;
 
     // X軸方向の距離
-    float dx = std::max(0.0f, std::abs(m_Position.x - other->GetPosition().x) - m_Size.x);
+    float dx = max(0.0f, abs(m_Position.x - other->GetPosition().x) - m_Size.x);
     distanceSquared += dx * dx;
 
     // Y軸方向の距離
-    float dy = std::max(0.0f, std::abs(m_Position.y - other->GetPosition().y) - m_Size.y);
+    float dy = max(0.0f, abs(m_Position.y - other->GetPosition().y) - m_Size.y);
     distanceSquared += dy * dy;
 
     // Z軸方向の距離
-    float dz = std::max(0.0f, std::abs(m_Position.z - other->GetPosition().z) - m_Size.z);
+    float dz = max(0.0f, abs(m_Position.z - other->GetPosition().z) - m_Size.z);
     distanceSquared += dz * dz;
 
     // Sphereの半径との比較
@@ -323,7 +323,7 @@ bool BoxCollision::CollideWith(SphereCollision* other)
         if (m_Dynamic)
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
 
             Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
             if (normal.x == INFINITY)
@@ -346,7 +346,7 @@ bool BoxCollision::CollideWith(SphereCollision* other)
         else
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
             Vector3 normal = (other->GetPosition() - m_Position) / distance;  // 最短距離ベクトルの正規化
 
             if (normal.x == INFINITY)

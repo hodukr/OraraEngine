@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <unordered_map>
 
 #include "assimp/cimport.h"
 #include "assimp/scene.h"

@@ -222,8 +222,8 @@ float WaterSurface::GetHeigt(Vector3 Position)
     int x, z;
     Vector3 scale = m_GameObject->m_Transform->GetScale();
     //ブロック番号算出
-    x = Position.x / (m_WavePitch * scale.x)+10.0f;
-    z = Position.z / (-m_WavePitch * scale.x) + 10.0f;
+    x = static_cast<int>(Position.x / (m_WavePitch * scale.x) + 10.0f);
+    z = static_cast<int>(Position.z / (-m_WavePitch * scale.x) + 10.0f);
 
     D3DXVECTOR3 pos0, pos1, pos2, pos3;
 

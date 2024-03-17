@@ -4,11 +4,11 @@
 class Material
 {
 private:
-    int m_ShaderNum;
-    std::string m_ShaderName;
+    int m_ShaderNum{};
+    std::string m_ShaderName{};
     int m_TextureNum = -1;
-    std::string m_TextureName;
-    std::string m_Extension;
+    std::string m_TextureName{};
+    std::string m_Extension{};
 	D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 public:
     Material(std::string passname = "vertexLighting") : m_ShaderName(passname), m_TextureName(""), m_Extension("") {}

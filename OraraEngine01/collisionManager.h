@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <list>
 #include "com_collisionShape.h"
 
 class CollisionManager

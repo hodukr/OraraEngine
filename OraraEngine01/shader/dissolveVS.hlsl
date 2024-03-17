@@ -30,4 +30,6 @@ void main(in VS_IN In, out PS_IN Out)
     Out.Diffuse = In.Diffuse;
 
     Out.WorldPosition = mul(In.Position, World);
+    Out.ShadowPosition = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
 }

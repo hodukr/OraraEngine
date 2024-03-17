@@ -11,7 +11,6 @@
 
 #include "collisionManager.h"
 #include <cereal/archives/json.hpp>
-#include <fstream>
 
 Scene* Manager::m_Scene{};//静的メンバ変数は再宣言が必要
 Scene* Manager::m_NextScene{};
@@ -40,7 +39,7 @@ void Manager::Init()
 
 
 	// フォルダのパスを指定 
-	std::string folderPath = "asset\\scene";
+	string folderPath = "asset\\scene";
 
 	//シーン生成
 	{//フォルダ内にNewScene.jsonがあれば読み込む
@@ -56,8 +55,8 @@ void Manager::Init()
 				}
 			}
 		}
-		catch (const std::filesystem::filesystem_error& ex) {
-			std::cerr << "Error: " << ex.what() << std::endl;
+		catch (const filesystem::filesystem_error& ex) {
+			cerr << "Error: " << ex.what() << endl;
 		}
 		if (isNewScene)
 		{
@@ -97,8 +96,8 @@ void Manager::Update()
 		{
 			if (m_NextGameState == GAMESTATE_PLAY)
 			{
-				std::string filename = "asset/scene/" + m_Scene->GetName() + ".json";
-				std::ofstream outputFile(filename);
+				string filename = "asset/scene/" + m_Scene->GetName() + ".json";
+				ofstream outputFile(filename);
 				cereal::JSONOutputArchive o_archive(outputFile);
 
 				o_archive(cereal::make_nvp("secne", *m_Scene));
@@ -174,10 +173,10 @@ void Manager::MTInit()
 	ShaderManager::Instance().Init();
 }
 
-void Manager::SetLoadScene(std::string scene)
+void Manager::SetLoadScene(string scene)
 {
-	std::string filename = "asset/scene/" + scene + ".json";
-	std::ifstream inputFile(filename);
+	string filename = "asset/scene/" + scene + ".json";
+	ifstream inputFile(filename);
 	cereal::JSONInputArchive archive(inputFile);
 	Scene* inscene = new Scene();
 	archive(*inscene);
@@ -189,18 +188,18 @@ void Manager::SetLoaded(Scene* scene)
 	m_NextScene = scene;
 }
 
-void Manager::SetScene(std::string scene)
+void Manager::SetScene(string scene)
 {
 	try
 	{
-		std::string filename = "asset/scene/" + scene + ".json";
-		std::ifstream inputFile(filename);
+		string filename = "asset/scene/" + scene + ".json";
+		ifstream inputFile(filename);
 		cereal::JSONInputArchive archive(inputFile);
 		Scene* inscene = new Scene();
 		archive(*inscene);
 		m_NextScene = inscene;
 	}
-	catch (const std::exception&)
+	catch (const exception&)
 	{
 		m_NextScene = new Scene;
 		m_NextScene->SetName(scene);

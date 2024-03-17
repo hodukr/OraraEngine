@@ -3,9 +3,6 @@
 #include "imgui/imgui.h"
 #include "imGuiWindow.h"
 #include <set>
-#include <list>
-#include <unordered_map>
-#include <filesystem>  // C++17の標準ライブラリに含まれているヘッダ
 namespace fs = std::filesystem;
 #define MAX_TEXT_NUM 256
 

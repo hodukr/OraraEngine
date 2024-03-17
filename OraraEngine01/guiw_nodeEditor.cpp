@@ -1,4 +1,5 @@
-﻿#include "guiw_nodeEditor.h"
+﻿#include "main.h"
+#include "guiw_nodeEditor.h"
 
 void NodeEditorManager::Init()
 {

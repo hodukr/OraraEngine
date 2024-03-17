@@ -1,10 +1,5 @@
 #pragma once
 #include "singleton.h"
-#include <list>
-#include <cereal/cereal.hpp>
-#include <cereal/types/memory.hpp>  
-#include <cereal/types/list.hpp>
-#include <filesystem>
 #include "imGuiWindow.h"
 #include "guiw_common.h"
 #include "imgui/ImGuizmo.h"

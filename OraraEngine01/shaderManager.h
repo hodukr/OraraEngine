@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "singleton.h"
 #include "shader.h"
-#include <string>
-#include <vector>
 class ShaderManager
 {
 private:

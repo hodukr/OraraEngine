@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <vector>
 #include <functional>
-#include <string>
 #include "singleton.h"
 //#include <cereal/types/memory.hpp>
 

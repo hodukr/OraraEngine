@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <string>
 #include <variant>
-#include <vector>
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>
 #include "guiManager.h"
@@ -26,9 +24,9 @@ enum DrawLayer//描画されるレイヤーの指定
 class Component
 {
 protected:
-    std::string m_ObjectName;
+    std::string m_ObjectName{};
     DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
-    class GameObject* m_GameObject;
+    class GameObject* m_GameObject = nullptr;
     bool m_Destroy = false;
     std::vector<TypeDate> m_DataList;//メンバ変数を格納する
     bool m_Enable = true;

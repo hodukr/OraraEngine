@@ -1,7 +1,5 @@
 ﻿
 #pragma once
-#include <unordered_map>
-#include <string>
 struct TexData
 {
 	ID3D11ShaderResourceView* texture;

@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <list>
-#include <filesystem> //これを使う場合プロパティのC++言語標準をC++17に設定しなきゃいけない
 
 namespace fs = std::filesystem;
 

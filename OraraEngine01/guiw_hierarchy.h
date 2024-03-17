@@ -5,8 +5,8 @@
 class Hierarchy :public GuiWindowBase
 {
 private:
-	class Scene* m_Scene;
-    bool m_OpenTree;
+	class Scene* m_Scene = nullptr;
+	bool m_OpenTree{};
 	std::list<class GameObject*> m_GameObjects;
     GameObject* m_SelectGameObject = nullptr;
     GameObject* m_ConfigGameObject = nullptr;

@@ -41,9 +41,9 @@ private:
     D3DXVECTOR3 m_Resultant[NUM_VERTEX][NUM_VERTEX]{};           //合力 
     D3DXVECTOR3 m_Gravity[NUM_VERTEX][NUM_VERTEX]{};             //重力 
     bool        m_OnLock[NUM_VERTEX][NUM_VERTEX]{};              //ロックされているかいないか 
-    bool m_IsWind = false;                                             //風が吹いているか?　
-    Vector3 m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);                                   //風力 
-    SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
+    bool m_IsWind = false;                                       //風が吹いているか?　
+    Vector3 m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);         //風力 
+    SPRING		m_Spring[SPRING_NUMS]{};                         //頂点間のバネ　
 
     int m_TexNum{};
     PARAMETER* m_Parameter{};

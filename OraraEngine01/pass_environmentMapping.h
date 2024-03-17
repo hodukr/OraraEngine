@@ -1,7 +1,5 @@
 ﻿#pragma once
 #include "pass.h"
-#include <string>
-#include <unordered_map>
 
 class EnvironmentMapping :public Pass
 {

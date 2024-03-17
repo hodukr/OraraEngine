@@ -1,16 +1,12 @@
 ﻿#pragma once
-#include "main.h"
 #include "guiManager.h"
 #include "gameObject.h"
-#include <list>
 #include <typeinfo>
-#include <vector>
 #include "textureManager.h"
 #include "modelManager.h"
 #include <algorithm>
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
-#include <filesystem>
 
 namespace fs = std::filesystem;
 class Scene

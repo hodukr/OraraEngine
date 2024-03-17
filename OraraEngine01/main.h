@@ -26,6 +26,16 @@
 #pragma comment (lib, "d3dx9.lib")
 #pragma comment (lib, "d3dx11.lib")
 
+#include <string>
+#include <vector>
+#include <list>
+#include <unordered_map>
+#include <fstream>
+#include <filesystem>
+#include <cereal/cereal.hpp>
+#include <cereal/types/memory.hpp>  
+#include <cereal/types/list.hpp>
+
 
 #define SCREEN_WIDTH	(1280)
 #define SCREEN_HEIGHT	(720)
@@ -46,3 +56,5 @@ enum GameState
 	GAMESTATE_STOP,
 	GAMESTATE_PLAY,
 };
+
+using namespace std;

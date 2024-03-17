@@ -2,7 +2,6 @@
 #include "singleton.h"
 #include "imGuiWindow.h"
 #include <variant>
-#include <list>
 
 #define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*
 #define SET_DATE(T) GuiManager::Instance().GetGuiWindow<Inspector>()->SetDate(#T, &T)
@@ -35,15 +34,15 @@ enum CastomItemState
 
 struct TypeDate
 {
-    std::string Name;//メンバ変数の名前
-    CastomItemState State;
-    std::variant<VARIATDATE> MemberDate;//メンバ変数のデータ
+    std::string Name{};//メンバ変数の名前
+    CastomItemState State{};
+    std::variant<VARIATDATE> MemberDate{};//メンバ変数のデータ
 };
 
 class Inspector:public GuiWindowBase
 {
 private:
-    class GameObject* m_GameObject;
+    class GameObject* m_GameObject = nullptr;
 
     class Component* m_PopupComponent{};
     std::unordered_map<int,bool> m_IsRockVector{};
@@ -61,8 +60,8 @@ private:
 
     //string
     //CASTOMDRAWSTATE_STRING_FOLDER
-    std::string m_AccessPass;//アクセスするパス
-    std::string m_Extension;//型指定子
+    std::string m_AccessPass{};//アクセスするパス
+    std::string m_Extension{};//型指定子
 public:
     void Init();
     void Uninit();

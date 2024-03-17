@@ -3,7 +3,6 @@
 #include "vector.h"
 #include "component.h"
 #include <set>
-#include <unordered_map>
 
 enum Shape
 {

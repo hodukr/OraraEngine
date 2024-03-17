@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "imgui/imgui.h"
 #include "imGuiWindow.h"
-#include <vector>
 struct Node {
     int id{};
     ImVec2 Position{};
@@ -26,9 +25,9 @@ struct NodeEditor {
 class NodeEditorManager:public GuiWindowBase
 {
 private:
-    NodeEditor m_Editor;
-    Node* m_GetNode;
-    ImVec2 m_MouseDownlen;
+    NodeEditor m_Editor{};
+    Node* m_GetNode = nullptr;
+    ImVec2 m_MouseDownlen{};
 public:
     void Init();
     void Uninit();
