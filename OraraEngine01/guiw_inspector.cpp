@@ -733,6 +733,23 @@ void Inspector::DrawItemString(TypeDate& date)
         }
     }
         break;
+    case CASTOMDRAWSTATE_STRING_TAG:
+    {
+        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
+        {
+            for (auto& tag : m_Taglist)
+            {
+                if (ImGui::Selectable(tag.c_str()))
+                {
+                    *stringdate = tag;
+                    m_IsSet = true;
+                }
+            }
+            ImGui::EndCombo();
+        }
+    }
+        break;
     default:
         char str[256];
         strncpy_s(str, std::get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
