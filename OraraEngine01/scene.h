@@ -142,22 +142,40 @@ public:
 		return nullptr;
 	}
 
-	template <typename T>
-	std::vector<T*> GetGameObjects()
+	GameObject* GetGameObjectToTag(const char* name)
 	{
-		std::vector<T*> objects; //STLの配列
 		for (int i = 0; i < 3; i++)
 		{
 			for (auto& object : m_GameObject[i])
 			{
-				if (typeid(*object) == typeid(T))//型を調べる(RTTI動的型情報)
+
+				if (object.get()->GetTag() == name)//型を調べる(RTTI動的型情報)
 				{
-					objects.push_back(dynamic_cast<T*>(object.get()));
+					return object.get();
 				}
 			}
 		}
+
+		return nullptr;
+	}
+
+	std::vector<GameObject* >GetGameObjectsToTag(const char* name)
+	{
+		std::vector<GameObject*> objects; //STLの配列
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& object : m_GameObject[i])
+			{
+				if (object.get()->GetTag() == name)//型を調べる(RTTI動的型情報)
+				{
+					objects.push_back(object.get());
+				}
+			}
+		}
+
 		return objects;
 	}
+
 
     std::list<std::unique_ptr<GameObject>>* GetList()
     {
