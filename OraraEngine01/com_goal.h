@@ -11,6 +11,7 @@ private:
     class ChangeScene* m_ChangeScene{};
     std::string m_HitObjName{""};
     std::string m_ClothName{""};
+    float m_Speed{};
 public:
     void DrawInspector();
     void Init()override;
@@ -21,7 +22,7 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_HitObjName), CEREAL_NVP(m_ClothName));
+            archive(CEREAL_NVP(m_HitObjName), CEREAL_NVP(m_ClothName),CEREAL_NVP(m_Speed));
         }
         catch (const std::exception&)
         {

@@ -13,6 +13,8 @@ void Goal::DrawInspector()
 
     if (SET_DATE_STATE(m_ClothName, CASTOMDRAWSTATE_STRING_GAMEOBJECT))
         m_Cloth = scene->GetGameObject(m_ClothName.c_str())->GetComponent<Cloth>();
+
+    SET_DATE(m_Speed);
 }
 
 void Goal::Init()
@@ -33,7 +35,7 @@ void Goal::Init()
             {
                 if (state == COLLISION_ENTER)
                 {
-                    if (other->GetGameObejct()->GetName() == m_HitObjName)
+                    if (other->GetGameObejct()->GetTag() == m_HitObjName)
                         m_IsGoal = true;
                 }
             });
