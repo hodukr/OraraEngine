@@ -42,6 +42,6 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
    
     outDiffuse.a = rate;
     
-    outDiffuse.rgb = lerp(outDiffuse.rgb, float3(1.0f, 0.3f, 0.0f), 1 - pow(rate, 5));
+    outDiffuse.rgb = lerp(outDiffuse.rgb, float3(0.0f, 0.0f, 1.0f), 1 - pow(rate, 5));
 
 }

@@ -22,8 +22,7 @@ struct SPRING
     float	Length;				    // 自然長 
 };
 
-
-class PARAMETER;
+struct PARAMETER;
 
 class Cloth : public Component
 {
