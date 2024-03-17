@@ -13,7 +13,7 @@ private:
 
     ID3D11Buffer* m_VertexBuffer = NULL;
 
-    class WATER* m_Water{};
+    struct WATER* m_Water{};
     struct PARAMETER* m_Param{};
     Material* m_Material{};
     float m_WipeSpeed = 0.01f;
@@ -32,7 +32,7 @@ public:
     void SetWipeSpeed(float speed) { m_WipeSpeed = speed; }
     void SetIsWipe(bool flag) { m_IsWipe = flag; }
     void SetMaterial(Material* material) { m_Material = material; }
-    void SetThreshold(int value) { m_Param->dissolveThreshold = value; }
+    void SetThreshold(float value) { m_Param->dissolveThreshold = value; }
     bool GetIsWipe() { return m_IsWipe; }
 
 };
