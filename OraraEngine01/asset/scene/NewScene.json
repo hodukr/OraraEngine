@@ -15,6 +15,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 5.0,
@@ -81,6 +83,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -140,16 +144,18 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "box",
-                        "m_Tag": "Untagged",
+                        "m_Tag": "Enemy",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 0.7008309364318848,
+                                            "y": -0.04284223914146423,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -240,6 +246,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -302,16 +310,18 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "Player",
-                        "m_Tag": "Untagged",
+                        "m_Tag": "Player",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.002996683120727539,
-                                            "y": 5.0,
+                                            "y": 6.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -412,6 +422,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 3.2873713970184328,
                                             "y": 1.139298677444458,

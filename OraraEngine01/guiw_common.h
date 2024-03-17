@@ -7,9 +7,6 @@
 #include "guiw_sceneWindow.h"
 #include "guiw_debug.h"
 
-#define SET_IMGUIWINDOW_CLASS(Classname)\
-CEREAL_REGISTER_TYPE(Classname)\
-CEREAL_REGISTER_POLYMORPHIC_RELATION(GuiWindowBase, Classname);
 
 SET_IMGUIWINDOW_CLASS(Hierarchy)
 SET_IMGUIWINDOW_CLASS(Inspector)

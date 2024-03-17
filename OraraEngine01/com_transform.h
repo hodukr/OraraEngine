@@ -150,6 +150,7 @@ public:
     template<class Archive>
     void serialize(Archive& archive)
     {
+        Component::serialize<Archive>(archive);
         try
         {
             archive(CEREAL_NVP(m_Position),

@@ -109,9 +109,6 @@
     <ClCompile Include="pass_environmentMapping.cpp">
       <Filter>Pass</Filter>
     </ClCompile>
-    <ClCompile Include="gameManager.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="guiManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
@@ -194,9 +191,6 @@
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="guiw_hierarchy.cpp">
-      <Filter>Debug\ImguiWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="guiw_gameManagerGui.cpp">
       <Filter>Debug\ImguiWindow</Filter>
     </ClCompile>
     <ClCompile Include="guiw_inspector.cpp">
@@ -322,9 +316,6 @@
     <ClInclude Include="pass_environmentMapping.h">
       <Filter>Pass</Filter>
     </ClInclude>
-    <ClInclude Include="gameManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="gameObject.h">
       <Filter>System</Filter>
     </ClInclude>
@@ -437,9 +428,6 @@
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="guiw_hierarchy.h">
-      <Filter>Debug\ImguiWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="guiw_gameManagerGui.h">
       <Filter>Debug\ImguiWindow</Filter>
     </ClInclude>
     <ClInclude Include="guiw_inspector.h">

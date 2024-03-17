@@ -14,7 +14,7 @@ private:
     ID3D11Buffer* m_VertexBuffer = NULL;
 
     class WATER* m_Water{};
-    class PARAMETER* m_Param{};
+    struct PARAMETER* m_Param{};
     Material* m_Material{};
     float m_WipeSpeed = 0.01f;
     float m_RandNum{};

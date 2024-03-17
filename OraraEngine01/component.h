@@ -85,7 +85,8 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_ObjectName), CEREAL_NVP(m_Enable));
+            archive(CEREAL_NVP(m_ObjectName));
+            archive(CEREAL_NVP(m_Enable));
         }
         catch (const std::exception&)
         {

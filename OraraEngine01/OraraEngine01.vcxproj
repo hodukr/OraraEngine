@@ -211,7 +211,6 @@
     <ClCompile Include="dropFile.cpp" />
     <ClCompile Include="guiw_sceneWindow.cpp" />
     <ClCompile Include="pass_environmentMapping.cpp" />
-    <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="guiManager.cpp" />
     <ClCompile Include="guiw_hierarchy.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -323,7 +322,6 @@
     </ClInclude>
     <ClInclude Include="guiw_sceneWindow.h" />
     <ClInclude Include="pass_environmentMapping.h" />
-    <ClInclude Include="gameManager.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="guiManager.h" />
     <ClInclude Include="imGuiWindow.h" />

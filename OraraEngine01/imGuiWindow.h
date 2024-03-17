@@ -7,7 +7,7 @@
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
 
-#define SET_COMPONENT_CLASS(Classname)\
+#define SET_IMGUIWINDOW_CLASS(Classname)\
 CEREAL_REGISTER_TYPE(Classname)\
 CEREAL_REGISTER_POLYMORPHIC_RELATION(GuiWindowBase, Classname)
 
@@ -30,3 +30,5 @@ public:
 		archive(CEREAL_NVP(m_IsShowWindow));
 	}
 };
+
+CEREAL_REGISTER_TYPE(GuiWindowBase)

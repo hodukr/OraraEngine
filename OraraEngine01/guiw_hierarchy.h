@@ -26,4 +26,11 @@ public:
 private:
 	void DrawCreateObject();
 	void CleatePrefab();
+
+public:
+	//template<class Archive>
+	//void serialize(Archive& archive)
+	//{
+	//	archive(CEREAL_NVP(m_OpenTree));
+	//}
 };
