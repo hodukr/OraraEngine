@@ -11,6 +11,7 @@ private:
     int m_IsGround = 0;
     class BoxCollision* m_Collision{};
     std::unordered_map<BoxCollision*, bool> m_IsOldUpHit{};
+    class ChangeScene* m_ChangeScene{};
 public:
     void DrawInspector()
     {
@@ -22,6 +23,8 @@ public:
     void EditorUpdate()override;
     void Update()override;
     void Draw()override;
+
+    void DeadPlayer();
 
     template<class Archive>
     void serialize(Archive & archive)

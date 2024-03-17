@@ -2,7 +2,6 @@
 #include "manager.h"
 #include "collisionManager.h"
 #include "gameObject.h"
-#include "imgui/imgui.h"
 
 std::list<CollisionShape*>  CollisionManager::m_Shape{};
 std::list<CollisionShape*>  CollisionManager::m_NextShape{};
@@ -95,7 +94,6 @@ void CollisionManager::Update()
                             (*it2)->SetStateMap((*it1), COLLISION_NONE);
                         }
                     }
-                    ImGui::Text("%d", (*it1)->GetState((*it2)));
                 }
                 else
                 {

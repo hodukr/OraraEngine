@@ -15,8 +15,11 @@ void ShaderManager::Init()
     m_Post = new Post;
     m_Post->Init();
 
+#ifdef _DEBUG
     m_EditorCamera = new EditorCamera;
     m_EditorCamera->Init();
+#endif // DEzBUG
+
     
     AddPass<EnvironmentMapping>();
     AddPass<DepthShadow>();
@@ -26,7 +29,8 @@ void ShaderManager::Init()
 
 void ShaderManager::Uninit()
 {
-    m_EditorCamera->Uninit();
+    if (m_EditorCamera)
+        m_EditorCamera->Uninit();
     m_Post->Uninit();
     delete m_Post;
 
@@ -40,6 +44,7 @@ void ShaderManager::Uninit()
 
 void ShaderManager::Update()
 {
+    if(m_EditorCamera)
     if(Manager::GetSceneState() == SCENESTATE_SCENE)m_EditorCamera->Update();
     
     m_Post->Update();
@@ -65,14 +70,20 @@ void ShaderManager::Draw()
     PostPass* post = GetPass<PostPass>(SHADER_POST);
     post->BeginPP();
 
+    if (m_EditorCamera)
     m_EditorCamera->Draw();
     scene->Draw();
 
+#ifdef _DEBUG
     CreateTexture* cTex = GetPass<CreateTexture>(SHADER_CREATETEXTURE);
     cTex->BeginCT();
-    m_Post->Draw();
-
+#else
     Renderer::Begin();
+#endif // _DEBUG
+    m_Post->Draw();
+#ifdef _DEBUG
+    Renderer::Begin();
+#endif // _DEBUG
 }
 
 int ShaderManager::LoadShader(std::string file)

@@ -3,8 +3,12 @@
 #include "manager.h"
 #include "renderer.h"
 #include "loading.h"
-#include "guiManager.h"
 #include "shaderManager.h"
+
+#ifdef _DEBUG
+#include "guiManager.h"
+#endif // DEBUG
+
 #include "collisionManager.h"
 #include <cereal/archives/json.hpp>
 #include <fstream>
@@ -24,7 +28,14 @@ void Manager::Init()
 	Renderer::Init();
 	Input::Instance().Init();
 	Audio::InitMaster();
+#ifdef _DEBUG
     GuiManager::Instance().SetUp();
+	m_NextSceneState = SCENESTATE_SCENE;
+	m_NextGameState = GAMESTATE_STOP;
+#else
+	m_NextSceneState = SCENESTATE_GAME;
+	m_NextGameState = GAMESTATE_PLAY;
+#endif // DEBUG
 	m_CollisionManager = new CollisionManager;
 
 
@@ -58,8 +69,6 @@ void Manager::Init()
 		}
 	}
 
-	m_NextSceneState = SCENESTATE_SCENE;
-	m_NextGameState = GAMESTATE_STOP;
 }
 
 void Manager::Uninit()
@@ -126,7 +135,10 @@ void Manager::Update()
 		MTInit();
 		m_NextScene = nullptr;
 	}
+#ifdef _DEBUG
 	GuiManager::Instance().Update();
+#endif // _DEBUG
+
 	if (m_GameState == GAMESTATE_PLAY)
 	{
 		m_Scene->Update();
@@ -145,8 +157,9 @@ void Manager::Update()
 void Manager::Draw()
 {
 	ShaderManager::Instance().Draw();
-
+#ifdef _DEBUG
 	GuiManager::Instance().Draw();
+#endif // _DEBUG
 
 	Renderer::End();
 }
@@ -155,7 +168,9 @@ void Manager::MTInit()
 {
 	m_Scene->Init();
 	m_CollisionManager->Init();
+#ifdef _DEBUG
 	GuiManager::Instance().Init();
+#endif // _DEBUG
 	ShaderManager::Instance().Init();
 }
 

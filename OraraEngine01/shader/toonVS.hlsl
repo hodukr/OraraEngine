@@ -24,7 +24,7 @@ void main(in VS_IN In, out PS_IN Out)
     Out.Normal = worldNormal;
 	
 	//頂点カラーはそのままコピー
-    Out.Diffuse = In.Diffuse * MaterialModel.Diffuse;
+    Out.Diffuse = In.Diffuse * MaterialModel.Diffuse * Material.Diffuse;
 
     Out.WorldPosition = mul(In.Position, World);
 }

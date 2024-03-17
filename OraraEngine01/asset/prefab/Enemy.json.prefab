@@ -1,7 +1,7 @@
 {
-    "kinoko": {
-        "m_ObjctName": "kinoko",
-        "m_Tag": "NoneTag",
+    "Enemy": {
+        "m_ObjctName": "Enemy",
+        "m_Tag": "Untagged",
         "m_Component": [
             {
                 "polymorphic_id": 2147483649,
@@ -12,9 +12,9 @@
                         "m_ObjectName": "",
                         "m_Enable": true,
                         "m_Position": {
-                            "x": 0.0,
-                            "y": 1.5589388608932496,
-                            "z": -9.727171897888184
+                            "x": 18.53614044189453,
+                            "y": 5.174099445343018,
+                            "z": 0.0
                         },
                         "m_Rotation": {
                             "x": 0.0,
@@ -22,9 +22,9 @@
                             "z": 0.0
                         },
                         "m_Scale": {
-                            "x": 3.0,
-                            "y": 3.0,
-                            "z": 3.0
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
                         },
                         "Qx": 0.0,
                         "Qy": 0.0,
@@ -45,6 +45,18 @@
             },
             {
                 "polymorphic_id": 2147483651,
+                "polymorphic_name": "Enemy",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Speed": 0.10000000149011612,
+                        "m_Range": 7.0,
+                        "m_TargetName": "kinoko"
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483652,
                 "polymorphic_name": "BoxCollision",
                 "ptr_wrapper": {
                     "valid": 1,
@@ -52,33 +64,24 @@
                         "m_Dynamic": true,
                         "m_Offset": {
                             "x": 0.0,
-                            "y": 2.0,
+                            "y": 0.0,
                             "z": 0.0
                         },
                         "m_Scale": {
                             "x": 1.0,
-                            "y": 0.699999988079071,
+                            "y": 1.0,
                             "z": 1.0
                         }
                     }
                 }
             },
             {
-                "polymorphic_id": 2147483652,
-                "polymorphic_name": "Player",
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {}
-                }
-            },
-            {
                 "polymorphic_id": 2147483653,
-                "polymorphic_name": "InputSystem",
+                "polymorphic_name": "Rigidbody",
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_Speed": 0.30000001192092898,
-                        "m_IsDirection": true
+                        "m_Gravity": -0.10000000149011612
                     }
                 }
             }
@@ -87,11 +90,11 @@
             "ptr_wrapper": {
                 "valid": 1,
                 "data": {
-                    "m_ShaderName": "toon",
+                    "m_ShaderName": "unlitTexture",
                     "m_Color": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
+                        "r": 0.6183019280433655,
+                        "g": 0.09934257715940476,
+                        "b": 0.9189189076423645,
                         "a": 1.0
                     },
                     "m_TextureName": "",
@@ -99,7 +102,7 @@
                 }
             }
         },
-        "m_RenderingPass": 4,
+        "m_RenderingPass": 0,
         "m_DrawLayer": 1
     }
 }
