@@ -86,7 +86,7 @@ void ShaderManager::Draw()
 #endif // _DEBUG
 }
 
-int ShaderManager::LoadShader(std::string file)
+int ShaderManager::LoadShader(string file)
 {
     int ind = 0;
     for (auto s : shaders)
