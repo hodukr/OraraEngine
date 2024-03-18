@@ -67,7 +67,7 @@ void AnimationModel::Draw()
 
 void AnimationModel::Load( const char *FileName )
 {
-	const std::string modelPath( FileName );
+	const string modelPath( FileName );
 
 	m_AiScene = aiImportFile(FileName, aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_ConvertToLeftHanded);
 	assert(m_AiScene);
@@ -77,7 +77,7 @@ void AnimationModel::Load( const char *FileName )
 
 
 	//変形後頂点配列生成
-	m_DeformVertex = new std::vector<DEFORM_VERTEX>[m_AiScene->mNumMeshes];
+	m_DeformVertex = new vector<DEFORM_VERTEX>[m_AiScene->mNumMeshes];
 
 	//再帰的にボーン生成
 	CreateBone(m_AiScene->mRootNode);
@@ -256,7 +256,7 @@ void AnimationModel::Unload()
 	delete[] m_DeformVertex;
 
 
-	for (std::pair<const std::string, ID3D11ShaderResourceView*> pair : m_Texture)
+	for (pair<const string, ID3D11ShaderResourceView*> pair : m_Texture)
 	{
 		pair.second->Release();
 	}
@@ -266,7 +266,7 @@ void AnimationModel::Unload()
 	aiReleaseImport(m_AiScene);
 
 
-	for (std::pair<const std::string, const aiScene*> pair : m_Animation)
+	for (pair<const string, const aiScene*> pair : m_Animation)
 	{
 		aiReleaseImport(pair.second);
 	}

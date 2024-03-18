@@ -5,8 +5,8 @@
 class CollisionManager
 {
 private:
-    static std::list<CollisionShape*> m_Shape;
-    static std::list<CollisionShape*> m_NextShape;
+    static list<CollisionShape*> m_Shape;
+    static list<CollisionShape*> m_NextShape;
 
 public: 
     void Init();

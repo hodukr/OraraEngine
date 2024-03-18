@@ -23,7 +23,7 @@ public:
         {
             archive(CEREAL_NVP(m_Speed), CEREAL_NVP(m_Axis));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

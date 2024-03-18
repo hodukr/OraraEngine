@@ -4,7 +4,7 @@
 #include "guiw_accessFolder.h"
 
 HDROP DropFile::m_Drop{};
-std::list<fs::path> DropFile::m_fullPathNames;
+list<fs::path> DropFile::m_fullPathNames;
 
 
 void DropFile::DropFileData()

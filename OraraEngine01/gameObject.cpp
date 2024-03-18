@@ -3,7 +3,7 @@
 #include "gameObject.h"
 #include "scene.h"
 
-void GameObject::SetName(std::string name)
+void GameObject::SetName(string name)
 {
     //ゲームオブジェクト名がかぶってないかを調べる 
     bool flg = true;
@@ -18,10 +18,10 @@ void GameObject::SetName(std::string name)
         {
             for (auto& obj : scene->GetList()[i])
             {
-                std::string objnum = "(" + std::to_string(num) + ")";
+                string objnum = "(" + to_string(num) + ")";
                 if (name == obj->GetName() && obj.get() != this)
                 {
-                    name = m_ObjctName + "(" + std::to_string(num) + ")";
+                    name = m_ObjctName + "(" + to_string(num) + ")";
                     flg = true;
                     num++;
                     break;

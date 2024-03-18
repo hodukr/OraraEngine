@@ -8,7 +8,7 @@ private:
     ID3D11Buffer* m_VertexBuffer{};
     int m_TextureNum = -1;
     D3DXCOLOR m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-    std::string m_Texturefile;
+    string m_Texturefile;
 public:
     Texture() {
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_2D;
@@ -29,7 +29,7 @@ public:
     void Update();
     void Draw();
 
-    void SetTexture(std::string file);
+    void SetTexture(string file);
 
     template<class Archive>
     void serialize(Archive& archive)
@@ -39,7 +39,7 @@ public:
             archive(
                 cereal::make_nvp("fileName", m_Texturefile));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

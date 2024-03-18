@@ -7,15 +7,15 @@
 class GameObject
 {
 private:
-    std::string m_ObjctName;
-    std::string m_Tag;
+    string m_ObjctName;
+    string m_Tag;
     DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     bool m_Destroy = false;
     int m_RenderingPass{};
-    std::list<std::unique_ptr<Component>> m_Component;
+    list<unique_ptr<Component>> m_Component;
     int m_Version = 0;
     int m_UseShaderNum = -1;//使用するシェーダー番号
-    std::unique_ptr<Material> m_Material{};
+    unique_ptr<Material> m_Material{};
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
@@ -37,7 +37,7 @@ public:
         }
         else
         {
-            m_Component.remove_if([](const std::unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
+            m_Component.remove_if([](const unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
             return false;
         }
     }
@@ -46,14 +46,14 @@ public:
         m_Transform = GetComponent<Transform>();
         if (!m_Transform)
         {
-            std::unique_ptr<Transform> transform = std::make_unique<Transform>();
+            unique_ptr<Transform> transform = make_unique<Transform>();
             transform.get()->SetGameObejct(this);
             m_Transform = transform.get();
-            m_Component.push_back(std::move(transform));
+            m_Component.push_back(move(transform));
         }
         if (!m_Material)
         {
-            m_Material = std::make_unique<Material>();
+            m_Material = make_unique<Material>();
         }
         m_Material->Init();
 
@@ -103,19 +103,19 @@ public:
         }
     };
 
-    void SetName(std::string name);
+    void SetName(string name);
 
-    std::string GetName()
+    string GetName()
     {
         return m_ObjctName;
     }
 
-    void SetTag(std::string tag)
+    void SetTag(string tag)
     {
         m_Tag = tag;
     }
 
-    const std::string GetTag()
+    const string GetTag()
     {
         return m_Tag;
     }
@@ -141,7 +141,7 @@ public:
 
     Component* AddComponent(void* component)
     {
-        std::unique_ptr<Component> com(static_cast<Component*>(component));
+        unique_ptr<Component> com(static_cast<Component*>(component));
         if (m_DrawLayer == GAME_OBJECT_DRAW_LAYER_NONE)
         {
             if (com->GetDrawLayer() != GAME_OBJECT_DRAW_LAYER_NONE)
@@ -152,7 +152,7 @@ public:
         com->SetObjectName(m_ObjctName);
         com->SetGameObejct(this);
         com->Init();
-        m_Component.push_back(std::move(com));
+        m_Component.push_back(move(com));
 
         return m_Component.back().get();
 
@@ -173,7 +173,7 @@ public:
         return nullptr;
     }
 
-    std::list<std::unique_ptr<Component>>* GetList()
+    list<unique_ptr<Component>>* GetList()
     {
         return &m_Component;
     }
@@ -189,9 +189,9 @@ public:
     int GetPass() { return m_RenderingPass; }
 
     Material* GetMaterial() { return m_Material.get(); }
-    void SetMaterial(std::unique_ptr<Material> material)
+    void SetMaterial(unique_ptr<Material> material)
     {
-        m_Material = std::move(material);
+        m_Material = move(material);
     }
 
     template<class Archive>
@@ -208,7 +208,7 @@ public:
                 CEREAL_NVP(m_DrawLayer)
             );
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

@@ -49,7 +49,7 @@ public:
 				CEREAL_NVP(m_Loop),
 				CEREAL_NVP(m_NumTexture));
 		}
-		catch (const std::exception&)
+		catch (const exception&)
 		{
 
 		}

@@ -47,8 +47,8 @@ void Transform::Revolution(Vector3 center, Vector3 axis, float angle, bool isObj
 	float radian = angle * static_cast<float>(D3DX_PI) / 180.0f;
 
 	// 回転行列の要素を計算 
-	float cosTheta = std::cos(radian);
-	float sinTheta = std::sin(radian);
+	float cosTheta = cos(radian);
+	float sinTheta = sin(radian);
 	float oneMinusCosTheta = 1.0f - cosTheta;
 
 	// 回転行列の各要素を計算 

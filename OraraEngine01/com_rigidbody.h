@@ -28,7 +28,7 @@ public:
             archive(CEREAL_NVP(m_Gravity));
 
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

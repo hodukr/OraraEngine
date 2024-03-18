@@ -8,7 +8,7 @@ class GuiManager
 {
 private:
     Singleton(GuiManager);
-    std::list<std::unique_ptr<GuiWindowBase>> m_Windows;
+    list<unique_ptr<GuiWindowBase>> m_Windows;
     
 public:
     void SetUp();
@@ -16,14 +16,14 @@ public:
     void Uninit();
     void Update();
     void Draw();
-    //static void SetText(std::string text) { m_Text = text;
+    //static void SetText(string text) { m_Text = text;
 
     template<class T>
     T* AddWindow()
     {
-        std::unique_ptr<T> window = std::make_unique<T>();
+        unique_ptr<T> window = make_unique<T>();
         
-        m_Windows.push_back(std::move(window));
+        m_Windows.push_back(move(window));
 
         return window.get();
     }
@@ -41,8 +41,8 @@ public:
         return nullptr;
     }
 
-    std::list<GuiWindowBase*> GetList() {
-        std::list<GuiWindowBase*> windowlist;
+    list<GuiWindowBase*> GetList() {
+        list<GuiWindowBase*> windowlist;
         for (auto& window : m_Windows)
         {
             windowlist.push_back(window.get());

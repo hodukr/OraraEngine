@@ -14,7 +14,7 @@ struct DEFORM_VERTEX
 	aiVector3D Position;
 	aiVector3D Normal;
 	int				BoneNum;
-	std::string		BoneName[4];//本来はボーンインデックスで管理するべき
+	string		BoneName[4];//本来はボーンインデックスで管理するべき
 	float			BoneWeight[4];
 };
 
@@ -30,15 +30,15 @@ class AnimationModel
 {
 private:
 	const aiScene* m_AiScene = nullptr;
-	std::unordered_map<std::string, const aiScene*> m_Animation;
+	unordered_map<string, const aiScene*> m_Animation;
 
 	ID3D11Buffer**	m_VertexBuffer;
 	ID3D11Buffer**	m_IndexBuffer;
 
-	std::unordered_map<std::string, ID3D11ShaderResourceView*> m_Texture;
+	unordered_map<string, ID3D11ShaderResourceView*> m_Texture;
 
-	std::vector<DEFORM_VERTEX>* m_DeformVertex;//変形後頂点データ
-	std::unordered_map<std::string, BONE> m_Bone;//ボーンデータ（名前で参照）
+	vector<DEFORM_VERTEX>* m_DeformVertex;//変形後頂点データ
+	unordered_map<string, BONE> m_Bone;//ボーンデータ（名前で参照）
 
 	void CreateBone(aiNode* Node);
 	void UpdateBoneMatrix(aiNode* Node, aiMatrix4x4 Matrix);

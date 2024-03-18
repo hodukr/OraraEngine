@@ -24,11 +24,11 @@ enum DrawLayer//描画されるレイヤーの指定
 class Component
 {
 protected:
-    std::string m_ObjectName{};
+    string m_ObjectName{};
     DrawLayer m_DrawLayer{ GAME_OBJECT_DRAW_LAYER_NONE };
     class GameObject* m_GameObject = nullptr;
     bool m_Destroy = false;
-    std::vector<TypeDate> m_DataList;//メンバ変数を格納する
+    vector<TypeDate> m_DataList;//メンバ変数を格納する
     bool m_Enable = true;
 public:
     Component() {};
@@ -38,11 +38,11 @@ public:
 	virtual void Update() {};
 	virtual void Draw() {};
 
-    void SetObjectName(std::string name) { m_ObjectName = name; };
+    void SetObjectName(string name) { m_ObjectName = name; };
     void SetGameObejct(GameObject* gameobj) { m_GameObject = gameobj; }
 
     GameObject* GetGameObejct() {return m_GameObject; }
-    std::string GettName() { return m_ObjectName; }
+    string GettName() { return m_ObjectName; }
     const DrawLayer& GetDrawLayer() const { return m_DrawLayer; }
 
     void SetDestroy() { m_Destroy = true; }
@@ -62,12 +62,12 @@ public:
 
     void SetEnable(bool flg) { m_Enable = flg; }
     bool GetEnable() { return m_Enable; }
-    //std::vector<TypeDate> GetDateList()
+    //vector<TypeDate> GetDateList()
     //{
     //    return m_DataList;
     //}
 
-    //void SetDateList(std::string name, std::variant<VARIATDATE> date)
+    //void SetDateList(string name, variant<VARIATDATE> date)
     //{
     //    name = name.substr(name.find('_') + 1);
     //    TypeDate typedate;
@@ -86,7 +86,7 @@ public:
             archive(CEREAL_NVP(m_ObjectName));
             archive(CEREAL_NVP(m_Enable));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

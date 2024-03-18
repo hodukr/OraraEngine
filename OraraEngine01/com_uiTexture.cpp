@@ -119,10 +119,10 @@ void Texture::Draw()
     Renderer::GetDeviceContext()->Draw(4, 0);
 }
 
-void Texture::SetTexture(std::string file)
+void Texture::SetTexture(string file)
 {
     m_Texturefile = file;
-    std::string pass = "asset\\texture\\" + m_Texturefile;
+    string pass = "asset\\texture\\" + m_Texturefile;
     m_TextureNum = TextureManager::LoadTexture(pass.c_str());
 
 }

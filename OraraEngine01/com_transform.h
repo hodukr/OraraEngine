@@ -162,7 +162,7 @@ public:
                 cereal::make_nvp( "Qw", m_Qnaternion.w));
 
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }
