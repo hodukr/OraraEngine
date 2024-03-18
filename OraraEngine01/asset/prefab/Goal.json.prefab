@@ -9,9 +9,11 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
                         "m_Position": {
                             "x": 0.16910839080810548,
-                            "y": 2.3292253017425539,
+                            "y": 11.809266090393067,
                             "z": 13.99205207824707
                         },
                         "m_Rotation": {
@@ -20,9 +22,9 @@
                             "z": 0.0
                         },
                         "m_Scale": {
-                            "x": 1.0,
-                            "y": 1.0,
-                            "z": 1.0
+                            "x": 2.4162614345550539,
+                            "y": 10.930181503295899,
+                            "z": 2.713581085205078
                         },
                         "Qx": 0.0,
                         "Qy": 0.0,
@@ -79,8 +81,9 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_HitObjName": "kinoko",
-                        "m_ClothName": "Cloth"
+                        "m_HitObjTag": "Player",
+                        "m_ClothName": "Cloth",
+                        "m_ThresholdSpeed": 0.05000000074505806
                     }
                 }
             }
