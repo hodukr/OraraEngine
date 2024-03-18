@@ -11,7 +11,7 @@ void Loading::AsyncLoad()
 {
 	// ここで m_NextScene へのアクセスをロックする
 	{
-		std::lock_guard<std::mutex> lock(m_LoadedMutex);
+		lock_guard<mutex> lock(m_LoadedMutex);
 		m_NextScene->Init(); // m_NextScene は nullptr の場合にアクセスしないように修正
 		Manager::GetCollisionManager()->Init();
 		GuiManager::Instance().Init();
@@ -64,9 +64,9 @@ void Loading::Init()
 	m_ShaderNum = ShaderManager::Instance().LoadShader("unlitTexture");
 
 	// バックグラウンドでリソースの非同期読み込みを開始
-	 // std::async は返り値を返さない場合、将来的なステータスを取得する方法がないため使わない方が良いです。
-	 // 代わりに std::thread を使用します。
-	std::thread loadingThread(&Loading::AsyncLoad, this);
+	 // async は返り値を返さない場合、将来的なステータスを取得する方法がないため使わない方が良いです。
+	 // 代わりに thread を使用します。
+	thread loadingThread(&Loading::AsyncLoad, this);
 	loadingThread.detach(); // メインスレッドと分離
 	//loadingThread.join(); // ロード完了まで待機
 

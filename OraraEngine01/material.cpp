@@ -30,17 +30,17 @@ void Material::Draw()
 	}
 }
 
-void Material::SetShader(std::string file)
+void Material::SetShader(string file)
 {
 	m_ShaderName = file;
 	m_ShaderNum = ShaderManager::Instance().LoadShader(m_ShaderName);
 }
 
-void Material::SetTexture(std::string name,std::string extension)
+void Material::SetTexture(string name,string extension)
 {
 	m_TextureName = name;
 	m_Extension = extension;
-	std::string pass = "asset\\texture\\"+ name + m_Extension;
+	string pass = "asset\\texture\\"+ name + m_Extension;
 	m_TextureNum = TextureManager::LoadTexture(pass);
 }
 

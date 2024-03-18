@@ -4,7 +4,7 @@
 
 
 
-std::vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
+vector<ReflectionList::IReflection> ReflectionList::m_InstansList{};
 
 SetReflectionComponent(Transform)
 SetReflectionComponent(Mesh)

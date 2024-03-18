@@ -8,8 +8,8 @@ private:
     ID3D11RenderTargetView* m_ReflectRenderTargetView{};
     ID3D11Texture2D* m_CubeReflectTexture{};
     D3DXVECTOR3 m_EnvMapObjPos{};
-    std::string m_SelectPosObj{};
-    std::unordered_map<int, std::string> m_SelectDrawObj{};
+    string m_SelectPosObj{};
+    unordered_map<int, string> m_SelectDrawObj{};
     int m_DrawObjNum{};
 
     void BeginCube(void);
