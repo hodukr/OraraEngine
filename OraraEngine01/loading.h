@@ -15,7 +15,7 @@ private:
 	int m_TextureNum = -1;
 
 	bool m_Loaded = false;
-	std::mutex m_LoadedMutex{};
+	mutex m_LoadedMutex{};
 	Scene* m_NextScene = nullptr;
 
 	int m_Count = 0;

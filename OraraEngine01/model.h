@@ -41,7 +41,7 @@ private:
 	ID3D11Buffer*	m_VertexBuffer;
 	ID3D11Buffer*	m_IndexBuffer;
 
-	std::string m_File;
+	string m_File;
 	SUBSET*	m_SubsetArray;
 	unsigned int	m_SubsetNum;
 
@@ -55,6 +55,6 @@ public:
 	void Load( const char *FileName );
 	void Unload();
 
-	const std::string& GetFile() { return m_File; }
+	const string& GetFile() { return m_File; }
 
 };

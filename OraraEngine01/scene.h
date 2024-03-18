@@ -8,15 +8,15 @@
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
 
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 class Scene
 {
 protected:
-    std::string m_Name;
-	std::list<std::unique_ptr<GameObject>> m_GameObject[3];//レイヤー有のSTLのリスト構造
+    string m_Name;
+	list<unique_ptr<GameObject>> m_GameObject[3];//レイヤー有のSTLのリスト構造
 	int m_FileVersion = NOWVERSION;
 public:
-    Scene(std::string name = "NewScene"):m_Name(name){}
+    Scene(string name = "NewScene"):m_Name(name){}
 	virtual void Init()
     {
 		bool newflg = true;
@@ -38,9 +38,9 @@ public:
 			sky->SetName("Sky");
 			mesh->SetModel("sky.obj");
 			sky->m_Transform->SetScale(80.0f,80.0f,80.0f);
-			std::unique_ptr<Material> material = std::make_unique<Material>("unlitTexture");
+			unique_ptr<Material> material = make_unique<Material>("unlitTexture");
 			material->Init();
-			sky->SetMaterial(std::move(material));
+			sky->SetMaterial(move(material));
 		}
     }
 
@@ -100,23 +100,23 @@ public:
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			m_GameObject[i].remove_if([](const std::unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
+			m_GameObject[i].remove_if([](const unique_ptr<GameObject>& object) {return object->Destroy(); });//ラムダ式
 		}
 	}
 
 
 	GameObject* AddGameObject(int Layer)
 	{
-		return SetGameObject(std::make_unique<GameObject>());
+		return SetGameObject(make_unique<GameObject>());
 	}
 
-	GameObject* SetGameObject(std::unique_ptr<GameObject>  gameObject)
+	GameObject* SetGameObject(unique_ptr<GameObject>  gameObject)
 	{
 		gameObject->Init();
 		gameObject->SetName(gameObject->GetName());
 		int drawLayer = 1;
 		if (gameObject->GetDrawLayer() > 0)drawLayer = gameObject->GetDrawLayer();
-		m_GameObject[drawLayer].push_back(std::move(gameObject));
+		m_GameObject[drawLayer].push_back(move(gameObject));
 
 		return m_GameObject[drawLayer].back().get();
 	}
@@ -155,9 +155,9 @@ public:
 		return nullptr;
 	}
 
-	std::vector<GameObject* >GetGameObjectsToTag(const char* name)
+	vector<GameObject* >GetGameObjectsToTag(const char* name)
 	{
-		std::vector<GameObject*> objects; //STLの配列
+		vector<GameObject*> objects; //STLの配列
 		for (int i = 0; i < 3; i++)
 		{
 			for (auto& object : m_GameObject[i])
@@ -173,16 +173,16 @@ public:
 	}
 
 
-    std::list<std::unique_ptr<GameObject>>* GetList()
+    list<unique_ptr<GameObject>>* GetList()
     {
         return m_GameObject;
     }
 
-    void SetName(std::string name) {
+    void SetName(string name) {
         fs::path oldFilePath = "asset/scene/" + m_Name + "json";
 
         // 新しいファイル名
-        std::string newFileName = name + ".json";
+        string newFileName = name + ".json";
 
         // 新しいファイルのパスを構築
         fs::path newFilePath = oldFilePath.parent_path() / newFileName;
@@ -190,17 +190,17 @@ public:
         // ファイル名を変更
         try {
             fs::rename(oldFilePath, newFilePath);
-            std::cout << "File renamed successfully." << std::endl;
+            cout << "File renamed successfully." << endl;
         }
-        catch (const std::filesystem::filesystem_error& e) {
-            std::cerr << "Error renaming file: " << e.what() << std::endl;
+        catch (const filesystem::filesystem_error& e) {
+            cerr << "Error renaming file: " << e.what() << endl;
         }
         m_Name = name;
     }
-    std::string GetName() { return m_Name; }
+    string GetName() { return m_Name; }
 
 
-	void MoveLayer(std::list<std::unique_ptr<GameObject>>& listA, std::list<std::unique_ptr<GameObject>>& listB, GameObject* movedate)
+	void MoveLayer(list<unique_ptr<GameObject>>& listA, list<unique_ptr<GameObject>>& listB, GameObject* movedate)
 	{
 		// listAからlistBへデータNと同じ要素を移動
 		auto iter = listA.begin();

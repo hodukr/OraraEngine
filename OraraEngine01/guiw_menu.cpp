@@ -5,7 +5,7 @@
 #include "imgui/imgui.h"
 #include <cereal/archives/json.hpp>
 
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 void Menu::Init()
 {
     m_Scene = Manager::GetScene();
@@ -44,10 +44,10 @@ void Menu::Draw()
     if (ImGui::BeginPopup("LoadScene"))
     {
         // フォルダのパスを指定 
-        std::string folderPath = "asset\\scene";
+        string folderPath = "asset\\scene";
 
         // ファイル名を格納するためのベクターを作成 
-        std::vector<std::string> fileNames;
+        vector<string> fileNames;
 
         try {
             // 指定されたフォルダ内のファイルをイテレート 
@@ -56,14 +56,14 @@ void Menu::Draw()
                 fileNames.push_back(entry.path().filename().string());
             }
         }
-        catch (const std::filesystem::filesystem_error& ex) {
-            std::cerr << "Error: " << ex.what() << std::endl;
+        catch (const filesystem::filesystem_error& ex) {
+            cerr << "Error: " << ex.what() << endl;
         }
 
         // ファイル名を出力 
         for (const auto& fileName : fileNames) {
-            std::string extension = fileName.substr(fileName.find_last_of(".") + 1);
-            std::string sceneName = fileName.substr(0,fileName.find_last_of("."));
+            string extension = fileName.substr(fileName.find_last_of(".") + 1);
+            string sceneName = fileName.substr(0,fileName.find_last_of("."));
 
             if (extension == "json")
             {
@@ -86,7 +86,7 @@ void Menu::Draw()
     {
         static char buffer[128];
         ImGui::InputText("CreateScene", buffer, sizeof(buffer));
-        std::string name = buffer;
+        string name = buffer;
         if (ImGui::Button("Create") && name != "")
         {
             ImGui::CloseCurrentPopup();
@@ -96,7 +96,7 @@ void Menu::Draw()
                 SaveScene();
             }
             // フォルダのパスを指定 
-            std::string folderPath = "asset\\scene";
+            string folderPath = "asset\\scene";
 
             //シーン生成
             bool isScene = true;
@@ -111,8 +111,8 @@ void Menu::Draw()
                     }
                 }
             }
-            catch (const std::filesystem::filesystem_error& ex) {
-                std::cerr << "Error: " << ex.what() << std::endl;
+            catch (const filesystem::filesystem_error& ex) {
+                cerr << "Error: " << ex.what() << endl;
             }
             if (isScene)
             {
@@ -135,7 +135,7 @@ void Menu::Draw()
     {
         for (auto window : GuiManager::Instance().GetList())
         {
-            std::string name = typeid(*window).name();
+            string name = typeid(*window).name();
             name = name.substr(name.find(" ") + 1);
             if (ImGui::Selectable(name.c_str()))
             {
@@ -156,14 +156,14 @@ bool Menu::SaveScene()
 {
     try
     {
-        std::string filename = "asset/scene/" + m_Scene->GetName() + ".json";
-        std::ofstream outputFile(filename);
+        string filename = "asset/scene/" + m_Scene->GetName() + ".json";
+        ofstream outputFile(filename);
         cereal::JSONOutputArchive o_archive(outputFile);
 
         o_archive(cereal::make_nvp("secne", *m_Scene));
         return true;
     }
-    catch (const std::exception&)
+    catch (const exception&)
     {
         MessageBox(NULL, "正常に保存ができませんでした", "警告", MB_OK);
     }

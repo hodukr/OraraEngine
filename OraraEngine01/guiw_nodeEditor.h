@@ -16,8 +16,8 @@ struct Connection {
 
 // ノードエディターの状態 
 struct NodeEditor {
-    std::vector<Node*> Nodes;
-    std::vector<Connection> Connections;
+    vector<Node*> Nodes;
+    vector<Connection> Connections;
     int nextNodeId = 1;
 };
 

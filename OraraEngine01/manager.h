@@ -35,9 +35,9 @@ public:
 		m_NextScene = new T();
 	}
 
-	static void SetLoadScene(std::string scene);
+	static void SetLoadScene(string scene);
 	static void SetLoaded(Scene* scene);
-	static void SetScene(std::string scene);
+	static void SetScene(string scene);
 
 	static void SetNextSceneState(SceneState state) {m_NextSceneState = state;}
 	static SceneState GetSceneState() { return m_SceneState; }
