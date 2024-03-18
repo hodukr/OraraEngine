@@ -13,7 +13,10 @@ void Menu::Init()
 
 void Menu::Uninit()
 {
-
+    string filename = "resource/DebugScene.json";
+    ofstream outputFile(filename);
+    cereal::JSONOutputArchive o_archive(outputFile);
+    o_archive(cereal::make_nvp("Scene", m_Scene->GetName()));
 }
 
 void Menu::Update()
@@ -127,27 +130,46 @@ void Menu::Draw()
 
     }
 
-    if (ImGui::Selectable("PopWindow"))
+    if (ImGui::BeginCombo("SetStateScene", m_StateScene.c_str()))
     {
-        ImGui::OpenPopup("WindowList");
-    }
-    if (ImGui::BeginPopup("WindowList"))
-    {
-        for (auto window : GuiManager::Instance().GetList())
-        {
-            string name = typeid(*window).name();
-            name = name.substr(name.find(" ") + 1);
-            if (ImGui::Selectable(name.c_str()))
-            {
-                window->SetShowWindow(true);
+        // フォルダのパスを指定 
+        string folderPath = "asset\\scene";
+
+        // ファイル名を格納するためのベクターを作成 
+        vector<string> fileNames;
+
+        try {
+            // 指定されたフォルダ内のファイルをイテレート 
+            for (const auto& entry : fs::directory_iterator(folderPath)) {
+                // ファイル名をベクターに追加 
+                fileNames.push_back(entry.path().filename().string());
             }
         }
-        
+        catch (const filesystem::filesystem_error& ex) {
+            cerr << "Error: " << ex.what() << endl;
+        }
 
-        ImGui::EndPopup();
+        // ファイル名を出力 
+        for (const auto& fileName : fileNames) {
+            string extension = fileName.substr(fileName.find_last_of(".") + 1);
+            string sceneName = fileName.substr(0, fileName.find_last_of("."));
+
+            if (extension == "json")
+            {
+                if (ImGui::Selectable(sceneName.c_str()))
+                {
+                    m_StateScene = sceneName;
+                    string filename = "resource/StateScene.json";
+                    ofstream outputFile(filename);
+                    cereal::JSONOutputArchive o_archive(outputFile);
+                    o_archive(cereal::make_nvp("StateScene", m_StateScene));
+                    break;
+                }
+            }
+        }
+
+        ImGui::EndCombo();
     }
-
-
     ImGui::End();
 }
 

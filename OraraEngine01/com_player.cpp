@@ -74,13 +74,6 @@ void Player::Update()
 	}
     m_Velocity.y -= 0.1f;
 	m_GameObject->m_Transform->Translate(m_Velocity);
-    D3DXCOLOR color = m_GameObject->GetMaterial()->GetColor();
-    static float alphaSpeed = 0.01f;
-    if (color.a >= 1.0f)alphaSpeed = -0.01f;
-    if (color.a <= 0.0f)alphaSpeed = 0.01f;
-    color.a += alphaSpeed;
-    m_GameObject->GetMaterial()->SetColor(color);
-
 }
 void Player::Draw()
 {

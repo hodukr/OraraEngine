@@ -544,29 +544,13 @@ void GuiManager::SetUp()
     ImGui_ImplDX11_Init(Renderer::GetDevice(), Renderer::GetDeviceContext());
     //この時点ではInitがよばれないので注意 
 
-    if (filesystem::exists(DEBUGFILEPASS)) {//デバックファイルがあったら読み込む
-        try
-        {
-            ifstream inputFile(DEBUGFILEPASS);
-            cereal::JSONInputArchive archive(inputFile);
-            archive(*this);
-        }
-        catch (const exception&)
-        {
-        }
-
-    }
-    else
-    {
-        AddWindow<Menu>();
-        AddWindow<NodeEditorManager>();
-        AddWindow<Hierarchy>();
-        AddWindow<Inspector>();
-        AddWindow<AccessFolder>();
-        AddWindow<SceneWindow>();
-        AddWindow<Debug>();
-    }
-
+    AddWindow<Menu>();
+    AddWindow<NodeEditorManager>();
+    AddWindow<Hierarchy>();
+    AddWindow<Inspector>();
+    AddWindow<AccessFolder>();
+    AddWindow<SceneWindow>();
+    AddWindow<Debug>();
 
 }
 
@@ -581,10 +565,6 @@ void GuiManager::Init()
 
 void GuiManager::Uninit()
 {
-    ofstream outputFile(DEBUGFILEPASS);
-    cereal::JSONOutputArchive o_archive(outputFile);
-
-    o_archive(cereal::make_nvp("Debug", *this));
     for (auto& window : m_Windows)
     {
         window->Uninit();

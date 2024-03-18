@@ -17,7 +17,6 @@ private:
 	static SceneState m_NextSceneState;
 	static GameState m_GameState;
 	static GameState m_NextGameState;
-
 	static class CollisionManager* m_CollisionManager;
 public:
 	static void Init();

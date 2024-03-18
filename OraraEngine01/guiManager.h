@@ -9,7 +9,6 @@ class GuiManager
 private:
     Singleton(GuiManager);
     list<unique_ptr<GuiWindowBase>> m_Windows;
-    
 public:
     void SetUp();
     void Init();
@@ -50,9 +49,4 @@ public:
         return windowlist; 
     }
 
-    template<class Archive>
-    void serialize(Archive& archive)
-    {
-        archive(CEREAL_NVP(m_Windows));
-    }
 };

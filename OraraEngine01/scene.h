@@ -5,8 +5,6 @@
 #include "textureManager.h"
 #include "modelManager.h"
 #include <algorithm>
-#include <cereal/types/list.hpp>
-#include <cereal/types/string.hpp>
 
 namespace fs = filesystem;
 class Scene
@@ -16,7 +14,10 @@ protected:
 	list<unique_ptr<GameObject>> m_GameObject[3];//レイヤー有のSTLのリスト構造
 	int m_FileVersion = NOWVERSION;
 public:
-    Scene(string name = "NewScene"):m_Name(name){}
+    Scene(string name = "NewScene")
+	{
+		SetName(name);
+	}
 	virtual void Init()
     {
 		bool newflg = true;
@@ -179,10 +180,28 @@ public:
     }
 
     void SetName(string name) {
+		string comparisonName = name;
+		int index = 0;
+		string folderPath = "asset\\scene";
+		bool roop = true;
+		while (roop)
+		{
+			roop = false;
+			// 指定されたフォルダ内のファイルをイテレート 
+			for (const auto& entry : fs::directory_iterator(folderPath)) {
+				// ファイル名をベクターに追加 
+				if (entry.path().filename().string() == comparisonName + ".json")//フォルダ内にNewScene.jsonがあれば読み込む
+				{
+					++index;
+					comparisonName = name + "(" + to_string(index) + ")";
+					roop = true;
+				}
+			}
+		}
         fs::path oldFilePath = "asset/scene/" + m_Name + "json";
 
         // 新しいファイル名
-        string newFileName = name + ".json";
+        string newFileName = comparisonName + ".json";
 
         // 新しいファイルのパスを構築
         fs::path newFilePath = oldFilePath.parent_path() / newFileName;
@@ -195,7 +214,7 @@ public:
         catch (const filesystem::filesystem_error& e) {
             cerr << "Error renaming file: " << e.what() << endl;
         }
-        m_Name = name;
+        m_Name = comparisonName;
     }
     string GetName() { return m_Name; }
 

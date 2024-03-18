@@ -21,52 +21,40 @@ CollisionManager* Manager::m_CollisionManager{};
 GameState Manager::m_GameState{GAMESTATE_NONE};
 GameState Manager::m_NextGameState{ GAMESTATE_NONE };
 
-
 void Manager::Init()
 {
 	Renderer::Init();
 	Input::Instance().Init();
 	Audio::InitMaster();
+	string filename;
 #ifdef _DEBUG
     GuiManager::Instance().SetUp();
 	m_NextSceneState = SCENESTATE_SCENE;
 	m_NextGameState = GAMESTATE_STOP;
+	filename = "resource/DebugScene.json";
 #else
 	m_NextSceneState = SCENESTATE_GAME;
 	m_NextGameState = GAMESTATE_PLAY;
+	filename = "resource/StateScene.json";
+
 #endif // DEBUG
+	//シーン生成
+	if (std::filesystem::is_regular_file(filename))
+	{
+		ifstream inputFile(filename);
+		cereal::JSONInputArchive archive(inputFile);
+		string stateScene{};
+		archive(stateScene);
+		SetScene(stateScene);
+	}
+	else
+	{
+		SetScene<Scene>();
+
+	}
 	m_CollisionManager = new CollisionManager;
 
 
-	// フォルダのパスを指定 
-	string folderPath = "asset\\scene";
-
-	//シーン生成
-	{//フォルダ内にNewScene.jsonがあれば読み込む
-		bool isNewScene = false;
-		try {
-			// 指定されたフォルダ内のファイルをイテレート 
-			for (const auto& entry : fs::directory_iterator(folderPath)) {
-				// ファイル名をベクターに追加 
-				if (entry.path().filename().string() == "NewScene.json")//フォルダ内にNewScene.jsonがあれば読み込む
-				{
-					isNewScene = true;
-					break;
-				}
-			}
-		}
-		catch (const filesystem::filesystem_error& ex) {
-			cerr << "Error: " << ex.what() << endl;
-		}
-		if (isNewScene)
-		{
-			SetScene("NewScene");
-		}
-		else
-		{
-			SetScene<Scene>();
-		}
-	}
 
 }
 
