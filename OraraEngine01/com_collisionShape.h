@@ -35,10 +35,10 @@ protected:
     Vector3 m_Offset = Vector3(0.0f, 0.0f, 0.0f);
 
     //コールバック 
-    using CollisionCallback = std::function<void(CollisionState, CollisionShape*)>;
+    using CollisionCallback = function<void(CollisionState, CollisionShape*)>;
     CollisionCallback m_CollisionCallback;
 
-    std::unordered_map<CollisionShape*, CollisionState> m_State;
+    unordered_map<CollisionShape*, CollisionState> m_State;
 public:
     CollisionShape() {}
     void DrawInspector()override
@@ -75,7 +75,7 @@ public:
     Vector3 GetOldPosition() const { return m_OldPosition; }
     Vector3 GetOffset() const { return m_Offset; }
     CollisionState GetState(CollisionShape* shape) { return m_State[shape]; }
-    std::unordered_map<CollisionShape*, CollisionState> GetStateMap(){ return m_State; }
+    unordered_map<CollisionShape*, CollisionState> GetStateMap(){ return m_State; }
 
     //コールバック 
     void SetCollisionCallback(const CollisionCallback& callback) { m_CollisionCallback = callback; }

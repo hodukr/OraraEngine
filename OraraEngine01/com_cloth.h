@@ -86,7 +86,7 @@ public:
                 CEREAL_NVP(m_IsWind),
                 CEREAL_NVP(m_WindForce));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

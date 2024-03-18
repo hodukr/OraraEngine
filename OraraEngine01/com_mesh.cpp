@@ -8,10 +8,10 @@
 #include "shaderManager.h"
 #include "pass_depthShadow.h"
 
-void Mesh::SetModel(std::string file)
+void Mesh::SetModel(string file)
 {
     m_Modelpas = file;
-    std::string pass = "asset\\model\\" + m_Modelpas;
+    string pass = "asset\\model\\" + m_Modelpas;
     m_ModelNum = ModelManager::Load(pass.c_str());
 
 }

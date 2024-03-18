@@ -8,7 +8,7 @@ class MoveCamera:public Component
 {
 private:
     class GameObject* m_Target = nullptr;
-    std::string m_TargetName{""};
+    string m_TargetName{""};
     Vector3 m_Offset{};
     bool m_IsMoveDirX = true;
     bool m_IsMoveDirY = true;

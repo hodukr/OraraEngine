@@ -18,7 +18,7 @@ private:
 	int						m_PlayLength{};
 
 	float                   m_Volume{};
-	std::string             m_SoundFile{""};
+	string             m_SoundFile{""};
 
 public:
 	static void InitMaster();
@@ -42,7 +42,7 @@ public:
 	void Load(const char*fileName);
 	void Play(bool loop = false);
 
-	void SetSound(std::string file);
+	void SetSound(string file);
 
 	void Stop()
 	{
@@ -75,7 +75,7 @@ public:
 		{
 			archive(CEREAL_NVP(m_Volume),cereal::make_nvp("fileName", m_SoundFile));
 		}
-		catch (const std::exception&)
+		catch (const exception&)
 		{
 
 		}

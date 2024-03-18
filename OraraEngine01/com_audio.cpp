@@ -148,10 +148,10 @@ void Audio::Play(bool loop)
 
 }
 
-void Audio::SetSound(std::string file)
+void Audio::SetSound(string file)
 {
 	m_SoundFile = file;
-	std::string pass = "asset\\audio\\" + file;
+	string pass = "asset\\audio\\" + file;
 	Load(pass.c_str());
 }
 

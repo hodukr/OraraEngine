@@ -5,10 +5,10 @@ class Mesh :public Component
 {
 private:
     int m_ModelNum{};
-    std::string m_Modelpas;
+    string m_Modelpas;
     bool m_IsSet = false;
 public:
-    Mesh(std::string pas = "box.obj") :m_Modelpas(pas){m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;}
+    Mesh(string pas = "box.obj") :m_Modelpas(pas){m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D;}
     void DrawInspector()override
     {
         SET_NEXT_FOLDER("asset\\model", ".obj");
@@ -18,14 +18,14 @@ public:
         }
 
     }
-    void SetModel(std::string file);
+    void SetModel(string file);
     
     void Init() override;
     void Uninit() override;
     void Update() override;
     void Draw()override;
 
-    const std::string GetModelpas() { return m_Modelpas; }
+    const string GetModelpas() { return m_Modelpas; }
     template<class Archive>
     void serialize(Archive& archive)
     {

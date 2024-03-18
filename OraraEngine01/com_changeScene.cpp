@@ -51,9 +51,9 @@ void ChangeScene::Update()
 	}
 }
 
-void ChangeScene::SceneChange(std::string name)
+void ChangeScene::SceneChange(string name)
 {
 	// ドットの前の部分文字列を取得
-	std::string beforeDot = name.substr(0, name.find_last_of("."));
+	string beforeDot = name.substr(0, name.find_last_of("."));
 	Manager::SetScene(beforeDot);
 }

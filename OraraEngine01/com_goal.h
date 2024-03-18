@@ -11,8 +11,8 @@ private:
     class Cloth* m_Cloth{};
     class BoxCollision* m_Collision{};
     class ChangeScene* m_ChangeScene{};
-    std::string m_HitObjTag{""};
-    std::string m_ClothName{""};
+    string m_HitObjTag{""};
+    string m_ClothName{""};
     float m_ThresholdSpeed{};
     Vector3 m_StartPosition{};
 public:
@@ -27,7 +27,7 @@ public:
         {
             archive(CEREAL_NVP(m_HitObjTag), CEREAL_NVP(m_ClothName),CEREAL_NVP(m_ThresholdSpeed));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

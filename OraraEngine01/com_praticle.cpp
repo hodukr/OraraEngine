@@ -45,7 +45,7 @@ void PraticleSystem::DrawInspector()
     SET_NEXT_FOLDER("asset\\texture\\", ".");
     if (SET_NAME_DATE_STATE("TexName", (m_Emitter.TexName), CASTOMDRAWSTATE_STRING_FOLDER))
     {
-        std::string name = "asset\\texture\\" + m_Emitter.TexName;
+        string name = "asset\\texture\\" + m_Emitter.TexName;
         m_TexNum = TextureManager::LoadTexture(name.c_str());
     }
     SET_NAME_DATE("GradationLength", (m_Emitter.GradationLength));
@@ -92,7 +92,7 @@ void PraticleSystem::Init()
 
     Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_VertexBuffer);
 
-    std::string name = "asset\\texture\\" + m_Emitter.TexName;
+    string name = "asset\\texture\\" + m_Emitter.TexName;
 
     m_TexNum = TextureManager::LoadTexture(name.c_str());
 
@@ -149,7 +149,7 @@ void PraticleSystem::Update()
         m_Timer.Reset();
     }
 
-    auto rmvIter = std::remove_if(m_ParticleList.begin(), m_ParticleList.end(), [=](PARTICLE* par)
+    auto rmvIter = remove_if(m_ParticleList.begin(), m_ParticleList.end(), [=](PARTICLE* par)
         {
             par->Position += par->Velocity + m_Emitter.AddVelocity;
             if (m_Emitter.IsFade)

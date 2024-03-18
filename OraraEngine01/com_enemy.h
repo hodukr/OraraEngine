@@ -9,7 +9,7 @@ private:
     class BoxCollision* m_Collision{};
     float m_Speed = 0.1f;
     float m_Range = 7.0f;
-    std::string m_TargetName;
+    string m_TargetName;
 public:
     void DrawInspector();
    
@@ -26,7 +26,7 @@ public:
         {
             archive(CEREAL_NVP(m_Speed), CEREAL_NVP(m_Range), CEREAL_NVP(m_TargetName));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

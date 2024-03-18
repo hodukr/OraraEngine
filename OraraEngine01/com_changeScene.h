@@ -9,7 +9,7 @@ private:
     bool m_IsFadeOut = false;
     bool m_IsFadeIn = false;
     bool m_StartFadeIn = false;
-    std::string m_SceneName{""};
+    string m_SceneName{""};
 public:
     void DrawInspector()
     {
@@ -25,8 +25,8 @@ public:
     void Update()override;
 
     void SetIsFadeOut(bool flag) { m_IsFadeOut = flag; }
-    void SetScene(std::string name) { m_SceneName = name; }
-    void SceneChange(std::string name);
+    void SetScene(string name) { m_SceneName = name; }
+    void SceneChange(string name);
 
     template<class Archive>
     void serialize(Archive& archive)
@@ -35,7 +35,7 @@ public:
         {
             archive(cereal::make_nvp("SceneName", m_SceneName), CEREAL_NVP(m_UseButton));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

@@ -37,7 +37,7 @@ struct PARTICLEEMITTER {
     D3DXCOLOR GradationColor[3];
     bool IsGradation = false;
     float Fluctuation = 0.0f;//揺らぎ
-    std::string TexName;
+    string TexName;
     float GradationLength = 2.0f;
     bool IsFade = false;
     float StartFadeTime = 1.0f;
@@ -89,8 +89,8 @@ private:
     class Camera* m_Camera;
 
     PARTICLEEMITTER m_Emitter;
-    std::stack<PARTICLE*> m_StackParticle;
-    std::list<PARTICLE*> m_ParticleList;
+    stack<PARTICLE*> m_StackParticle;
+    list<PARTICLE*> m_ParticleList;
     ElapsedTimeTracker m_Timer;
 public:
     PraticleSystem();

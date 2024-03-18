@@ -91,7 +91,7 @@ void Player::DeadPlayer()
     InputSystem* is = m_GameObject->GetComponent<InputSystem>();
     if (is)is->SetEnable(false);
     
-    std::string newScene = Manager::GetScene()->GetName();
+    string newScene = Manager::GetScene()->GetName();
     Post* post = ShaderManager::Instance().GetPost();
     post->SetIsWipe(true);
     post->SetThreshold(0.0f);

@@ -9,7 +9,7 @@ private:
     Vector3 m_Velocity{};
     int m_IsGround = 0;
     class BoxCollision* m_Collision{};
-    std::unordered_map<BoxCollision*, bool> m_IsOldUpHit{};
+    unordered_map<BoxCollision*, bool> m_IsOldUpHit{};
     class ChangeScene* m_ChangeScene{};
 public:
     void DrawInspector()
@@ -32,7 +32,7 @@ public:
         {
             //archive(CEREAL_NVP());
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }
