@@ -30,7 +30,7 @@ void Camera::Draw()
 
     //ビューマトリクス設定 
     D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-    D3DXVECTOR3 position = m_GameObject->m_Transform->GetPosition().dx();
+    D3DXVECTOR3 position = m_GameObject->m_Transform->GetPosition().dx() + m_Offset.dx();
     D3DXVECTOR3 target = m_Target.dx();
 
     D3DXMatrixLookAtLH(&m_ViewMatrix, &position, &target, &up);

@@ -35,7 +35,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/memory.hpp>  
 #include <cereal/types/list.hpp>
-
+#include "vector.h"
 
 #define SCREEN_WIDTH	(1280)
 #define SCREEN_HEIGHT	(720)

@@ -29,8 +29,10 @@ void CollisionManager::Update()
         // すべての形状のペアに対して当たり判定を行う 
         for (auto it1 = m_Shape.begin(); it1 != m_Shape.end(); ++it1)
         {
+            if (!(*it1)->GetEnable())continue;
             for (auto it2 = next(it1); it2 != m_Shape.end(); ++it2)
             {
+                if (!(*it2)->GetEnable())continue;
 
                 if (!(*it1)->GetStateMap().empty())
                 {

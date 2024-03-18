@@ -1,7 +1,7 @@
 {
     "Goal": {
         "m_ObjctName": "Goal",
-        "m_Tag": "Untagged",
+        "m_Tag": "Goal",
         "m_Component": [
             {
                 "polymorphic_id": 2147483649,

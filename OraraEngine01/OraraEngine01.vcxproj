@@ -156,6 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="com_shakeCamera.cpp"/>
+    <ClInclude Include="com_shakeCamera.h"/>
     <ClCompile Include="com_changeScene.cpp" />
     <ClCompile Include="com_floating.cpp" />
     <ClCompile Include="com_goal.cpp" />

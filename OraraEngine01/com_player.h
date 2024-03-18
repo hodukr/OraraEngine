@@ -2,6 +2,7 @@
 #define player_H
 
 #include "component.h"
+
 class Player:public Component
 {
 private:
@@ -11,6 +12,10 @@ private:
     class BoxCollision* m_Collision{};
     unordered_map<BoxCollision*, bool> m_IsOldUpHit{};
     class ChangeScene* m_ChangeScene{};
+    bool m_IsDead = false;
+    int m_DeadWave = 0;
+    Vector3 m_DeadPosition{};
+    int m_HItTime{};
 public:
     void DrawInspector()
     {
@@ -28,6 +33,8 @@ public:
     template<class Archive>
     void serialize(Archive & archive)
     {
+
+        Component::serialize<Archive>(archive);
         try
         {
             //archive(CEREAL_NVP());

@@ -2,6 +2,8 @@
     "Tag": [
         "Untagged",
         "Enemy",
-        "Player"
+        "Player",
+        "Goal",
+        "Camera"
     ]
 }

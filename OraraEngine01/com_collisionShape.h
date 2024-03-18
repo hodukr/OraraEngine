@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "vector.h"
 #include "component.h"
 #include <set>
 
