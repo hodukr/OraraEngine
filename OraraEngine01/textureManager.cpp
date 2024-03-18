@@ -2,10 +2,10 @@
 #include"renderer.h"
 #include "textureManager.h"
 
-std::unordered_map<int, TexData> TextureManager::m_Date;
+unordered_map<int, TexData> TextureManager::m_Date;
 int TextureManager::m_Index;
 
-const int TextureManager::LoadTexture(std::string file)
+const int TextureManager::LoadTexture(string file)
 {
 	for (int i = 0; i < m_Index; i++)
 	{

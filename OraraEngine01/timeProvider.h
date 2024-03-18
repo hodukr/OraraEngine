@@ -15,11 +15,11 @@ public:
 
     // 経過時間を秒単位で取得 
     double GetElapsedTimeInSeconds() const {
-        auto currentTime = std::chrono::high_resolution_clock::now();
+        auto currentTime = chrono::high_resolution_clock::now();
         auto duration = currentTime - startTime;
-        return std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
+        return chrono::duration_cast<chrono::duration<double>>(duration).count();
     }
 
 private:
-    std::chrono::high_resolution_clock::time_point startTime;
+    chrono::high_resolution_clock::time_point startTime;
 };
