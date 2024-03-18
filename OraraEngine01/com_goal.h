@@ -7,7 +7,7 @@ private:
     bool  m_IsGoal = false;
     bool  m_IsUp = false;
     bool  m_IsDissolve = false;
-    class InputSystem* m_HitObj{};
+    class GameObject* m_HitObj{};
     class Cloth* m_Cloth{};
     class BoxCollision* m_Collision{};
     class ChangeScene* m_ChangeScene{};

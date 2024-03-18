@@ -8,11 +8,9 @@
 void Goal::DrawInspector()
 {
     Scene* scene = Manager::GetScene();
-    if (SET_DATE_STATE(m_HitObjTag, CASTOMDRAWSTATE_STRING_TAG))
-    {
-        if (scene->GetGameObjectToTag(m_HitObjTag.c_str()))
-            m_HitObj = scene->GetGameObjectToTag(m_HitObjTag.c_str())->GetComponent<InputSystem>();
-    }
+    if (SET_DATE_STATE(m_HitObjTag, CASTOMDRAWSTATE_STRING_TAG))  
+        m_HitObj = scene->GetGameObjectToTag(m_HitObjTag.c_str());
+
 
     if (SET_DATE_STATE(m_ClothName, CASTOMDRAWSTATE_STRING_GAMEOBJECT))
         m_Cloth = scene->GetGameObject(m_ClothName.c_str())->GetComponent<Cloth>();
@@ -24,7 +22,7 @@ void Goal::Init()
 {
     Scene* scene = Manager::GetScene();
     if (m_HitObjTag != "")
-        m_HitObj = scene->GetGameObjectToTag(m_HitObjTag.c_str())->GetComponent<InputSystem>();
+        m_HitObj = scene->GetGameObjectToTag(m_HitObjTag.c_str());
     if (m_ClothName != "")
         m_Cloth = scene->GetGameObject(m_ClothName.c_str())->GetComponent<Cloth>();
 
@@ -50,7 +48,11 @@ void Goal::Update()
 {
     if (m_IsGoal)
     {
-        m_HitObj->SetEnable(false);
+        if (m_HitObj)
+        {
+            m_HitObj->GetComponent<InputSystem>()->SetEnable(false);
+            m_HitObj->GetComponent<Player>()->SetEnable(false);
+        }
         m_Cloth->GetParameter()->dissolveThreshold = 0.0f;
         m_StartPosition = m_Cloth->GetGameObejct()->m_Transform->GetPosition();
         m_IsDissolve = true;

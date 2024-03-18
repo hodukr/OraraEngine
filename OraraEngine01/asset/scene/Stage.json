@@ -431,74 +431,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "box",
-                        "m_Tag": "Untagged",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "",
-                                        "m_Enable": true,
-                                        "m_Position": {
-                                            "x": 0.13369828462600709,
-                                            "y": 2.239856243133545,
-                                            "z": 14.339390754699707
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        },
-                                        "Qx": 0.0,
-                                        "Qy": 0.0,
-                                        "Qz": 0.0,
-                                        "Qw": 1.0
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 4,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Modelpas": "box.obj"
-                                    }
-                                }
-                            }
-                        ],
-                        "m_Material": {
-                            "ptr_wrapper": {
-                                "valid": 1,
-                                "data": {
-                                    "m_ShaderName": "vertexLighting",
-                                    "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "m_TextureName": "",
-                                    "m_Extension": ""
-                                }
-                            }
-                        },
-                        "m_RenderingPass": 0,
-                        "m_DrawLayer": 1
-                    }
-                }
-            },
-            {
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
-                        "m_ObjctName": "GameObject",
+                        "m_ObjctName": "Goal",
                         "m_Tag": "Untagged",
                         "m_Component": [
                             {
@@ -510,7 +443,7 @@
                                         "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.16910839080810548,
-                                            "y": 2.3292253017425539,
+                                            "y": 11.809266090393067,
                                             "z": 13.99205207824707
                                         },
                                         "m_Rotation": {
@@ -519,9 +452,9 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
+                                            "x": 2.4162614345550539,
+                                            "y": 10.930181503295899,
+                                            "z": 2.713581085205078
                                         },
                                         "Qx": 0.0,
                                         "Qy": 0.0,
@@ -733,6 +666,73 @@
                                 "valid": 1,
                                 "data": {
                                     "m_ShaderName": "unlitTexture",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "GoalGW",
+                        "m_Tag": "Untagged",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": 0.23108309507369996,
+                                            "y": 2.638533115386963,
+                                            "z": 13.669242858886719
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 2.6100001335144045,
+                                            "y": 2.6100001335144045,
+                                            "z": 2.6100001335144045
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "GoalGW.obj"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
