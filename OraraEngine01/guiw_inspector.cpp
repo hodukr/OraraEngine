@@ -13,18 +13,18 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/list.hpp>
 #include <cereal/types/string.hpp>
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 
 void Inspector::Init()
 {
     try
     {
-        std::string filename = "resource/inspector.json";
-        std::ifstream inputFile(filename);
+        string filename = "resource/inspector.json";
+        ifstream inputFile(filename);
         cereal::JSONInputArchive archive(inputFile);
         archive(m_Taglist);
     }
-    catch (const std::exception&)
+    catch (const exception&)
     {
         m_Taglist.emplace_back("Untagged");
     }
@@ -39,8 +39,8 @@ void Inspector::Uninit()
 {
     m_GameObject = nullptr;
     m_IsRockVector.clear();
-    std::string filename = "resource/inspector.json";
-    std::ofstream outputFile(filename);
+    string filename = "resource/inspector.json";
+    ofstream outputFile(filename);
     cereal::JSONOutputArchive o_archive(outputFile);
 
     o_archive(cereal::make_nvp("Tag", m_Taglist));
@@ -129,7 +129,7 @@ void Inspector::Draw()
         int index = 0;
         for (auto& com : *m_GameObject->GetList())
         {
-            std::string name ="##" + std::to_string(index);
+            string name ="##" + to_string(index);
             bool flg = com.get()->GetEnable();
             ImGui::Checkbox(name.c_str(), &flg);
             com.get()->SetEnable(flg);
@@ -154,7 +154,7 @@ void Inspector::Draw()
         if (ImGui::BeginPopup("ComponentList")) {
             for (auto it : ReflectionList().GetNameList())
             {
-                std::string name = it.substr(it.find(" ") + 1);
+                string name = it.substr(it.find(" ") + 1);
                 if (ImGui::MenuItem(name.c_str())) {
                     DrawLayer objlayer = m_GameObject->GetDrawLayer();
                     Component* com = m_GameObject->AddComponent(ReflectionList().CreateInstans(it.c_str()));
@@ -195,8 +195,8 @@ void Inspector::Draw()
 
 void Inspector::DrawComponent(Component* component)
 {
-    std::string comname = typeid(*component).name();
-    std::string name = comname.substr(6);
+    string comname = typeid(*component).name();
+    string name = comname.substr(6);
 
     bool isTreenode = ImGui::TreeNode(name.c_str());
 
@@ -228,7 +228,7 @@ void Inspector::DrawComponent(Component* component)
 
     if (isTreenode)
     {
-        //std::vector<TypeDate> datelist = component->GetDateList();
+        //vector<TypeDate> datelist = component->GetDateList();
         component->DrawInspector();
         //for (auto date : m_DataList)
         //{
@@ -247,12 +247,12 @@ void Inspector::DrawMaterial()
         
         if (ImGui::BeginCombo("Shader", m_GameObject->GetMaterial()->GetFileName().c_str()))
         {
-            std::vector<std::string> shaderfile = AccessFolder("shader");
+            vector<string> shaderfile = AccessFolder("shader");
             // ファイル名を出力 
             for (const auto& fileName : shaderfile) {
 
                 if (fileName.find("VS.cso") == fileName.npos)continue;
-                std::string name = fileName.substr(0, fileName.find('V'));
+                string name = fileName.substr(0, fileName.find('V'));
                 if (ImGui::Selectable(name.c_str()))
                 {
                     m_GameObject->GetMaterial()->SetShader(name.c_str());
@@ -268,10 +268,10 @@ void Inspector::DrawMaterial()
 
         if (ImGui::BeginCombo("Texture", m_GameObject->GetMaterial()->GetTextureName().c_str()))
         {
-            std::vector<std::string> textures = AccessFolder("asset\\texture\\");
+            vector<string> textures = AccessFolder("asset\\texture\\");
             for (auto& file : textures)
             {
-                std::string extension = file.substr(file.find('.'));
+                string extension = file.substr(file.find('.'));
                 file = file.substr(0, file.find('.'));
                 if (ImGui::Selectable(file.c_str()))
                 {
@@ -320,7 +320,7 @@ void Inspector::DrawSetPass()
         {
             if (!(passflgs & (1 << i)))
             {
-                std::string name = Pass::GetName(1 << i);
+                string name = Pass::GetName(1 << i);
                 if (name != "")
                 {
                     if (ImGui::Selectable(name.c_str()))
@@ -364,38 +364,38 @@ void Inspector::Drawvariable(TypeDate& vardate)
     EndItemDraw();
 }
 
-std::vector<std::string> Inspector::AccessFolder(const char* folderPass)
+vector<string> Inspector::AccessFolder(const char* folderPass)
 {
     // フォルダのパスを指定 
-    std::string folderPath = folderPass;
+    string folderPath = folderPass;
 
     // ファイル名を格納するためのベクターを作成 
-    std::vector<std::string> fileNames;
+    vector<string> fileNames;
 
     try {
         // 指定されたフォルダ内のファイルをイテレート 
         for (const auto& entry : fs::directory_iterator(folderPath)) {
-            std::string name = entry.path().filename().string();
+            string name = entry.path().filename().string();
             fileNames.push_back(name);
         }
     }
-    catch (const std::filesystem::filesystem_error& ex) {
-        std::cerr << "Error: " << ex.what() << std::endl;
+    catch (const filesystem::filesystem_error& ex) {
+        cerr << "Error: " << ex.what() << endl;
     }
 
     return fileNames;
 }
 
-void Inspector::CreatComponentFile(std::string comname)
+void Inspector::CreatComponentFile(string comname)
 {
-    std::string createname = "com_" + comname + ".h";
+    string createname = "com_" + comname + ".h";
     fs::path name= fs::current_path();
     bool isfile = true;
     for (const auto &file : fs::directory_iterator(name))
     {//大文字小文file字を区別しない比較
-        std::string filename = file.path().filename().string();
-        if (filename.size() == createname.size() && std::equal(filename.begin(), filename.end(), createname.begin(), [](char a, char b) {
-            return std::tolower(a) == std::tolower(b);
+        string filename = file.path().filename().string();
+        if (filename.size() == createname.size() && equal(filename.begin(), filename.end(), createname.begin(), [](char a, char b) {
+            return tolower(a) == tolower(b);
             }))
         {
             isfile = false;
@@ -405,7 +405,7 @@ void Inspector::CreatComponentFile(std::string comname)
     if (isfile) 
     {//ヘッダーファイル生成
         {
-            std::ofstream header_file("com_" + comname + ".h");
+            ofstream header_file("com_" + comname + ".h");
             if (header_file.is_open()) {
                 header_file << "#ifndef " << comname << "_H\n";
                 header_file << "#define " << comname << "_H\n\n";
@@ -433,7 +433,7 @@ void Inspector::CreatComponentFile(std::string comname)
         }
     //ソースファイル生成
         {
-            std::ofstream header_file("com_" + comname + ".cpp");
+            ofstream header_file("com_" + comname + ".cpp");
             if (header_file.is_open()) {
                 header_file << "#include \"main.h\"\n\n";
                 header_file << "#include \"com_" << comname << ".h\"\n\n";
@@ -447,32 +447,32 @@ void Inspector::CreatComponentFile(std::string comname)
         }
     }
 
-    std::string projectname = "OraraEngine01.vcxproj";
+    string projectname = "OraraEngine01.vcxproj";
     //プロジェクトに追加
     AddFileToProject(projectname, "com_" + comname + ".h", true);
     AddFileToProject(projectname, "com_" + comname + ".cpp",false);
     //com_commonにincludeとSET_COMPONENT_CLASSの追加
     {
-        std::ifstream file_in("com_common.h");
+        ifstream file_in("com_common.h");
         if (!file_in) {
             return;
         }
 
-        std::vector<std::string> lines;
-        std::string line;
+        vector<string> lines;
+        string line;
         int current_line = 0;
         while (getline(file_in, line)) 
         {
             current_line++;
-            if (line.find("//endinclude") != std::string::npos) 
+            if (line.find("//endinclude") != string::npos) 
             {
-                std::string date = line;
+                string date = line;
                 line = "#include \"com_"+ comname + ".h\"\n";
                 line += date;
             }
-            else if (line.find("//endSET_COMPONENT_CLASS") != std::string::npos) 
+            else if (line.find("//endSET_COMPONENT_CLASS") != string::npos) 
             {
-                std::string date = line;
+                string date = line;
                 line = "SET_COMPONENT_CLASS(" + comname + ")\n";
                 line += date;
             }
@@ -481,37 +481,37 @@ void Inspector::CreatComponentFile(std::string comname)
 
         file_in.close();
 
-        std::ofstream file_out("com_common.h");
+        ofstream file_out("com_common.h");
         if (!file_out) 
         {
             return;
         }
 
-        for (const std::string& l : lines) 
+        for (const string& l : lines) 
         {
-            file_out << l << std::endl;
+            file_out << l << endl;
         }
 
         file_out.close();
     }
-    std::ifstream file_in("com_common.h");
+    ifstream file_in("com_common.h");
     if (!file_in) {
         return;
     }
 
     //reflection.cppにSetReflectionComponent追加
     {
-        std::ofstream file("reflection.cpp", std::ios_base::app); // ファイルを追記モードで開く
+        ofstream file("reflection.cpp", ios_base::app); // ファイルを追記モードで開く
 
         if (!file.is_open()) {
-            std::cerr << "ファイルを開けませんでした。" << std::endl;
+            cerr << "ファイルを開けませんでした。" << endl;
             return;
         }
 
-        std::string line;
+        string line;
 
         // ファイルの最後の行を読み取る
-        std::ifstream infile("reflection.cpp");
+        ifstream infile("reflection.cpp");
         if (infile.is_open()) {
             while (getline(infile, line)) {
                 // 最後の行を見つける
@@ -519,15 +519,15 @@ void Inspector::CreatComponentFile(std::string comname)
             infile.close();
         }
         else {
-            std::cerr << "ファイルを開けませんでした。" << std::endl;
+            cerr << "ファイルを開けませんでした。" << endl;
             return;
         }
 
         // 最後の行に追加するテキスト
-        std::string textToAdd = "SetReflectionComponent(" + comname + ")";
+        string textToAdd = "SetReflectionComponent(" + comname + ")";
 
         // 最後の行にテキストを追加
-        file << textToAdd << std::endl;
+        file << textToAdd << endl;
 
         // ファイルを閉じる
         file.close();
@@ -651,7 +651,7 @@ void Inspector::AddFileToProject(const string& project_file, const string& file_
     rename((project_file + ".tmp").c_str(), project_file.c_str());
 }
 
-void Inspector::DeletTag(std::string tag)
+void Inspector::DeletTag(string tag)
 {
     for (int i = 0; i < 3; i++)
     {
@@ -668,7 +668,7 @@ void Inspector::DeletTag(std::string tag)
 
 void Inspector::DrawItemInt(TypeDate& date)
 {
-    m_IsSet = ImGui::InputInt(date.Name.c_str(), std::get<TYPE_INT>(date.MemberDate));
+    m_IsSet = ImGui::InputInt(date.Name.c_str(), get<TYPE_INT>(date.MemberDate));
 
 }
 
@@ -678,12 +678,12 @@ void Inspector::DrawItemFloat(TypeDate& date)
     {
     case CASTOMDRAWSTATE_FLOAT_SLIDER:
     {
-        float* coustomfloat = std::get<TYPE_FLOAT>(date.MemberDate);
+        float* coustomfloat = get<TYPE_FLOAT>(date.MemberDate);
         m_IsSet = ImGui::SliderFloat(date.Name.c_str(), coustomfloat, m_SliderMin, m_SliderMax);
         break;
     }
     default:
-        m_IsSet = ImGui::InputFloat(date.Name.c_str(), std::get<TYPE_FLOAT>(date.MemberDate),0.0f,0.0f,"%.5f");
+        m_IsSet = ImGui::InputFloat(date.Name.c_str(), get<TYPE_FLOAT>(date.MemberDate),0.0f,0.0f,"%.5f");
         break;
     }
 }
@@ -694,13 +694,13 @@ void Inspector::DrawItemString(TypeDate& date)
     {
     case CASTOMDRAWSTATE_STRING_FOLDER:
     {
-        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        string* stringdate = get<TYPE_STRING>(date.MemberDate);
         if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
         {
-            std::vector<std::string> files = AccessFolder(m_AccessPass.c_str());
+            vector<string> files = AccessFolder(m_AccessPass.c_str());
             // ファイル名を出力 
             for (const auto& fileName : files) {
-                if (fileName.find(m_Extension) == std::string::npos)continue;
+                if (fileName.find(m_Extension) == string::npos)continue;
                 if (ImGui::Selectable(fileName.c_str()))
                 {
                     *stringdate = fileName;
@@ -713,7 +713,7 @@ void Inspector::DrawItemString(TypeDate& date)
         break;
     case CASTOMDRAWSTATE_STRING_GAMEOBJECT:
     {
-        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        string* stringdate = get<TYPE_STRING>(date.MemberDate);
         Scene* scene = Manager::GetScene();
         if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
         {
@@ -735,7 +735,7 @@ void Inspector::DrawItemString(TypeDate& date)
         break;
     case CASTOMDRAWSTATE_STRING_TAG:
     {
-        std::string* stringdate = std::get<TYPE_STRING>(date.MemberDate);
+        string* stringdate = get<TYPE_STRING>(date.MemberDate);
         if (ImGui::BeginCombo(date.Name.c_str(), stringdate->c_str()))
         {
             for (auto& tag : m_Taglist)
@@ -752,16 +752,16 @@ void Inspector::DrawItemString(TypeDate& date)
         break;
     default:
         char str[256];
-        strncpy_s(str, std::get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
+        strncpy_s(str, get<TYPE_STRING>(date.MemberDate)->c_str(), sizeof(str));
         m_IsSet = ImGui::InputText(date.Name.c_str(), str, 256);
-        *std::get<TYPE_STRING>(date.MemberDate) = str;
+        *get<TYPE_STRING>(date.MemberDate) = str;
         break;
     }
 }
 
 void Inspector::DrawItemBool(TypeDate& date)
 {
-    m_IsSet = ImGui::Checkbox(date.Name.c_str(), std::get<TYPE_BOOL>(date.MemberDate));
+    m_IsSet = ImGui::Checkbox(date.Name.c_str(), get<TYPE_BOOL>(date.MemberDate));
 
 }
 
@@ -773,17 +773,17 @@ void Inspector::DrawItemVector3(TypeDate& date)
     {
         ImGui::Text(date.Name.c_str());
 
-        Vector3* vec = std::get<TYPE_VECTOR3>(date.MemberDate);
+        Vector3* vec = get<TYPE_VECTOR3>(date.MemberDate);
 
-        std::string cb;
+        string cb;
         cb = "##" + date.Name;
 
         ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
         ImGui::SameLine();
 
-        std::string vecx = "##X" + date.Name;
-        std::string vecy = "##Y" + date.Name;
-        std::string vecz = "##Z" + date.Name;
+        string vecx = "##X" + date.Name;
+        string vecy = "##Y" + date.Name;
+        string vecz = "##Z" + date.Name;
 
         float x = D3DXToDegree(vec->x);
         float y = D3DXToDegree(vec->y);
@@ -835,16 +835,16 @@ void Inspector::DrawItemVector3(TypeDate& date)
     {
         ImGui::Text(date.Name.c_str());
 
-        std::string cb;
+        string cb;
         cb = "##" + date.Name;
 
         ImGui::Checkbox(cb.c_str(), &m_IsRockVector[m_NumVector]);
         ImGui::SameLine();
-        Vector3* vector = std::get<Vector3*>(date.MemberDate);
+        Vector3* vector = get<Vector3*>(date.MemberDate);
 
-        std::string vecx = "##X" + date.Name;
-        std::string vecy = "##Y" + date.Name;
-        std::string vecz = "##Z" + date.Name;
+        string vecx = "##X" + date.Name;
+        string vecy = "##Y" + date.Name;
+        string vecz = "##Z" + date.Name;
 
         float x = vector->x;
         float y = vector->y;
@@ -894,5 +894,5 @@ void Inspector::DrawItemVector3(TypeDate& date)
 
 void Inspector::DrawItemD3dxcolor(TypeDate& date)
 {
-    m_IsSet = ImGui::ColorEdit4(date.Name.c_str(), *std::get<TYPE_D3DXCOLOR>(date.MemberDate));
+    m_IsSet = ImGui::ColorEdit4(date.Name.c_str(), *get<TYPE_D3DXCOLOR>(date.MemberDate));
 }

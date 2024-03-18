@@ -3,7 +3,7 @@
 #include "imGuiWindow.h"
 #include <variant>
 
-#define VARIATDATE int*, float*,std::string*, bool*,Vector3*,struct D3DXCOLOR*
+#define VARIATDATE int*, float*,string*, bool*,Vector3*,struct D3DXCOLOR*
 #define SET_DATE(T) GuiManager::Instance().GetGuiWindow<Inspector>()->SetDate(#T, &T)
 #define SET_NAME_DATE(NAME,T) GuiManager::Instance().GetGuiWindow<Inspector>()->SetDate(NAME, &T)
 #define SET_DATE_STATE(T,S) GuiManager::Instance().GetGuiWindow<Inspector>()->SetDate(#T, &T,S)
@@ -34,9 +34,9 @@ enum CastomItemState
 
 struct TypeDate
 {
-    std::string Name{};//メンバ変数の名前
+    string Name{};//メンバ変数の名前
     CastomItemState State{};
-    std::variant<VARIATDATE> MemberDate{};//メンバ変数のデータ
+    variant<VARIATDATE> MemberDate{};//メンバ変数のデータ
 };
 
 class Inspector:public GuiWindowBase
@@ -45,11 +45,11 @@ private:
     class GameObject* m_GameObject = nullptr;
 
     class Component* m_PopupComponent{};
-    std::unordered_map<int,bool> m_IsRockVector{};
+    unordered_map<int,bool> m_IsRockVector{};
     int m_NumVector{};
-    std::list<std::string> m_Taglist{};
-    std::string m_DeletTag{};
-    //std::vector<TypeDate> m_DataList;//Componentのメンバ変数を格納する
+    list<string> m_Taglist{};
+    string m_DeletTag{};
+    //vector<TypeDate> m_DataList;//Componentのメンバ変数を格納する
 
 //component表示に必要な変数
     bool m_IsSet = false;//データが変更されたかを監視する
@@ -60,8 +60,8 @@ private:
 
     //string
     //CASTOMDRAWSTATE_STRING_FOLDER
-    std::string m_AccessPass{};//アクセスするパス
-    std::string m_Extension{};//型指定子
+    string m_AccessPass{};//アクセスするパス
+    string m_Extension{};//型指定子
 public:
     void Init();
     void Uninit();
@@ -75,12 +75,12 @@ public:
     const GameObject* GetGameObject(){return m_GameObject;}
 
     //コンポーネント表示
-    bool SetDate(std::string name, std::variant<VARIATDATE> date, CastomItemState state = CASTOMDRAWSTATE_NONE_NONE)
+    bool SetDate(string name, variant<VARIATDATE> date, CastomItemState state = CASTOMDRAWSTATE_NONE_NONE)
     {
         BegenItemDraw();
         TypeDate typeDate;
         typeDate.MemberDate = date;
-        if (name.find("m_") != std::string::npos)
+        if (name.find("m_") != string::npos)
         {
             name = name.substr(name.find("m_") + 2);
         }
@@ -90,16 +90,16 @@ public:
         return m_IsSet;
     }
     void SetSlider(float min, float max) { m_SliderMin = min; m_SliderMax = max; }
-    void SetFolder(std::string pass, std::string extension) { m_AccessPass = pass; m_Extension = extension;}
+    void SetFolder(string pass, string extension) { m_AccessPass = pass; m_Extension = extension;}
 private:
     void DrawComponent(class Component* component);
     void DrawMaterial();
     void DrawSetPass();
     void Drawvariable(struct TypeDate& vardate);
-    std::vector<std::string> AccessFolder(const char* folderPass);//フォルダ内のファイル名の取得
-    void CreatComponentFile(std::string comname);
-    void AddFileToProject(const std::string& project_file, const std::string& file_path, bool is_header);
-    void DeletTag(std::string tag);
+    vector<string> AccessFolder(const char* folderPass);//フォルダ内のファイル名の取得
+    void CreatComponentFile(string comname);
+    void AddFileToProject(const string& project_file, const string& file_path, bool is_header);
+    void DeletTag(string tag);
 
     void DrawItemInt(TypeDate& date);
     void DrawItemFloat(TypeDate& date);

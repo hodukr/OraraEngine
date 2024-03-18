@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "modelManager.h"
 
-std::unordered_map<int, Model> ModelManager::m_Models;
+unordered_map<int, Model> ModelManager::m_Models;
 int ModelManager::m_Index = 0;
 
 int ModelManager::Load(const char* name)
