@@ -4,7 +4,8 @@
 #include "com_goal.h"
 #include "post.h"
 #include "shaderManager.h" 
-
+#include "randomNumberGenerator.h"
+#include "timeProvider.h"
 void Goal::DrawInspector()
 {
     Scene* scene = Manager::GetScene();
@@ -52,6 +53,7 @@ void Goal::Update()
         {
             m_HitObj->GetComponent<InputSystem>()->SetEnable(false);
             m_HitObj->GetComponent<Player>()->SetEnable(false);
+            m_HitObj->GetComponent<BoxCollision>()->SetEnable(false);
         }
         m_Cloth->GetParameter()->dissolveThreshold = 0.0f;
         m_StartPosition = m_Cloth->GetGameObejct()->m_Transform->GetPosition();
@@ -79,8 +81,26 @@ void Goal::Update()
     }
     if (m_IsUp)
     {
-        Vector3 vec = m_StartPosition - m_Cloth->GetGameObejct()->m_Transform->GetPosition();
+        static ElapsedTimeTracker timer;
+        if(timer.GetElapsedTimeInSeconds() >= 0.0f){
+            timer.Reset();
+            static RandomNumberGenerator random;
+            Vector3 offset;
+            offset.x = random.GenerateFloat(-20.0f, 20.0f);
+            offset.y = random.GenerateFloat(1.0f, 10.0f);
+            offset.z = random.GenerateFloat(2.0f, 5.0f);
+            Vector3 size{};
+            size.x = random.GenerateFloat(2.0f, 4.0f);
+            size.y = size.x;
+            Vector3 createpos = m_GameObject->m_Transform->GetPosition() + offset;
+            GameObject* obj = Manager::CreatePrefab("fireworks", createpos);
+            D3DXCOLOR color{random.GenerateFloat(0.0f,1.0f),random.GenerateFloat(0.0f,1.0f) ,random.GenerateFloat(0.0f,1.0f) ,1.0f};
+            obj->GetMaterial()->SetColor(color);
+            obj->m_Transform->SetScale(size);
+            obj->SetDestroy(1.0f);
+        }
 
+        Vector3 vec = m_StartPosition - m_Cloth->GetGameObejct()->m_Transform->GetPosition();
         float len = vec.LengthSpr();
 
         if (len <= 0.02f * 0.02f)

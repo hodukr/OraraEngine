@@ -45,4 +45,5 @@ public:
 	static GameState GetGameState() { return m_GameState; }
 
 	static CollisionManager* GetCollisionManager() { return m_CollisionManager; }
+	static GameObject* CreatePrefab(std::string name, Vector3 position);
 };

@@ -195,3 +195,16 @@ void Manager::SetScene(string scene)
 
 
 }
+
+GameObject* Manager::CreatePrefab(std::string name,Vector3 position)
+{
+	string filename = "asset/prefab/" + name + ".json.prefab";
+	ifstream inputFile(filename);
+	cereal::JSONInputArchive archive(inputFile);
+	unique_ptr<GameObject> obj = make_unique<GameObject>();
+	archive(*obj);
+	GameObject* initobj = GetScene()->SetGameObject(move(obj));
+	initobj->m_Transform->SetPosition(position);
+	return initobj;
+
+}

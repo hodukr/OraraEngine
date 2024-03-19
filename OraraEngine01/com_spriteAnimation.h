@@ -5,7 +5,6 @@ class SpriteAnimation :public Component
 {
 private:
 	ID3D11Buffer* m_VertexBuffer{};
-	int m_Index = -1;
 
 	Vector2 m_Divide{1.0f,1.0f};
 	Vector2 m_Pattern{0.0f,0.0f};
@@ -14,6 +13,8 @@ private:
 	int m_AnimSpeed{10};
 	int m_Loop{0};
 	bool m_AnimFinish = false;
+	int m_Index{};
+	int m_Count{};
 
 public:
 	SpriteAnimation() { m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D; }

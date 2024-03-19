@@ -61,29 +61,26 @@ void SpriteAnimation::Update()
 {
 	if (m_AnimFinish == false)
 	{
-		static int count = 0;
-		count++;
 		if (m_Loop == 0)
 		{
-			if (count >= m_AnimSpeed)
+			if (m_Count >= m_AnimSpeed)
 			{
 				if (m_AnimCount >= m_NumTexture)
 					m_AnimCount = 0;
 
 				m_AnimCount++;
-				count = 0;
+				m_Count = 0;
 			}
 		}
 		else
 		{
-			static int index = 0;
 
-			if (count >= m_AnimSpeed)
+			if (m_Count >= m_AnimSpeed)
 			{
 				if (m_AnimCount >= m_NumTexture)
 				{
-					index++;
-					if (index == m_Loop)
+					m_Index++;
+					if (m_Index >= m_Loop)
 					{
 						m_AnimFinish = true;
 						return;
@@ -92,9 +89,10 @@ void SpriteAnimation::Update()
 				}
 
 				m_AnimCount++;
-				count = 0;
+				m_Count = 0;
 			}
 		}
+		m_Count++;
 	}
 }
 

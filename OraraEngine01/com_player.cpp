@@ -5,7 +5,6 @@
 #include "input.h"
 #include "com_player.h"
 #include "post.h"
-#include <cereal/archives/json.hpp>
 void Player::Init()
 {
     m_Collision = m_GameObject->GetComponent<BoxCollision>();
@@ -32,13 +31,7 @@ void Player::Init()
                 {
                     if (other->GetGameObejct()->GetTag() == "Enemy")
                     {
-                        string filename = "asset/prefab/HitEnemy.json.prefab";
-                        ifstream inputFile(filename);
-                        cereal::JSONInputArchive archive(inputFile);
-                        unique_ptr<GameObject> obj = make_unique<GameObject>();
-                        archive(*obj);
-                        GameObject* water = Manager::GetScene()->SetGameObject(move(obj));
-                        water->m_Transform->SetPosition(m_GameObject->m_Transform->GetPosition());
+                        GameObject* water = Manager::CreatePrefab("HitEnemy",m_GameObject->m_Transform->GetPosition());
                         water->SetDestroy(0.5f);
                         Dead();
                         other->GetGameObejct()->GetComponent<Enemy>()->SetEnable(false);
@@ -98,13 +91,7 @@ void Player::Update()
             float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
             if (difference < -3.0f)
             {
-                string filename = "asset/prefab/waterPraticle.json.prefab";
-                ifstream inputFile(filename);
-                cereal::JSONInputArchive archive(inputFile);
-                unique_ptr<GameObject> obj = make_unique<GameObject>();
-                archive(*obj);
-                GameObject* water = Manager::GetScene()->SetGameObject(move(obj));
-                water->m_Transform->SetPosition(m_GameObject->m_Transform->GetPosition());
+                GameObject* water = Manager::CreatePrefab("waterPraticle", m_GameObject->m_Transform->GetPosition());
                 water->SetDestroy(0.5f);
                 Dead();
             }
