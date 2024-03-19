@@ -102,9 +102,11 @@ void Audio::Init()
 
 void Audio::Uninit()
 {
-	m_SourceVoice->Stop();
-	m_SourceVoice->DestroyVoice();
-
+	if (m_SourceVoice)
+	{
+		m_SourceVoice->Stop();
+		m_SourceVoice->DestroyVoice();
+	}
 	delete[] m_SoundData;
 }
 
