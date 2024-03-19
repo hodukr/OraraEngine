@@ -16,6 +16,7 @@ private:
     int m_DeadWave = 0;
     Vector3 m_DeadPosition{};
     int m_HItTime{};
+    class WaterSurface* m_WaterSurface{};
 public:
     void DrawInspector()
     {
@@ -28,10 +29,8 @@ public:
     void Update()override;
     void Draw()override;
 
-    void DeadPlayer();
-
     template<class Archive>
-    void serialize(Archive & archive)
+    void serialize(Archive& archive)
     {
 
         Component::serialize<Archive>(archive);
@@ -44,6 +43,8 @@ public:
 
         }
     }
+private:
+    void Dead();
 };
 
 #endif /* player_H */

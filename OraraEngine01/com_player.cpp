@@ -5,10 +5,16 @@
 #include "input.h"
 #include "com_player.h"
 #include "post.h"
+#include <cereal/archives/json.hpp>
 void Player::Init()
 {
     m_Collision = m_GameObject->GetComponent<BoxCollision>();
     GameObject* goal = Manager::GetScene()->GetGameObjectToTag("Goal");
+    GameObject* gameObject = Manager::GetScene()->GetGameObject("Water");
+    if (gameObject)
+    {
+        m_WaterSurface = gameObject->GetComponent<WaterSurface>();
+    }
     m_IsDead = false;
     if (goal)
     {
@@ -26,7 +32,8 @@ void Player::Init()
                 {
                     if (other->GetGameObejct()->GetTag() == "Enemy")
                     {
-                        if(!m_IsDead)m_IsDead = true;
+                        Dead();
+                        other->GetGameObejct()->GetComponent<Enemy>()->SetEnable(false);
                     }
                     if (boxother->GetHitDirection(m_Collision) == BOXHITDIRECTION_UP)
                     {
@@ -77,8 +84,23 @@ void Player::Update()
         }
         m_Velocity.y -= 0.1f;
         m_GameObject->m_Transform->Translate(m_Velocity);
-
-        if (m_IsDead)DeadPlayer();
+        if (m_WaterSurface)
+        {
+            float groundHeight = m_WaterSurface->GetHeigt(m_GameObject->m_Transform->GetPosition());
+            float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
+            if (difference < -3.0f)
+            {
+                string filename = "asset/prefab/waterPraticle.json.prefab";
+                ifstream inputFile(filename);
+                cereal::JSONInputArchive archive(inputFile);
+                unique_ptr<GameObject> obj = make_unique<GameObject>();
+                archive(*obj);
+                GameObject* water = Manager::GetScene()->SetGameObject(move(obj));
+                water->m_Transform->SetPosition(m_GameObject->m_Transform->GetPosition());
+                water->SetDestroy(0.5f);
+                Dead();
+            }
+        }
         break;
     case 1:
     {
@@ -88,13 +110,36 @@ void Player::Update()
             m_DeadWave = 2;
         }
     }
-    break;
+        break;
     case 2:
     {
         m_Velocity.y -= 0.07f;
         m_GameObject->m_Transform->Translate(m_Velocity);
+        if (m_WaterSurface)
+        {
+
+            float groundHeight = m_WaterSurface->GetHeigt(m_GameObject->m_Transform->GetPosition());
+            float difference = m_GameObject->m_Transform->GetPosition().y - groundHeight;
+            if (difference < -3.0f)
+            {
+                m_DeadWave = 3;
+            }
+        }
     }
-    break;
+        break;
+    case 3:
+    {
+        m_DeadWave = 4;
+        string newscene = Manager::GetScene()->GetName();
+        Post* post = ShaderManager::Instance().GetPost();
+        post->SetIsWipe(true);
+        post->SetThreshold(0.0f);
+        post->SetWipeSpeed(0.05f);
+        if (!m_ChangeScene)return;
+        m_ChangeScene->SetScene(newscene);
+        m_ChangeScene->SetIsFadeOut(true);
+    }
+        break;
     default:
         break;
     }
@@ -103,7 +148,7 @@ void Player::Draw()
 {
 }
 
-void Player::DeadPlayer()
+void Player::Dead()
 {
     m_DeadWave = 1;
     m_DeadPosition = m_GameObject->m_Transform->GetPosition();
@@ -122,13 +167,8 @@ void Player::DeadPlayer()
         if (sc)sc->SetShake(true);
     }
     
-//    string newScene = Manager::GetScene()->GetName();
-//    Post* post = ShaderManager::Instance().GetPost();
-//    post->SetIsWipe(true);
-//    post->SetThreshold(0.0f);
-//    post->SetWipeSpeed(0.01f);
-//    if (!m_ChangeScene)return;
-//    m_ChangeScene->SetScene(newScene);
-//    m_ChangeScene->SetIsFadeOut(true);
+
 }
+
+
 

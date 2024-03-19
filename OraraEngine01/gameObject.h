@@ -16,6 +16,8 @@ private:
     int m_Version = 0;
     int m_UseShaderNum = -1;//使用するシェーダー番号
     unique_ptr<Material> m_Material{};
+    class ElapsedTimeTracker* m_Timer =nullptr;
+    double m_DeletTime;
 public:
     Transform* m_Transform = nullptr;
     GameObject() {
@@ -25,22 +27,10 @@ public:
         m_DrawLayer = GAME_OBJECT_DRAW_LAYER_NONE;
         m_RenderingPass = SHADER_NONE;
     }
-    void SetDestroy() { m_Destroy = true; }
+    void SetDestroy(float time =0.0f);
 
-    bool Destroy()
-    {
-        if (m_Destroy)
-        {
-            Uninit();
-            //delete this;
-            return true;
-        }
-        else
-        {
-            m_Component.remove_if([](const unique_ptr<Component>& component) {return component->Destroy(); });//ラムダ式
-            return false;
-        }
-    }
+    bool Destroy();
+   
 
     void Init() {
         m_Transform = GetComponent<Transform>();

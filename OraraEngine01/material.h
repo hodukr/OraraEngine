@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <string>
-#include <cereal/types/string.hpp>
 class Material
 {
 private:

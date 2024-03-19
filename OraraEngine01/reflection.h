@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <functional>
 #include "singleton.h"
-//#include <cereal/types/memory.hpp>
 
 class ReflectionList
 {
