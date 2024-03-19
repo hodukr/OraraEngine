@@ -7,6 +7,7 @@ private:
     float  m_Speed{0.3f};
     bool m_IsDirection = true;
     float m_angle{};
+    float m_OffsetY;
     Vector3 m_Vel{};
     float m_Acceleration{0.1f};//加速度
     float m_MaxSpeed{1.0f};
@@ -15,6 +16,7 @@ public:
     {
         SET_DATE(m_Speed);
         SET_DATE(m_IsDirection);
+        SET_DATE(m_OffsetY);
         SET_DATE(m_Acceleration);
         SET_DATE(m_MaxSpeed);
         SET_DATE(m_Vel);
@@ -29,7 +31,7 @@ public:
         Component::serialize<Archive>(archive);
         try
         {
-            archive(CEREAL_NVP(m_Speed), CEREAL_NVP(m_IsDirection));
+            archive(CEREAL_NVP(m_Speed), CEREAL_NVP(m_IsDirection), CEREAL_NVP(m_OffsetY));
             archive(CEREAL_NVP(m_Acceleration), CEREAL_NVP(m_MaxSpeed));
 
         }
