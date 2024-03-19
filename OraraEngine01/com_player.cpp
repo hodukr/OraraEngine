@@ -32,6 +32,14 @@ void Player::Init()
                 {
                     if (other->GetGameObejct()->GetTag() == "Enemy")
                     {
+                        string filename = "asset/prefab/HitEnemy.json.prefab";
+                        ifstream inputFile(filename);
+                        cereal::JSONInputArchive archive(inputFile);
+                        unique_ptr<GameObject> obj = make_unique<GameObject>();
+                        archive(*obj);
+                        GameObject* water = Manager::GetScene()->SetGameObject(move(obj));
+                        water->m_Transform->SetPosition(m_GameObject->m_Transform->GetPosition());
+                        water->SetDestroy(0.5f);
                         Dead();
                         other->GetGameObejct()->GetComponent<Enemy>()->SetEnable(false);
                     }

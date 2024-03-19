@@ -142,7 +142,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "waterPraticle",
+                        "m_ObjctName": "HitEnemy",
                         "m_Tag": "Untagged",
                         "m_Component": [
                             {
@@ -154,7 +154,7 @@
                                         "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
-                                            "y": 5.335872173309326,
+                                            "y": 0.0,
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
@@ -163,9 +163,9 @@
                                             "z": 0.0
                                         },
                                         "m_Scale": {
-                                            "x": 0.20000000298023225,
-                                            "y": 0.20000000298023225,
-                                            "z": 0.20000000298023225
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
                                         },
                                         "Qx": 0.0,
                                         "Qy": 0.0,
@@ -182,24 +182,24 @@
                                     "data": {
                                         "m_Emitter": {
                                             "StartColor": {
-                                                "r": 0.0,
-                                                "g": 0.24531525373458863,
-                                                "b": 0.7220077514648438,
+                                                "r": 1.0,
+                                                "g": 1.0,
+                                                "b": 1.0,
                                                 "a": 1.0
                                             },
                                             "StartRotation": 0.0,
                                             "StartLifetime": 2.0,
                                             "EmissionRate": 0.0,
-                                            "Speed": 0.30000001192092898,
-                                            "MaxParticles": 20,
+                                            "Speed": 0.800000011920929,
+                                            "MaxParticles": 5,
                                             "AddStateVelocity": {
                                                 "x": 0.0,
-                                                "y": 1.0,
+                                                "y": 0.0,
                                                 "z": 0.0
                                             },
                                             "AddVelocity": {
                                                 "x": 0.0,
-                                                "y": -0.03999999910593033,
+                                                "y": 0.0,
                                                 "z": 0.0
                                             },
                                             "GradationColor": {
@@ -224,11 +224,11 @@
                                             },
                                             "IsGradation": false,
                                             "Fluctuation": 0.0,
-                                            "TexName": "praticle.dds",
+                                            "TexName": "star.png",
                                             "GradationLength": 2.0,
                                             "Fade": true,
-                                            "StartFadeTime": 0.0,
-                                            "declineFade": 0.8999999761581421
+                                            "StartFadeTime": 0.10000000149011612,
+                                            "declineFade": 0.699999988079071
                                         }
                                     }
                                 }

@@ -434,111 +434,6 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "kinoko",
-                        "m_Tag": "Player",
-                        "m_Component": [
-                            {
-                                "polymorphic_id": 1,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "",
-                                        "m_Enable": true,
-                                        "m_Position": {
-                                            "x": -16.155797958374025,
-                                            "y": 3.5085411071777345,
-                                            "z": -31.391483306884767
-                                        },
-                                        "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 1.0,
-                                            "z": 1.0
-                                        },
-                                        "Qx": 0.0,
-                                        "Qy": 0.0,
-                                        "Qz": 0.0,
-                                        "Qw": 1.0
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 4,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Modelpas": "kinoko.obj"
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 7,
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Dynamic": true,
-                                        "m_Offset": {
-                                            "x": 0.0,
-                                            "y": 0.699999988079071,
-                                            "z": 0.0
-                                        },
-                                        "m_Scale": {
-                                            "x": 1.0,
-                                            "y": 0.699999988079071,
-                                            "z": 1.0
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483658,
-                                "polymorphic_name": "Player",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {}
-                                }
-                            },
-                            {
-                                "polymorphic_id": 2147483659,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_Speed": 0.30000001192092898,
-                                        "m_IsDirection": true
-                                    }
-                                }
-                            }
-                        ],
-                        "m_Material": {
-                            "ptr_wrapper": {
-                                "valid": 1,
-                                "data": {
-                                    "m_ShaderName": "toon",
-                                    "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "m_TextureName": "",
-                                    "m_Extension": ""
-                                }
-                            }
-                        },
-                        "m_RenderingPass": 4,
-                        "m_DrawLayer": 1
-                    }
-                }
-            },
-            {
-                "ptr_wrapper": {
-                    "valid": 1,
-                    "data": {
                         "m_ObjctName": "wood(1)",
                         "m_Tag": "NoneTag",
                         "m_Component": [
@@ -799,7 +694,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483660,
+                                "polymorphic_id": 2147483658,
                                 "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -895,7 +790,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483661,
+                                "polymorphic_id": 2147483659,
                                 "polymorphic_name": "ComponentPost",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -906,7 +801,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483662,
+                                "polymorphic_id": 2147483660,
                                 "polymorphic_name": "ChangeScene",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -917,7 +812,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483663,
+                                "polymorphic_id": 2147483661,
                                 "polymorphic_name": "Goal",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -947,6 +842,118 @@
                         },
                         "m_RenderingPass": 0,
                         "m_DrawLayer": -1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "kinoko",
+                        "m_Tag": "Player",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -11.180049896240235,
+                                            "y": 1.5616538524627686,
+                                            "z": -25.28139305114746
+                                        },
+                                        "m_Rotation": {
+                                            "x": -1.029201865196228,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        },
+                                        "Qx": -0.0,
+                                        "Qy": -0.4921875298023224,
+                                        "Qz": -0.0,
+                                        "Qw": 0.8704891800880432
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 4,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "kinoko.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 7,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.699999988079071,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 0.699999988079071,
+                                            "z": 1.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483662,
+                                "polymorphic_name": "Player",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483663,
+                                "polymorphic_name": "InputSystem",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Speed": 0.30000001192092898,
+                                        "m_IsDirection": true,
+                                        "m_Acceleration": 0.20000000298023225,
+                                        "m_MaxSpeed": 1.0
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 4,
+                        "m_DrawLayer": 1
                     }
                 }
             }

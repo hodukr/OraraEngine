@@ -49,20 +49,29 @@ void InputSystem::Update()
         D3DXVECTOR3 cross;
         D3DXVec3Cross(&cross, &fowerd, &velx);
         float dot = D3DXVec3Dot(&fowerd, &velx);
-        float cos = dot / (D3DXVec3Length(&fowerd) * D3DXVec3Length(&velx));
-        float rot = acos(cos);
-        if (rot >= D3DX_PI)rot -= D3DX_PI;
         if (cross.y > 0)
         {
-            if (rot < 0.2f)m_angle -= rot;
-            else m_angle -= 0.2f;
+            if (dot > -0.95f)m_angle -= 0.2f;
+            else
+            {
+                float rot = D3DX_PI - acosf(dot / (D3DXVec3Length(&fowerd) * D3DXVec3Length(&velx)));
+                m_angle -= rot;
+            }
         }
-        else
+        else if(cross.y <=0)
         {
-            if (rot < 0.2f)m_angle += rot;
-            else m_angle += 0.2f;
-
+            if (dot > -0.95f)m_angle += 0.2f;
+            else
+            {
+                float rot = D3DX_PI - acosf(dot / (D3DXVec3Length(&fowerd) * D3DXVec3Length(&velx)));
+                m_angle += rot;
+            }
         }
+        
+        //m_Quaternion = quat;
+        //‹…–ÊüŒ`•âŠÔ
+        if (m_angle >= 2.0f * D3DX_PI)m_angle -= 2.0f * D3DX_PI;
+        if (m_angle <= -2.0f * D3DX_PI)m_angle += 2.0f * D3DX_PI;
         D3DXQUATERNION oquat{};
         D3DXVECTOR3 arex = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
         D3DXQuaternionRotationAxis(&oquat, &arex, m_angle);
