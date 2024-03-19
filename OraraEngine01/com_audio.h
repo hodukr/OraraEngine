@@ -16,6 +16,7 @@ private:
 
 	int						m_Length{};
 	int						m_PlayLength{};
+	bool                    m_BGM{};
 
 	float                   m_Volume{};
 	string             m_SoundFile{""};
@@ -28,12 +29,13 @@ public:
 
 	void DrawInspector()
 	{
-		SET_DATE(m_Volume);
+		if (SET_DATE(m_Volume))
+			SetVolume(m_Volume);
+		SET_DATE(m_BGM);
 		SET_NEXT_FOLDER("asset\\audio", ".");
 		if (SET_DATE_STATE(m_SoundFile, CASTOMDRAWSTATE_STRING_FOLDER))
-		{
 			SetSound(m_SoundFile);
-		}
+		
 	}
 	void Init()override;
 	void Uninit()override;
@@ -51,7 +53,6 @@ public:
 	}
 	void SetVolume(float volume)
 	{
-		m_Volume = volume;
 		if (m_SourceVoice)
 			m_SourceVoice->SetVolume(m_Volume);
 	}
@@ -73,7 +74,7 @@ public:
 	{
 		try
 		{
-			archive(CEREAL_NVP(m_Volume),cereal::make_nvp("fileName", m_SoundFile));
+			archive(CEREAL_NVP(m_Volume), CEREAL_NVP(m_BGM),cereal::make_nvp("fileName", m_SoundFile));
 		}
 		catch (const exception&)
 		{

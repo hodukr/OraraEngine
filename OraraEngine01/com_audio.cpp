@@ -96,6 +96,8 @@ void Audio::Init()
 {
 	if(m_SoundFile != "")
 		SetSound(m_SoundFile);
+
+	SetVolume(m_Volume);
 }
 
 void Audio::Uninit()
@@ -108,14 +110,11 @@ void Audio::Uninit()
 
 void Audio::Update()
 {
-	if (Input::Instance().GetKeyTrigger(VK_SPACE))
+	if (m_BGM)
+	{
 		Play(true);
-	if (Input::Instance().GetKeyTrigger(VK_RETURN))
-		Stop();
-	if (Input::Instance().GetKeyTrigger(VK_DOWN))
-		SetVolumeDown(0.01f);
-	if (Input::Instance().GetKeyTrigger(VK_UP))
-		SetVolumeUp(0.01f);
+		m_BGM = false;
+	}
 }
 
 void Audio::Play(bool loop)
