@@ -533,6 +533,7 @@
                                         "m_Enable": true,
                                         "m_Speed": 0.30000001192092898,
                                         "m_IsDirection": true,
+                                        "m_OffsetY": 180.0,
                                         "m_Acceleration": 0.20000000298023225,
                                         "m_MaxSpeed": 1.0
                                     }
