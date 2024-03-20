@@ -7,13 +7,12 @@ private:
     Vector3 m_Offset{};
     D3DXMATRIX m_ViewMatrix{};
     D3DXMATRIX m_ProjectionMatrix{};
-
+    std::string m_TargetObjectName;
+    class GameObject* m_TargetObject = nullptr;
 public:
     Camera();
-    void DrawInspector()override
-    {
-        SET_DATE(m_Target);
-    }
+    void DrawInspector()override;
+    
     void Init()override;
     void Uninit()override;
     void Update()override;

@@ -17,6 +17,8 @@ private:
     Vector3 m_DeadPosition{};
     int m_HItTime{};
     class WaterSurface* m_WaterSurface{};
+    class ElapsedTimeTracker* m_Timer{};
+    class Audio* m_Sound{};
 public:
     void DrawInspector()
     {

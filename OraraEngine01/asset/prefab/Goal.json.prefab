@@ -70,7 +70,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "SceneName": "Stage1.json",
+                        "SceneName": "Stage2.json",
                         "m_UseButton": false
                     }
                 }
@@ -84,6 +84,18 @@
                         "m_HitObjTag": "Player",
                         "m_ClothName": "Cloth",
                         "m_ThresholdSpeed": 0.05000000074505806
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483654,
+                "polymorphic_name": "Audio",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Volume": 0.10000000149011612,
+                        "m_BGM": false,
+                        "fileName": "Clear.wav"
                     }
                 }
             }

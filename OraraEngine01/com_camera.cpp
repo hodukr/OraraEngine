@@ -8,9 +8,19 @@ Camera::Camera()
 {
     m_DrawLayer = GAME_OBJECT_DRAW_LAYER_CAMERA;
 }
+void Camera::DrawInspector()
+{
+    SET_DATE(m_Target);
+    if (SET_DATE_STATE(m_TargetObjectName, CASTOMDRAWSTATE_STRING_GAMEOBJECT))
+    {
+        m_TargetObject = Manager::GetScene()->GetGameObject(m_TargetObjectName.c_str());
+    }
+}
 void Camera::Init()
 {
     m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();;
+    if(m_TargetObjectName != "")m_TargetObject = Manager::GetScene()->GetGameObject(m_TargetObjectName.c_str());
+
 }
 
 void Camera::Uninit()
@@ -25,7 +35,9 @@ void Camera::Update()
 
 void Camera::Draw()
 {
-    m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
+    
+    if (m_TargetObject)m_Target = m_TargetObject->m_Transform->GetPosition();
+    else m_Target = m_GameObject->m_Transform->GetForward() + m_GameObject->m_Transform->GetPosition().dx();
     if (Manager::GetSceneState() == SCENESTATE_SCENE)return;
 
     //ビューマトリクス設定 

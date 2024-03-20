@@ -53,6 +53,7 @@ public:
 	}
 	void SetVolume(float volume)
 	{
+		m_Volume = volume;
 		if (m_SourceVoice)
 			m_SourceVoice->SetVolume(m_Volume);
 	}

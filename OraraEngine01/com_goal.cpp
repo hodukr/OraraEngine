@@ -59,6 +59,8 @@ void Goal::Update()
         m_Cloth->GetParameter()->dissolveThreshold = 0.0f;
         m_StartPosition = m_Cloth->GetGameObejct()->m_Transform->GetPosition();
         m_IsDissolve = true;
+        GameObject* bgm = Manager::GetScene()->GetGameObject("BGM");
+        if (bgm)bgm->GetComponent<Audio>()->Stop();
         m_Audio->Play();
         m_IsGoal = false;
     }

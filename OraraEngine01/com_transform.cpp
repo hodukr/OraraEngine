@@ -17,12 +17,12 @@ Vector3 Transform::GetRight()
 
 Vector3 Transform::GetForward()
 {
-    D3DXMATRIX rot;
-    D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+    //D3DXMATRIX rot;
+    //D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
     Vector3 forward;
-    forward.x = rot._31;
-    forward.y = rot._32;
-    forward.z = rot._33;
+    forward.x = m_Matrix._31;
+    forward.y = m_Matrix._32;
+    forward.z = m_Matrix._33;
 
     return forward;
 }

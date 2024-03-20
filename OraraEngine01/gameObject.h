@@ -159,7 +159,6 @@ public:
                 return dynamic_cast<T*>(componet.get());
             }
         }
-
         return nullptr;
     }
 

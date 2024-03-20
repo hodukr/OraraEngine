@@ -10,6 +10,9 @@ private:
     float m_Speed = 0.1f;
     float m_Range = 7.0f;
     string m_TargetName;
+    class Mesh* m_Mesh = nullptr;
+    int m_time = 0;
+    int m_ModelState = 0;
 public:
     void DrawInspector();
    

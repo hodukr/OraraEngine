@@ -15,6 +15,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 7.714935779571533,
                                             "y": 21.4733829498291,
@@ -93,6 +95,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": -0.9868941307067871,
@@ -174,6 +178,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -243,6 +249,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.4035980701446533,
                                             "y": 0.35790306329727175,
@@ -336,6 +344,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 14.777397155761719,
@@ -401,6 +411,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": -0.21949195861816407,
                                             "y": 3.0847394466400148,
@@ -456,7 +468,22 @@
                                 "polymorphic_name": "Player",
                                 "ptr_wrapper": {
                                     "valid": 1,
-                                    "data": {}
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483658,
+                                "polymorphic_name": "Audio",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Volume": 0.0,
+                                        "m_BGM": false,
+                                        "fileName": ""
+                                    }
                                 }
                             }
                         ],
@@ -493,6 +520,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 9.0,
@@ -549,6 +578,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -572,7 +603,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483658,
+                                "polymorphic_id": 2147483659,
                                 "polymorphic_name": "ChangeScene",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -583,7 +614,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483659,
+                                "polymorphic_id": 2147483660,
                                 "polymorphic_name": "ComponentPost",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -614,6 +645,75 @@
                         "m_DrawLayer": -1
                     }
                 }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "BGM",
+                        "m_Tag": "Untagged",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 1.0,
+                                            "y": 1.0,
+                                            "z": 1.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 10,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Volume": 0.10000000149011612,
+                                        "m_BGM": true,
+                                        "fileName": "titleBGM.wav"
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": -1
+                    }
+                }
             }
         ],
         "m_GameObject[2]": [
@@ -629,6 +729,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 10.651252746582032,
                                             "y": 22.120159149169923,
@@ -652,7 +754,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483660,
+                                "polymorphic_id": 2147483661,
                                 "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -704,6 +806,8 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
                                         "m_Position": {
                                             "x": 450.0,
                                             "y": 600.0,
@@ -727,7 +831,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483661,
+                                "polymorphic_id": 2147483662,
                                 "polymorphic_name": "Texture",
                                 "ptr_wrapper": {
                                     "valid": 1,
