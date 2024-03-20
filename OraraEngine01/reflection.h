@@ -1,6 +1,7 @@
 ﻿#pragma once
-#include <functional>
 #include "singleton.h"
+#include <functional>
+#include<algorithm>
 
 class ReflectionList
 {
@@ -40,6 +41,34 @@ public:
         return nullptr;
     }
 
+    // クイックソートのパーティション関数
+    static int Partition(vector<IReflection>& arr, int low, int high) {
+        string pivot = arr[low].m_Name;
+        int left = low + 1;
+        int right = high;
+
+        while (true) {
+            while (left <= right && arr[left].m_Name[6] <= pivot[6]) left++;
+            while (left <= right && arr[right].m_Name[6] > pivot[6]) right--;
+
+            if (left >= right) break;
+
+            swap(arr[left], arr[right]);
+        }
+
+        swap(arr[low], arr[right]);
+        return right;
+    }
+
+    // クイックソートの再帰関数
+    static void QuickSort(vector<IReflection>& arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = ReflectionList::Partition(arr, low, high);
+            QuickSort(arr, low, pivotIndex - 1);
+            QuickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
 
     template<class T>
     class Reflection
@@ -48,9 +77,14 @@ public:
         const string m_TypeName = typeid(T).name();
 
     public:
-        Reflection()
+        Reflection(bool endflg = false)
         {
+            if(!endflg)
             m_InstansList.emplace_back(m_TypeName, CreateInctans);
+            else
+            {
+                ReflectionList::QuickSort(m_InstansList,0, m_InstansList.size() -1);
+            }
         }
 
         static void* CreateInctans() { return new T; }

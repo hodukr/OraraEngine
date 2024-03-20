@@ -29,3 +29,5 @@ SetReflectionComponent(Floating)
 SetReflectionComponent(RotObject)
 SetReflectionComponent(Goal)
 SetReflectionComponent(ShakeCamera)
+
+static ReflectionList::Reflection<Component> reflection(true);
