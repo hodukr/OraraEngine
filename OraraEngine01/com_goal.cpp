@@ -29,6 +29,7 @@ void Goal::Init()
 
     m_Collision = m_GameObject->GetComponent<BoxCollision>();
     m_ChangeScene = m_GameObject->GetComponent<ChangeScene>();
+    m_Audio = m_GameObject->GetComponent<Audio>();
 
     // コールバック関数を登録   
     if (m_Collision)
@@ -58,6 +59,7 @@ void Goal::Update()
         m_Cloth->GetParameter()->dissolveThreshold = 0.0f;
         m_StartPosition = m_Cloth->GetGameObejct()->m_Transform->GetPosition();
         m_IsDissolve = true;
+        m_Audio->Play();
         m_IsGoal = false;
     }
 

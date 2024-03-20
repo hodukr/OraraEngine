@@ -11,6 +11,7 @@ private:
     class Cloth* m_Cloth{};
     class BoxCollision* m_Collision{};
     class ChangeScene* m_ChangeScene{};
+    class Audio* m_Audio{};
     string m_HitObjTag{""};
     string m_ClothName{""};
     float m_ThresholdSpeed{};
