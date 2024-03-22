@@ -13,6 +13,9 @@
 - C++
 
 # 金丸 豊岳　担当箇所（TOYOTAKE_Sフォルダにすべて、または一部担当したスクリプトがあります。）
+## 担当箇所動画
+申し訳ありませんが大きすぎてGithubに動画があげられなかったのでGoogleDriveにあげています。
+GoogleDrive:https://drive.google.com/file/d/1hx1TWGznxHlMX7j3WFFBybUZP4mOhVfr/view?usp=drive_link
 **ファイル操作**
 1. Assetフォルダ
 - UntiyのAssetフォルダを再現
