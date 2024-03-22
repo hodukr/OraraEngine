@@ -19,7 +19,8 @@ void Enemy::Init()
     Scene* scene = Manager::GetScene();
     m_Target = scene->GetGameObject(m_TargetName.c_str());
     m_Mesh = m_GameObject->GetComponent<Mesh>();
-    m_Goal = scene->GetGameObjectToTag("Goal")->GetComponent<Goal>();
+    if (scene->GetGameObjectToTag("Goal"))
+        m_Goal = scene->GetGameObjectToTag("Goal")->GetComponent<Goal>();
 
 
     m_Mesh->SetModel("run01_kirby.obj");
