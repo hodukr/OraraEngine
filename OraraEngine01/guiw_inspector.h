@@ -11,6 +11,7 @@
 #define SET_NEXT_SLIDER(MIN,MAX) GuiManager::Instance().GetGuiWindow<Inspector>()->SetSlider(MIN,MAX)
 #define SET_NEXT_FOLDER(PASS,EXTENSION)GuiManager::Instance().GetGuiWindow<Inspector>()->SetFolder(PASS,EXTENSION)
 
+
 class Vector3;
 
 enum VariableDate {

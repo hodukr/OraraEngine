@@ -6,6 +6,7 @@
 #include "com_player.h"
 #include "post.h"
 #include "timeProvider.h"
+
 void Player::Init()
 {
     m_Collision = m_GameObject->GetComponent<BoxCollision>();

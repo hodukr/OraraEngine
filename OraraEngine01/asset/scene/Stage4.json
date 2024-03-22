@@ -54,7 +54,7 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_TargetName": "kinoko",
+                                        "m_TargetName": "Player",
                                         "m_Offset": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -313,7 +313,7 @@
                                     "data": {
                                         "m_Speed": 0.10000000149011612,
                                         "m_Range": 15.0,
-                                        "m_TargetName": "kinoko"
+                                        "m_TargetName": "Player"
                                     }
                                 }
                             },
@@ -467,7 +467,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "kinoko",
+                        "m_ObjctName": "Player",
                         "m_Tag": "Player",
                         "m_Component": [
                             {
@@ -480,7 +480,7 @@
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 3.5085411071777345,
-                                            "z": -153.64215087890626
+                                            "z": -141.80723571777345
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -605,7 +605,7 @@
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
-                                            "z": -19.396286010742189
+                                            "z": -132.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -1087,7 +1087,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "wood(2)",
+                        "m_ObjctName": "woodMove",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -1100,7 +1100,7 @@
                                         "m_Position": {
                                             "x": 0.0,
                                             "y": 0.0,
-                                            "z": -150.5598907470703
+                                            "z": -67.350341796875
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -1151,6 +1151,24 @@
                                             "y": 0.15000000596046449,
                                             "z": 1.7300000190734864
                                         }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483667,
+                                "polymorphic_name": "MoveObject",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Target": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": -37.0
+                                        },
+                                        "m_Speed": 0.20000000298023225,
+                                        "m_IsLoop": true
                                     }
                                 }
                             }
@@ -1180,7 +1198,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "wood(3)",
+                        "m_ObjctName": "woodMove(1)",
                         "m_Tag": "NoneTag",
                         "m_Component": [
                             {
@@ -1191,9 +1209,9 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": 0.0,
+                                            "x": -15.0,
                                             "y": 0.0,
-                                            "z": -117.09974670410156
+                                            "z": -100.0
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -1244,6 +1262,23 @@
                                             "y": 0.15000000596046449,
                                             "z": 1.7300000190734864
                                         }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 19,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Target": {
+                                            "x": 15.0,
+                                            "y": 0.0,
+                                            "z": -100.0
+                                        },
+                                        "m_Speed": 0.10000000149011612,
+                                        "m_IsLoop": true
                                     }
                                 }
                             }

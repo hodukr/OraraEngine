@@ -124,6 +124,36 @@ public:
 		return false;
 	}
 
+	bool operator> (const Vector3& vec)
+	{
+		if (x <= vec.x)return false;
+		if (y <= vec.y)return false;
+		if (z <= vec.z)return false;
+		return true;
+
+	}
+	bool operator< (const Vector3& vec)
+	{
+		if (x >= vec.x)return false;
+		if (y >= vec.y)return false;
+		if (z >= vec.z)return false;
+		return true;
+	}
+	bool operator== (const Vector3& vec)
+	{
+		if (x != vec.x)return false;
+		if (y != vec.y)return false;
+		if (z != vec.z)return false;
+		return true;
+	}
+	bool operator!= (const Vector3& vec)
+	{
+		if (x == vec.x)return false;
+		if (y == vec.y)return false;
+		if (z == vec.z)return false;
+		return true;
+	}
+
     operator float* (){
         return &x;
     }

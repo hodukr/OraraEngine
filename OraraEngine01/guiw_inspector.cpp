@@ -424,7 +424,14 @@ void Inspector::CreatComponentFile(string comname)
                 header_file << "    template<class Archive>\n";
                 header_file << "    void serialize(Archive & archive)\n";
                 header_file << "    {\n";
-                header_file << "        //archive(CEREAL_NVP());\n";
+                header_file << "        Component::serialize<Archive>(archive);\n";
+                header_file << "        try\n";
+                header_file << "        {\n";
+                header_file << "            //archive(CEREAL_NVP());\n";
+                header_file << "        }\n";
+                header_file << "        catch (const exception&)}\n";
+                header_file << "        {\n";
+                header_file << "        }\n";
                 header_file << "    }\n";
                 header_file << "};\n";
                 header_file << "\n#endif /* " << comname << "_H */\n";
