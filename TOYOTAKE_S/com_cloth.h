@@ -22,6 +22,8 @@ struct SPRING
     float	Length;				    // 自然長 
 };
 
+struct PARAMETER;
+
 class Cloth : public Component
 {
 private:
@@ -39,11 +41,13 @@ private:
     D3DXVECTOR3 m_Resultant[NUM_VERTEX][NUM_VERTEX]{};           //合力 
     D3DXVECTOR3 m_Gravity[NUM_VERTEX][NUM_VERTEX]{};             //重力 
     bool        m_OnLock[NUM_VERTEX][NUM_VERTEX]{};              //ロックされているかいないか 
-    bool m_IsWind = false;                                             //風が吹いているか?　
-    Vector3 m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);                                   //風力 
-    SPRING		m_Spring[SPRING_NUMS];                           //頂点間のバネ　
+    bool m_IsWind = false;                                       //風が吹いているか?　
+    Vector3 m_WindForce = D3DXVECTOR3(4.0f, 6.0f, 0.0f);         //風力 
+    SPRING		m_Spring[SPRING_NUMS]{};                         //頂点間のバネ　
 
     int m_TexNum{};
+    PARAMETER* m_Parameter{};
+    class Material* m_Material{};
 public:
     Cloth(){}
     void DrawInspector()override
@@ -67,6 +71,9 @@ public:
     void SetTexNum(int num) { m_TexNum = num;}
     void SetIsWind(bool wind) { m_IsWind = wind;}
 
+    //ディゾルブの処理用とりあえずここに記述
+    PARAMETER* GetParameter() { return m_Parameter; }
+
     template<class Archive>
     void serialize(Archive& archive)
     {
@@ -79,7 +86,7 @@ public:
                 CEREAL_NVP(m_IsWind),
                 CEREAL_NVP(m_WindForce));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

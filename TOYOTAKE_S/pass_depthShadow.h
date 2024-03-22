@@ -1,13 +1,11 @@
 #pragma once
 #include "pass.h"
-#include <string>
-#include <unordered_map>
-#include <list>
+
 
 class DepthShadow :public Pass
 {
 private:
-    std::unordered_map<int, std::string> m_SelectDrawObj{};
+    unordered_map<int, string> m_SelectDrawObj{};
     int m_DrawObjNum{};
     
     void BeginDepth(void);

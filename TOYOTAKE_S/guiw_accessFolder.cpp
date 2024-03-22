@@ -10,8 +10,8 @@
 void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 uv)
 {
     // ファイル拡張子を取得
-    std::string filename = name;
-    std::string extension = filename.substr(filename.find_last_of(".") + 1);
+    string filename = name;
+    string extension = filename.substr(filename.find_last_of(".") + 1);
 
     ID3D11ShaderResourceView* texture = nullptr;
     int textureNum = 0;
@@ -23,7 +23,7 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
         auto it = m_Path.find(name);
         if (it == m_Path.end())
         {
-            std::string path = "asset\\" + m_ProjectFolderName + "\\" + name;
+            string path = "asset\\" + m_ProjectFolderName + "\\" + name;
             m_Path[name] = path;
             it = m_Path.find(name);  // 要素を追加後、再度検索してイテレータで中身を取り出さないとバグる
         }
@@ -73,7 +73,7 @@ void AccessFolder::DrawFolderIconAndName(const char* name, ImVec2 size, ImVec2 u
 
         // ドラッグ元の要素の描画
         ImGui::Image((ImTextureID)texture, size, uv);
-        std::string path = "asset\\" + m_ProjectFolderName + "\\" + name;
+        string path = "asset\\" + m_ProjectFolderName + "\\" + name;
 
         m_DragName = path;
 
@@ -112,7 +112,7 @@ void AccessFolder::CreateFolder()
     {
         if (m_FolderName[0] != '\0')
         {
-            std::string assetFolderPath = "asset/" + std::string(m_FolderName);
+            string assetFolderPath = "asset/" + string(m_FolderName);
             // フォルダを作成
             if (fs::create_directory(assetFolderPath))
             {
@@ -154,10 +154,10 @@ void AccessFolder::Draw()
 
     for (const auto& entry : fs::directory_iterator("asset"))
     {
-        const std::string& itemPath = entry.path().filename().string();
+        const string& itemPath = entry.path().filename().string();
 
         // フォルダ名が重複しない場合に追加
-        if (itemPath.find('.') == std::string::npos && m_ProjectFolders.insert(itemPath).second);
+        if (itemPath.find('.') == string::npos && m_ProjectFolders.insert(itemPath).second);
     }
 
     // フォルダとファイルを表示
@@ -201,9 +201,9 @@ void AccessFolder::Draw()
             m_ProjectFolderName = folder;
             for (const auto& entry : fs::directory_iterator("asset/" + folder))
             {
-                const std::string& itemPath = entry.path().filename().string();
+                const string& itemPath = entry.path().filename().string();
 
-                std::string extension = itemPath.substr(itemPath.find_last_of(".") + 1);
+                string extension = itemPath.substr(itemPath.find_last_of(".") + 1);
                 if (extension != "mtl")
                     DrawFolderIconAndName(itemPath.c_str(), ImVec2(m_ImageSize, m_ImageSize), ImVec2(0.0f, 0.0f));
             }
@@ -249,7 +249,7 @@ void AccessFolder::Draw()
                     }
                     else
                     {
-                        std::cerr << "Error deleting file: " << filePathToDelete << std::endl;
+                        cerr << "Error deleting file: " << filePathToDelete << endl;
                     }
                 }
                 ImGui::EndPopup();

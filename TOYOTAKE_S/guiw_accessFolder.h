@@ -3,10 +3,7 @@
 #include "imgui/imgui.h"
 #include "imGuiWindow.h"
 #include <set>
-#include <list>
-#include <unordered_map>
-#include <filesystem>  // C++17の標準ライブラリに含まれているヘッダ
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 #define MAX_TEXT_NUM 256
 
 class AccessFolder:public GuiWindowBase
@@ -16,11 +13,11 @@ private:
 	bool m_IsWindw = false;
 	char m_CreatedFolderName[MAX_TEXT_NUM]{};
 	char m_FolderName[MAX_TEXT_NUM]{};                     //最大文字数256
-	std::set<std::string> m_ProjectFolders{};              //assetフォルダの中身のフォルダ名
-	std::string m_ProjectFolderName{};                     //今開いているフォルダの名前を格納
-	std::unordered_map<std::string, std::string> m_Path{}; //名前をKeyにパスを格納
+	set<string> m_ProjectFolders{};              //assetフォルダの中身のフォルダ名
+	string m_ProjectFolderName{};                     //今開いているフォルダの名前を格納
+	unordered_map<string, string> m_Path{}; //名前をKeyにパスを格納
 	float m_ImageSize = 30.0f;
-	std::string m_DragName{};   //ドラッグされたものの名前
+	string m_DragName{};   //ドラッグされたものの名前
 
 
 	void CreateFolder();
@@ -28,6 +25,6 @@ private:
 public:
 	void SetWindowConfig();
 	void Draw()override;
-	std::string GetNowFolder() { return m_ProjectFolderName; }
-	std::string GetDragName() { return m_DragName; }
+	string GetNowFolder() { return m_ProjectFolderName; }
+	string GetDragName() { return m_DragName; }
 };

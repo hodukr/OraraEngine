@@ -1,6 +1,5 @@
 #pragma once
 #include "component.h"
-#include "vector.h"
 
 class EditorCamera
 {
@@ -11,9 +10,9 @@ private:
     D3DXMATRIX m_ViewMatrix{};
     D3DXMATRIX m_ProjectionMatrix{};
 
-    Vector2 m_LeftClickMousePos;
-    Vector3 m_LeftClickCameraRot;
-    bool	m_IsMouseUp;
+    Vector2 m_LeftClickMousePos{};
+    Vector3 m_LeftClickCameraRot{};
+    bool	m_IsMouseUp{};
 
 public:
     void Init();

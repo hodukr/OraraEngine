@@ -7,14 +7,12 @@
 #include "shaderManager.h"
 #include "guiManager.h"
 #include "guiw_accessFolder.h"
-#include <fstream>
-#include <cereal/archives/json.hpp>
-#include <filesystem>
 #include "scene.h"
 #include "sceneCamera.h"
 #include "guiw_hierarchy.h"
 #include "pass_createTexture.h"
 #include "com_uiTexture.h"
+#include <cereal/archives/json.hpp>
 
 void SceneWindow::Update()
 {
@@ -38,7 +36,7 @@ void SceneWindow::Draw()
 
     if (ImGui::BeginMenuBar())
     {
-        static std::string str = "Editor";
+        static string str = "Editor";
         const char* menuName = str.c_str();
         if (ImGui::BeginMenu(menuName))
         {
@@ -88,7 +86,7 @@ void SceneWindow::Draw()
     float viewManipulateTop = 0;
 
     ImGuizmo::SetDrawlist();
-    ////グリッド線の範囲
+
     float windowWidth = (float)ImGui::GetWindowWidth();
     float windowHeight = (float)ImGui::GetWindowHeight();
     ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
@@ -116,13 +114,13 @@ void SceneWindow::Draw()
             //ドラッグ先の要素に対する処理
             AccessFolder* acFolder = GuiManager::Instance().GetGuiWindow <AccessFolder>();
             fs::path folderPath(acFolder->GetDragName());
-            std::string folderName = folderPath.filename().string();
+            string folderName = folderPath.filename().string();
             // ドットの位置を検索
             size_t dotPosition = folderName.find_last_of(".");
             // ドットの前の部分文字列を取得
-            std::string beforeDot = folderName.substr(0, dotPosition);
+            string beforeDot = folderName.substr(0, dotPosition);
             // ドットの後の部分文字列を取得
-            std::string afterDot = folderName.substr(dotPosition + 1);
+            string afterDot = folderName.substr(dotPosition + 1);
 
             GameObject* gameObj = nullptr;
             if (afterDot == "png" || afterDot == "jpg" || afterDot == "dds")
@@ -145,15 +143,15 @@ void SceneWindow::Draw()
             {
                 try
                 {
-                    std::ifstream inputFile("asset/prefab/" + folderName);
+                    ifstream inputFile("asset/prefab/" + folderName);
                     cereal::JSONInputArchive archive(inputFile);
-                    std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+                    unique_ptr<GameObject> obj = make_unique<GameObject>();
                     archive(*obj);
-                    GameObject* object = scene->SetGameObject(std::move(obj));
+                    GameObject* object = scene->SetGameObject(move(obj));
                     object->m_Transform->SetPosition(0.0f,0.0f,0.0f);
                     hierarchy->SetSelectGameObject(object);
                 }
-                catch (const std::exception&)
+                catch (const exception&)
                 {
 
                 }
@@ -169,7 +167,7 @@ void SceneWindow::Draw()
     {
         //ゲームオブジェクトの移動、回転、スケールの変更など
 
-            //直行投影モードから透視投影に変換
+        //直行投影モードから透視投影に変換
         ImGuizmo::SetOrthographic(false);
         EditorCamera* camera = ShaderManager::Instance().GetSceneCamera();
 

@@ -20,7 +20,7 @@ private:
     Vector3 m_Size{1.0f,1.0f,1.0f}; //当たり判定のサイズ
     Vector3 m_Scale{ 1.0f,1.0f,1.0f };  //サイズの倍率等倍はゲームオブジェクトのスケール基準 
     Vector3 m_CorrectionSize{ 1.0f,1.0f,1.0f };
-    std::unordered_map<BoxCollision*, BoxHitDirection> m_Directions;
+    unordered_map<BoxCollision*, BoxHitDirection> m_Directions;
     void SetVertex(struct VERTEX_3D* vertex);
 public:
     BoxCollision() { 
@@ -36,6 +36,7 @@ public:
     void Uninit() override;
     void EditorUpdate()override;
     void Update() override;
+    void EditorDraw()override;
     void Draw() override;
 
     Vector3 GetSize() { return m_Size; }
@@ -53,7 +54,7 @@ public:
         {
             archive(CEREAL_NVP(m_Dynamic), CEREAL_NVP(m_Offset), CEREAL_NVP(m_Scale));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

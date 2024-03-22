@@ -364,7 +364,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": 1
                     }
                 }
@@ -446,7 +446,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -664,7 +664,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1159,7 +1159,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1252,7 +1252,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1345,7 +1345,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1377,9 +1377,9 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": -37.96628189086914,
+                                            "x": -31.521503448486329,
                                             "y": 0.0,
-                                            "z": -55.95087432861328
+                                            "z": -62.01654052734375
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -1438,7 +1438,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1531,7 +1531,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1624,7 +1624,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1656,7 +1656,7 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": -14.510150909423829,
+                                            "x": -16.632770538330079,
                                             "y": 0.0,
                                             "z": -16.103015899658204
                                         },
@@ -1717,7 +1717,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -1835,7 +1835,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": 1
                     }
                 }
@@ -1855,7 +1855,7 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": -37.246707916259769,
+                                            "x": -31.270055770874025,
                                             "y": 3.533717632293701,
                                             "z": -55.931053161621097
                                         },
@@ -1941,7 +1941,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": 1
                     }
                 }

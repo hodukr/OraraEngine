@@ -5,6 +5,7 @@
 #include "com_cloth.h"
 #include "imgui/imgui.h"
 #include "gameObject.h"
+#include "shaderManager.h"
 
 void Cloth::Init()
 {
@@ -91,7 +92,7 @@ void Cloth::Init()
         Renderer::GetDevice()->CreateBuffer(&bd, &sd, &m_IndexBuffer);
     }
 
-    m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\title1.png");
+    m_TexNum = TextureManager::LoadTexture((char*)"asset\\texture\\dissolve.png");
 
     // バネの初期化
     int count = 0;
@@ -153,6 +154,9 @@ void Cloth::Init()
         }
     }
     
+    m_Parameter = new PARAMETER;
+    m_Parameter->dissolveThreshold = 0.0f;
+    m_Parameter->dissolveRange = 0.1f;
 }
 
 
@@ -160,7 +164,7 @@ void Cloth::Uninit()
 {
     m_VertexBuffer->Release();
     m_IndexBuffer->Release();
- 
+    delete m_Parameter;
 }
 
 
@@ -330,9 +334,16 @@ void Cloth::Draw()
     material.TextureEnable = true;
     Renderer::SetMaterialModel(material);
 
-    // テクスチャ設定  
-    Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_TexNum));
+    // テクスチャ設定
+    if (m_GameObject->GetMaterial()->GetTextureNum() > -1)
+        Renderer::GetDeviceContext()->PSSetShaderResources(0, 1, TextureManager::GetTexture(m_GameObject->GetMaterial()->GetTextureNum()));
 
+
+    if (ShaderManager::Instance().GetShader(m_GameObject->GetMaterial()->GetShaderNum())->GetFile() == "dissolve")
+    {
+        Renderer::GetDeviceContext()->PSSetShaderResources(1, 1, TextureManager::GetTexture(m_TexNum));
+        Renderer::SetParameter(*m_Parameter);
+    }
     // プリミティブトポロジ設定 
     Renderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 

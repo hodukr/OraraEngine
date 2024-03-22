@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <unordered_map>
-#include <string>
 //新たにパスクラスをを追加したらここにIDを追加する
 enum Shader
 {
@@ -25,11 +23,11 @@ public:
     virtual const Shader GetPassId() = 0;
 
     ID3D11ShaderResourceView** GetTexture() { return &m_ShaderResourceView; }
-    const static std::string GetName(Shader shader)
+    const static string GetName(Shader shader)
     {
         GetName(shader);
     }
-    const static std::string GetName(int shader)
+    const static string GetName(int shader)
     {
         switch (shader)
         {
@@ -45,5 +43,6 @@ public:
             return "";
             break;
         }
+        return "";
     }
 };

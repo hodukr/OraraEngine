@@ -71,7 +71,7 @@ void BoxCollision::Update()
     m_Size *= m_Scale;
 }
 
-void BoxCollision::Draw()
+void BoxCollision::EditorDraw()
 {
     //頂点データ書き換え 
     D3D11_MAPPED_SUBRESOURCE msr;
@@ -105,6 +105,11 @@ void BoxCollision::Draw()
 
     //ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(16, 0);
+}
+
+void BoxCollision::Draw()
+{
+   
 }
 
 
@@ -245,34 +250,34 @@ bool BoxCollision::CollideWith(BoxCollision* other)
             Vector3 posvec = pos - m_Position;
             Vector3 pos = other->m_GameObject->m_Transform->GetPosition();
             // 補正
-            if (maxYA <= other->GetOldPosition().y - other->m_Size.y && minYB <= maxYA)
+            if (index == 1 && minYB <= maxYA)
             {
                 float difference = posvec.y - m_Size.y - size.y;
                 pos.y -= difference;
                 other->SetHitDirection(this, BOXHITDIRECTION_DOWN);
                 m_Directions[other] = BOXHITDIRECTION_UP;
             }
-            else if (minYA >= other->GetOldPosition().y + other->m_Size.y && maxYB >= minYA)
+            else if (index == 0 && maxYB >= minYA)
             {
                 float difference = posvec.y + m_Size.y + size.y;
                 pos.y -= difference;
                 other->SetHitDirection(this, BOXHITDIRECTION_UP);
                 m_Directions[other] = BOXHITDIRECTION_DOWN;
             }
-            else if (maxXA <= other->GetOldPosition().x - other->m_Size.x && minXB <= maxXA)
+            else if (index == 3  && minXB <= maxXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
                 other->SetHitDirection(this, BOXHITDIRECTION_LEFT);
                 m_Directions[other] = BOXHITDIRECTION_RIGHT;
             }
-            else if (minXA >= other->GetOldPosition().x + other->m_Size.x && maxXB >= minXA)
+            else if (index == 2 && maxXB >= minXA)
             {
                 pos.x = other->m_GameObject->m_Transform->GetOldePosition().x;
                 other->SetHitDirection(this, BOXHITDIRECTION_RIGHT);
                 m_Directions[other] = BOXHITDIRECTION_LEFT;
 
             }
-            else if (minZA >= other->GetOldPosition().z + other->m_Size.z && maxZB >= minZA)
+            else if (index == 4 && maxZB >= minZA)
             {
                 pos.z = other->m_GameObject->m_Transform->GetOldePosition().z;
                 other->SetHitDirection(this, BOXHITDIRECTION_BACK);
@@ -303,15 +308,15 @@ bool BoxCollision::CollideWith(SphereCollision* other)
     float distanceSquared = 0.0f;
 
     // X軸方向の距離
-    float dx = std::max(0.0f, std::abs(m_Position.x - other->GetPosition().x) - m_Size.x);
+    float dx = max(0.0f, abs(m_Position.x - other->GetPosition().x) - m_Size.x);
     distanceSquared += dx * dx;
 
     // Y軸方向の距離
-    float dy = std::max(0.0f, std::abs(m_Position.y - other->GetPosition().y) - m_Size.y);
+    float dy = max(0.0f, abs(m_Position.y - other->GetPosition().y) - m_Size.y);
     distanceSquared += dy * dy;
 
     // Z軸方向の距離
-    float dz = std::max(0.0f, std::abs(m_Position.z - other->GetPosition().z) - m_Size.z);
+    float dz = max(0.0f, abs(m_Position.z - other->GetPosition().z) - m_Size.z);
     distanceSquared += dz * dz;
 
     // Sphereの半径との比較
@@ -323,7 +328,7 @@ bool BoxCollision::CollideWith(SphereCollision* other)
         if (m_Dynamic)
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
 
             Vector3 normal = (m_Position - other->GetPosition()) / distance;  // 最短距離ベクトルの正規化
             if (normal.x == INFINITY)
@@ -346,7 +351,7 @@ bool BoxCollision::CollideWith(SphereCollision* other)
         else
         {
             // 重なっている場合の補正
-            float distance = std::sqrt(distanceSquared);
+            float distance = sqrt(distanceSquared);
             Vector3 normal = (other->GetPosition() - m_Position) / distance;  // 最短距離ベクトルの正規化
 
             if (normal.x == INFINITY)
