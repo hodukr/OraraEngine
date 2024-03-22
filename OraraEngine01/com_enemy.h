@@ -7,6 +7,7 @@ class Enemy :public Component
 private:
     class GameObject* m_Target{};
     class BoxCollision* m_Collision{};
+    class Goal* m_Goal;
     float m_Speed = 0.1f;
     float m_Range = 7.0f;
     string m_TargetName;

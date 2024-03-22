@@ -79,6 +79,9 @@ void Goal::Update()
 
         if (m_Cloth->GetParameter()->dissolveThreshold <= -0.1f)
         {
+            m_Audio->SetSound("fireWork.wav");
+            m_Audio->SetVolume(0.8f);
+            m_Audio->Play();
             m_IsUp = true;
             m_IsDissolve = false;
         }
@@ -109,6 +112,7 @@ void Goal::Update()
 
         if (len <= 0.02f * 0.02f)
         {
+            m_Audio->Stop();
             Post* post = ShaderManager::Instance().GetPost();
             post->SetIsWipe(true);
             post->SetThreshold(0.0f);

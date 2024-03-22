@@ -89,6 +89,18 @@
                         "m_MaxSpeed": 1.0
                     }
                 }
+            },
+            {
+                "polymorphic_id": 2147483654,
+                "polymorphic_name": "Audio",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Volume": 0.10000000149011612,
+                        "m_BGM": false,
+                        "fileName": "GameOver.wav"
+                    }
+                }
             }
         ],
         "m_Material": {

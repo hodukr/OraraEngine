@@ -12,7 +12,8 @@ void Player::Init()
     GameObject* goal = Manager::GetScene()->GetGameObjectToTag("Goal");
     GameObject* gameObject = Manager::GetScene()->GetGameObject("Water");
     m_Sound = m_GameObject->GetComponent<Audio>();
-    if (gameObject)
+    m_BaseSize = m_GameObject->m_Transform->GetScale();
+   if (gameObject)
     {
         m_WaterSurface = gameObject->GetComponent<WaterSurface>();
     }
@@ -96,6 +97,7 @@ void Player::Update()
                 m_Sound->SetVolume(0.2);
                 m_Sound->Play();
             }
+            m_GameObject->m_Transform->SetScale(Vector3(1.5f, 0.5f, 1.5f));
         }
         m_Velocity.y -= 0.1f;
         m_GameObject->m_Transform->Translate(m_Velocity);
@@ -115,6 +117,20 @@ void Player::Update()
                 }
                 Dead();
             }
+        }
+        if (m_Velocity.y > 0)
+        {
+            Vector3 scale = Vector3(0.5f,1.5f,0.5f) - m_GameObject->m_Transform->GetScale();
+            scale.NormalizThis();
+            scale = scale * 0.15f + m_GameObject->m_Transform->GetScale();
+            m_GameObject->m_Transform->SetScale(scale);
+        }
+        else if (m_Velocity.y <= 0.0f && m_IsGround <= 0)
+        {
+            Vector3 scale = m_BaseSize - m_GameObject->m_Transform->GetScale();
+            scale.NormalizThis();
+            scale = scale * 0.15f + m_GameObject->m_Transform->GetScale();
+            m_GameObject->m_Transform->SetScale(scale);
         }
         break;
     case 1:

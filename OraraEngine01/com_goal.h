@@ -21,6 +21,8 @@ public:
     void Init()override;
     void Update()override;
 
+    bool GetGoal() { return m_IsGoal; }
+
     template<class Archive>
     void serialize(Archive& archive)
     {

@@ -54,7 +54,7 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_TargetName": "kinoko",
+                                        "m_TargetName": "Player",
                                         "m_Offset": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -313,7 +313,7 @@
                                     "data": {
                                         "m_Speed": 0.10000000149011612,
                                         "m_Range": 15.0,
-                                        "m_TargetName": "kinoko"
+                                        "m_TargetName": "Player"
                                     }
                                 }
                             },
@@ -467,7 +467,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "kinoko",
+                        "m_ObjctName": "Player",
                         "m_Tag": "Player",
                         "m_Component": [
                             {
@@ -478,9 +478,9 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": -16.155797958374025,
+                                            "x": -16.8592586517334,
                                             "y": 3.5085411071777345,
-                                            "z": -31.391483306884767
+                                            "z": -149.86936950683595
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -603,9 +603,9 @@
                                         "m_ObjectName": "",
                                         "m_Enable": true,
                                         "m_Position": {
-                                            "x": -16.583778381347658,
+                                            "x": -17.81814193725586,
                                             "y": 0.0,
-                                            "z": -19.396286010742189
+                                            "z": -140.93174743652345
                                         },
                                         "m_Rotation": {
                                             "x": 0.0,
@@ -1082,9 +1082,872 @@
                         "m_DrawLayer": -1
                     }
                 }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(2)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -1.534958839416504,
+                                            "y": 0.0,
+                                            "z": -120.17817687988281
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(3)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -35.02204132080078,
+                                            "y": 0.0,
+                                            "z": -106.7503662109375
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(4)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -16.99466323852539,
+                                            "y": 0.0,
+                                            "z": -91.78248596191406
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(5)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -37.96628189086914,
+                                            "y": 0.0,
+                                            "z": -55.95087432861328
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(6)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": -72.64592742919922
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(7)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -15.685324668884278,
+                                            "y": 0.6974153518676758,
+                                            "z": -50.119842529296878
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "wood(8)",
+                        "m_Tag": "NoneTag",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -14.510150909423829,
+                                            "y": 0.0,
+                                            "z": -16.103015899658204
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 9.0,
+                                            "y": 9.0,
+                                            "z": 9.0
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "wood.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 11,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {}
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": false,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1.8300000429153443
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.7400000095367432,
+                                            "y": 0.15000000596046449,
+                                            "z": 1.7300000190734864
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "vertexLighting",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Enemy(1)",
+                        "m_Tag": "Enemy",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": 0.0,
+                                            "y": 4.28956413269043,
+                                            "z": -74.11550903320313
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.20000000298023225,
+                                            "y": 0.20000000298023225,
+                                            "z": 0.20000000298023225
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "run03_kirby.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 8,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.10000000149011612,
+                                        "m_Range": 15.0,
+                                        "m_TargetName": "Player"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": -0.5,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 8.0,
+                                            "y": 8.0,
+                                            "z": 8.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 10,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Gravity": -0.20000000298023225
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
+            },
+            {
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjctName": "Enemy(2)",
+                        "m_Tag": "Enemy",
+                        "m_Component": [
+                            {
+                                "polymorphic_id": 1,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "",
+                                        "m_Enable": true,
+                                        "m_Position": {
+                                            "x": -37.246707916259769,
+                                            "y": 3.533717632293701,
+                                            "z": -55.931053161621097
+                                        },
+                                        "m_Rotation": {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 0.20000000298023225,
+                                            "y": 0.20000000298023225,
+                                            "z": 0.20000000298023225
+                                        },
+                                        "Qx": 0.0,
+                                        "Qy": 0.0,
+                                        "Qz": 0.0,
+                                        "Qw": 1.0
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 5,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Modelpas": "run03_kirby.obj"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 8,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Speed": 0.10000000149011612,
+                                        "m_Range": 15.0,
+                                        "m_TargetName": "Player"
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 9,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Dynamic": true,
+                                        "m_Offset": {
+                                            "x": 0.0,
+                                            "y": -0.5,
+                                            "z": 0.0
+                                        },
+                                        "m_Scale": {
+                                            "x": 8.0,
+                                            "y": 8.0,
+                                            "z": 8.0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 10,
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_Gravity": -0.20000000298023225
+                                    }
+                                }
+                            }
+                        ],
+                        "m_Material": {
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "m_ShaderName": "toon",
+                                    "m_Color": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "m_TextureName": "",
+                                    "m_Extension": ""
+                                }
+                            }
+                        },
+                        "m_RenderingPass": 0,
+                        "m_DrawLayer": 1
+                    }
+                }
             }
         ],
         "m_GameObject[2]": [],
-        "m_Name": "Stage2"
+        "m_Name": "Stage3"
     }
 }

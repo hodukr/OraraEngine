@@ -1,7 +1,7 @@
 {
     "Player": {
         "m_ObjctName": "Player",
-        "m_Tag": "NoneTag",
+        "m_Tag": "Player",
         "m_Component": [
             {
                 "polymorphic_id": 2147483649,
@@ -9,10 +9,12 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
                         "m_Position": {
-                            "x": 0.0,
-                            "y": 2.163612127304077,
-                            "z": 0.0
+                            "x": -16.155797958374025,
+                            "y": 3.5085411071777345,
+                            "z": -31.391483306884767
                         },
                         "m_Rotation": {
                             "x": 0.0,
@@ -66,7 +68,38 @@
                 "polymorphic_name": "Player",
                 "ptr_wrapper": {
                     "valid": 1,
-                    "data": {}
+                    "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483653,
+                "polymorphic_name": "InputSystem",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
+                        "m_Speed": 0.30000001192092898,
+                        "m_IsDirection": true,
+                        "m_OffsetY": 180.0,
+                        "m_Acceleration": 0.20000000298023225,
+                        "m_MaxSpeed": 1.0
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483654,
+                "polymorphic_name": "Audio",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Volume": 0.10000000149011612,
+                        "m_BGM": false,
+                        "fileName": "GameOver.wav"
+                    }
                 }
             }
         ],

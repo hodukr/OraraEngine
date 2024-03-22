@@ -19,6 +19,8 @@ void Enemy::Init()
     Scene* scene = Manager::GetScene();
     m_Target = scene->GetGameObject(m_TargetName.c_str());
     m_Mesh = m_GameObject->GetComponent<Mesh>();
+    m_Goal = scene->GetGameObjectToTag("Goal")->GetComponent<Goal>();
+
 
     m_Mesh->SetModel("run01_kirby.obj");
     m_Mesh->SetModel("run02_kirby.obj");
@@ -102,6 +104,15 @@ void Enemy::Update()
     if (stop)
     {
         m_Mesh->SetModel("kirby.obj");
+    }
+
+    if (m_GameObject->m_Transform->GetPosition().y <= -5.0f)
+        m_GameObject->SetDestroy();
+
+    if (m_Goal)
+    {
+        if (m_Goal->GetGoal())
+            m_GameObject->SetDestroy();
     }
 }
 void Enemy::Draw()
