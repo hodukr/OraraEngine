@@ -156,10 +156,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="com_moveObject.cpp"/>
-    <ClInclude Include="com_moveObject.h"/>
-    <ClCompile Include="com_shakeCamera.cpp"/>
-    <ClInclude Include="com_shakeCamera.h"/>
+    <ClCompile Include="com_moveObject.cpp" />
+    <ClInclude Include="com_moveObject.h" />
+    <ClCompile Include="com_moveTarget.cpp" />
+    <ClCompile Include="com_shakeCamera.cpp" />
+    <ClInclude Include="com_moveTarget.h" />
+    <ClInclude Include="com_shakeCamera.h" />
     <ClCompile Include="com_changeScene.cpp" />
     <ClCompile Include="com_floating.cpp" />
     <ClCompile Include="com_goal.cpp" />

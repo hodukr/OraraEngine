@@ -2,17 +2,15 @@
 #include "component.h"
 #include "cereal/types/string.hpp"
 
-class Enemy :public Component
+class MoveTarget :public Component
 {
 private:
     class GameObject* m_Target{};
-    class BoxCollision* m_Collision{};
-    float m_Speed = 0.1f;
-    float m_Range = 7.0f;
-    std::string m_TargetName;
+    string m_TargetName{};
+    float m_Speed{};
 public:
     void DrawInspector();
-   
+
     void Init()override;
     void Uninit()override;
     void EditorUpdate()override;
@@ -24,11 +22,12 @@ public:
     {
         try
         {
-            archive(CEREAL_NVP(m_Speed), CEREAL_NVP(m_Range), CEREAL_NVP(m_TargetName));
+            archive(CEREAL_NVP(m_TargetName), CEREAL_NVP(m_Speed));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }
     }
 };
+

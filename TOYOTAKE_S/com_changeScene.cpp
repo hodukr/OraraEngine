@@ -10,33 +10,28 @@ void ChangeScene::Init()
 {
 	if (m_SceneName != "")
 		SetScene(m_SceneName);
-	m_isFadeIn = true;
+	m_IsFadeIn = true;
 	m_StartFadeIn = true;
 
-}
-
-void ChangeScene::Uninit()
-{
-}
-
-void ChangeScene::EditorUpdate()
-{
 }
 
 void ChangeScene::Update()
 {
 	Post* post = ShaderManager::Instance().GetPost();
-	if (Input::Instance().GetKeyTrigger(VK_RETURN))
+	if (m_UseButton)
 	{
-		post->SetIsWipe(true);
-		post->SetThreshold(0.0f);
-		post->SetWipeSpeed(0.01f);
-		m_isFadeOut = true;
+		if (Input::Instance().GetKeyTrigger(VK_RETURN))
+		{
+			post->SetIsWipe(true);
+			post->SetThreshold(0.0f);
+			post->SetWipeSpeed(0.01f);
+			m_IsFadeOut = true;
+		}
 	}
 
-	if (m_isFadeOut && !post->GetIsWipe())
+	if (m_IsFadeOut && !post->GetIsWipe())
 	{
-		m_isFadeOut = false;
+		m_IsFadeOut = false;
 		SceneChange(m_SceneName);
 	}
 
@@ -47,22 +42,18 @@ void ChangeScene::Update()
 		m_StartFadeIn = false;
 	}
 
-	if (m_isFadeIn)
+	if (m_IsFadeIn)
 	{
 		post->SetWipeSpeed(-0.01f);
 
 		if (!post->GetIsWipe())
-			m_isFadeIn = false;
+			m_IsFadeIn = false;
 	}
 }
 
-void ChangeScene::Draw()
-{
-}
-
-void ChangeScene::SceneChange(std::string name)
+void ChangeScene::SceneChange(string name)
 {
 	// ドットの前の部分文字列を取得
-	std::string beforeDot = m_SceneName.substr(0, m_SceneName.find_last_of("."));
+	string beforeDot = name.substr(0, name.find_last_of("."));
 	Manager::SetScene(beforeDot);
 }

@@ -2,10 +2,9 @@
 #include "manager.h"
 #include "collisionManager.h"
 #include "gameObject.h"
-#include "imgui/imgui.h"
 
-std::list<CollisionShape*>  CollisionManager::m_Shape{};
-std::list<CollisionShape*>  CollisionManager::m_NextShape{};
+list<CollisionShape*>  CollisionManager::m_Shape{};
+list<CollisionShape*>  CollisionManager::m_NextShape{};
 
 void CollisionManager::Init()
 {
@@ -30,8 +29,10 @@ void CollisionManager::Update()
         // すべての形状のペアに対して当たり判定を行う 
         for (auto it1 = m_Shape.begin(); it1 != m_Shape.end(); ++it1)
         {
-            for (auto it2 = std::next(it1); it2 != m_Shape.end(); ++it2)
+            if (!(*it1)->GetEnable())continue;
+            for (auto it2 = next(it1); it2 != m_Shape.end(); ++it2)
             {
+                if (!(*it2)->GetEnable())continue;
 
                 if (!(*it1)->GetStateMap().empty())
                 {
@@ -95,7 +96,6 @@ void CollisionManager::Update()
                             (*it2)->SetStateMap((*it1), COLLISION_NONE);
                         }
                     }
-                    ImGui::Text("%d", (*it1)->GetState((*it2)));
                 }
                 else
                 {

@@ -31,7 +31,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
             
             if (depth < In.ShadowPosition.z - 0.001f)
             {
-                shadow += 0.5f;
+                shadow += 0.9f;
             }
         }
     }

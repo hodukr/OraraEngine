@@ -24,6 +24,7 @@
 #include "com_goal.h"
 #include "com_shakeCamera.h"
 #include "com_moveObject.h"
+#include "com_moveTarget.h"
 //endincludex
 
 SET_COMPONENT_CLASS(Transform)
@@ -51,5 +52,6 @@ SET_COMPONENT_CLASS(RotObject)
 SET_COMPONENT_CLASS(Goal)
 SET_COMPONENT_CLASS(ShakeCamera)
 SET_COMPONENT_CLASS(MoveObject)
+SET_COMPONENT_CLASS(MoveTarget)
 //endSET_COMPONENT_CLASS
 

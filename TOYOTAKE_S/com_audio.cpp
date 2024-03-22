@@ -96,26 +96,27 @@ void Audio::Init()
 {
 	if(m_SoundFile != "")
 		SetSound(m_SoundFile);
+
+	SetVolume(m_Volume);
 }
 
 void Audio::Uninit()
 {
-	m_SourceVoice->Stop();
-	m_SourceVoice->DestroyVoice();
-
+	if (m_SourceVoice)
+	{
+		m_SourceVoice->Stop();
+		m_SourceVoice->DestroyVoice();
+	}
 	delete[] m_SoundData;
 }
 
 void Audio::Update()
 {
-	if (Input::Instance().GetKeyTrigger(VK_SPACE))
+	if (m_BGM)
+	{
 		Play(true);
-	if (Input::Instance().GetKeyTrigger(VK_RETURN))
-		Stop();
-	if (Input::Instance().GetKeyTrigger(VK_DOWN))
-		SetVolumeDown(0.01f);
-	if (Input::Instance().GetKeyTrigger(VK_UP))
-		SetVolumeUp(0.01f);
+		m_BGM = false;
+	}
 }
 
 void Audio::Play(bool loop)
@@ -148,10 +149,10 @@ void Audio::Play(bool loop)
 
 }
 
-void Audio::SetSound(std::string file)
+void Audio::SetSound(string file)
 {
 	m_SoundFile = file;
-	std::string pass = "asset\\audio\\" + file;
+	string pass = "asset\\audio\\" + file;
 	Load(pass.c_str());
 }
 

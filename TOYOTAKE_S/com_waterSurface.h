@@ -52,7 +52,7 @@ public:
                 CEREAL_NVP(m_WaveLength),
                 CEREAL_NVP(m_WaveCycle));
         }
-        catch (const std::exception&)
+        catch (const exception&)
         {
 
         }

@@ -8,13 +8,13 @@ private:
     #define VERTEX_NUM  31
 
     ID3D11Buffer* m_VertexBuffer[3]{};
-
-    float   m_Size;
+    float   m_Size{};
 
     void SetVertex(VERTEX_3D* vertex, int index);
 public:
     SphereCollision(){ 
         m_Shape = SHAPE_SPHERE;
+        m_Size = 1.0f;
     }
 
     void Init() override;
