@@ -83,6 +83,16 @@ public:
 
     };
 
+    void EditorDraw()
+    {
+        if (m_Material)m_Material->Draw();
+
+        for (const auto& component : m_Component)
+        {
+            if (component->GetEnable())component->EditorDraw();
+        }
+    };
+
     void Draw()
     {
         if (m_Material)m_Material->Draw();

@@ -36,7 +36,9 @@ public:
 	virtual void Uninit() {};
     virtual void EditorUpdate(){};
 	virtual void Update() {};
-	virtual void Draw() {};
+    virtual void EditorDraw() {};
+    virtual void Draw() {};
+
 
     void SetObjectName(string name) { m_ObjectName = name; };
     void SetGameObejct(GameObject* gameobj) { m_GameObject = gameobj; }

@@ -23,7 +23,6 @@ public:
 	static void Uninit();
 	static void Update();
 	static void Draw();
-
 	static void MTInit();
 
 	static Scene* GetScene(void) { return m_Scene; }

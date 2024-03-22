@@ -71,7 +71,7 @@ void BoxCollision::Update()
     m_Size *= m_Scale;
 }
 
-void BoxCollision::Draw()
+void BoxCollision::EditorDraw()
 {
     //頂点データ書き換え 
     D3D11_MAPPED_SUBRESOURCE msr;
@@ -105,6 +105,11 @@ void BoxCollision::Draw()
 
     //ポリゴン描画 
     Renderer::GetDeviceContext()->Draw(16, 0);
+}
+
+void BoxCollision::Draw()
+{
+   
 }
 
 

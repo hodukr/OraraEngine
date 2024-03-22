@@ -36,6 +36,7 @@ public:
     void Uninit() override;
     void EditorUpdate()override;
     void Update() override;
+    void EditorDraw()override;
     void Draw() override;
 
     Vector3 GetSize() { return m_Size; }

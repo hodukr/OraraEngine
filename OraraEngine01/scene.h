@@ -85,6 +85,16 @@ public:
 		}
 	}
 
+	virtual void EditorDraw()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (auto& gameObject : m_GameObject[i])
+			{
+				gameObject->EditorDraw(); //ポリモーフィズム
+			}
+		}
+	}
 
 	virtual void Draw()
 	{

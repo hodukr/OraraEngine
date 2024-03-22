@@ -71,7 +71,11 @@ void ShaderManager::Draw()
     post->BeginPP();
 
     if (m_EditorCamera)
-    m_EditorCamera->Draw();
+    {
+        m_EditorCamera->Draw();
+        if(Manager::GetSceneState() == SCENESTATE_SCENE)scene->EditorDraw();
+    }
+
     scene->Draw();
 
 #ifdef _DEBUG

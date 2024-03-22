@@ -31,3 +31,4 @@ SetReflectionComponent(Goal)
 SetReflectionComponent(ShakeCamera)
 
 static ReflectionList::Reflection<Component> reflection(true);
+SetReflectionComponent(MoveObject)
