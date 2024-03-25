@@ -54,7 +54,7 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_TargetName": "kinoko",
+                                        "m_TargetName": "Player",
                                         "m_Offset": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -280,9 +280,9 @@
                                             "z": 0.0
                                         },
                                         "m_Rotation": {
-                                            "x": 0.0,
-                                            "y": 0.0,
-                                            "z": 0.0
+                                            "x": -0.025027329102158548,
+                                            "y": 3.1415927410125734,
+                                            "z": 3.1415927410125734
                                         },
                                         "m_Scale": {
                                             "x": 0.20000000298023225,
@@ -290,9 +290,9 @@
                                             "z": 0.20000000298023225
                                         },
                                         "Qx": 0.0,
-                                        "Qy": 0.0,
+                                        "Qy": 0.9999216794967651,
                                         "Qz": 0.0,
-                                        "Qw": 1.0
+                                        "Qw": -0.012513337656855584
                                     }
                                 }
                             },
@@ -313,7 +313,7 @@
                                     "data": {
                                         "m_Speed": 0.10000000149011612,
                                         "m_Range": 15.0,
-                                        "m_TargetName": "kinoko"
+                                        "m_TargetName": "Player"
                                     }
                                 }
                             },
@@ -364,7 +364,7 @@
                                 }
                             }
                         },
-                        "m_RenderingPass": 0,
+                        "m_RenderingPass": 4,
                         "m_DrawLayer": 1
                     }
                 }
@@ -446,7 +446,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -467,7 +467,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "kinoko",
+                        "m_ObjctName": "Player",
                         "m_Tag": "Player",
                         "m_Component": [
                             {
@@ -664,7 +664,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -964,7 +964,7 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "SceneName": "Stage2.json",
+                                        "SceneName": "Stage3.json",
                                         "m_UseButton": false
                                     }
                                 }
@@ -999,9 +999,9 @@
                                 "data": {
                                     "m_ShaderName": "wipe",
                                     "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
+                                        "r": 0.0,
+                                        "g": 0.8352941274642944,
+                                        "b": 0.9843137264251709,
                                         "a": 1.0
                                     },
                                     "m_TextureName": "wipe (1)",
