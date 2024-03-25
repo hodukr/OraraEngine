@@ -8,7 +8,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "MainCamera",
-                        "m_Tag": "Untagged",
+                        "m_Tag": "Camera",
                         "m_Component": [
                             {
                                 "polymorphic_id": 2147483649,
@@ -54,7 +54,7 @@
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
-                                        "m_TargetName": "kinoko",
+                                        "m_TargetName": "Player",
                                         "m_Offset": {
                                             "x": 0.0,
                                             "y": 0.0,
@@ -63,6 +63,24 @@
                                         "m_IsMoveDirX": true,
                                         "m_IsMoveDirY": false,
                                         "m_IsMoveDirZ": true
+                                    }
+                                }
+                            },
+                            {
+                                "polymorphic_id": 2147483652,
+                                "polymorphic_name": "ShakeCamera",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "m_ObjectName": "MainCamera",
+                                        "m_Enable": true,
+                                        "m_ShakeVectol": {
+                                            "x": 0.800000011920929,
+                                            "y": 0.800000011920929,
+                                            "z": 0.0
+                                        },
+                                        "m_ShakeSpeed": 0.800000011920929,
+                                        "m_AttenuationRate": 0.800000011920929
                                     }
                                 }
                             }
@@ -125,7 +143,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483652,
+                                "polymorphic_id": 2147483653,
                                 "polymorphic_name": "Mesh",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -135,7 +153,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483653,
+                                "polymorphic_id": 2147483654,
                                 "polymorphic_name": "RotObject",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -208,7 +226,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 4,
+                                "polymorphic_id": 5,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -217,7 +235,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483654,
+                                "polymorphic_id": 2147483655,
                                 "polymorphic_name": "Floating",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -225,7 +243,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483655,
+                                "polymorphic_id": 2147483656,
                                 "polymorphic_name": "BoxCollision",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -249,7 +267,7 @@
                             "ptr_wrapper": {
                                 "valid": 1,
                                 "data": {
-                                    "m_ShaderName": "vertexLighting",
+                                    "m_ShaderName": "shadow",
                                     "m_Color": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -303,7 +321,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483656,
+                                "polymorphic_id": 2147483657,
                                 "polymorphic_name": "WaterSurface",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -342,7 +360,7 @@
                     "valid": 1,
                     "data": {
                         "m_ObjctName": "Goal",
-                        "m_Tag": "Untagged",
+                        "m_Tag": "Goal",
                         "m_Component": [
                             {
                                 "polymorphic_id": 1,
@@ -374,7 +392,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 7,
+                                "polymorphic_id": 8,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -393,7 +411,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483657,
+                                "polymorphic_id": 2147483658,
                                 "polymorphic_name": "ComponentPost",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -404,7 +422,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483658,
+                                "polymorphic_id": 2147483659,
                                 "polymorphic_name": "ChangeScene",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -415,7 +433,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483659,
+                                "polymorphic_id": 2147483660,
                                 "polymorphic_name": "Goal",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -427,7 +445,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483660,
+                                "polymorphic_id": 2147483661,
                                 "polymorphic_name": "Audio",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -445,9 +463,9 @@
                                 "data": {
                                     "m_ShaderName": "wipe",
                                     "m_Color": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
+                                        "r": 0.0,
+                                        "g": 0.8352941274642944,
+                                        "b": 0.9843137264251709,
                                         "a": 1.0
                                     },
                                     "m_TextureName": "wipe (1)",
@@ -497,7 +515,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483661,
+                                "polymorphic_id": 2147483662,
                                 "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -574,7 +592,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 4,
+                                "polymorphic_id": 5,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -641,7 +659,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 4,
+                                "polymorphic_id": 5,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -675,7 +693,7 @@
                 "ptr_wrapper": {
                     "valid": 1,
                     "data": {
-                        "m_ObjctName": "kinoko",
+                        "m_ObjctName": "Player",
                         "m_Tag": "Player",
                         "m_Component": [
                             {
@@ -708,7 +726,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 4,
+                                "polymorphic_id": 5,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -717,7 +735,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 7,
+                                "polymorphic_id": 8,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -736,7 +754,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483662,
+                                "polymorphic_id": 2147483663,
                                 "polymorphic_name": "Player",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -747,7 +765,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483663,
+                                "polymorphic_id": 2147483664,
                                 "polymorphic_name": "InputSystem",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -763,7 +781,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 12,
+                                "polymorphic_id": 13,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -832,7 +850,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 12,
+                                "polymorphic_id": 13,
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
