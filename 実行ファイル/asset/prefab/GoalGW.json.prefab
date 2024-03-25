@@ -1,0 +1,66 @@
+{
+    "GoalGW": {
+        "m_ObjctName": "GoalGW",
+        "m_Tag": "Untagged",
+        "m_Component": [
+            {
+                "polymorphic_id": 2147483649,
+                "polymorphic_name": "Transform",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
+                        "m_Position": {
+                            "x": 0.23108309507369996,
+                            "y": 2.638533115386963,
+                            "z": 13.669242858886719
+                        },
+                        "m_Rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "m_Scale": {
+                            "x": 2.6100001335144045,
+                            "y": 2.6100001335144045,
+                            "z": 2.6100001335144045
+                        },
+                        "Qx": 0.0,
+                        "Qy": 0.0,
+                        "Qz": 0.0,
+                        "Qw": 1.0
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483650,
+                "polymorphic_name": "Mesh",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_Modelpas": "GoalGW.obj"
+                    }
+                }
+            }
+        ],
+        "m_Material": {
+            "ptr_wrapper": {
+                "valid": 1,
+                "data": {
+                    "m_ShaderName": "toon",
+                    "m_Color": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "m_TextureName": "",
+                    "m_Extension": ""
+                }
+            }
+        },
+        "m_RenderingPass": 0,
+        "m_DrawLayer": 1
+    }
+}

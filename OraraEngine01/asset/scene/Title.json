@@ -588,22 +588,6 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483660,
-                                "polymorphic_name": "InputSystem",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "m_ObjectName": "",
-                                        "m_Enable": true,
-                                        "m_Speed": 0.30000001192092898,
-                                        "m_IsDirection": true,
-                                        "m_OffsetY": 180.0,
-                                        "m_Acceleration": 0.20000000298023225,
-                                        "m_MaxSpeed": 1.0
-                                    }
-                                }
-                            },
-                            {
                                 "polymorphic_id": 9,
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -682,7 +666,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483661,
+                                "polymorphic_id": 2147483660,
                                 "polymorphic_name": "Floating",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -769,7 +753,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483662,
+                                "polymorphic_id": 2147483661,
                                 "polymorphic_name": "Cloth",
                                 "ptr_wrapper": {
                                     "valid": 1,
@@ -846,7 +830,7 @@
                                 }
                             },
                             {
-                                "polymorphic_id": 2147483663,
+                                "polymorphic_id": 2147483662,
                                 "polymorphic_name": "Texture",
                                 "ptr_wrapper": {
                                     "valid": 1,

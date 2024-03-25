@@ -1,0 +1,69 @@
+{
+    "Water": {
+        "m_ObjctName": "Water",
+        "m_Tag": "NoneTag",
+        "m_Component": [
+            {
+                "polymorphic_id": 2147483649,
+                "polymorphic_name": "Transform",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
+                        "m_Position": {
+                            "x": -4.86546516418457,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "m_Rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "m_Scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "Qx": 0.0,
+                        "Qy": 0.0,
+                        "Qz": 0.0,
+                        "Qw": 1.0
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483650,
+                "polymorphic_name": "WaterSurface",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_WavePitch": 10.138999938964844,
+                        "m_Amplitude": 0.25600001215934756,
+                        "m_WaveLength": 0.16500000655651093,
+                        "m_WaveCycle": 5.324999809265137
+                    }
+                }
+            }
+        ],
+        "m_Material": {
+            "ptr_wrapper": {
+                "valid": 1,
+                "data": {
+                    "m_ShaderName": "envMapping",
+                    "m_Color": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "m_TextureName": "",
+                    "m_Extension": ""
+                }
+            }
+        },
+        "m_RenderingPass": 0,
+        "m_DrawLayer": 1
+    }
+}

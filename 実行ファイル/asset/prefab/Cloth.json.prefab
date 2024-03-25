@@ -1,0 +1,75 @@
+{
+    "Cloth": {
+        "m_ObjctName": "Cloth",
+        "m_Tag": "Untagged",
+        "m_Component": [
+            {
+                "polymorphic_id": 2147483649,
+                "polymorphic_name": "Transform",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_ObjectName": "",
+                        "m_Enable": true,
+                        "m_Position": {
+                            "x": 3.0958330631256105,
+                            "y": 20.0,
+                            "z": 14.312564849853516
+                        },
+                        "m_Rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "m_Scale": {
+                            "x": 0.05887404829263687,
+                            "y": 0.0458199717104435,
+                            "z": 0.10000000149011612
+                        },
+                        "Qx": 0.0,
+                        "Qy": 0.0,
+                        "Qz": 0.0,
+                        "Qw": 1.0
+                    }
+                }
+            },
+            {
+                "polymorphic_id": 2147483650,
+                "polymorphic_name": "Cloth",
+                "ptr_wrapper": {
+                    "valid": 1,
+                    "data": {
+                        "m_SpringMass": 5.0,
+                        "m_AttCoefficient": 2.0,
+                        "m_SpringCoefficient": 50.0,
+                        "m_deltaTime": 0.11999999731779099,
+                        "m_IsWind": true,
+                        "m_WindForce": {
+                            "x": 4.0,
+                            "y": 6.0,
+                            "z": 0.0
+                        }
+                    }
+                }
+            }
+        ],
+        "m_Material": {
+            "ptr_wrapper": {
+                "valid": 1,
+                "data": {
+                    "m_ShaderName": "dissolve",
+                    "m_Color": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "m_TextureName": "Kirby",
+                    "m_Extension": ".png"
+                }
+            }
+        },
+        "m_RenderingPass": 0,
+        "m_DrawLayer": -1
+    }
+}
