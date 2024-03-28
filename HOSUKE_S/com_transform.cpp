@@ -17,12 +17,12 @@ Vector3 Transform::GetRight()
 
 Vector3 Transform::GetForward()
 {
-    D3DXMATRIX rot;
-    D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+    //D3DXMATRIX rot;
+    //D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
     Vector3 forward;
-    forward.x = rot._31;
-    forward.y = rot._32;
-    forward.z = rot._33;
+    forward.x = m_Matrix._31;
+    forward.y = m_Matrix._32;
+    forward.z = m_Matrix._33;
 
     return forward;
 }
@@ -47,8 +47,8 @@ void Transform::Revolution(Vector3 center, Vector3 axis, float angle, bool isObj
 	float radian = angle * static_cast<float>(D3DX_PI) / 180.0f;
 
 	// 回転行列の要素を計算 
-	float cosTheta = std::cos(radian);
-	float sinTheta = std::sin(radian);
+	float cosTheta = cos(radian);
+	float sinTheta = sin(radian);
 	float oneMinusCosTheta = 1.0f - cosTheta;
 
 	// 回転行列の各要素を計算 
@@ -71,7 +71,13 @@ void Transform::Revolution(Vector3 center, Vector3 axis, float angle, bool isObj
 
 void Transform::Init()
 {
+	D3DXMATRIX scale, rot, trans;
 
+	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixRotationQuaternion(&rot, &m_Qnaternion);
+	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	m_Matrix = scale * rot * trans;
 }
 
 void Transform::Uninit()
@@ -79,9 +85,31 @@ void Transform::Uninit()
 
 }
 
+void Transform::EditorUpdate()
+{
+	D3DXMATRIX scale, rot, trans;
+
+	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixRotationQuaternion(&rot, &m_Qnaternion);
+	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	m_Matrix = scale * rot * trans;
+	SetQuaternionToRadian(m_Qnaternion);
+}
+
 void Transform::Update()
 {
+	D3DXMATRIX scale, rot, trans;
 
+	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixRotationQuaternion(&rot, &m_Qnaternion);
+	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
+	m_Matrix = scale * rot * trans;
+	SetQuaternionToRadian(m_Qnaternion);
+}
+
+void Transform::Draw()
+{
+	
 }
 
 //***********************************************************************************
