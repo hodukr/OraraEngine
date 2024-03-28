@@ -14,11 +14,20 @@ Engineのプロジェクト一式はOraraEngine01に入っていて実際にエ�
 - Sourcetree
 - C++
 
-# 金丸 豊岳　担当箇所（TOYOTAKE_Sフォルダにすべて、または一部担当したスクリプトがあります。）
-## 担当箇所動画
-申し訳ありませんが大きすぎてGithubに動画があげられなかったのでGoogleDriveにあげています。
+# 金丸 豊岳　担当箇所
+## 担当箇所補足
+TOYOTAKE_Sフォルダにすべて、または一部担当したスクリプトがあります。
+
+**ポートフォリオ**
+
+TOYOTAKE_Sフォルダの中のポートフォリオフォルダに入っています
+
+**動画**
+
+申し訳ありませんが容量が大きすぎてGithubに動画があげられなかったのでGoogleDriveにあげています。
 GoogleDrive:https://drive.google.com/file/d/1hx1TWGznxHlMX7j3WFFBybUZP4mOhVfr/view?usp=drive_link
 
+## 作品について(担当箇所)
 **ファイル操作**
 1. Assetフォルダ
 - UntiyのAssetフォルダを再現
