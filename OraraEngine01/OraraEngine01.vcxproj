@@ -209,7 +209,6 @@
     <ClCompile Include="pass_createTexture.cpp" />
     <ClCompile Include="sceneCamera.cpp" />
     <ClCompile Include="guiw_accessFolder.cpp" />
-    <ClCompile Include="animationModel.cpp" />
     <ClCompile Include="com_audio.cpp" />
     <ClCompile Include="col_boxCollision.cpp" />
     <ClCompile Include="com_camera.cpp" />
@@ -309,7 +308,6 @@
     <ClInclude Include="pass_createTexture.h" />
     <ClInclude Include="sceneCamera.h" />
     <ClInclude Include="guiw_accessFolder.h" />
-    <ClInclude Include="animationModel.h" />
     <ClInclude Include="com_audio.h" />
     <ClInclude Include="col_boxCollision.h" />
     <ClInclude Include="com_camera.h" />
