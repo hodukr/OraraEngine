@@ -97,9 +97,6 @@
     <ClCompile Include="com_audio.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="animationModel.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="com_camera.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -306,9 +303,6 @@
     </ClInclude>
     <ClInclude Include="com_audio.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="animationModel.h">
-      <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="com_camera.h">
       <Filter>Component</Filter>
