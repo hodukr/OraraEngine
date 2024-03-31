@@ -125,7 +125,6 @@ void WaterSurface::Update()
         }
     }
     m_Time += 0.01f;
-    m_WaveTime++;
 }
 
 

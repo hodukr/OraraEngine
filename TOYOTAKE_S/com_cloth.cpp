@@ -22,8 +22,6 @@ void Cloth::Init()
         }
     }
 
-   
-   
     // 頂点バッファ生成
     {
         for (int x = 0; x <= NUM_VERTEX - 1; x++)
@@ -96,7 +94,7 @@ void Cloth::Init()
 
     // バネの初期化
     int count = 0;
-    float	xx, yy, zz;				// 粒子間の距離（成分毎) 
+    D3DXVECTOR3	len;				// 粒子間の距離
     for (int x = 0; x <= NUM_VERTEX ; x++)
     {
         for (int y = 0; y <= NUM_VERTEX; y++)
@@ -109,10 +107,8 @@ void Cloth::Init()
                 m_Spring[count].Praticle2.x = x + 1;	// ２個目の参照粒子インデックスを設定
                 m_Spring[count].Praticle2.y = y;
                 // ２個の粒子間の距離を求め、バネの自然長とする
-                xx =  m_Vertex[x][y].Position.x - m_Vertex[x + 1][y].Position.x;
-                yy =  m_Vertex[x][y].Position.y - m_Vertex[x + 1][y].Position.y;
-                zz =  m_Vertex[x][y].Position.z - m_Vertex[x + 1][y].Position.z;
-                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
+                len =  m_Vertex[x][y].Position - m_Vertex[x + 1][y].Position;
+                m_Spring[count].Length = D3DXVec3Length(&len);
                 count++;
             }
             if (y < NUM_VERTEX)
@@ -121,10 +117,8 @@ void Cloth::Init()
                 m_Spring[count].Praticle1.y = y;
                 m_Spring[count].Praticle2.x = x;
                 m_Spring[count].Praticle2.y = y + 1;
-                xx = m_Vertex[x][y].Position.x - m_Vertex[x][y + 1].Position.x;
-                yy = m_Vertex[x][y].Position.y - m_Vertex[x][y + 1].Position.y;
-                zz = m_Vertex[x][y].Position.z - m_Vertex[x][y + 1].Position.z;
-                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
+                len = m_Vertex[x][y].Position - m_Vertex[x][y + 1].Position;
+                m_Spring[count].Length = D3DXVec3Length(&len);
                 count++;
             }
             if (x < NUM_VERTEX && y < NUM_VERTEX)
@@ -133,10 +127,8 @@ void Cloth::Init()
                 m_Spring[count].Praticle1.y = y;
                 m_Spring[count].Praticle2.x = x + 1;
                 m_Spring[count].Praticle2.y = y + 1;
-                xx = m_Vertex[x][y].Position.x - m_Vertex[x + 1][y + 1].Position.x;
-                yy = m_Vertex[x][y].Position.y - m_Vertex[x + 1][y + 1].Position.y;
-                zz = m_Vertex[x][y].Position.z - m_Vertex[x + 1][y + 1].Position.z;
-                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
+                len = m_Vertex[x][y].Position - m_Vertex[x + 1][y + 1].Position;
+                m_Spring[count].Length = D3DXVec3Length(&len);
                 count++;
             }
             if (x > 0 && y < NUM_VERTEX)
@@ -145,10 +137,8 @@ void Cloth::Init()
                 m_Spring[count].Praticle1.y = y;
                 m_Spring[count].Praticle2.x = x - 1;
                 m_Spring[count].Praticle2.y = y + 1;
-                xx = m_Vertex[x][y].Position.x - m_Vertex[x - 1][y + 1].Position.x;
-                yy = m_Vertex[x][y].Position.y - m_Vertex[x - 1][y + 1].Position.y;
-                zz = m_Vertex[x][y].Position.z - m_Vertex[x - 1][y + 1].Position.z;
-                m_Spring[count].Length = sqrtf(xx * xx + yy * yy + zz * zz);
+                len = m_Vertex[x][y].Position - m_Vertex[x - 1][y + 1].Position;
+                m_Spring[count].Length = D3DXVec3Length(&len);
                 count++;
             }
         }
@@ -183,10 +173,9 @@ void Cloth::Update()
             {
                 // 重力を求める 
                 m_Gravity[x][y] = D3DXVECTOR3(0.0f, m_SpringMass * -0.98f, 0.0f);
+
                 // 抵抗力を求める   
-                resistance.x = -m_Velocity[x][y].x * m_AttCoefficient;
-                resistance.y = -m_Velocity[x][y].y * m_AttCoefficient;
-                resistance.z = -m_Velocity[x][y].z * m_AttCoefficient;
+                resistance = -m_Velocity[x][y] * m_AttCoefficient;
 
                 // 風力を求める 
                 if (m_IsWind)
@@ -197,9 +186,7 @@ void Cloth::Update()
                 }
                 else
                 {
-                    windforce.x = 0;
-                    windforce.y = 0;
-                    windforce.z = 0;
+                    windforce = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
                 }
 
                 // 合力＝重力＋抵抗力＋風力 
@@ -225,34 +212,24 @@ void Cloth::Update()
         x2 = m_Spring[i].Praticle2.x;
         y2 = m_Spring[i].Praticle2.y;
         // ２個の粒子間のベクトルを求める  
-        vec_spr.x = m_Vertex[x1][y1].Position.x - m_Vertex[x2][y2].Position.x;
-        vec_spr.y = m_Vertex[x1][y1].Position.y - m_Vertex[x2][y2].Position.y;
-        vec_spr.z = m_Vertex[x1][y1].Position.z - m_Vertex[x2][y2].Position.z;
+        vec_spr = m_Vertex[x1][y1].Position - m_Vertex[x2][y2].Position;
         // 粒子間の距離を求める  
-        Length = sqrtf(vec_spr.x * vec_spr.x + vec_spr.y * vec_spr.y + vec_spr.z * vec_spr.z);
+        Length = D3DXVec3Length(&vec_spr);
         // 距離、自然長、バネ係数からかかる力を求める（２つ目は逆方向） 
         force1 = -m_SpringCoefficient * (Length - m_Spring[i].Length);
         force2 = -force1;
         // ベクトルの成分に力をかける  
-        lenForce1.x = force1 * (vec_spr.x / Length);
-        lenForce1.y = force1 * (vec_spr.y / Length);
-        lenForce1.z = force1 * (vec_spr.z / Length);
-        lenForce2.x = force2 * (vec_spr.x / Length);
-        lenForce2.y = force2 * (vec_spr.y / Length);
-        lenForce2.z = force2 * (vec_spr.z / Length);
+        lenForce1 = force1 * (vec_spr / Length);
+        lenForce2 = force2 * (vec_spr / Length);
         
         // 求めた力を合力に加える  
         if (!m_OnLock[x1][y1])
         {
-            m_Resultant[x1][y1].x += lenForce1.x;
-            m_Resultant[x1][y1].y += lenForce1.y;
-            m_Resultant[x1][y1].z += lenForce1.z;
+            m_Resultant[x1][y1] += lenForce1;
         }
         if (!m_OnLock[x2][y2])
         {
-            m_Resultant[x2][y2].x += lenForce2.x;
-            m_Resultant[x2][y2].y += lenForce2.y;
-            m_Resultant[x2][y2].z += lenForce2.z;
+            m_Resultant[x2][y2] += lenForce2;
         }
     }
 
@@ -264,20 +241,13 @@ void Cloth::Update()
            if (m_OnLock[x][y]) continue;
 
            // 合力と質量から加速度を求める  
-           m_Acceleration[x][y].x = m_Resultant[x][y].x / m_SpringMass;
-           m_Acceleration[x][y].y = m_Resultant[x][y].y / m_SpringMass;
-           m_Acceleration[x][y].z = m_Resultant[x][y].z / m_SpringMass;
+           m_Acceleration[x][y] = m_Resultant[x][y] / m_SpringMass;
 
             // 速度に加速度を加える  
-           m_Velocity[x][y].x += m_Acceleration[x][y].x * m_deltaTime;
-           m_Velocity[x][y].y += m_Acceleration[x][y].y * m_deltaTime;
-           m_Velocity[x][y].z += m_Acceleration[x][y].z * m_deltaTime;
-
+           m_Velocity[x][y] += m_Acceleration[x][y] * m_deltaTime;
+  
             // 速度から座標を移動 
-        
-            m_Vertex[x][y].Position.x += m_Velocity[x][y].x * m_deltaTime;
-            m_Vertex[x][y].Position.y += m_Velocity[x][y].y * m_deltaTime;
-            m_Vertex[x][y].Position.z += m_Velocity[x][y].z * m_deltaTime;
+           m_Vertex[x][y].Position += m_Velocity[x][y] * m_deltaTime;
         }
     }
 }

@@ -33,7 +33,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     //背景色を設定
     //outDiffuse.rgb = float3(0.0f, 0.0f, 0.0f);
 	
-	//ワイプ用テクスチャからサンプリング(rgbaからrだけを抽出する)(輝度)
+	//ディゾルブ用テクスチャからサンプリング(rgbaからrだけを抽出する)(輝度)
     float dissolveValue = g_TextureDissolve.Sample(g_SamplerState, In.TexCoord);
 	
     float threshold = Param.dissolveThreshold * (1.0f + Param.dissolveRange) - Param.dissolveRange;

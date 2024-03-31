@@ -4,12 +4,9 @@
 #include "gameObject.h"
 
 list<CollisionShape*>  CollisionManager::m_Shape{};
-list<CollisionShape*>  CollisionManager::m_NextShape{};
 
 void CollisionManager::Init()
 {
-    //m_Shape = m_NextShape;
-    //m_NextShape.clear();
 }
 
 void CollisionManager::Uninit()
@@ -24,6 +21,7 @@ void CollisionManager::Update()
         if (shape->GetDynamic())
             shape->Update();
     }
+
     if(Manager::GetGameState() == GAMESTATE_PLAY){
 
         // すべての形状のペアに対して当たり判定を行う 
