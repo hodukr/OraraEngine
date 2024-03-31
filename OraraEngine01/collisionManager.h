@@ -6,7 +6,6 @@ class CollisionManager
 {
 private:
     static list<CollisionShape*> m_Shape;
-    static list<CollisionShape*> m_NextShape;
 
 public: 
     void Init();

@@ -9,16 +9,10 @@
 
 #define CLOTH_UV (1.0f / ((float)NUM_VERTEX - 1.0f))   
 
-struct INTVECTOR2
-{
-    int x;
-    int y;
-};
-
 struct SPRING
 {
-    INTVECTOR2	Praticle1;					// 接続されている粒子１ 
-    INTVECTOR2	Praticle2;					// 接続されている粒子２ 
+    D3DXVECTOR2	Praticle1;					// 接続されている粒子１ 
+    D3DXVECTOR2	Praticle2;					// 接続されている粒子２ 
     float	Length;				    // 自然長 
 };
 
@@ -56,7 +50,7 @@ public:
         SET_DATE_STATE(m_SpringMass, CASTOMDRAWSTATE_FLOAT_SLIDER);
         SET_NEXT_SLIDER(0.1f, 5.0f);
         SET_DATE_STATE(m_AttCoefficient, CASTOMDRAWSTATE_FLOAT_SLIDER);
-        SET_NEXT_SLIDER(0.1f, 5.0f);
+        SET_NEXT_SLIDER(0.1f, 50.0f);
         SET_DATE_STATE(m_SpringCoefficient, CASTOMDRAWSTATE_FLOAT_SLIDER);
         SET_NEXT_SLIDER(0.1f, 5.0f);
         SET_DATE_STATE(m_deltaTime, CASTOMDRAWSTATE_FLOAT_SLIDER);

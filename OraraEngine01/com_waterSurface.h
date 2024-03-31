@@ -21,7 +21,6 @@ private:
     float m_WaveCycle{1.17f};   //波の間隔 
 
     float m_Time{};
-    float m_WaveTime{};
 public:
     WaterSurface(){ m_DrawLayer = GAME_OBJECT_DRAW_LAYER_3D; }
     void DrawInspector()

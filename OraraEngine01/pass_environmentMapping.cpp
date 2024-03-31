@@ -142,9 +142,9 @@ void EnvironmentMapping::Draw()
         }
        
         Renderer::GetDeviceContext()->CopySubresourceRegion(
-            GetCubeReflectTexture(),
+            m_CubeReflectTexture,
             D3D11CalcSubresource(0, i, 1),
-            0, 0, 0, GetReflectTexture(), 0, nullptr
+            0, 0, 0, m_ReflectTexture, 0, nullptr
         );
     }
 }
