@@ -107,6 +107,10 @@ GoogleDrive:https://drive.google.com/file/d/1hx1TWGznxHlMX7j3WFFBybUZP4mOhVfr/vi
 - ポストエフェクトのワイプと合わせることでフェードイン、フェードアウトできるようになっています。
 
 # 廣川 鳳介　担当箇所（HOSUKE_Sフォルダにすべて、または一部担当したスクリプトがあります。）
+**ポートフォリオ**
+
+HOSUKE_Sフォルダの中のポートフォリオフォルダに入っています
+
 **外部ライブラリの導入**
 1. cereal 
 - Sceneデータ・DebugWindowデータの保存に使用しました。
